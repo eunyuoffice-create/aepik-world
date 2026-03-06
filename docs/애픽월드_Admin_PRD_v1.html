@@ -1,0 +1,2168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin PRD v1.0</title>
+<style>
+  :root {
+    --blue: #3B82F6;
+    --blue-light: #EFF6FF;
+    --gray-50: #F9FAFB;
+    --gray-100: #F3F4F6;
+    --gray-200: #E5E7EB;
+    --gray-300: #D1D5DB;
+    --gray-500: #6B7280;
+    --gray-700: #374151;
+    --gray-900: #111827;
+    --purple: #8B5CF6;
+    --pink: #EC4899;
+    --amber: #F59E0B;
+    --cyan: #06B6D4;
+    --green: #10B981;
+    --red: #EF4444;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-900);
+    line-height: 1.7;
+  }
+  .top-bar {
+    position: sticky; top: 0; z-index: 100;
+    background: white; border-bottom: 1px solid var(--gray-200);
+    padding: 12px 24px;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .top-bar .logo { font-weight: 700; font-size: 16px; color: var(--blue); }
+  .top-bar .sep { color: var(--gray-300); }
+  .top-bar .doc-title { font-size: 14px; color: var(--gray-700); }
+  .top-bar .back-link {
+    margin-left: auto; font-size: 13px; color: var(--blue);
+    text-decoration: none;
+  }
+  .top-bar .back-link:hover { text-decoration: underline; }
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+  }
+  /* Typography */
+  h1 {
+    font-size: 28px; font-weight: 800; color: var(--gray-900);
+    margin: 0 0 8px; padding-bottom: 16px;
+    border-bottom: 3px solid var(--blue);
+  }
+  h2 {
+    font-size: 22px; font-weight: 700; color: var(--gray-900);
+    margin: 40px 0 16px; padding: 8px 0 8px 12px;
+    border-left: 4px solid var(--blue);
+    background: var(--blue-light);
+    border-radius: 0 6px 6px 0;
+  }
+  h3 {
+    font-size: 17px; font-weight: 700; color: var(--gray-700);
+    margin: 28px 0 12px;
+  }
+  h4 {
+    font-size: 15px; font-weight: 600; color: var(--gray-700);
+    margin: 20px 0 8px;
+  }
+  p { margin: 8px 0; font-size: 14px; }
+  blockquote {
+    border-left: 4px solid var(--blue);
+    background: var(--blue-light);
+    padding: 12px 16px;
+    margin: 16px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+    color: var(--gray-700);
+  }
+  blockquote p { margin: 4px 0; }
+  blockquote strong { color: var(--blue); }
+  /* Lists */
+  ul, ol {
+    margin: 8px 0 8px 24px;
+    font-size: 14px;
+  }
+  li { margin: 4px 0; }
+  li ul, li ol { margin: 4px 0 4px 20px; }
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 13px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  thead { background: var(--gray-100); }
+  th {
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--gray-700);
+    border-bottom: 2px solid var(--gray-200);
+    white-space: nowrap;
+  }
+  td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--gray-100);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--gray-50); }
+  /* Code */
+  code {
+    background: var(--gray-100);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: 'SF Mono', Consolas, monospace;
+    color: var(--purple);
+  }
+  pre {
+    background: var(--gray-900);
+    color: #E5E7EB;
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 16px 0;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  pre code {
+    background: none;
+    color: inherit;
+    padding: 0;
+  }
+  /* HR */
+  hr {
+    border: none;
+    border-top: 1px solid var(--gray-200);
+    margin: 32px 0;
+  }
+  /* Strong/Em */
+  strong { color: var(--gray-900); }
+  /* TOC */
+  .toc {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+  .toc ul { list-style: none; margin-left: 0; }
+  .toc li { margin: 4px 0; }
+  .toc a { color: var(--blue); text-decoration: none; font-size: 13px; }
+  .toc a:hover { text-decoration: underline; }
+  /* Footer */
+  .page-footer {
+    text-align: center;
+    padding: 24px;
+    color: var(--gray-500);
+    font-size: 12px;
+    border-top: 1px solid var(--gray-200);
+    margin-top: 48px;
+  }
+  /* Responsive */
+  @media (max-width: 768px) {
+    .container { padding: 16px 12px 60px; }
+    h1 { font-size: 22px; }
+    h2 { font-size: 18px; }
+    table { font-size: 12px; }
+    th, td { padding: 6px 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <span class="logo">Aepik World</span>
+  <span class="sep">/</span>
+  <span class="doc-title">Admin PRD v1.0</span>
+  <a class="back-link" href="../wireframe/WBS_%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%ED%98%84%ED%99%A9.html">WBS로 돌아가기</a>
+</div>
+<div class="container">
+<h1 id="aepik-world-product-requirements-document-v10">애픽 월드 (Aepik World) 어드민 — Product Requirements Document v1.0</h1>
+<blockquote>
+<p><strong>애픽 월드 어드민</strong> — 서비스 운영·관리를 위한 내부 관리자 시스템</p>
+<p>본 문서는 <a href="./애픽_Aepik World_PRD_v5.md">애픽 월드 PRD v5.0</a>을 기반으로 작성된 어드민 전용 PRD입니다.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>버전</strong></td>
+<td>v1.0</td>
+</tr>
+<tr>
+<td><strong>기반 문서</strong></td>
+<td>애픽 월드 PRD v5.0</td>
+</tr>
+<tr>
+<td><strong>개발 형태</strong></td>
+<td>1인 개발 (Solo Dev)</td>
+</tr>
+<tr>
+<td><strong>접근 방식</strong></td>
+<td>웹 기반 어드민 대시보드 (Next.js 내 /admin 라우트)</td>
+</tr>
+<tr>
+<td><strong>작성일</strong></td>
+<td>2026-03-05</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_1">목차</h2>
+<ol>
+<li><a href="#1-어드민-개요">어드민 개요</a></li>
+<li><a href="#2-1인-개발-원칙--어드민-편">1인 개발 원칙 — 어드민 편</a></li>
+<li><a href="#3-어드민-접근--인증">어드민 접근 &amp; 인증</a></li>
+<li><a href="#4-대시보드--현황-요약">대시보드 — 현황 요약</a></li>
+<li><a href="#5-회원-관리">회원 관리</a></li>
+<li><a href="#6-매물-관리-교환글--공구--구함">매물 관리 (교환글 · 공구 · 구함)</a></li>
+<li><a href="#7-공동구매-관리">공동구매 관리</a></li>
+<li><a href="#8-신고--제재-관리">신고 &amp; 제재 관리</a></li>
+<li><a href="#9-작품--캐릭터-관리">작품 / 캐릭터 관리</a></li>
+<li><a href="#10-이용후기-관리">이용후기 관리</a></li>
+<li><a href="#11-알림--공지-관리">알림 &amp; 공지 관리</a></li>
+<li><a href="#12-통계--분석">통계 &amp; 분석</a></li>
+<li><a href="#13-시스템--운영-도구">시스템 &amp; 운영 도구</a></li>
+<li><a href="#14-phase별-어드민-개발-범위">Phase별 어드민 개발 범위</a></li>
+<li><a href="#15-기술-스택--구현-방향">기술 스택 &amp; 구현 방향</a></li>
+<li><a href="#16-db-스키마--어드민-관련">DB 스키마 — 어드민 관련</a></li>
+</ol>
+<hr />
+<h2 id="1">1. 어드민 개요</h2>
+<h3 id="_2">목적</h3>
+<p>1인 개발 환경에서 서비스를 효율적으로 운영·관리하기 위한 내부 관리 도구.</p>
+<h3 id="_3">핵심 원칙</h3>
+<table>
+<thead>
+<tr>
+<th>원칙</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>최소 기능 우선</strong></td>
+<td>Phase 1에서는 신고 처리 + 작품 승인 + 회원 관리만</td>
+</tr>
+<tr>
+<td><strong>자동화 중심</strong></td>
+<td>반복 작업(신고 감지, 매물 만료 등)은 코드로 자동 처리</td>
+</tr>
+<tr>
+<td><strong>확장 가능</strong></td>
+<td>Phase 2에서 판매 관리, 수익 분석 등으로 확장</td>
+</tr>
+<tr>
+<td><strong>단일 관리자</strong></td>
+<td>현재 관리자 = 개발자 1인. 다중 관리자는 Phase 3+</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_4">어드민 사용자</h3>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>관리자</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Phase 1~2</td>
+<td>개발자 본인 (슈퍼 어드민)</td>
+<td>전체 기능 접근</td>
+</tr>
+<tr>
+<td>Phase 3+</td>
+<td>운영 관리자 추가 가능</td>
+<td>역할 기반 권한(RBAC)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-1">2. 1인 개발 원칙 — 어드민 편</h2>
+<blockquote>
+<p><strong>핵심: "관리자 UI 개발에 시간을 낭비하지 않는다"</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>전략</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>서비스 내 /admin 라우트</td>
+<td>별도 프로젝트 대신 Next.js App Router에 /admin/* 추가</td>
+</tr>
+<tr>
+<td>최소한의 UI</td>
+<td>기능 중심. 미려한 디자인보다 데이터 확인·조작이 빠르게 가능할 것</td>
+</tr>
+<tr>
+<td>Prisma Studio 병행</td>
+<td>초기에는 Prisma Studio로 직접 DB 조작도 병행</td>
+</tr>
+<tr>
+<td>API 재사용</td>
+<td>서비스 API에 admin guard 추가하여 재사용</td>
+</tr>
+<tr>
+<td>테이블 컴포넌트</td>
+<td>재사용 가능한 범용 테이블(검색, 정렬, 페이지네이션) 하나로 대부분 커버</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3">3. 어드민 접근 &amp; 인증</h2>
+<h3 id="_5">인증 방식</h3>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>Phase 1</th>
+<th>Phase 3+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>로그인</td>
+<td>기존 회원 계정 + admin role 체크</td>
+<td>별도 어드민 로그인</td>
+</tr>
+<tr>
+<td>권한 확인</td>
+<td>DB users 테이블의 role = 'ADMIN'</td>
+<td>RBAC (역할 기반 접근 제어)</td>
+</tr>
+<tr>
+<td>접근 제한</td>
+<td>NestJS Guard + Next.js middleware</td>
+<td>IP 화이트리스트 + 2FA</td>
+</tr>
+<tr>
+<td>세션</td>
+<td>JWT (서비스와 동일)</td>
+<td>별도 어드민 토큰</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_6">접근 보안</h3>
+<ul>
+<li><code>/admin/*</code> 라우트는 <code>role = 'ADMIN'</code> 인 경우에만 접근 허용</li>
+<li>Next.js middleware에서 서버사이드 세션 체크 → 미인증 시 리다이렉트</li>
+<li>NestJS API에서 <code>@AdminGuard()</code> 데코레이터로 어드민 전용 엔드포인트 보호</li>
+<li>어드민 행동 로그 기록 (누가, 언제, 무엇을 했는지)</li>
+</ul>
+<h3 id="phase-3-rbac">Phase 3+ 확장: 역할 기반 접근 제어 (RBAC)</h3>
+<table>
+<thead>
+<tr>
+<th>역할</th>
+<th>권한</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SUPER_ADMIN</td>
+<td>전체 기능</td>
+<td>개발자</td>
+</tr>
+<tr>
+<td>MODERATOR</td>
+<td>신고 처리, 매물 관리, 후기 관리</td>
+<td>운영자</td>
+</tr>
+<tr>
+<td>CONTENT_ADMIN</td>
+<td>작품/캐릭터 승인, 공지 관리</td>
+<td>콘텐츠 관리자</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4">4. 대시보드 — 현황 요약</h2>
+<blockquote>
+<p>어드민 접속 시 첫 화면. 서비스 전반의 핵심 수치를 한눈에 파악.</p>
+</blockquote>
+<h3 id="phase-1">Phase 1 대시보드</h3>
+<table>
+<thead>
+<tr>
+<th>카드</th>
+<th>데이터</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>오늘의 가입자 수</td>
+<td>오늘 / 어제 / 7일 평균</td>
+<td>추세 표시</td>
+</tr>
+<tr>
+<td>총 회원 수</td>
+<td>전체 / 활성 / 휴면 / 정지</td>
+<td></td>
+</tr>
+<tr>
+<td>오늘의 매물 등록</td>
+<td>교환글 / 공구 / 구함 각각</td>
+<td></td>
+</tr>
+<tr>
+<td>총 매물 수</td>
+<td>활성 / 완료 / 만료</td>
+<td></td>
+</tr>
+<tr>
+<td>교환 성사 수</td>
+<td>오늘 / 이번 주 / 이번 달</td>
+<td>핵심 KPI</td>
+</tr>
+<tr>
+<td>공구 진행 현황</td>
+<td>모집중 / 진행중 / 완료 / 취소</td>
+<td></td>
+</tr>
+<tr>
+<td>미처리 신고</td>
+<td>총 건수 (48시간 초과 건 강조)</td>
+<td>긴급 표시</td>
+</tr>
+<tr>
+<td>미승인 작품/캐릭터</td>
+<td>사용자 제안 대기 목록</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-15">Phase 1.5+ 대시보드 추가</h3>
+<table>
+<thead>
+<tr>
+<th>카드</th>
+<th>데이터</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DAU / WAU / MAU</td>
+<td>일간·주간·월간 활성 사용자</td>
+</tr>
+<tr>
+<td>채팅 메시지 수</td>
+<td>일간 총 메시지</td>
+</tr>
+<tr>
+<td>끌어올리기 수익</td>
+<td>일간 / 월간</td>
+</tr>
+<tr>
+<td>광고 수익 (AdSense)</td>
+<td>월간 예상 수익</td>
+</tr>
+<tr>
+<td>키워드 알림 발송 수</td>
+<td>일간 발송량</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5">5. 회원 관리</h2>
+<h3 id="_7">회원 목록</h3>
+<table>
+<thead>
+<tr>
+<th>필드</th>
+<th>설명</th>
+<th>검색/필터</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td>고유 번호</td>
+<td>-</td>
+</tr>
+<tr>
+<td>닉네임</td>
+<td>사용자 닉네임</td>
+<td>✅ 검색</td>
+</tr>
+<tr>
+<td>이메일</td>
+<td>가입 이메일</td>
+<td>✅ 검색</td>
+</tr>
+<tr>
+<td>가입 방식</td>
+<td>카카오 / 이메일</td>
+<td>✅ 필터</td>
+</tr>
+<tr>
+<td>본인인증 여부</td>
+<td>인증 완료 / 미인증</td>
+<td>✅ 필터</td>
+</tr>
+<tr>
+<td>가입일</td>
+<td>날짜</td>
+<td>✅ 범위 필터</td>
+</tr>
+<tr>
+<td>최근 접속일</td>
+<td>날짜</td>
+<td>✅ 정렬</td>
+</tr>
+<tr>
+<td>교환 횟수</td>
+<td>완료된 교환 건수</td>
+<td>✅ 정렬</td>
+</tr>
+<tr>
+<td>긍정 비율</td>
+<td>후기 긍정률</td>
+<td>✅ 정렬</td>
+</tr>
+<tr>
+<td>상태</td>
+<td>정상 / 경고 / 정지(7일·30일·영구) / 휴면 / 탈퇴</td>
+<td>✅ 필터</td>
+</tr>
+<tr>
+<td>제재 이력</td>
+<td>경고/정지 횟수</td>
+<td>✅ 필터</td>
+</tr>
+<tr>
+<td>role</td>
+<td>USER / ADMIN</td>
+<td>✅ 필터</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_8">회원 상세 페이지</h3>
+<table>
+<thead>
+<tr>
+<th>섹션</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>기본 정보</td>
+<td>닉네임, 이메일, 가입일, 본인인증 상태, 관심 카테고리</td>
+</tr>
+<tr>
+<td>거래 활동</td>
+<td>등록한 교환글/공구/구함 목록, 교환 성사 내역, 참여 공구 목록</td>
+</tr>
+<tr>
+<td>신뢰 지표</td>
+<td>교환 횟수, 긍정 비율, 받은 후기 목록</td>
+</tr>
+<tr>
+<td>제재 이력</td>
+<td>경고/정지/차단 이력 (일시, 사유, 처리자)</td>
+</tr>
+<tr>
+<td>신고 내역</td>
+<td>받은 신고 / 한 신고 목록</td>
+</tr>
+<tr>
+<td>채팅 기록 접근</td>
+<td>분쟁 시 해당 채팅방 열람 (분쟁 건에 한함)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_9">회원 조치</h3>
+<table>
+<thead>
+<tr>
+<th>조치</th>
+<th>설명</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>경고 부여</td>
+<td>경고 사유 입력 + 알림 발송</td>
+<td>경고 3회 → 7일 정지</td>
+</tr>
+<tr>
+<td>일시 정지</td>
+<td>7일 / 30일 / 사용자 지정</td>
+<td>교환·공구 참여 불가</td>
+</tr>
+<tr>
+<td>영구 정지</td>
+<td>계정 영구 이용 불가</td>
+<td>동일 번호 재가입 차단</td>
+</tr>
+<tr>
+<td>정지 해제</td>
+<td>정지 상태 해제</td>
+<td>사유 기록</td>
+</tr>
+<tr>
+<td>강제 탈퇴</td>
+<td>계정 삭제 처리</td>
+<td>최후 수단</td>
+</tr>
+<tr>
+<td>닉네임 강제 변경</td>
+<td>부적절한 닉네임 변경</td>
+<td>변경 사유 알림 발송</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6">6. 매물 관리 (교환글 · 공구 · 구함)</h2>
+<h3 id="_10">매물 목록</h3>
+<table>
+<thead>
+<tr>
+<th>필드</th>
+<th>설명</th>
+<th>검색/필터</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td>매물 고유 번호</td>
+<td>-</td>
+</tr>
+<tr>
+<td>유형</td>
+<td>교환 / 공구(일반) / 공구(세트) / 구함</td>
+<td>✅ 필터</td>
+</tr>
+<tr>
+<td>제목</td>
+<td>매물 제목</td>
+<td>✅ 검색</td>
+</tr>
+<tr>
+<td>작성자</td>
+<td>닉네임 (링크)</td>
+<td>✅ 검색</td>
+</tr>
+<tr>
+<td>작품</td>
+<td>작품명</td>
+<td>✅ 필터</td>
+</tr>
+<tr>
+<td>캐릭터</td>
+<td>캐릭터명</td>
+<td>✅ 필터</td>
+</tr>
+<tr>
+<td>상태</td>
+<td>활성 / 매칭됨 / 교환중 / 완료 / 만료 / 숨김 / 삭제</td>
+<td>✅ 필터</td>
+</tr>
+<tr>
+<td>거래 방식</td>
+<td>택배 / 직거래 / 둘 다</td>
+<td>✅ 필터</td>
+</tr>
+<tr>
+<td>등록일</td>
+<td>날짜</td>
+<td>✅ 범위 필터</td>
+</tr>
+<tr>
+<td>신고 수</td>
+<td>해당 매물에 접수된 신고 건수</td>
+<td>✅ 정렬</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_11">매물 상세</h3>
+<table>
+<thead>
+<tr>
+<th>섹션</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>기본 정보</td>
+<td>제목, 설명, 사진, 작품/캐릭터, 굿즈 타입, 상태</td>
+</tr>
+<tr>
+<td>교환 정보</td>
+<td>보유 굿즈, 원하는 굿즈, 차액 여부, 거래 방식, 직거래 위치</td>
+</tr>
+<tr>
+<td>매칭 이력</td>
+<td>매칭된 상대, 교환 진행 상태, 채팅방 링크</td>
+</tr>
+<tr>
+<td>신고 내역</td>
+<td>해당 매물에 접수된 신고 목록</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_12">매물 조치</h3>
+<table>
+<thead>
+<tr>
+<th>조치</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>숨김 처리</td>
+<td>검색/목록에서 비노출 (작성자에게 사유 알림)</td>
+</tr>
+<tr>
+<td>삭제</td>
+<td>완전 삭제 (사유 기록)</td>
+</tr>
+<tr>
+<td>수정 요청</td>
+<td>작성자에게 수정 요청 알림 발송 (사유 명시)</td>
+</tr>
+<tr>
+<td>복원</td>
+<td>숨김/삭제 매물 복원</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7">7. 공동구매 관리</h2>
+<h3 id="_13">공구 목록</h3>
+<table>
+<thead>
+<tr>
+<th>필드</th>
+<th>설명</th>
+<th>필터</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td>공구 고유 번호</td>
+<td>-</td>
+</tr>
+<tr>
+<td>유형</td>
+<td>일반 공구 / 세트 공구</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>상품명</td>
+<td>공구 상품</td>
+<td>✅ 검색</td>
+</tr>
+<tr>
+<td>진행자</td>
+<td>닉네임 (링크)</td>
+<td>✅ 검색</td>
+</tr>
+<tr>
+<td>상태</td>
+<td>모집중 / 진행중 / 완료 / 취소 / 마감</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>참여 현황</td>
+<td>현재 참여 / 목표 (일반) 또는 선점 현황 (세트)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>마감일</td>
+<td>날짜</td>
+<td>✅ 범위</td>
+</tr>
+<tr>
+<td>신고 수</td>
+<td>접수된 신고 건수</td>
+<td>✅ 정렬</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_14">세트 공구 상세 — 캐릭터 선점 현황</h3>
+<table>
+<thead>
+<tr>
+<th>정보</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>세트 수량</td>
+<td>진행자가 구매할 총 세트(박스) 수</td>
+</tr>
+<tr>
+<td>캐릭터 목록</td>
+<td>캐릭터별 선점 가능 수량 / 선점 완료 / 남은 수량</td>
+</tr>
+<tr>
+<td>참여자 목록</td>
+<td>각 참여자의 선점 캐릭터 + 수량 상세</td>
+</tr>
+<tr>
+<td>진행 상태</td>
+<td>선점 진행률 (%)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_15">공구 조치</h3>
+<table>
+<thead>
+<tr>
+<th>조치</th>
+<th>설명</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>공구 강제 종료</td>
+<td>사기 등으로 공구 즉시 종료</td>
+<td>참여자 전원에게 알림</td>
+</tr>
+<tr>
+<td>진행자 교체</td>
+<td>진행자 잠수 시 (Phase 3 검토)</td>
+<td>현재는 강제 종료만</td>
+</tr>
+<tr>
+<td>마감일 연장</td>
+<td>진행자 요청 시 관리자가 연장</td>
+<td>사유 기록</td>
+</tr>
+<tr>
+<td>공지 대행</td>
+<td>진행자 잠수 시 관리자가 참여자에게 상황 공지</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8">8. 신고 &amp; 제재 관리</h2>
+<blockquote>
+<p><strong>Phase 1 핵심 기능. 48시간 내 1차 검토가 목표.</strong></p>
+</blockquote>
+<h3 id="_16">신고 목록 (인박스 형태)</h3>
+<table>
+<thead>
+<tr>
+<th>필드</th>
+<th>설명</th>
+<th>필터</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td>신고 고유 번호</td>
+<td>-</td>
+</tr>
+<tr>
+<td>신고 유형</td>
+<td>교환 미발송 / 공구 먹튀 / 허위 매물 / 욕설·비하 / 사진 도용 / 기타</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>신고 대상</td>
+<td>사용자 닉네임 (링크)</td>
+<td>✅ 검색</td>
+</tr>
+<tr>
+<td>신고자</td>
+<td>닉네임 (링크)</td>
+<td>✅ 검색</td>
+</tr>
+<tr>
+<td>관련 매물/채팅</td>
+<td>매물 ID 또는 채팅방 링크</td>
+<td>-</td>
+</tr>
+<tr>
+<td>상태</td>
+<td>접수 / 검토중 / 처리 완료 / 반려</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>접수일</td>
+<td>날짜</td>
+<td>✅ 정렬</td>
+</tr>
+<tr>
+<td>경과 시간</td>
+<td>접수 후 경과 시간 (48시간 초과 시 빨간색 강조)</td>
+<td>✅ 정렬</td>
+</tr>
+<tr>
+<td>처리자</td>
+<td>처리한 관리자</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_17">신고 상세 페이지</h3>
+<table>
+<thead>
+<tr>
+<th>섹션</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>신고 내용</td>
+<td>신고 유형, 상세 설명, 첨부 스크린샷</td>
+</tr>
+<tr>
+<td>신고 대상 정보</td>
+<td>사용자 프로필 + 과거 제재 이력 + 신뢰 지표</td>
+</tr>
+<tr>
+<td>관련 매물</td>
+<td>매물 상세 정보 + 사진</td>
+</tr>
+<tr>
+<td>채팅 기록</td>
+<td>관련 채팅방 전체 기록 열람 (분쟁 해결용)</td>
+</tr>
+<tr>
+<td>이전 신고 이력</td>
+<td>동일 사용자에 대한 과거 신고 + 처리 결과</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_18">제재 처리 워크플로우</h3>
+<pre><code>[신고 접수]
+  ↓ 자동: 접수 상태로 등록 + 관리자에게 알림 (FCM/이메일)
+[관리자: 검토]
+  ↓ 채팅 기록, 매물 정보, 사용자 이력 확인
+[처리 결정]
+  ├── 경고 부여 → 사용자에게 경고 알림
+  ├── 일시 정지 (7일/30일) → 계정 기능 제한 + 사용자 알림
+  ├── 영구 정지 → 계정 차단 + 동일 번호 차단 + 사용자 알림
+  ├── 매물 삭제/숨김 → 해당 매물 비노출 처리
+  ├── 공구 강제 종료 → 참여자 전원에게 알림
+  └── 반려 (정상) → 신고자에게 결과 안내
+[처리 기록 저장]
+  ↓ 누가, 언제, 어떤 조치를 했는지 로그
+[신고자에게 처리 결과 알림]
+</code></pre>
+<h3 id="_19">제재 기준 가이드라인</h3>
+<table>
+<thead>
+<tr>
+<th>위반 유형</th>
+<th>1회</th>
+<th>2회</th>
+<th>3회</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>교환 미발송</td>
+<td>경고</td>
+<td>7일 정지</td>
+<td>영구 정지</td>
+</tr>
+<tr>
+<td>허위 매물</td>
+<td>매물 삭제 + 경고</td>
+<td>7일 정지</td>
+<td>30일 정지</td>
+</tr>
+<tr>
+<td>욕설/비하</td>
+<td>경고</td>
+<td>30일 정지</td>
+<td>영구 정지</td>
+</tr>
+<tr>
+<td>사진 도용</td>
+<td>매물 삭제 + 경고</td>
+<td>7일 정지</td>
+<td>30일 정지</td>
+</tr>
+<tr>
+<td><strong>공구 먹튀</strong></td>
+<td><strong>즉시 영구 정지 + 번호 차단</strong></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><strong>사기 (고의)</strong></td>
+<td><strong>즉시 영구 정지 + 번호 차단</strong></td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-15_1">자동 감지 (Phase 1.5+)</h3>
+<table>
+<thead>
+<tr>
+<th>감지 항목</th>
+<th>트리거</th>
+<th>자동 조치</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>동일 신고 3건 이상</td>
+<td>같은 사용자에 3건 이상 신고 접수</td>
+<td>자동 매물 숨김 + 관리자 긴급 알림</td>
+</tr>
+<tr>
+<td>48시간 미처리</td>
+<td>신고 접수 후 48시간 경과</td>
+<td>관리자 리마인더 발송</td>
+</tr>
+<tr>
+<td>교환 미완료 장기화</td>
+<td>교환 확정 후 14일간 완료 미처리</td>
+<td>양쪽에 리마인더 + 관리자 알림</td>
+</tr>
+<tr>
+<td>공구 마감 후 미진행</td>
+<td>마감일 경과 7일간 진행자 무응답</td>
+<td>참여자에게 알림 + 관리자 알림</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9">9. 작품 / 캐릭터 관리</h2>
+<blockquote>
+<p><strong>Phase 1 핵심 기능. 사용자 제안 작품/캐릭터를 승인·관리.</strong></p>
+</blockquote>
+<h3 id="_20">작품 목록</h3>
+<table>
+<thead>
+<tr>
+<th>필드</th>
+<th>설명</th>
+<th>필터</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td>고유 번호</td>
+<td>-</td>
+</tr>
+<tr>
+<td>작품명</td>
+<td>한글명 (원제)</td>
+<td>✅ 검색</td>
+</tr>
+<tr>
+<td>카테고리</td>
+<td>애니·만화·소설 / 아이돌·아티스트 / 배우·무대 / 게임</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>별칭 (alias)</td>
+<td>약어, 한글 발음 등</td>
+<td>✅ 검색</td>
+</tr>
+<tr>
+<td>캐릭터 수</td>
+<td>등록된 캐릭터 수</td>
+<td>-</td>
+</tr>
+<tr>
+<td>상태</td>
+<td>활성 / 비활성 / 대기(사용자 제안)</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>등록자</td>
+<td>관리자 시딩 / 사용자 제안</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>등록일</td>
+<td>날짜</td>
+<td>✅ 정렬</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_21">작품 상세 &amp; 캐릭터 관리</h3>
+<table>
+<thead>
+<tr>
+<th>기능</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>작품 정보 편집</td>
+<td>작품명, 카테고리, 별칭 수정</td>
+</tr>
+<tr>
+<td>캐릭터 목록</td>
+<td>소속 캐릭터 목록 + 추가/편집/삭제</td>
+</tr>
+<tr>
+<td>캐릭터 정보</td>
+<td>이름, 별칭, 프로필 이미지(선택)</td>
+</tr>
+<tr>
+<td>병합</td>
+<td>중복 작품/캐릭터를 하나로 병합 (alias 자동 생성)</td>
+</tr>
+<tr>
+<td>비활성화</td>
+<td>작품/캐릭터 비활성 (검색에서 제외, 기존 매물은 유지)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_22">사용자 제안 승인 플로우</h3>
+<pre><code>[사용자: 작품/캐릭터 추가 요청]
+  ↓ 즉시 Pending 상태로 임시 노출 (매물 등록 가능)
+[관리자: 승인 대기 목록에서 검토]
+  ├── 승인 → Active 상태로 전환
+  ├── 수정 승인 → 이름/카테고리 수정 후 승인
+  ├── 병합 → 기존 작품/캐릭터에 alias로 추가
+  └── 반려 → 해당 작품 삭제 (사용자 알림 + 매물에서 제거)
+</code></pre>
+<h3 id="_23">시딩 도구</h3>
+<table>
+<thead>
+<tr>
+<th>기능</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>일괄 등록</td>
+<td>CSV/JSON 파일로 작품+캐릭터 일괄 업로드</td>
+</tr>
+<tr>
+<td>템플릿 다운로드</td>
+<td>시딩용 CSV 템플릿</td>
+</tr>
+<tr>
+<td>인기 작품 자동 시딩</td>
+<td>AniList / MyAnimeList API 연동 검토 (Phase 2)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10">10. 이용후기 관리</h2>
+<h3 id="_24">후기 목록</h3>
+<table>
+<thead>
+<tr>
+<th>필드</th>
+<th>설명</th>
+<th>필터</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td>후기 고유 번호</td>
+<td>-</td>
+</tr>
+<tr>
+<td>작성자</td>
+<td>닉네임 (링크)</td>
+<td>✅ 검색</td>
+</tr>
+<tr>
+<td>대상자</td>
+<td>닉네임 (링크)</td>
+<td>✅ 검색</td>
+</tr>
+<tr>
+<td>평가</td>
+<td>긍정 / 부정</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>텍스트</td>
+<td>후기 내용</td>
+<td>✅ 검색</td>
+</tr>
+<tr>
+<td>작성일</td>
+<td>날짜</td>
+<td>✅ 범위</td>
+</tr>
+<tr>
+<td>이의 제기 여부</td>
+<td>이의 제기 접수됨 / 없음</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_25">이의 제기 처리</h3>
+<table>
+<thead>
+<tr>
+<th>단계</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>접수</td>
+<td>후기 대상자가 이의 제기 신청 (사유 입력)</td>
+</tr>
+<tr>
+<td>검토</td>
+<td>관리자가 후기 내용 + 거래 기록 + 채팅 기록 확인</td>
+</tr>
+<tr>
+<td>처리</td>
+<td>후기 삭제 / 이의 반려</td>
+</tr>
+<tr>
+<td>알림</td>
+<td>양쪽에 처리 결과 알림</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_26">후기 조치</h3>
+<table>
+<thead>
+<tr>
+<th>조치</th>
+<th>사유</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>삭제</td>
+<td>욕설, 허위 내용, 광고성, 거래와 무관한 내용</td>
+</tr>
+<tr>
+<td>유지 (이의 반려)</td>
+<td>정당한 후기로 판단</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="11">11. 알림 &amp; 공지 관리</h2>
+<h3 id="_27">공지사항 관리</h3>
+<table>
+<thead>
+<tr>
+<th>기능</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>공지 작성</td>
+<td>제목, 내용 (마크다운), 카테고리 (서비스/점검/이벤트), 고정 여부</td>
+</tr>
+<tr>
+<td>공지 수정/삭제</td>
+<td>기존 공지 편집</td>
+</tr>
+<tr>
+<td>예약 발행</td>
+<td>특정 시간에 자동 게시 (Phase 1.5)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-15_2">푸시 알림 관리 (Phase 1.5+)</h3>
+<table>
+<thead>
+<tr>
+<th>기능</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>전체 푸시 발송</td>
+<td>전체 사용자에게 공지 푸시 (서비스 점검, 업데이트 등)</td>
+</tr>
+<tr>
+<td>타겟 푸시</td>
+<td>특정 조건 사용자에게 발송 (카테고리, 활동 기간 등)</td>
+</tr>
+<tr>
+<td>발송 이력</td>
+<td>발송 일시, 대상 수, 열람률</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_28">관리자 알림 채널</h3>
+<table>
+<thead>
+<tr>
+<th>채널</th>
+<th>용도</th>
+<th>Phase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>어드민 대시보드</td>
+<td>미처리 신고, 승인 대기</td>
+<td>Phase 1</td>
+</tr>
+<tr>
+<td>이메일</td>
+<td>긴급 신고 알림</td>
+<td>Phase 1</td>
+</tr>
+<tr>
+<td>FCM (모바일 푸시)</td>
+<td>긴급 신고, 시스템 알림</td>
+<td>Phase 1.5</td>
+</tr>
+<tr>
+<td>슬랙/디스코드 웹훅</td>
+<td>실시간 운영 알림 (Phase 2)</td>
+<td>Phase 2</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="12">12. 통계 &amp; 분석</h2>
+<h3 id="phase-1_1">Phase 1 — 기본 통계</h3>
+<table>
+<thead>
+<tr>
+<th>지표</th>
+<th>집계 단위</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>가입자 수 추이</td>
+<td>일간/주간/월간</td>
+<td>라인 차트</td>
+</tr>
+<tr>
+<td>매물 등록 추이</td>
+<td>일간/주간/월간 (유형별)</td>
+<td>스택 차트</td>
+</tr>
+<tr>
+<td>교환 성사 수</td>
+<td>일간/주간/월간</td>
+<td>핵심 KPI</td>
+</tr>
+<tr>
+<td>공구 완료 수</td>
+<td>일간/주간/월간 (유형별: 일반/세트)</td>
+<td></td>
+</tr>
+<tr>
+<td>인기 작품 Top 10</td>
+<td>매물 등록 수 기준</td>
+<td>테이블</td>
+</tr>
+<tr>
+<td>인기 캐릭터 Top 10</td>
+<td>매물 등록 수 기준</td>
+<td>테이블</td>
+</tr>
+<tr>
+<td>인기 굿즈 타입</td>
+<td>카테고리별 분포</td>
+<td>파이 차트</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-15_3">Phase 1.5+ — 확장 통계</h3>
+<table>
+<thead>
+<tr>
+<th>지표</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DAU / WAU / MAU</td>
+<td>활성 사용자 추이</td>
+</tr>
+<tr>
+<td>리텐션 (D1/D7/D30)</td>
+<td>재방문률</td>
+</tr>
+<tr>
+<td>교환 매칭률</td>
+<td>매칭 성공 / 전체 교환글</td>
+</tr>
+<tr>
+<td>평균 매칭 시간</td>
+<td>교환글 등록 → 매칭까지 소요 시간</td>
+</tr>
+<tr>
+<td>채팅→교환 전환율</td>
+<td>채팅 시작 → 교환 완료 비율</td>
+</tr>
+<tr>
+<td>공구 성공률</td>
+<td>완료 / (완료 + 취소)</td>
+</tr>
+<tr>
+<td>세트 공구 선점률</td>
+<td>캐릭터 전체 선점 / 전체 캐릭터 수량</td>
+</tr>
+<tr>
+<td>검색 키워드 Top 20</td>
+<td>사용자 검색 트렌드</td>
+</tr>
+<tr>
+<td>키워드 알림 인기 Top 10</td>
+<td>가장 많이 등록된 키워드</td>
+</tr>
+<tr>
+<td>신고 처리 평균 시간</td>
+<td>접수 → 처리까지 소요 시간</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-2">Phase 2+ — 수익 분석</h3>
+<table>
+<thead>
+<tr>
+<th>지표</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>끌어올리기 매출</td>
+<td>일간/월간 매출</td>
+</tr>
+<tr>
+<td>프리미엄 구독 수</td>
+<td>구독자 수 + 해지율</td>
+</tr>
+<tr>
+<td>광고 수익</td>
+<td>AdSense 데이터 연동</td>
+</tr>
+<tr>
+<td>거래 수수료 수입</td>
+<td>판매 기능 도입 후</td>
+</tr>
+<tr>
+<td>ARPU</td>
+<td>유저당 평균 수익</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="13">13. 시스템 &amp; 운영 도구</h2>
+<h3 id="cron-jobs">자동화 작업 (Cron Jobs)</h3>
+<table>
+<thead>
+<tr>
+<th>작업</th>
+<th>주기</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>매물 만료 처리</td>
+<td>매일 00:00</td>
+<td>공구 마감일 경과 → 자동 마감 / 만료 처리</td>
+</tr>
+<tr>
+<td>구함글 만료</td>
+<td>매일 00:00</td>
+<td>30일 경과 구함글 만료 처리</td>
+</tr>
+<tr>
+<td>교환 자동 완료</td>
+<td>매일 09:00</td>
+<td>한쪽만 완료 확인 후 5일 경과 → 자동 완료</td>
+</tr>
+<tr>
+<td>정지 해제</td>
+<td>매일 00:00</td>
+<td>정지 기간 만료된 계정 자동 해제</td>
+</tr>
+<tr>
+<td>휴면 전환</td>
+<td>매월 1일</td>
+<td>1년 미접속 계정 휴면 전환 (30일 사전 알림)</td>
+</tr>
+<tr>
+<td>미처리 신고 알림</td>
+<td>매 12시간</td>
+<td>48시간 초과 미처리 신고 리마인더</td>
+</tr>
+<tr>
+<td>이미지 정리</td>
+<td>매주 일요일</td>
+<td>삭제된 매물의 S3 이미지 정리</td>
+</tr>
+<tr>
+<td>DB 백업</td>
+<td>매일 03:00</td>
+<td>PostgreSQL 자동 백업 (Railway 내장 + 외부 백업)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-15_4">시스템 헬스 체크 (Phase 1.5+)</h3>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>모니터링</th>
+<th>알림 기준</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>서버 상태</td>
+<td>Railway 상태 체크</td>
+<td>다운타임 감지 즉시</td>
+</tr>
+<tr>
+<td>DB 연결</td>
+<td>Prisma 연결 상태</td>
+<td>연결 실패 시</td>
+</tr>
+<tr>
+<td>Firebase</td>
+<td>Realtime DB 상태</td>
+<td>장애 시</td>
+</tr>
+<tr>
+<td>S3</td>
+<td>업로드 가능 여부</td>
+<td>실패율 5% 초과 시</td>
+</tr>
+<tr>
+<td>에러율</td>
+<td>Sentry 에러 추이</td>
+<td>1시간 내 10건 초과 시</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_29">운영 도구</h3>
+<table>
+<thead>
+<tr>
+<th>도구</th>
+<th>설명</th>
+<th>Phase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SQL 쿼리 콘솔</td>
+<td>읽기 전용 쿼리 실행 (긴급 데이터 확인)</td>
+<td>Phase 1 (Prisma Studio)</td>
+</tr>
+<tr>
+<td>사용자 임시 로그인</td>
+<td>특정 사용자 시점으로 서비스 확인 (읽기 전용)</td>
+<td>Phase 2</td>
+</tr>
+<tr>
+<td>데이터 내보내기</td>
+<td>CSV 다운로드 (회원 목록, 매물, 통계)</td>
+<td>Phase 1.5</td>
+</tr>
+<tr>
+<td>서비스 점검 모드</td>
+<td>전체 서비스 점검 공지 + 접근 차단</td>
+<td>Phase 1</td>
+</tr>
+<tr>
+<td>배너 관리</td>
+<td>메인 페이지 배너 이미지 + 링크 설정</td>
+<td>Phase 1.5</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="14-phase">14. Phase별 어드민 개발 범위</h2>
+<h3 id="phase-1-mvp">Phase 1 — MVP 어드민 (서비스 출시와 동시)</h3>
+<blockquote>
+<p><strong>목표: 최소한의 운영 가능한 관리 도구</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>기능</th>
+<th>우선도</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>어드민 접근 &amp; 인증</td>
+<td>필수</td>
+<td>role 기반 접근 제한</td>
+</tr>
+<tr>
+<td>대시보드 (기본)</td>
+<td>필수</td>
+<td>핵심 수치 카드</td>
+</tr>
+<tr>
+<td>회원 목록 &amp; 상세</td>
+<td>필수</td>
+<td>검색, 필터, 제재 조치</td>
+</tr>
+<tr>
+<td>매물 목록 &amp; 조치</td>
+<td>필수</td>
+<td>검색, 필터, 숨김/삭제</td>
+</tr>
+<tr>
+<td>신고 관리</td>
+<td>필수</td>
+<td>접수→검토→처리 워크플로우</td>
+</tr>
+<tr>
+<td>작품/캐릭터 승인</td>
+<td>필수</td>
+<td>사용자 제안 승인/반려/병합</td>
+</tr>
+<tr>
+<td>작품/캐릭터 시딩</td>
+<td>필수</td>
+<td>CSV 일괄 등록 도구</td>
+</tr>
+<tr>
+<td>이용후기 관리</td>
+<td>필수</td>
+<td>이의 제기 처리, 후기 삭제</td>
+</tr>
+<tr>
+<td>공지사항 관리</td>
+<td>필수</td>
+<td>공지 작성/수정/삭제</td>
+</tr>
+<tr>
+<td>서비스 점검 모드</td>
+<td>필수</td>
+<td>긴급 점검 시 사용</td>
+</tr>
+<tr>
+<td>Cron Job (자동화)</td>
+<td>필수</td>
+<td>만료, 자동완료, 정지해제, 백업</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-15_5">Phase 1.5 — 운영 강화</h3>
+<table>
+<thead>
+<tr>
+<th>기능</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>확장 통계</td>
+<td>DAU/MAU, 리텐션, 매칭률</td>
+</tr>
+<tr>
+<td>자동 감지</td>
+<td>신고 3건 자동 숨김, 미처리 리마인더</td>
+</tr>
+<tr>
+<td>푸시 알림 관리</td>
+<td>전체/타겟 푸시 발송</td>
+</tr>
+<tr>
+<td>배너 관리</td>
+<td>메인 배너 설정</td>
+</tr>
+<tr>
+<td>데이터 내보내기</td>
+<td>CSV 다운로드</td>
+</tr>
+<tr>
+<td>시스템 헬스 체크</td>
+<td>서버/DB/외부 서비스 모니터링</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-2_1">Phase 2 — 판매 관리 + 수익 분석</h3>
+<table>
+<thead>
+<tr>
+<th>기능</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>판매 매물 관리</td>
+<td>판매 기능 추가에 따른 관리</td>
+</tr>
+<tr>
+<td>결제 &amp; 수수료 관리</td>
+<td>에스크로 거래 모니터링, 수수료 정산</td>
+</tr>
+<tr>
+<td>수익 분석 대시보드</td>
+<td>끌어올리기, 프리미엄, 광고 수익</td>
+</tr>
+<tr>
+<td>프리미엄 구독 관리</td>
+<td>구독자 현황, 해지 관리</td>
+</tr>
+<tr>
+<td>운영 슬랙/디스코드 연동</td>
+<td>실시간 운영 알림</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-3">Phase 3+ — 고도화</h3>
+<table>
+<thead>
+<tr>
+<th>기능</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RBAC (역할 기반 접근 제어)</td>
+<td>SUPER_ADMIN / MODERATOR / CONTENT_ADMIN</td>
+</tr>
+<tr>
+<td>관리자 활동 로그</td>
+<td>상세 감사 로그</td>
+</tr>
+<tr>
+<td>자동 중재 도구</td>
+<td>AI 기반 부적절 콘텐츠 감지 (Phase 3+)</td>
+</tr>
+<tr>
+<td>A/B 테스트 도구</td>
+<td>기능 롤아웃 관리</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="15">15. 기술 스택 &amp; 구현 방향</h2>
+<h3 id="_30">어드민 아키텍처</h3>
+<pre><code>[브라우저]
+  ↓
+[Next.js App Router — /admin/*]
+  ↓ middleware: 세션 체크 + role = ADMIN
+[Next.js Server Components / API Routes]
+  ↓
+[NestJS API — @AdminGuard()]
+  ↓
+[PostgreSQL (Prisma)]
+</code></pre>
+<h3 id="_31">핵심 기술 결정</h3>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>결정</th>
+<th>이유</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>어드민 프레임워크</td>
+<td>Next.js /admin 라우트 (직접 구현)</td>
+<td>별도 프로젝트 불필요, 서비스 코드 재사용</td>
+</tr>
+<tr>
+<td>UI 컴포넌트</td>
+<td>shadcn/ui + Tailwind</td>
+<td>서비스와 동일 스택, 빠른 개발</td>
+</tr>
+<tr>
+<td>테이블</td>
+<td>TanStack Table (React Table)</td>
+<td>검색, 정렬, 페이지네이션, 필터</td>
+</tr>
+<tr>
+<td>차트</td>
+<td>Recharts</td>
+<td>가볍고 React 친화적</td>
+</tr>
+<tr>
+<td>폼</td>
+<td>React Hook Form + Zod</td>
+<td>유효성 검증 일관성</td>
+</tr>
+<tr>
+<td>상태 관리</td>
+<td>React Server Components + SWR</td>
+<td>서버 컴포넌트 활용</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_32">공통 컴포넌트 (재사용)</h3>
+<table>
+<thead>
+<tr>
+<th>컴포넌트</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;AdminTable&gt;</code></td>
+<td>범용 테이블 (검색, 정렬, 페이지네이션, 필터, 일괄 조치)</td>
+</tr>
+<tr>
+<td><code>&lt;AdminDetail&gt;</code></td>
+<td>상세 페이지 레이아웃 (탭 기반)</td>
+</tr>
+<tr>
+<td><code>&lt;StatusBadge&gt;</code></td>
+<td>상태 뱃지 (활성/정지/완료 등 색상 구분)</td>
+</tr>
+<tr>
+<td><code>&lt;ActionModal&gt;</code></td>
+<td>조치 확인 모달 (경고/정지/삭제 등)</td>
+</tr>
+<tr>
+<td><code>&lt;StatCard&gt;</code></td>
+<td>대시보드 통계 카드</td>
+</tr>
+<tr>
+<td><code>&lt;DateRangePicker&gt;</code></td>
+<td>날짜 범위 필터</td>
+</tr>
+<tr>
+<td><code>&lt;SearchInput&gt;</code></td>
+<td>검색 입력 (디바운스)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="api">어드민 API 엔드포인트 설계</h3>
+<table>
+<thead>
+<tr>
+<th>엔드포인트</th>
+<th>메서드</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/admin/dashboard</code></td>
+<td>GET</td>
+<td>대시보드 통계 데이터</td>
+</tr>
+<tr>
+<td><code>/admin/users</code></td>
+<td>GET</td>
+<td>회원 목록 (페이지네이션, 필터)</td>
+</tr>
+<tr>
+<td><code>/admin/users/:id</code></td>
+<td>GET</td>
+<td>회원 상세</td>
+</tr>
+<tr>
+<td><code>/admin/users/:id/sanction</code></td>
+<td>POST</td>
+<td>제재 조치 (경고/정지/해제)</td>
+</tr>
+<tr>
+<td><code>/admin/listings</code></td>
+<td>GET</td>
+<td>매물 목록</td>
+</tr>
+<tr>
+<td><code>/admin/listings/:id</code></td>
+<td>GET</td>
+<td>매물 상세</td>
+</tr>
+<tr>
+<td><code>/admin/listings/:id/action</code></td>
+<td>POST</td>
+<td>매물 조치 (숨김/삭제/복원)</td>
+</tr>
+<tr>
+<td><code>/admin/group-buys</code></td>
+<td>GET</td>
+<td>공구 목록</td>
+</tr>
+<tr>
+<td><code>/admin/group-buys/:id</code></td>
+<td>GET</td>
+<td>공구 상세 (세트 공구 선점 현황 포함)</td>
+</tr>
+<tr>
+<td><code>/admin/group-buys/:id/action</code></td>
+<td>POST</td>
+<td>공구 조치 (강제 종료/마감 연장)</td>
+</tr>
+<tr>
+<td><code>/admin/reports</code></td>
+<td>GET</td>
+<td>신고 목록</td>
+</tr>
+<tr>
+<td><code>/admin/reports/:id</code></td>
+<td>GET</td>
+<td>신고 상세</td>
+</tr>
+<tr>
+<td><code>/admin/reports/:id/resolve</code></td>
+<td>POST</td>
+<td>신고 처리</td>
+</tr>
+<tr>
+<td><code>/admin/works</code></td>
+<td>GET</td>
+<td>작품 목록</td>
+</tr>
+<tr>
+<td><code>/admin/works</code></td>
+<td>POST</td>
+<td>작품 등록</td>
+</tr>
+<tr>
+<td><code>/admin/works/:id</code></td>
+<td>PUT</td>
+<td>작품 수정</td>
+</tr>
+<tr>
+<td><code>/admin/works/:id/approve</code></td>
+<td>POST</td>
+<td>사용자 제안 작품 승인</td>
+</tr>
+<tr>
+<td><code>/admin/works/:id/merge</code></td>
+<td>POST</td>
+<td>작품 병합</td>
+</tr>
+<tr>
+<td><code>/admin/works/bulk</code></td>
+<td>POST</td>
+<td>작품 일괄 등록 (CSV)</td>
+</tr>
+<tr>
+<td><code>/admin/characters</code></td>
+<td>GET</td>
+<td>캐릭터 목록</td>
+</tr>
+<tr>
+<td><code>/admin/characters</code></td>
+<td>POST</td>
+<td>캐릭터 등록</td>
+</tr>
+<tr>
+<td><code>/admin/characters/:id</code></td>
+<td>PUT</td>
+<td>캐릭터 수정</td>
+</tr>
+<tr>
+<td><code>/admin/reviews</code></td>
+<td>GET</td>
+<td>이용후기 목록</td>
+</tr>
+<tr>
+<td><code>/admin/reviews/:id/delete</code></td>
+<td>DELETE</td>
+<td>후기 삭제</td>
+</tr>
+<tr>
+<td><code>/admin/reviews/:id/dispute</code></td>
+<td>POST</td>
+<td>이의 제기 처리</td>
+</tr>
+<tr>
+<td><code>/admin/notices</code></td>
+<td>GET/POST</td>
+<td>공지사항 목록/작성</td>
+</tr>
+<tr>
+<td><code>/admin/notices/:id</code></td>
+<td>PUT/DELETE</td>
+<td>공지 수정/삭제</td>
+</tr>
+<tr>
+<td><code>/admin/stats/:type</code></td>
+<td>GET</td>
+<td>통계 데이터 (유형별)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="16-db">16. DB 스키마 — 어드민 관련</h2>
+<blockquote>
+<p>서비스 DB에 어드민 관련 테이블/컬럼을 추가하는 방식.</p>
+</blockquote>
+<h3 id="users">users 테이블 추가 필드</h3>
+<pre><code class="language-prisma">model User {
+  // ... 기존 필드
+  role          Role      @default(USER)    // USER | ADMIN
+  status        UserStatus @default(ACTIVE)  // ACTIVE | WARNING | SUSPENDED | DORMANT | DELETED
+  suspendedAt   DateTime?
+  suspendedUntil DateTime?
+  suspendReason  String?
+  warningCount   Int       @default(0)
+  sanctions      Sanction[]
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  WARNING
+  SUSPENDED
+  DORMANT
+  DELETED
+}
+</code></pre>
+<h3 id="report">신고 (Report) 테이블</h3>
+<pre><code class="language-prisma">model Report {
+  id            Int          @id @default(autoincrement())
+  type          ReportType   // EXCHANGE_NO_SEND | GROUP_BUY_SCAM | FAKE_LISTING | HARASSMENT | PHOTO_THEFT | OTHER
+  status        ReportStatus @default(PENDING) // PENDING | REVIEWING | RESOLVED | REJECTED
+  description   String
+  attachments   String[]     // 스크린샷 URL 배열
+
+  reporterId    Int
+  reporter      User         @relation(&quot;ReportsMade&quot;, fields: [reporterId], references: [id])
+
+  targetUserId  Int
+  targetUser    User         @relation(&quot;ReportsReceived&quot;, fields: [targetUserId], references: [id])
+
+  listingId     Int?         // 관련 매물 (nullable)
+  chatRoomId    String?      // 관련 채팅방 (nullable)
+
+  resolvedBy    Int?         // 처리한 관리자 ID
+  resolvedAt    DateTime?
+  resolution    String?      // 처리 결과 설명
+
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+enum ReportType {
+  EXCHANGE_NO_SEND
+  GROUP_BUY_SCAM
+  FAKE_LISTING
+  HARASSMENT
+  PHOTO_THEFT
+  OTHER
+}
+
+enum ReportStatus {
+  PENDING
+  REVIEWING
+  RESOLVED
+  REJECTED
+}
+</code></pre>
+<h3 id="sanction">제재 이력 (Sanction) 테이블</h3>
+<pre><code class="language-prisma">model Sanction {
+  id            Int            @id @default(autoincrement())
+  type          SanctionType   // WARNING | SUSPEND_7D | SUSPEND_30D | PERMANENT_BAN | NICKNAME_CHANGE | UNSUSPEND
+  reason        String
+  reportId      Int?           // 관련 신고 (nullable)
+
+  userId        Int
+  user          User           @relation(fields: [userId], references: [id])
+
+  adminId       Int            // 처리한 관리자
+  admin         User           @relation(&quot;SanctionsByAdmin&quot;, fields: [adminId], references: [id])
+
+  expiresAt     DateTime?      // 정지 만료일 (영구 정지는 null)
+  createdAt     DateTime       @default(now())
+}
+
+enum SanctionType {
+  WARNING
+  SUSPEND_7D
+  SUSPEND_30D
+  PERMANENT_BAN
+  NICKNAME_CHANGE
+  UNSUSPEND
+}
+</code></pre>
+<h3 id="adminlog">관리자 활동 로그 (AdminLog) 테이블</h3>
+<pre><code class="language-prisma">model AdminLog {
+  id          Int       @id @default(autoincrement())
+  action      String    // &quot;user.suspend&quot; | &quot;listing.delete&quot; | &quot;report.resolve&quot; | &quot;work.approve&quot; 등
+  targetType  String    // &quot;user&quot; | &quot;listing&quot; | &quot;report&quot; | &quot;work&quot; | &quot;character&quot;
+  targetId    Int
+  details     Json?     // 조치 상세 (변경 전/후 데이터)
+
+  adminId     Int
+  admin       User      @relation(fields: [adminId], references: [id])
+
+  createdAt   DateTime  @default(now())
+}
+</code></pre>
+<h3 id="notice">공지사항 (Notice) 테이블</h3>
+<pre><code class="language-prisma">model Notice {
+  id          Int           @id @default(autoincrement())
+  title       String
+  content     String        // Markdown
+  category    NoticeCategory // SERVICE | MAINTENANCE | EVENT
+  isPinned    Boolean       @default(false)
+  publishedAt DateTime?     // 예약 발행
+  authorId    Int
+  author      User          @relation(fields: [authorId], references: [id])
+
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+enum NoticeCategory {
+  SERVICE
+  MAINTENANCE
+  EVENT
+}
+</code></pre>
+<hr />
+<blockquote>
+<p><strong>애픽 월드 어드민 PRD v1.0 · Solo Dev</strong></p>
+<p><em>PRD v5.0 기반으로 작성. Phase 1에서는 신고 처리 + 작품 승인 + 회원 관리 + 매물 관리에 집중하고, Phase별로 통계·수익·자동화를 확장하는 구조.</em></p>
+</blockquote>
+</div>
+<div class="page-footer">
+  애픽 월드 (Aepik World) — 2026-03-06 생성
+</div>
+</body>
+</html>

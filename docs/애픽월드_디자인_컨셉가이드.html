@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>디자인 컨셉 가이드 v1.0</title>
+<style>
+  :root {
+    --blue: #3B82F6;
+    --blue-light: #EFF6FF;
+    --gray-50: #F9FAFB;
+    --gray-100: #F3F4F6;
+    --gray-200: #E5E7EB;
+    --gray-300: #D1D5DB;
+    --gray-500: #6B7280;
+    --gray-700: #374151;
+    --gray-900: #111827;
+    --purple: #8B5CF6;
+    --pink: #EC4899;
+    --amber: #F59E0B;
+    --cyan: #06B6D4;
+    --green: #10B981;
+    --red: #EF4444;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-900);
+    line-height: 1.7;
+  }
+  .top-bar {
+    position: sticky; top: 0; z-index: 100;
+    background: white; border-bottom: 1px solid var(--gray-200);
+    padding: 12px 24px;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .top-bar .logo { font-weight: 700; font-size: 16px; color: var(--blue); }
+  .top-bar .sep { color: var(--gray-300); }
+  .top-bar .doc-title { font-size: 14px; color: var(--gray-700); }
+  .top-bar .back-link {
+    margin-left: auto; font-size: 13px; color: var(--blue);
+    text-decoration: none;
+  }
+  .top-bar .back-link:hover { text-decoration: underline; }
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+  }
+  /* Typography */
+  h1 {
+    font-size: 28px; font-weight: 800; color: var(--gray-900);
+    margin: 0 0 8px; padding-bottom: 16px;
+    border-bottom: 3px solid var(--blue);
+  }
+  h2 {
+    font-size: 22px; font-weight: 700; color: var(--gray-900);
+    margin: 40px 0 16px; padding: 8px 0 8px 12px;
+    border-left: 4px solid var(--blue);
+    background: var(--blue-light);
+    border-radius: 0 6px 6px 0;
+  }
+  h3 {
+    font-size: 17px; font-weight: 700; color: var(--gray-700);
+    margin: 28px 0 12px;
+  }
+  h4 {
+    font-size: 15px; font-weight: 600; color: var(--gray-700);
+    margin: 20px 0 8px;
+  }
+  p { margin: 8px 0; font-size: 14px; }
+  blockquote {
+    border-left: 4px solid var(--blue);
+    background: var(--blue-light);
+    padding: 12px 16px;
+    margin: 16px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+    color: var(--gray-700);
+  }
+  blockquote p { margin: 4px 0; }
+  blockquote strong { color: var(--blue); }
+  /* Lists */
+  ul, ol {
+    margin: 8px 0 8px 24px;
+    font-size: 14px;
+  }
+  li { margin: 4px 0; }
+  li ul, li ol { margin: 4px 0 4px 20px; }
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 13px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  thead { background: var(--gray-100); }
+  th {
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--gray-700);
+    border-bottom: 2px solid var(--gray-200);
+    white-space: nowrap;
+  }
+  td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--gray-100);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--gray-50); }
+  /* Code */
+  code {
+    background: var(--gray-100);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: 'SF Mono', Consolas, monospace;
+    color: var(--purple);
+  }
+  pre {
+    background: var(--gray-900);
+    color: #E5E7EB;
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 16px 0;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  pre code {
+    background: none;
+    color: inherit;
+    padding: 0;
+  }
+  /* HR */
+  hr {
+    border: none;
+    border-top: 1px solid var(--gray-200);
+    margin: 32px 0;
+  }
+  /* Strong/Em */
+  strong { color: var(--gray-900); }
+  /* TOC */
+  .toc {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+  .toc ul { list-style: none; margin-left: 0; }
+  .toc li { margin: 4px 0; }
+  .toc a { color: var(--blue); text-decoration: none; font-size: 13px; }
+  .toc a:hover { text-decoration: underline; }
+  /* Footer */
+  .page-footer {
+    text-align: center;
+    padding: 24px;
+    color: var(--gray-500);
+    font-size: 12px;
+    border-top: 1px solid var(--gray-200);
+    margin-top: 48px;
+  }
+  /* Responsive */
+  @media (max-width: 768px) {
+    .container { padding: 16px 12px 60px; }
+    h1 { font-size: 22px; }
+    h2 { font-size: 18px; }
+    table { font-size: 12px; }
+    th, td { padding: 6px 8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <span class="logo">Aepik World</span>
+  <span class="sep">/</span>
+  <span class="doc-title">디자인 컨셉 가이드 v1.0</span>
+  <a class="back-link" href="../wireframe/WBS_%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%ED%98%84%ED%99%A9.html">WBS로 돌아가기</a>
+</div>
+
+<div class="container">
+<h1 id="aepik-world-ui-v10">애픽 월드 (Aepik World) — UI 디자인 컨셉 가이드 v1.0</h1>
+<blockquote>
+<p><strong>"사랑하는 걸, 여기서 Pick!"</strong></p>
+<p>신뢰감 있는 클린 마켓플레이스 디자인으로 C2C 거래의 안심을 전달하는 디자인 시스템</p>
+</blockquote>
+<hr />
+<h2 id="1">1. 컨셉 방향</h2>
+<h3 id="_1">왜 클린 마켓플레이스인가?</h3>
+<table>
+<thead>
+<tr>
+<th>이유</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>신뢰도 확보</strong></td>
+<td>C2C 거래는 플랫폼 신뢰가 핵심. 깔끔하고 정돈된 UI가 "안전한 거래" 인상을 줌</td>
+</tr>
+<tr>
+<td><strong>거래 정보 가독성</strong></td>
+<td>상품 상태, 가격, 교환 조건 등 핵심 정보가 즉시 눈에 들어와야 함</td>
+</tr>
+<tr>
+<td><strong>팬덤 콘텐츠 강조</strong></td>
+<td>배경이 심플해야 굿즈 사진·팬아트 배너가 돋보임</td>
+</tr>
+<tr>
+<td><strong>다양한 팬덤 포용</strong></td>
+<td>애니·만화·소설·아이돌·아티스트·배우·무대·게임 모든 팬덤에 거부감 없는 중립적 디자인</td>
+</tr>
+<tr>
+<td><strong>1인 개발 효율</strong></td>
+<td>복잡한 커스텀 에셋 없이 컴포넌트 기반으로 빠르게 구현 가능</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_2">레퍼런스</h3>
+<table>
+<thead>
+<tr>
+<th>레퍼런스</th>
+<th>참고 포인트</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>번개장터</strong></td>
+<td>카드 레이아웃, 상품 그리드, 신뢰 뱃지 시스템</td>
+</tr>
+<tr>
+<td><strong>크림 (KREAM)</strong></td>
+<td>미니멀 화이트 기반, 깔끔한 상품 상세 페이지</td>
+</tr>
+<tr>
+<td><strong>포카마켓</strong></td>
+<td>굿즈 특화 카테고리, 교환 UI</td>
+</tr>
+<tr>
+<td><strong>당근마켓</strong></td>
+<td>지역 기반 거래, 온도/신뢰 시스템 시각화</td>
+</tr>
+<tr>
+<td><strong>Depop</strong></td>
+<td>젊은 층 타겟 C2C, 감성적이면서도 정돈된 레이아웃</td>
+</tr>
+<tr>
+<td><strong>Mercari</strong></td>
+<td>일본 C2C, 카테고리 필터링, 상태 태그</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_3">컨셉 키워드</h3>
+<blockquote>
+<p><strong>Clean Trust × 덕질 마켓플레이스</strong></p>
+<p>깔끔한 · 신뢰감 · 직관적 · 정돈된 · 따뜻한 · 안심 거래</p>
+</blockquote>
+<hr />
+<h2 id="2">2. 컬러 팔레트</h2>
+<h3 id="_4">디자인 원칙</h3>
+<p>깨끗한 화이트 베이스에 신뢰감 있는 블루 브랜드 컬러를 포인트로 사용. 과도한 색상 사용을 지양하고, 상품 사진이 주인공이 되도록 배경을 절제. 블루 계열은 안전·신뢰·전문성을 전달하여 C2C 거래 플랫폼의 핵심 가치인 '안심 거래'를 시각적으로 강화.</p>
+<h3 id="primary">Primary (브랜드 컬러)</h3>
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>HEX</th>
+<th>용도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Aepik World Blue</strong></td>
+<td><code>#3B82F6</code></td>
+<td>메인 브랜드, CTA 버튼, 로고, 핵심 강조</td>
+</tr>
+<tr>
+<td><strong>Blue Light</strong></td>
+<td><code>#DBEAFE</code></td>
+<td>배너 배경, 선택 상태, 하이라이트</td>
+</tr>
+<tr>
+<td><strong>Blue Dark</strong></td>
+<td><code>#2563EB</code></td>
+<td>호버/프레스 상태, 진한 강조</td>
+</tr>
+<tr>
+<td><strong>Blue Deep</strong></td>
+<td><code>#1D4ED8</code></td>
+<td>포커스 링, 진한 액센트</td>
+</tr>
+</tbody>
+</table>
+<h3 id="neutral-ui">Neutral (기본 UI)</h3>
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>HEX</th>
+<th>용도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>White</strong></td>
+<td><code>#FFFFFF</code></td>
+<td>메인 배경, 카드 배경</td>
+</tr>
+<tr>
+<td><strong>Gray 50</strong></td>
+<td><code>#F9FAFB</code></td>
+<td>페이지 배경, 섹션 구분</td>
+</tr>
+<tr>
+<td><strong>Gray 100</strong></td>
+<td><code>#F3F4F6</code></td>
+<td>인풋 배경, 비활성 영역</td>
+</tr>
+<tr>
+<td><strong>Gray 200</strong></td>
+<td><code>#E5E7EB</code></td>
+<td>보더, 디바이더</td>
+</tr>
+<tr>
+<td><strong>Gray 400</strong></td>
+<td><code>#9CA3AF</code></td>
+<td>보조 텍스트, 아이콘</td>
+</tr>
+<tr>
+<td><strong>Gray 600</strong></td>
+<td><code>#4B5563</code></td>
+<td>본문 텍스트</td>
+</tr>
+<tr>
+<td><strong>Gray 900</strong></td>
+<td><code>#111827</code></td>
+<td>제목, 핵심 텍스트</td>
+</tr>
+</tbody>
+</table>
+<h3 id="semantic">Semantic (기능별)</h3>
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>HEX</th>
+<th>용도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Success</strong></td>
+<td><code>#10B981</code></td>
+<td>거래 완료, 매칭 성공, 인증 완료</td>
+</tr>
+<tr>
+<td><strong>Warning</strong></td>
+<td><code>#F59E0B</code></td>
+<td>주의, 대기 중, 교환 제안</td>
+</tr>
+<tr>
+<td><strong>Error</strong></td>
+<td><code>#EF4444</code></td>
+<td>오류, 신고, 제재</td>
+</tr>
+<tr>
+<td><strong>Info</strong></td>
+<td><code>#3B82F6</code></td>
+<td>알림, 정보, 공구 진행 중</td>
+</tr>
+</tbody>
+</table>
+<h3 id="accent">Accent (카테고리/팬덤)</h3>
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>HEX</th>
+<th>용도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Anime/Manga/Novel Purple</strong></td>
+<td><code>#8B5CF6</code></td>
+<td>애니/만화/소설 카테고리 태그</td>
+</tr>
+<tr>
+<td><strong>Idol/Artist Pink</strong></td>
+<td><code>#EC4899</code></td>
+<td>아이돌/아티스트 카테고리 태그 (버튜버 포함)</td>
+</tr>
+<tr>
+<td><strong>Actor/Stage Amber</strong></td>
+<td><code>#F59E0B</code></td>
+<td>배우/무대 카테고리 태그 (드라마, 영화, 뮤지컬, 연극)</td>
+</tr>
+<tr>
+<td><strong>Game Cyan</strong></td>
+<td><code>#06B6D4</code></td>
+<td>게임 카테고리 태그 (프로게이머 포함)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3">3. 타이포그래피</h2>
+<h3 id="_5">폰트 시스템</h3>
+<table>
+<thead>
+<tr>
+<th>용도</th>
+<th>폰트</th>
+<th>대안</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>한글</strong></td>
+<td>Pretendard</td>
+<td>Noto Sans KR</td>
+</tr>
+<tr>
+<td><strong>영문/숫자</strong></td>
+<td>Inter</td>
+<td>Pretendard (통일 가능)</td>
+</tr>
+<tr>
+<td><strong>로고</strong></td>
+<td>커스텀 워드마크</td>
+<td>Pretendard Bold + 커스텀</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Pretendard</strong> 선택 이유: 가독성 뛰어남, 다양한 웨이트 지원, 무료 오픈소스, 한/영 조화 우수, 모바일에서도 깔끔</p>
+</blockquote>
+<h3 id="_6">타입 스케일</h3>
+<table>
+<thead>
+<tr>
+<th>레벨</th>
+<th>크기</th>
+<th>웨이트</th>
+<th>행간</th>
+<th>용도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Display</strong></td>
+<td>28px</td>
+<td>Bold (700)</td>
+<td>1.3</td>
+<td>메인 배너 타이틀</td>
+</tr>
+<tr>
+<td><strong>H1</strong></td>
+<td>24px</td>
+<td>Bold (700)</td>
+<td>1.3</td>
+<td>페이지 제목</td>
+</tr>
+<tr>
+<td><strong>H2</strong></td>
+<td>20px</td>
+<td>SemiBold (600)</td>
+<td>1.4</td>
+<td>섹션 제목</td>
+</tr>
+<tr>
+<td><strong>H3</strong></td>
+<td>16px</td>
+<td>SemiBold (600)</td>
+<td>1.4</td>
+<td>카드 제목, 상품명</td>
+</tr>
+<tr>
+<td><strong>Body L</strong></td>
+<td>16px</td>
+<td>Regular (400)</td>
+<td>1.6</td>
+<td>본문 텍스트</td>
+</tr>
+<tr>
+<td><strong>Body M</strong></td>
+<td>14px</td>
+<td>Regular (400)</td>
+<td>1.5</td>
+<td>일반 텍스트, 설명</td>
+</tr>
+<tr>
+<td><strong>Caption</strong></td>
+<td>12px</td>
+<td>Medium (500)</td>
+<td>1.4</td>
+<td>보조 정보, 태그, 메타</td>
+</tr>
+<tr>
+<td><strong>Micro</strong></td>
+<td>10px</td>
+<td>Medium (500)</td>
+<td>1.3</td>
+<td>뱃지, 아주 작은 레이블</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4">4. 스페이싱 &amp; 레이아웃</h2>
+<h3 id="_7">그리드 시스템</h3>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>기본 단위</strong></td>
+<td>4px (모든 간격은 4의 배수)</td>
+</tr>
+<tr>
+<td><strong>페이지 좌우 패딩</strong></td>
+<td>모바일 16px / 태블릿 24px / 데스크톱 auto (max-width 1200px 중앙)</td>
+</tr>
+<tr>
+<td><strong>카드 그리드</strong></td>
+<td>모바일 2열 / 태블릿 3열 / 데스크톱 4열</td>
+</tr>
+<tr>
+<td><strong>카드 간격</strong></td>
+<td>12px (모바일) / 16px (데스크톱)</td>
+</tr>
+<tr>
+<td><strong>섹션 간격</strong></td>
+<td>32px ~ 48px</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_8">반응형 브레이크포인트</h3>
+<blockquote>
+<p><strong>모바일 퍼스트, 2 브레이크포인트 전략.</strong><br />
+패드(태블릿)는 별도 레이아웃 없이, 세로는 모바일 / 가로는 데스크톱이 자연스럽게 적용.<br />
+향후 하이브리드 앱(웹뷰) 전환 시 모바일 레이아웃을 그대로 사용.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>범위</th>
+<th>Tailwind</th>
+<th>레이아웃</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mobile</strong></td>
+<td>0~767px</td>
+<td>기본 (접두사 없음)</td>
+<td>1컬럼, 풀폭, 하단 네비게이션</td>
+</tr>
+<tr>
+<td><strong>Desktop</strong></td>
+<td>768px~</td>
+<td><code>md:</code></td>
+<td>중앙 max-width 1200px, 사이드바/그리드 확장</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_9">화면별 반응형 전략</h4>
+<table>
+<thead>
+<tr>
+<th>화면</th>
+<th>Mobile</th>
+<th>Desktop</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>홈</td>
+<td>1컬럼 풀폭, 가로 스크롤 섹션</td>
+<td>중앙 1200px, 그리드 2~3열</td>
+</tr>
+<tr>
+<td>교환/공구 목록</td>
+<td>2열 그리드</td>
+<td>3~4열 그리드</td>
+</tr>
+<tr>
+<td>상세 페이지</td>
+<td>풀폭</td>
+<td>중앙 카드 형태 (max-width 680px) — 당근마켓 PC 참고</td>
+</tr>
+<tr>
+<td>채팅</td>
+<td>풀스크린</td>
+<td>좌측 목록 + 우측 채팅 (2패널)</td>
+</tr>
+<tr>
+<td>마이페이지</td>
+<td>1컬럼</td>
+<td>좌측 메뉴 + 우측 컨텐츠</td>
+</tr>
+<tr>
+<td>등록 폼</td>
+<td>풀폭 스텝 폼</td>
+<td>중앙 카드 (max-width 600px)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_10">네비게이션 전환</h4>
+<table>
+<thead>
+<tr>
+<th>요소</th>
+<th>Mobile</th>
+<th>Desktop</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>메인 네비</td>
+<td>하단 BottomNav (5탭)</td>
+<td>상단 TopBar + 좌측 사이드</td>
+</tr>
+<tr>
+<td>FAB</td>
+<td>우하단 고정</td>
+<td>동일 (또는 상단 [등록] 버튼)</td>
+</tr>
+<tr>
+<td>바텀시트</td>
+<td>하단에서 슬라이드 업</td>
+<td>중앙 모달로 전환</td>
+</tr>
+<tr>
+<td>스와이프</td>
+<td>좌우 스와이프</td>
+<td>좌우 화살표 버튼</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_11">하이브리드 앱 대비</h4>
+<ul>
+<li>웹뷰에서는 항상 Mobile 레이아웃 강제 적용 (viewport 375px 기준)</li>
+<li>앱 전환 시 BottomNav → 네이티브 탭바로 교체 (웹뷰에서는 숨김)</li>
+<li>SafeArea 대응: env(safe-area-inset-*) CSS 변수 사전 적용</li>
+<li>딥링크 대비: 모든 페이지 URL이 /exchange/[id] 형태로 유지</li>
+</ul>
+<h3 id="tailwind-css">Tailwind CSS 반응형 구현</h3>
+<pre><code class="language-css">/* Mobile First - 기본 스타일이 모바일 */
+.container { @apply px-4 max-w-full; }
+.card-grid { @apply grid grid-cols-2 gap-3; }
+
+/* Desktop (md: 768px~) */
+@screen md {
+  .container { @apply px-6 max-w-[1200px] mx-auto; }
+  .card-grid { @apply grid-cols-3 lg:grid-cols-4 gap-4; }
+  .detail-page { @apply max-w-[640px] mx-auto; }
+}
+</code></pre>
+<h3 id="_12">네비게이션 반응형</h3>
+<p><strong>Mobile (기본)</strong><br />
+- Bottom Navigation: 5개 탭 (홈, 교환, 이벤트, 채팅, 마이페이지)<br />
+- 화면 하단에 고정<br />
+- 각 탭: 아이콘 + 레이블</p>
+<p><strong>Desktop (768px 이상)</strong><br />
+- Top Navigation Bar: 로고 + 메뉴 + 검색 + 알림 + 프로필<br />
+- 화면 상단에 고정<br />
+- 가로형 레이아웃으로 확장</p>
+<p><strong>네비게이션 전환</strong><br />
+- 768px 이상에서 Bottom Navigation 숨김 (<code>hidden md:flex</code>)<br />
+- 768px 미만에서 Top Navigation 숨김 (<code>flex md:hidden</code>)<br />
+- 부드러운 전환으로 UX 일관성 유지</p>
+<hr />
+<h2 id="5-ui">5. UI 컴포넌트</h2>
+<h3 id="51">5.1 상품 카드</h3>
+<p>가장 핵심적인 컴포넌트. 깔끔하고 정보 밀도가 적절해야 함.</p>
+<pre><code>┌──────────────────────┐
+│  ┌──────────────────┐ │
+│  │                  │ │  ← 상품 이미지 (1:1 비율)
+│  │    굿즈 사진      │ │
+│  │                  │ │
+│  └──────────────────┘ │
+│  [교환] [아이돌/아티스트]  │  ← 태그 (거래유형 + 카테고리)
+│  하이큐 피규어 히나타   │  ← 상품명 (최대 2줄)
+│  작품명 · 캐릭터명     │  ← 메타 정보 (Gray 400)
+│  ─────────────────── │
+│  ★ 4.8 · 거래 12회    │  ← 판매자 신뢰도
+└──────────────────────┘
+</code></pre>
+<p><strong>스타일 규칙:</strong><br />
+- 카드 배경: White, border: 1px solid Gray 200, border-radius: 12px<br />
+- 이미지: object-fit: cover, border-radius: 12px 12px 0 0<br />
+- 호버: 그림자(shadow-md) + 살짝 올라감(translateY -2px)<br />
+- 태그: 작은 pill 형태, 배경 컬러 + 텍스트 (카테고리별 accent 컬러)</p>
+<h3 id="52">5.2 교환 태그 유형</h3>
+<table>
+<thead>
+<tr>
+<th>유형</th>
+<th>배경</th>
+<th>텍스트</th>
+<th>레이블</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>교환</strong></td>
+<td><code>#FFF7ED</code></td>
+<td><code>#EA580C</code></td>
+<td>교환</td>
+</tr>
+<tr>
+<td><strong>공구</strong></td>
+<td><code>#EFF6FF</code></td>
+<td><code>#2563EB</code></td>
+<td>공구</td>
+</tr>
+<tr>
+<td><strong>구함</strong></td>
+<td><code>#F0FDF4</code></td>
+<td><code>#16A34A</code></td>
+<td>구함</td>
+</tr>
+<tr>
+<td><strong>세트공구</strong></td>
+<td><code>#FAF5FF</code></td>
+<td><code>#7C3AED</code></td>
+<td>세트공구</td>
+</tr>
+</tbody>
+</table>
+<h3 id="53">5.3 버튼 시스템</h3>
+<table>
+<thead>
+<tr>
+<th>유형</th>
+<th>스타일</th>
+<th>용도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Primary</strong></td>
+<td>bg: Blue, text: White, rounded-lg</td>
+<td>핵심 CTA (교환 제안, 공구 참여)</td>
+</tr>
+<tr>
+<td><strong>Secondary</strong></td>
+<td>bg: White, border: Blue, text: Blue</td>
+<td>보조 액션 (찜, 공유)</td>
+</tr>
+<tr>
+<td><strong>Ghost</strong></td>
+<td>bg: transparent, text: Gray 600</td>
+<td>텍스트 버튼 (더보기, 취소)</td>
+</tr>
+<tr>
+<td><strong>Danger</strong></td>
+<td>bg: Error, text: White</td>
+<td>삭제, 신고</td>
+</tr>
+<tr>
+<td><strong>Disabled</strong></td>
+<td>bg: Gray 100, text: Gray 400</td>
+<td>비활성</td>
+</tr>
+</tbody>
+</table>
+<p><strong>사이즈:</strong><br />
+- <strong>Large</strong>: h-48px, px-24px, text-16px (메인 CTA)<br />
+- <strong>Medium</strong>: h-40px, px-16px, text-14px (일반)<br />
+- <strong>Small</strong>: h-32px, px-12px, text-12px (카드 내, 태그 옆)</p>
+<h3 id="54">5.4 신뢰도 표시</h3>
+<p>번개장터의 "번개파워"나 당근마켓의 "매너온도"처럼, 애픽 월드만의 신뢰 시스템 시각화.</p>
+<pre><code>┌─────────────────────────────────┐
+│  👤 닉네임              Lv.3 💎  │
+│  ★★★★☆ 4.2 · 거래 28회          │
+│  ━━━━━━━━━━━━━━░░░░░  78%      │  ← 신뢰도 게이지 (Blue 그라데이션)
+│  📍 서울 · 🕐 최근 활동 2시간 전   │
+└─────────────────────────────────┘
+</code></pre>
+<p><strong>신뢰 등급:</strong><br />
+| 등급 | 조건 | 아이콘 | 컬러 |<br />
+|------|------|--------|------|<br />
+| Lv.1 새싹 | 가입 | 🌱 | Gray 400 |<br />
+| Lv.2 일반 | 거래 5회+ | ⭐ | Info |<br />
+| Lv.3 우수 | 거래 20회+ &amp; 평점 4.0+ | 💎 | Blue |<br />
+| Lv.4 VIP | 거래 50회+ &amp; 평점 4.5+ | 👑 | Warning (Gold) |</p>
+<h3 id="55">5.5 네비게이션</h3>
+<p><strong>Bottom Navigation (모바일)</strong></p>
+<pre><code>┌─────────────────────────────────────┐
+│  🏠     🔄      📅     💬     👤    │
+│  홈    교환    이벤트   채팅   마이   │
+└─────────────────────────────────────┘
+</code></pre>
+<ul>
+<li>비활성: Gray 400, 활성: Blue (#3B82F6)</li>
+<li>아이콘: Lucide React 사용 (일관된 선 두께)</li>
+<li>중앙 강조 없이 균등 배치 (깔끔한 느낌)</li>
+</ul>
+<p><strong>Top Bar</strong></p>
+<pre><code>┌─────────────────────────────────────┐
+│  🔙  애픽 월드               🔔  ≡      │
+│  ┌───────────────────────────────┐  │
+│  │ 🔍 상품명, 작품, 캐릭터 검색   │  │
+│  └───────────────────────────────┘  │
+└─────────────────────────────────────┘
+</code></pre>
+<h3 id="56">5.6 배너 영역 (생일/데뷔 광고)</h3>
+<pre><code>┌─────────────────────────────────────┐
+│                                     │
+│   🎂 [아이돌/배우/캐릭터명] 생일 축하! │
+│      팬 제작 배너 이미지             │
+│                                     │
+│   ‹ ● ● ○ ○ ›                      │  ← 캐러셀 인디케이터
+└─────────────────────────────────────┘
+</code></pre>
+<ul>
+<li>비율: 모바일 16:9, 데스크톱 4:1</li>
+<li>자동 슬라이드 (5초 간격)</li>
+<li>좌우 스와이프 / 화살표 네비게이션</li>
+</ul>
+<h3 id="57-ui">5.7 이벤트 캘린더 UI</h3>
+<pre><code>┌─────────────────────────────────────┐
+│  📅 팬 이벤트 캘린더                  │
+│  ┌───┬───┬───┬───┬───┬───┬───┐    │
+│  │ 일│ 월│ 화│ 수│ 목│ 금│ 토│    │
+│  ├───┼───┼───┼───┼───┼───┼───┤    │
+│  │   │   │   │ 1 │ 2 │ 3●│ 4 │    │  ← ● = 이벤트 있는 날
+│  │ 5 │ 6●│ 7 │ 8 │ 9●│10 │11 │    │
+│  └───┴───┴───┴───┴───┴───┴───┘    │
+│                                     │
+│  3월 6일 이벤트                      │
+│  ┌─────────────────────────────┐    │
+│  │ 🎂 [캐릭터] 생일카페           │    │
+│  │ 📍 서울 홍대 · 3/6~3/10       │    │
+│  │ [아이돌/아티스트] [생일카페]        │    │
+│  └─────────────────────────────┘    │
+│  ┌─────────────────────────────┐    │
+│  │ 🚇 [아이돌/아티스트] 지하철 광고     │    │
+│  │ 📍 강남역 · 3/1~3/15          │    │
+│  │ [아이돌/아티스트] [지하철광고]      │    │
+│  └─────────────────────────────┘    │
+└─────────────────────────────────────┘
+</code></pre>
+<ul>
+<li>캘린더/리스트/지도 뷰 토글</li>
+<li>이벤트 도트: 카테고리별 accent 컬러</li>
+<li>이벤트 카드: 간결한 정보 + 태그</li>
+</ul>
+<hr />
+<h2 id="6">6. 아이콘 &amp; 일러스트레이션</h2>
+<h3 id="_13">아이콘 시스템</h3>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>규칙</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>라이브러리</strong></td>
+<td>Lucide React (오픈소스, 일관된 스타일)</td>
+</tr>
+<tr>
+<td><strong>선 두께</strong></td>
+<td>1.5px (기본)</td>
+</tr>
+<tr>
+<td><strong>크기</strong></td>
+<td>16px (인라인), 20px (네비게이션), 24px (강조)</td>
+</tr>
+<tr>
+<td><strong>컬러</strong></td>
+<td>단색. 기본 Gray 600, 활성 Blue</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_14">상태 아이콘</h3>
+<table>
+<thead>
+<tr>
+<th>상태</th>
+<th>아이콘</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>교환 대기</td>
+<td>⏳ <code>Clock</code></td>
+<td>상대방 응답 대기</td>
+</tr>
+<tr>
+<td>교환 성사</td>
+<td>✅ <code>CheckCircle</code></td>
+<td>매칭 완료</td>
+</tr>
+<tr>
+<td>공구 진행</td>
+<td>📦 <code>Package</code></td>
+<td>모집 중</td>
+</tr>
+<tr>
+<td>공구 마감</td>
+<td>🔒 <code>Lock</code></td>
+<td>목표 달성/마감</td>
+</tr>
+<tr>
+<td>새 알림</td>
+<td>🔴</td>
+<td>빨간 도트 뱃지</td>
+</tr>
+</tbody>
+</table>
+<h3 id="empty-state">빈 상태 (Empty State)</h3>
+<p>화면에 데이터가 없을 때 보여주는 일러스트. 심플한 라인 일러스트 스타일.</p>
+<pre><code>       ┌───┐
+       │ ? │
+       └─┬─┘
+     ╱   │   ╲
+    ╱    │    ╲
+   ○     ○     ○
+
+  아직 등록된 교환 상품이 없어요
+  [교환 등록하기] 버튼으로 시작해보세요!
+</code></pre>
+<ul>
+<li>일러스트: 단색 라인 드로잉 (Gray 300)</li>
+<li>메시지: 친근한 톤 (Body M, Gray 400)</li>
+<li>CTA 버튼: 항상 포함</li>
+</ul>
+<hr />
+<h2 id="7">7. 그림자 &amp; 깊이</h2>
+<h3 id="_15">엘리베이션 시스템</h3>
+<table>
+<thead>
+<tr>
+<th>레벨</th>
+<th>그림자</th>
+<th>용도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Level 0</strong></td>
+<td>없음 (border만)</td>
+<td>기본 카드, 인풋</td>
+</tr>
+<tr>
+<td><strong>Level 1</strong></td>
+<td><code>0 1px 3px rgba(0,0,0,0.08)</code></td>
+<td>호버 카드, 드롭다운</td>
+</tr>
+<tr>
+<td><strong>Level 2</strong></td>
+<td><code>0 4px 12px rgba(0,0,0,0.1)</code></td>
+<td>모달, 바텀시트, 플로팅 버튼</td>
+</tr>
+<tr>
+<td><strong>Level 3</strong></td>
+<td><code>0 8px 24px rgba(0,0,0,0.12)</code></td>
+<td>토스트, 알림 팝업</td>
+</tr>
+</tbody>
+</table>
+<h3 id="border-radius">Border Radius</h3>
+<table>
+<thead>
+<tr>
+<th>요소</th>
+<th>값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>카드</td>
+<td>12px</td>
+</tr>
+<tr>
+<td>버튼</td>
+<td>8px (기본) / 999px (pill)</td>
+</tr>
+<tr>
+<td>인풋</td>
+<td>8px</td>
+</tr>
+<tr>
+<td>이미지</td>
+<td>12px (카드 내) / 50% (아바타)</td>
+</tr>
+<tr>
+<td>태그</td>
+<td>999px (pill)</td>
+</tr>
+<tr>
+<td>모달</td>
+<td>16px</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8">8. 모션 &amp; 인터랙션</h2>
+<h3 id="_16">기본 원칙</h3>
+<ul>
+<li>부드럽고 빠르게: 150ms~300ms</li>
+<li>자연스러운 easing: <code>ease-out</code> 기본</li>
+<li>과하지 않게: 모든 요소가 움직일 필요 없음</li>
+</ul>
+<h3 id="_17">트랜지션 가이드</h3>
+<table>
+<thead>
+<tr>
+<th>요소</th>
+<th>속성</th>
+<th>듀레이션</th>
+<th>이징</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>버튼 호버</td>
+<td>background, transform</td>
+<td>150ms</td>
+<td>ease-out</td>
+</tr>
+<tr>
+<td>카드 호버</td>
+<td>shadow, transform</td>
+<td>200ms</td>
+<td>ease-out</td>
+</tr>
+<tr>
+<td>페이지 전환</td>
+<td>opacity</td>
+<td>200ms</td>
+<td>ease-in-out</td>
+</tr>
+<tr>
+<td>모달 등장</td>
+<td>opacity, transform(scale)</td>
+<td>250ms</td>
+<td>ease-out</td>
+</tr>
+<tr>
+<td>바텀시트</td>
+<td>transform(translateY)</td>
+<td>300ms</td>
+<td>ease-out</td>
+</tr>
+<tr>
+<td>스켈레톤</td>
+<td>opacity(pulse)</td>
+<td>1500ms</td>
+<td>ease-in-out</td>
+</tr>
+<tr>
+<td>토스트</td>
+<td>transform(translateY), opacity</td>
+<td>300ms</td>
+<td>ease-out</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_18">마이크로인터랙션</h3>
+<table>
+<thead>
+<tr>
+<th>인터랙션</th>
+<th>효과</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>찜 하트</strong></td>
+<td>클릭 시 하트 아이콘 스케일 바운스 (1 → 1.3 → 1) + 컬러 변경</td>
+</tr>
+<tr>
+<td><strong>교환 매칭</strong></td>
+<td>두 카드가 중앙으로 슬라이드 → 연결 효과 → 체크 표시</td>
+</tr>
+<tr>
+<td><strong>공구 달성</strong></td>
+<td>프로그레스 바 fill + 컨페티 효과 (subtle)</td>
+</tr>
+<tr>
+<td><strong>풀투리프레시</strong></td>
+<td>상단에서 로딩 스피너 내려옴</td>
+</tr>
+<tr>
+<td><strong>스와이프 삭제</strong></td>
+<td>좌측 스와이프로 삭제 옵션 노출</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9">9. 페이지별 레이아웃</h2>
+<h3 id="91">9.1 메인 홈</h3>
+<pre><code>┌─────────────────────────────────────┐
+│  [Top Bar + 검색]                    │
+├─────────────────────────────────────┤
+│  [배너 캐러셀 — 생일/데뷔 축하]       │
+│  ‹ ● ● ○ ›                          │
+├─────────────────────────────────────┤
+│  📅 다가오는 이벤트                   │
+│  ┌──────┐ ┌──────┐ ┌──────┐        │
+│  │ 이벤트1│ │ 이벤트2│ │ 이벤트3│  →   │  ← 가로 스크롤
+│  └──────┘ └──────┘ └──────┘        │
+├─────────────────────────────────────┤
+│  🔥 인기 교환                 더보기 &gt; │
+│  ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐  │
+│  │     │ │     │ │     │ │     │  │
+│  │ 카드 │ │ 카드 │ │ 카드 │ │ 카드 │  │
+│  │     │ │     │ │     │ │     │  │
+│  └─────┘ └─────┘ └─────┘ └─────┘  │
+├─────────────────────────────────────┤
+│  📦 진행 중 공구               더보기 &gt; │
+│  ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐  │
+│  │     │ │     │ │     │ │     │  │
+│  │ 카드 │ │ 카드 │ │ 카드 │ │ 카드 │  │
+│  │     │ │     │ │     │ │     │  │
+│  └─────┘ └─────┘ └─────┘ └─────┘  │
+├─────────────────────────────────────┤
+│  🔍 구함글 모아보기           더보기 &gt; │
+│  ┌─────────────────────────────┐    │
+│  │ &quot;하이큐 히나타 아크릴 구합니다&quot;  │    │
+│  │ 닉네임 · 2시간 전              │    │
+│  └─────────────────────────────┘    │
+├─────────────────────────────────────┤
+│  [Bottom Navigation]                 │
+└─────────────────────────────────────┘
+</code></pre>
+<h3 id="92">9.2 교환 목록</h3>
+<pre><code>┌─────────────────────────────────────┐
+│  교환                      필터 ▾   │
+│  ┌─────────────────────────────┐    │
+│  │ 작품 ▾ │ 캐릭터 ▾ │ 굿즈 ▾  │    │  ← 필터 칩
+│  └─────────────────────────────┘    │
+│  ┌─────┐ ┌─────┐                   │
+│  │     │ │     │                   │
+│  │ 카드 │ │ 카드 │  ...             │
+│  │     │ │     │                   │
+│  └─────┘ └─────┘                   │
+│  ┌─────┐ ┌─────┐                   │
+│  │     │ │     │                   │
+│  │ 카드 │ │ 카드 │  ...             │
+│  │     │ │     │                   │
+│  └─────┘ └─────┘                   │
+│                                     │
+│                [+] FAB (등록하기)     │  ← 플로팅 액션 버튼
+└─────────────────────────────────────┘
+</code></pre>
+<h3 id="93">9.3 교환 상세</h3>
+<pre><code>┌─────────────────────────────────────┐
+│  🔙  교환 상세                       │
+├─────────────────────────────────────┤
+│  ┌─────────────────────────────┐    │
+│  │                             │    │
+│  │        상품 이미지 슬라이더    │    │
+│  │                             │    │
+│  └─────────────────────────────┘    │
+│  ● ○ ○                              │
+├─────────────────────────────────────┤
+│  [교환]                              │
+│  하이큐 히나타 아크릴 스탠드          │
+│  작품: 하이큐!! · 캐릭터: 히나타 쇼요  │
+│                                     │
+│  상태: S급 (미개봉)                   │
+│  희망 교환: 카게야마 아크릴            │
+│  차액: ±3,000원 가능                  │
+├─────────────────────────────────────┤
+│  판매자 정보                         │
+│  👤 닉네임    Lv.3 💎  ★ 4.2        │
+│  📍 서울 · 직거래/택배 가능           │
+├─────────────────────────────────────┤
+│  ┌──────────────┐ ┌──────────────┐  │
+│  │   💬 채팅     │ │  🔄 교환 제안  │  │
+│  └──────────────┘ └──────────────┘  │
+└─────────────────────────────────────┘
+</code></pre>
+<h3 id="94">9.4 세트 공구 (캐릭터 선점)</h3>
+<pre><code>┌─────────────────────────────────────┐
+│  🔙  공구 상세                       │
+├─────────────────────────────────────┤
+│  세트 상품 이미지                     │
+│  하이큐 아크릴 스탠드 풀세트 (8종)     │
+│  주최: @닉네임 · 마감 D-5             │
+├─────────────────────────────────────┤
+│  가격: 세트 48,000원                  │
+│  인당: 6,000원 (1캐릭터)              │
+│  현재: 5/8명 참여                     │
+│  ━━━━━━━━━━━━━━━━━░░░░  62%       │
+├─────────────────────────────────────┤
+│  캐릭터 선택                         │
+│                                     │
+│  ✅ 히나타 쇼요     @user1 선점       │
+│  ✅ 카게야마 토비오  @user2 선점       │
+│  ✅ 니시노야 유      @user3 선점       │
+│  ✅ 츠키시마 케이    @user4 선점       │
+│  ✅ 스가와라 코시    @user5 선점       │
+│  ⬜ 다이치 사와무라   [선점하기]       │  ← 선택 가능
+│  ⬜ 아사히 아즈마네   [선점하기]       │  ← 선택 가능
+│  ⬜ 타나카 류노스케   [선점하기]       │  ← 선택 가능
+│                                     │
+├─────────────────────────────────────┤
+│  ┌──────────────────────────────┐   │
+│  │      📦 공구 참여하기          │   │  ← Primary CTA
+│  └──────────────────────────────┘   │
+└─────────────────────────────────────┘
+</code></pre>
+<hr />
+<h2 id="10-phase-2">10. 다크 모드 (Phase 2)</h2>
+<h3 id="_19">기본 방향</h3>
+<p>Phase 1에서는 라이트 모드만 지원. Phase 2에서 다크 모드 추가.</p>
+<table>
+<thead>
+<tr>
+<th>라이트</th>
+<th>다크</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>White <code>#FFFFFF</code></td>
+<td>Dark <code>#1A1A2E</code></td>
+</tr>
+<tr>
+<td>Gray 50 <code>#F9FAFB</code></td>
+<td>Dark 100 <code>#16213E</code></td>
+</tr>
+<tr>
+<td>Gray 900 <code>#111827</code></td>
+<td>White <code>#F1F1F1</code></td>
+</tr>
+<tr>
+<td>Coral <code>#3B82F6</code></td>
+<td>Blue (유지) <code>#3B82F6</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="11">11. 디자인 토큰 (개발 연동)</h2>
+<h3 id="tailwind-css_1">Tailwind CSS 커스텀 설정</h3>
+<pre><code class="language-javascript">// tailwind.config.js
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        brand: {
+          50: '#EFF6FF',
+          100: '#DBEAFE',
+          200: '#BFDBFE',
+          300: '#93C5FD',
+          400: '#3B82F6',  // primary
+          500: '#2563EB',
+          600: '#1D4ED8',
+        },
+        anime: '#8B5CF6',
+        idol: '#EC4899',
+        game: '#06B6D4',
+      },
+      fontFamily: {
+        sans: ['Pretendard', 'Noto Sans KR', 'sans-serif'],
+      },
+      borderRadius: {
+        card: '12px',
+        modal: '16px',
+      },
+      boxShadow: {
+        card: '0 1px 3px rgba(0,0,0,0.08)',
+        'card-hover': '0 4px 12px rgba(0,0,0,0.1)',
+        modal: '0 8px 24px rgba(0,0,0,0.12)',
+      },
+    },
+  },
+};
+</code></pre>
+<hr />
+<h2 id="12">12. 로고 &amp; 브랜딩</h2>
+<h3 id="_20">로고 가이드</h3>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>규칙</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>기본형</strong></td>
+<td>워드마크 "애픽 월드" + 서브 "Aepik World"</td>
+</tr>
+<tr>
+<td><strong>심볼</strong></td>
+<td>하트(♥) + 픽(Pick) 손가락을 결합한 심플 아이콘</td>
+</tr>
+<tr>
+<td><strong>컬러</strong></td>
+<td>Blue 기본, White (다크 배경), Gray 900 (단색)</td>
+</tr>
+<tr>
+<td><strong>최소 크기</strong></td>
+<td>가로 80px 이상</td>
+</tr>
+<tr>
+<td><strong>여백</strong></td>
+<td>로고 높이의 50% 이상 주변 여백 확보</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_21">파비콘 &amp; 앱 아이콘</h3>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>사이즈</th>
+<th>형태</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>파비콘</td>
+<td>32×32</td>
+<td>심볼만 (배경 투명)</td>
+</tr>
+<tr>
+<td>앱 아이콘</td>
+<td>1024×1024</td>
+<td>심볼 + Blue 배경, rounded</td>
+</tr>
+<tr>
+<td>OG 이미지</td>
+<td>1200×630</td>
+<td>워드마크 + 슬로건</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="13-accessibility">13. 접근성 (Accessibility)</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>기준</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>색상 대비</strong></td>
+<td>WCAG AA 이상 (본문 4.5:1, 대형 텍스트 3:1)</td>
+</tr>
+<tr>
+<td><strong>터치 타겟</strong></td>
+<td>최소 44×44px</td>
+</tr>
+<tr>
+<td><strong>포커스 표시</strong></td>
+<td>키보드 탐색 시 Blue outline (2px)</td>
+</tr>
+<tr>
+<td><strong>alt 텍스트</strong></td>
+<td>모든 상품 이미지에 작품명 + 캐릭터명 자동 생성</td>
+</tr>
+<tr>
+<td><strong>색맹 대응</strong></td>
+<td>색상만으로 정보 전달하지 않음 (아이콘 + 텍스트 병행)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="14">14. 디자인 원칙 요약</h2>
+<ol>
+<li><strong>Content First</strong> — 굿즈 사진과 거래 정보가 주인공. UI는 프레임 역할</li>
+<li><strong>Trust by Design</strong> — 신뢰 뱃지, 평점, 거래 횟수를 항상 노출하여 안심 거래 유도</li>
+<li><strong>Less is More</strong> — 과한 장식 지양. 여백과 정돈으로 고급스러움 표현</li>
+<li><strong>Warm &amp; Approachable</strong> — 딱딱한 비즈니스가 아닌, 덕질 친구 같은 따뜻함</li>
+<li><strong>Consistent</strong> — 컬러, 타이포, 스페이싱, 컴포넌트 규칙을 일관되게 유지</li>
+<li><strong>Mobile First</strong> — 모바일에서 가장 잘 동작하도록 설계, 데스크톱은 확장</li>
+</ol>
+<hr />
+<p><em>작성: 2026-03-05 | 버전: v1.0 | 적용 대상: 애픽 월드 (Aepik World) 전체 서비스</em></p>
+</div>
+
+<div class="page-footer">
+  애픽 월드 (Aepik World) — 2026-03-06 생성
+</div>
+
+</body>
+</html>
