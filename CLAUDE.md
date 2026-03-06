@@ -325,7 +325,11 @@
 - **CSS 기반**: HOME01의 CSS 블록을 그대로 복사한 뒤, 화면별 와이어프레임 요소 스타일만 추가
 - **카테고리 컬러**: Purple(#8B5CF6)/Pink(#EC4899)/Amber(#F59E0B)/Cyan(#06B6D4)
 - **WBS 링크**: 새 와이어프레임 생성 시 WBS의 산출물 열에 `<a class="wire-link" href="파일명.html">` 추가
-- **이모지 사용 금지**: 와이어프레임 HTML, 기획서 MD 등 모든 산출물에 이모지(emoji) 사용 금지. 아이콘이 필요한 경우 Lucide 스타일 인라인 SVG 아이콘 사용 (`viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"`). HOME01_디자인시안.html의 아이콘 패턴 참고
+- **이모지 사용 원칙**: 모든 산출물에서 이모지(emoji) 대신 Lucide 스타일 인라인 SVG 아이콘을 사용한다.
+  - **HTML 파일** (와이어프레임, 디자인시안, IA, FLOW, WBS 등): 반드시 인라인 SVG 사용 (`viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"`). HOME01_디자인시안.html의 아이콘 패턴 참고
+  - **Markdown 파일** (기획서, PRD, 디자인가이드 등): 백틱 감싼 Lucide 아이콘명 사용 (예: `Home`, `Search`, `ArrowRight`). 체크/비체크는 O / X 텍스트 사용
+  - **CSS content 속성**: SVG를 직접 삽입할 수 없으므로 `data:image/svg+xml` URL 인코딩 형식 사용
+  - **이모지 허용 예외**: SVG를 삽입할 수 없는 환경(외부 플랫폼 게시글, 순수 텍스트 채널 등)에서만 이모지 허용. 프로젝트 내부 산출물에서는 금지
 - **독립 실행**: 단일 HTML 파일, 외부 의존성 없음
 
 ### 공통 디자인 시스템 참고 필수
