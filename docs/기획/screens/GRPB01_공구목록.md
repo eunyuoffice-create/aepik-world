@@ -32,7 +32,7 @@
 
 ### ① Header
 - 좌측: 페이지 제목 "공구"
-- 우측: 검색 아이콘(🔍) — 탭 시 검색 페이지(SRCH01) 이동
+- 우측: 검색 아이콘(`Search`) — 탭 시 검색 페이지(SRCH01) 이동
 
 ### ② 카테고리 필터
 - 가로 스크롤 형태 (모바일에서 좌우 스와이프)
@@ -103,14 +103,14 @@
 
 | 필드 | 타입 | 필수 | 설명 |
 |------|------|------|------|
-| page | number | ❌ | 페이지 번호 (기본 1) |
-| limit | number | ❌ | 페이지당 개수 (기본 20) |
-| category | string | ❌ | 카테고리 필터 (anime_manga/idol_artist/actor_stage/game) |
-| work_id | string | ❌ | 작품 필터 |
-| goods_type | string | ❌ | 굿즈 타입 필터 |
-| type | string | ❌ | 공구 유형 (normal/set) |
-| status | string | ❌ | 상태 (active/closed) |
-| sort | string | ❌ | 정렬 (latest/popular/deadline) |
+| page | number | X | 페이지 번호 (기본 1) |
+| limit | number | X | 페이지당 개수 (기본 20) |
+| category | string | X | 카테고리 필터 (anime_manga/idol_artist/actor_stage/game) |
+| work_id | string | X | 작품 필터 |
+| goods_type | string | X | 굿즈 타입 필터 |
+| type | string | X | 공구 유형 (normal/set) |
+| status | string | X | 상태 (active/closed) |
+| sort | string | X | 정렬 (latest/popular/deadline) |
 
 **Response:**
 

@@ -19,24 +19,23 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 .meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
 
 /* ===== MAIN LAYOUT ===== */
-.main-layout {
+.main-layout { overflow-x: hidden;
   display: flex; min-height: calc(100vh - 48px);
 }
 
 /* ===== WIREFRAME SIDE ===== */
 .wireframe-side {
-  flex: 0 0 55%; background: #EAEAEA; padding: 32px;
+  flex: 1 1 55%; min-width: 0; background: #EAEAEA; padding: 32px;
   display: flex; justify-content: center; overflow-y: auto;
 }
 .phone-frame {
-  width: 375px; background: #fff; border-radius: 16px;
+  max-width: 375px; width: 100%; background: #fff; border-radius: 16px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative;
-  overflow: hidden; flex-shrink: 0;
-}
+  overflow: hidden; }
 
 /* ===== DESCRIPTION SIDE ===== */
 .desc-side {
-  flex: 0 0 45%; background: #fff; padding: 24px 28px;
+  flex: 1 1 45%; min-width: 0; background: #fff; padding: 24px 28px;
   overflow-y: auto; border-left: 1px solid #ddd;
 }
 .desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
@@ -190,6 +189,21 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   .wireframe-side { flex: none; padding: 16px; }
   .desc-side { flex: none; border-left: none; border-top: 1px solid #ddd; }
 }
+/* Responsive improvements for laptop/small screens */
+.meta-bar { flex-wrap: wrap; gap: 8px; }
+.phone-frame { max-width: 375px; width: 100%; }
+@media (max-width: 1200px) {
+  .main-layout { gap: 0; }
+  .wireframe-side { flex: 0 0 50%; padding: 20px; }
+  .desc-side { flex: 0 0 50%; padding: 20px; }
+}
+@media (max-width: 700px) {
+  .wireframe-side { padding: 12px; justify-content: center; }
+  .desc-side { padding: 12px 16px; }
+  .phone-frame { max-width: 100%; }
+  .meta-bar { padding: 8px 12px; }
+  .meta-item { font-size: 11px; }
+}
 </style>
 </head>
 <body>
@@ -218,7 +232,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <div class="wf-header">
           <span class="wf-page-title">교환</span>
           <div class="wf-header-icons">
-            <div class="wf-icon">🔍</div>
+            <div class="wf-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
           </div>
         </div>
       </div>
@@ -260,7 +274,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
               </div>
               <div class="wf-product-name">하이큐 히나타 아크릴 스탠드</div>
               <div class="wf-product-meta">하이큐 · 히나타 쇼요</div>
-              <div class="wf-product-rating">★ 4.8 · 거래 12회</div>
+              <div class="wf-product-rating">&#9733; 4.8 · 거래 12회</div>
             </div>
           </div>
           <!-- Card 2 -->
@@ -277,7 +291,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
               </div>
               <div class="wf-product-name">하이큐 카게야마 캔뱃지 세트</div>
               <div class="wf-product-meta">하이큐 · 카게야마 토비오</div>
-              <div class="wf-product-rating">★ 4.5 · 거래 8회</div>
+              <div class="wf-product-rating">&#9733; 4.5 · 거래 8회</div>
             </div>
           </div>
           <!-- Card 3 -->
@@ -294,7 +308,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
               </div>
               <div class="wf-product-name">하이큐 오이카와 포토카드 Special</div>
               <div class="wf-product-meta">하이큐 · 오이카와 토오루</div>
-              <div class="wf-product-rating">★ 5.0 · 거래 41회</div>
+              <div class="wf-product-rating">&#9733; 5.0 · 거래 41회</div>
             </div>
           </div>
           <!-- Card 4 - Completed -->
@@ -307,7 +321,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
               </div>
               <div class="wf-product-name">하이큐 켄마 아크릴 키링</div>
               <div class="wf-product-meta">하이큐 · 코즈메 켄마</div>
-              <div class="wf-product-rating">★ 4.3 · 거래 5회</div>
+              <div class="wf-product-rating">&#9733; 4.3 · 거래 5회</div>
             </div>
           </div>
           <!-- Card 5 -->
@@ -320,7 +334,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
               </div>
               <div class="wf-product-name">하이큐 니시노야 피규어</div>
               <div class="wf-product-meta">하이큐 · 니시노야 유우</div>
-              <div class="wf-product-rating">★ 4.7 · 거래 16회</div>
+              <div class="wf-product-rating">&#9733; 4.7 · 거래 16회</div>
             </div>
           </div>
           <!-- Card 6 -->
@@ -333,7 +347,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
               </div>
               <div class="wf-product-name">하이큐 츠키시마 아크릴 블럭</div>
               <div class="wf-product-meta">하이큐 · 츠키시마 케이</div>
-              <div class="wf-product-rating">★ 4.9 · 거래 23회</div>
+              <div class="wf-product-rating">&#9733; 4.9 · 거래 23회</div>
             </div>
           </div>
         </div>
@@ -347,11 +361,11 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       <div class="wf-section">
         <div class="num-circle" style="top:4px; left:6px;">6</div>
         <div class="wf-bottom-nav">
-          <div class="wf-nav-item"><span class="wf-nav-icon">🏠</span>홈</div>
-          <div class="wf-nav-item active"><span class="wf-nav-icon">🔄</span>교환</div>
-          <div class="wf-nav-item"><span class="wf-nav-icon">📅</span>이벤트</div>
-          <div class="wf-nav-item"><span class="wf-nav-icon">💬</span>채팅</div>
-          <div class="wf-nav-item"><span class="wf-nav-icon">👤</span>마이</div>
+          <div class="wf-nav-item"><span class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>홈</div>
+          <div class="wf-nav-item active"><span class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></span>교환</div>
+          <div class="wf-nav-item"><span class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>이벤트</div>
+          <div class="wf-nav-item"><span class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>채팅</div>
+          <div class="wf-nav-item"><span class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>마이</div>
         </div>
       </div>
 
@@ -373,7 +387,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       <div class="desc-body">
         <ul>
           <li>좌측: 페이지 제목 "교환" (고정 텍스트)</li>
-          <li>우측: 검색 아이콘 (🔍)
+          <li>우측: 검색 아이콘 (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>)
             <ul class="sub">
               <li>탭 시: 검색 페이지(SRCH01) 이동</li>
             </ul>
@@ -460,7 +474,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
               <li>태그: [거래유형] + [카테고리]</li>
               <li>상품명 (최대 2줄, text-overflow: ellipsis)</li>
               <li>작품명 · 캐릭터명 (Gray 400)</li>
-              <li>★ 평점 · 거래 N회</li>
+              <li>&#9733; 평점 · 거래 N회</li>
             </ul>
           </li>
           <li>교환 완료 매물: 이미지 위 "교환완료" 뱃지 + 전체 반투명(opacity 0.5)</li>
@@ -489,7 +503,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <ul>
           <li>우하단 고정 (bottom: 80px, right: 16px)</li>
           <li>56×56px, border-radius: 50%, Blue 배경</li>
-          <li>아이콘: + (또는 ✏️ 편집 아이콘)</li>
+          <li>아이콘: + (또는 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> 편집 아이콘)</li>
           <li>탭 시: 교환글 등록(EXCH03) 이동
             <ul class="sub">
               <li>비로그인: 로그인 유도 바텀시트</li>
@@ -552,7 +566,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <tbody>
             <tr><td style="padding:4px 8px;">교환 상세</td><td style="padding:4px 8px;">카드 탭</td><td style="padding:4px 8px;">EXCH02</td></tr>
             <tr><td style="padding:4px 8px;">교환글 등록</td><td style="padding:4px 8px;">FAB 탭</td><td style="padding:4px 8px;">EXCH03</td></tr>
-            <tr><td style="padding:4px 8px;">검색</td><td style="padding:4px 8px;">🔍 아이콘 탭</td><td style="padding:4px 8px;">SRCH01</td></tr>
+            <tr><td style="padding:4px 8px;">검색</td><td style="padding:4px 8px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> 아이콘 탭</td><td style="padding:4px 8px;">SRCH01</td></tr>
             <tr><td style="padding:4px 8px;">홈</td><td style="padding:4px 8px;">홈 탭 / 뒤로가기</td><td style="padding:4px 8px;">HOME01</td></tr>
             <tr><td style="padding:4px 8px;">로그인</td><td style="padding:4px 8px;">비로그인 + FAB</td><td style="padding:4px 8px;">AUTH01</td></tr>
           </tbody>

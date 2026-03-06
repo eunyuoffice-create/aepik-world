@@ -33,7 +33,7 @@
 
 ### ① Header
 - 좌측: 페이지 제목 "교환"
-- 우측: 검색 아이콘(🔍) — 탭 시 검색 페이지(SRCH01) 이동
+- 우측: 검색 아이콘(`Search`) — 탭 시 검색 페이지(SRCH01) 이동
 
 ### ② 필터 바 (FilterChips)
 - 가로 스크롤 칩 형태
@@ -55,19 +55,19 @@
   - 작품명 · 캐릭터명 (Gray 400)
   - ★ 평점 · 거래 횟수
 - 교환 완료 매물: "교환완료" 오버레이 + 반투명 처리
-- 끌어올리기된 매물: 🔥 아이콘 + "UP" 뱃지 표시
+- 끌어올리기된 매물: `Flame` 아이콘 + "UP" 뱃지 표시
 - 제안 받은 매물: "제안 N건" 뱃지 (본인 글에만 표시)
 - 무한 스크롤 (Intersection Observer)
 - 스켈레톤 UI: 로딩 시 카드 형태 회색 박스 펄스 애니메이션
 
 ### ⑤ FAB (Floating Action Button)
 - 우하단 고정 (bottom: 80px, right: 16px)
-- 아이콘: ✏️ (+) — 교환글 등록
+- 아이콘: `Edit` (+) — 교환글 등록
 - 비로그인 시: 로그인 유도 팝업
 - 스크롤 다운 시 축소/반투명
 
 ### ⑥ 하단 네비게이션 (BottomNav)
-- 5개 탭: 홈(🏠) | **교환(🔄)** | 이벤트(📅) | 채팅(💬) | 마이(👤)
+- 5개 탭: 홈(`Home`) | **교환(`Repeat`)** | 이벤트(`Calendar`) | 채팅(`MessageCircle`) | 마이(`User`)
 - 교환 탭 활성 상태 (Blue)
 
 ### ⑦ Empty State
@@ -86,15 +86,15 @@
 
 | 필드 | 타입 | 필수 | 설명 |
 |------|------|------|------|
-| page | number | ❌ | 페이지 번호 (기본 1) |
-| limit | number | ❌ | 페이지당 개수 (기본 20) |
-| work_id | string | ❌ | 작품 필터 |
-| character_id | string | ❌ | 캐릭터 필터 |
-| goods_type | string | ❌ | 굿즈 타입 필터 |
-| condition | string | ❌ | 상품 상태 (S/A/B/C) |
-| trade_method | string | ❌ | 거래 방법 (delivery/meetup/both) |
-| has_cash_diff | boolean | ❌ | 차액 여부 |
-| sort | string | ❌ | 정렬 (latest/popular/nearest) |
+| page | number | X | 페이지 번호 (기본 1) |
+| limit | number | X | 페이지당 개수 (기본 20) |
+| work_id | string | X | 작품 필터 |
+| character_id | string | X | 캐릭터 필터 |
+| goods_type | string | X | 굿즈 타입 필터 |
+| condition | string | X | 상품 상태 (S/A/B/C) |
+| trade_method | string | X | 거래 방법 (delivery/meetup/both) |
+| has_cash_diff | boolean | X | 차액 여부 |
+| sort | string | X | 정렬 (latest/popular/nearest) |
 
 **Response:**
 

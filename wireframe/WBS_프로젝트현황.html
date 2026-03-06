@@ -390,8 +390,11 @@
     text-decoration: underline;
   }
   .wire-link::before {
-    content: '🔗';
-    font-size: 11px;
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233B82F6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' width='14' height='14'%3E%3Cpath d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/%3E%3Cpath d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/%3E%3C/svg%3E");
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
   }
 
   .deliverable-tag {
@@ -427,6 +430,17 @@
     .header, .main { padding-left: 20px; padding-right: 20px; }
     .summary-row { grid-template-columns: repeat(3, 1fr); }
   }
+/* Responsive improvements for laptop/small screens */
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+@media (max-width: 1200px) {
+  .header, .main { padding-left: 12px; padding-right: 12px; }
+  .summary-row { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+}
+@media (max-width: 900px) {
+  .summary-row { grid-template-columns: 1fr; }
+  table { font-size: 12px; }
+  table th, table td { padding: 6px 8px; }
+}
 </style>
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
@@ -453,7 +467,7 @@
     </div>
     <div class="summary-card">
       <div class="label">Completed</div>
-      <div class="value" style="color:#34D399">31</div>
+      <div class="value" style="color:#34D399">37</div>
     </div>
     <div class="summary-card">
       <div class="label">In Progress</div>
@@ -461,21 +475,21 @@
     </div>
     <div class="summary-card">
       <div class="label">Pending</div>
-      <div class="value" style="color:rgba(255,255,255,0.5)">109</div>
+      <div class="value" style="color:rgba(255,255,255,0.5)">103</div>
     </div>
     <div class="summary-card">
       <div class="label">진척율</div>
-      <div class="value">22<span class="unit">%</span></div>
+      <div class="value">26<span class="unit">%</span></div>
     </div>
   </div>
 
   <div class="overall-progress">
     <div class="bar-bg">
-      <div class="bar-fill" style="width:22%"></div>
+      <div class="bar-fill" style="width:26%"></div>
     </div>
     <div class="bar-label">
-      <span>기획 50% + 개발 0% (기획/디자인/개발 전체)</span>
-      <span>22% 완료</span>
+      <span>기획 53% + 개발 0% (기획/디자인/개발 전체)</span>
+      <span>26% 완료</span>
     </div>
   </div>
 </div>
@@ -524,7 +538,7 @@
         <span class="phase-toggle">&#9660;</span>
       </div>
     </div>
-    <table class="wbs-table">
+    <div class="table-wrap"><table class="wbs-table">
       <thead>
         <tr>
           <th style="width:50px">No.</th>
@@ -714,7 +728,7 @@
           <td>2026.03.06</td>
         </tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
   <!-- ============================================ -->
@@ -973,35 +987,35 @@
           <td></td>
           <td class="task-name">인증 (로그인 / 회원가입)</td>
           <td></td>
-          <td><span class="status status-pending"><span class="status-dot"></span>Pending</span></td>
-          <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:0%"></div></div><span class="progress-text">0%</span></div></td>
+          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.03.17</td>
           <td>2026.03.21</td>
-          <td>-</td>
+          <td>2026.03.06</td>
         </tr>
         <tr>
           <td>8.1</td>
           <td></td>
           <td>AUTH01</td>
           <td class="task-name l3-indent">로그인 / 소셜 로그인 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
-          <td>AUTH01.md/.html</td>
-          <td><span class="status status-pending"><span class="status-dot"></span>Pending</span></td>
-          <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:0%"></div></div><span class="progress-text">0%</span></div></td>
+          <td><a class="wire-link" target="_blank" href="AUTH01_로그인.html">AUTH01.md/.html</a></td>
+          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.03.17</td>
           <td>2026.03.19</td>
-          <td>-</td>
+          <td>2026.03.06</td>
         </tr>
         <tr>
           <td>8.2</td>
           <td></td>
           <td>AUTH02</td>
           <td class="task-name l3-indent">회원가입 / 온보딩 (관심 카테고리 선택) 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
-          <td>AUTH02.md/.html</td>
-          <td><span class="status status-pending"><span class="status-dot"></span>Pending</span></td>
-          <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:0%"></div></div><span class="progress-text">0%</span></div></td>
+          <td><a class="wire-link" target="_blank" href="AUTH02_회원가입.html">AUTH02.md/.html</a></td>
+          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.03.19</td>
           <td>2026.03.21</td>
-          <td>-</td>
+          <td>2026.03.06</td>
         </tr>
 
         <!-- USER -->
@@ -1011,47 +1025,47 @@
           <td></td>
           <td class="task-name">유저 (프로필 / 마이페이지 / 설정)</td>
           <td></td>
-          <td><span class="status status-pending"><span class="status-dot"></span>Pending</span></td>
-          <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:0%"></div></div><span class="progress-text">0%</span></div></td>
+          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.03.21</td>
           <td>2026.03.28</td>
-          <td>-</td>
+          <td>2026.03.06</td>
         </tr>
         <tr>
           <td>9.1</td>
           <td></td>
           <td>USER01</td>
-          <td class="task-name l3-indent">유저 프로필 (신뢰배지, 거래내역) 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
+          <td class="task-name l3-indent">유저 프로필 (신뢰배지, 거래내역) 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span><a class="wire-link" target="_blank" href="USER01_마이페이지.html">와이어프레임</a></td>
           <td>USER01.md/.html</td>
-          <td><span class="status status-pending"><span class="status-dot"></span>Pending</span></td>
-          <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:0%"></div></div><span class="progress-text">0%</span></div></td>
+          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.03.21</td>
           <td>2026.03.23</td>
-          <td>-</td>
+          <td>2026.03.06</td>
         </tr>
         <tr>
           <td>9.2</td>
           <td></td>
           <td>USER02</td>
-          <td class="task-name l3-indent">마이페이지 (내 교환/공구/구함 관리) 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
+          <td class="task-name l3-indent">마이페이지 (내 교환/공구/구함 관리) 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span><a class="wire-link" target="_blank" href="USER02_내활동관리.html">와이어프레임</a></td>
           <td>USER02.md/.html</td>
-          <td><span class="status status-pending"><span class="status-dot"></span>Pending</span></td>
-          <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:0%"></div></div><span class="progress-text">0%</span></div></td>
+          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.03.23</td>
           <td>2026.03.25</td>
-          <td>-</td>
+          <td>2026.03.06</td>
         </tr>
         <tr>
           <td>9.3</td>
           <td></td>
           <td>USER03</td>
-          <td class="task-name l3-indent">설정 / 계정관리 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
+          <td class="task-name l3-indent">설정 / 계정관리 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span><a class="wire-link" target="_blank" href="USER03_설정.html">와이어프레임</a></td>
           <td>USER03.md/.html</td>
-          <td><span class="status status-pending"><span class="status-dot"></span>Pending</span></td>
-          <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:0%"></div></div><span class="progress-text">0%</span></div></td>
+          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.03.25</td>
           <td>2026.03.28</td>
-          <td>-</td>
+          <td>2026.03.06</td>
         </tr>
       </tbody>
     </table>
@@ -1141,7 +1155,7 @@
           <td>11.1</td>
           <td></td>
           <td>SRCH01</td>
-          <td class="task-name l3-indent">통합 검색 (최근검색, 인기검색, 필터) 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span><a class="wire-link" href="SRCH01_검색.html">와이어프레임</a></td>
+          <td class="task-name l3-indent">통합 검색 (최근검색, 인기검색, 필터) 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span><a class="wire-link" target="_blank" href="SRCH01_검색.html">와이어프레임</a></td>
           <td>SRCH01.md/.html</td>
           <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%"></div></div><span class="progress-text">100%</span></div></td>

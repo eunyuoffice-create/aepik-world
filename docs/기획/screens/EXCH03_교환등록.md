@@ -139,26 +139,26 @@
 
 | 필드 | 타입 | 필수 | 설명 |
 |------|------|------|------|
-| images | File[] | ❌ | 상품 이미지 (최대 5장) |
-| title | string | ✅ | 상품명 (최대 50자) |
-| work_id | string | ✅ | 작품 ID |
-| character_id | string | ✅ | 캐릭터 ID |
-| goods_type | string | ✅ | 굿즈 타입 |
-| condition | string | ✅ | 상품 상태 (S/A/B/C) |
-| condition_note | string | ❌ | C급 시 하자 설명 |
-| quantity | number | ✅ | 보유 수량 (기본 1) |
-| wanted_work_id | string | ❌ | 원하는 작품 ID |
-| wanted_character_id | string | ❌ | 원하는 캐릭터 ID |
-| wanted_goods_type | string | ❌ | 원하는 굿즈 타입 |
-| wanted_any | boolean | ❌ | 아무거나 가능 여부 |
-| cash_diff_enabled | boolean | ❌ | 차액 협의 가능 여부 |
-| cash_diff_amount | number | ❌ | 차액 금액 |
-| cash_diff_direction | string | ❌ | 차액 방향 (plus/minus) |
-| trade_method | string | ✅ | 거래 방법 |
-| meetup_lat | number | ❌ | 직거래 위도 |
-| meetup_lng | number | ❌ | 직거래 경도 |
-| meetup_address | string | ❌ | 직거래 주소 |
-| extra_condition | string | ❌ | 추가 조건 |
+| images | File[] | X | 상품 이미지 (최대 5장) |
+| title | string | O | 상품명 (최대 50자) |
+| work_id | string | O | 작품 ID |
+| character_id | string | O | 캐릭터 ID |
+| goods_type | string | O | 굿즈 타입 |
+| condition | string | O | 상품 상태 (S/A/B/C) |
+| condition_note | string | X | C급 시 하자 설명 |
+| quantity | number | O | 보유 수량 (기본 1) |
+| wanted_work_id | string | X | 원하는 작품 ID |
+| wanted_character_id | string | X | 원하는 캐릭터 ID |
+| wanted_goods_type | string | X | 원하는 굿즈 타입 |
+| wanted_any | boolean | X | 아무거나 가능 여부 |
+| cash_diff_enabled | boolean | X | 차액 협의 가능 여부 |
+| cash_diff_amount | number | X | 차액 금액 |
+| cash_diff_direction | string | X | 차액 방향 (plus/minus) |
+| trade_method | string | O | 거래 방법 |
+| meetup_lat | number | X | 직거래 위도 |
+| meetup_lng | number | X | 직거래 경도 |
+| meetup_address | string | X | 직거래 주소 |
+| extra_condition | string | X | 추가 조건 |
 
 ---
 

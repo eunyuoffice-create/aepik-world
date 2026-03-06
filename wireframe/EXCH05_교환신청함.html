@@ -19,24 +19,23 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 .meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
 
 /* ===== MAIN LAYOUT ===== */
-.main-layout {
+.main-layout { overflow-x: hidden;
   display: flex; min-height: calc(100vh - 48px);
 }
 
 /* ===== WIREFRAME SIDE ===== */
 .wireframe-side {
-  flex: 0 0 55%; background: #EAEAEA; padding: 32px;
+  flex: 1 1 55%; min-width: 0; background: #EAEAEA; padding: 32px;
   display: flex; justify-content: center; overflow-y: auto;
 }
 .phone-frame {
-  width: 375px; background: #fff; border-radius: 16px;
+  max-width: 375px; width: 100%; background: #fff; border-radius: 16px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative;
-  overflow: hidden; flex-shrink: 0;
-}
+  overflow: hidden; }
 
 /* ===== DESCRIPTION SIDE ===== */
 .desc-side {
-  flex: 0 0 45%; background: #fff; padding: 24px 28px;
+  flex: 1 1 45%; min-width: 0; background: #fff; padding: 24px 28px;
   overflow-y: auto; border-left: 1px solid #ddd;
 }
 .desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
@@ -247,6 +246,21 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   .wireframe-side { flex: none; padding: 16px; }
   .desc-side { flex: none; border-left: none; border-top: 1px solid #ddd; }
 }
+/* Responsive improvements for laptop/small screens */
+.meta-bar { flex-wrap: wrap; gap: 8px; }
+.phone-frame { max-width: 375px; width: 100%; }
+@media (max-width: 1200px) {
+  .main-layout { gap: 0; }
+  .wireframe-side { flex: 0 0 50%; padding: 20px; }
+  .desc-side { flex: 0 0 50%; padding: 20px; }
+}
+@media (max-width: 700px) {
+  .wireframe-side { padding: 12px; justify-content: center; }
+  .desc-side { padding: 12px 16px; }
+  .phone-frame { max-width: 100%; }
+  .meta-bar { padding: 8px 12px; }
+  .meta-item { font-size: 11px; }
+}
 </style>
 </head>
 <body>
@@ -315,7 +329,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
               <div class="wf-proposal-avatar">AV</div>
               <div class="wf-proposal-user">
                 <div class="wf-proposal-username">김민지</div>
-                <div class="wf-proposal-user-meta">Lv.5 · ★ 4.8</div>
+                <div class="wf-proposal-user-meta">Lv.5 · &#9733; 4.8</div>
               </div>
               <div class="wf-proposal-status">대기중</div>
             </div>
@@ -332,7 +346,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <div class="wf-proposal-actions">
               <button class="wf-proposal-btn primary">수락</button>
               <button class="wf-proposal-btn secondary">거절</button>
-              <button class="wf-proposal-btn icon">💬</button>
+              <button class="wf-proposal-btn icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></button>
             </div>
           </div>
         </div>
@@ -345,7 +359,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
               <div class="wf-proposal-avatar">JK</div>
               <div class="wf-proposal-user">
                 <div class="wf-proposal-username">정국팬</div>
-                <div class="wf-proposal-user-meta">Lv.2 · ★ 4.5</div>
+                <div class="wf-proposal-user-meta">Lv.2 · &#9733; 4.5</div>
               </div>
               <div class="wf-proposal-status" style="background:#ddd; color:#666;">거절됨</div>
             </div>
@@ -381,7 +395,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
               <div class="wf-proposal-avatar">GN</div>
               <div class="wf-proposal-user">
                 <div class="wf-proposal-username">게이머123</div>
-                <div class="wf-proposal-user-meta">Lv.7 · ★ 5.0</div>
+                <div class="wf-proposal-user-meta">Lv.7 · &#9733; 5.0</div>
               </div>
               <div class="wf-proposal-status">대기중</div>
             </div>
@@ -397,7 +411,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <div class="wf-proposal-actions">
               <button class="wf-proposal-btn primary">수락</button>
               <button class="wf-proposal-btn secondary">거절</button>
-              <button class="wf-proposal-btn icon">💬</button>
+              <button class="wf-proposal-btn icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></button>
             </div>
           </div>
         </div>
@@ -539,7 +553,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <ul>
           <li>제안자 정보 (우상단 상태 뱃지):
             <ul class="sub">
-              <li>32×32px 아바타 + 닉네임 + 신뢰등급(Lv.N) + 평점(★ N.N)</li>
+              <li>32×32px 아바타 + 닉네임 + 신뢰등급(Lv.N) + 평점(&#9733; N.N)</li>
               <li>상태 뱃지: 대기중(Amber) / 수락됨(Green) / 거절됨(Gray) / 만료(Gray)</li>
             </ul>
           </li>
@@ -555,7 +569,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <ul class="sub">
               <li>[수락] Blue 버튼</li>
               <li>[거절] Gray 아웃라인 버튼</li>
-              <li>[💬] 채팅 아이콘 버튼</li>
+              <li>[<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>] 채팅 아이콘 버튼</li>
             </ul>
           </li>
           <li>수락/거절됨 상태: 버튼 미표시</li>

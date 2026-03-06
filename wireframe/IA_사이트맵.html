@@ -136,13 +136,21 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 .badge-no { background: #FFEBEE; color: #C62828; }
 
 .footer { text-align: center; padding: 24px; font-size: 11px; color: #aaa; }
+/* Responsive improvements for laptop/small screens */
+@media (max-width: 1200px) {
+  .canvas { padding: 16px; }
+}
+@media (max-width: 900px) {
+  .ia-tree { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .header-bar { flex-wrap: wrap; gap: 8px; padding: 8px 12px; }
+}
 </style>
 </head>
 <body>
 
 <div class="header-bar">
   <h1><span>애픽 월드</span> Aepik World — IA 사이트맵</h1>
-  <div class="meta">v1.1 · 기반: PRD v5.0, IA v1.0 · 2026-03-06</div>
+  <div class="meta">v1.3 · 기반: PRD v5.0, IA v1.0 · 2026-03-06</div>
 </div>
 
 <div class="legend">
@@ -318,18 +326,37 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         </div>
         <div class="section-route">/my</div>
         <div class="section-children">
-          <div class="child-item"><div class="child-dot dot-p1"></div>프로필 <span class="child-route">/my</span></div>
-          <div class="child-item"><div class="child-dot dot-p1"></div>프로필 편집 <span class="child-route">/my/edit</span></div>
-          <div class="child-item"><div class="child-dot dot-p1"></div>내 교환글 <span class="child-route">/my/exchanges</span></div>
-          <div class="child-item"><div class="child-dot dot-p1"></div>내 공구 <span class="child-route">/my/group-buys</span></div>
-          <div class="child-item"><div class="child-dot dot-p1"></div>내 구함글 <span class="child-route">/my/wanted</span></div>
-          <div class="child-item"><div class="child-dot dot-p1"></div>교환 내역 <span class="child-route">/my/history</span></div>
-          <div class="child-item"><div class="child-dot dot-p1"></div>받은 후기 <span class="child-route">/my/reviews</span></div>
-          <div class="child-item"><div class="child-dot dot-p1"></div>보낸/받은 교환 제안 <span class="child-route">/my/proposals</span></div>
-          <div class="child-item"><div class="child-dot dot-p15"></div>찜 목록 <span class="child-route">/my/wishlist</span></div>
-          <div class="child-item"><div class="child-dot dot-p15"></div>키워드 알림 설정 <span class="child-route">/my/keywords</span></div>
-          <div class="child-item"><div class="child-dot dot-p15"></div>결제 내역 <span class="child-route">/my/payments</span></div>
-          <div class="child-item"><div class="child-dot dot-p1"></div>설정 <span class="child-route">/my/settings</span></div>
+          <div class="child-item"><div class="child-dot dot-p1"></div><strong>마이페이지 [USER01]</strong> <span class="child-route">/my</span></div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ A. 마이페이지 메인 (프로필카드, 퀵카운트, 메뉴리스트, 로그아웃)</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ B. 프로필 편집 (/my/edit — 이미지변경, 닉네임변경, 최애설정, 카테고리변경)</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div><strong>내 활동 관리 [USER02]</strong></div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ A. 내 교환글 <span class="child-route">/my/exchanges</span></div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ B. 내 공구 <span class="child-route">/my/group-buys</span></div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ C. 내 구함글 <span class="child-route">/my/wanted</span></div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ D. 교환 내역 <span class="child-route">/my/history</span></div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ E. 받은 후기 <span class="child-route">/my/reviews</span></div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ F. 찜 목록 <span class="child-route">/my/wishlist</span></div>
+          <div class="child-item"><div class="child-dot dot-p1"></div><strong>설정 [USER03]</strong> <span class="child-route">/my/settings</span></div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ A. 설정 메인 (알림설정, 카테고리, 계정관리, 정보)</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ B. 키워드 알림 설정 <span class="child-route">/my/keywords</span></div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ C. 탈퇴 프로세스</div>
+        </div>
+      </div>
+
+      <!-- 사용자 프로필 (타인) -->
+      <div class="section-card phase1" onclick="this.classList.toggle('expanded')">
+        <div class="section-head">
+          <span class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+          <span class="section-name">사용자 프로필 (타인)</span>
+          <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-route">/user/[userId]</div>
+        <div class="section-children">
+          <div class="child-item"><div class="child-dot dot-p1"></div><strong>사용자 프로필 [USER01-C]</strong> <span class="child-route">/user/[userId]</span></div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 프로필 영역 (이미지/닉네임/인증뱃지/신뢰지표/가입일)</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 등록 매물 탭 (교환글/공구/구함글)</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 받은 후기</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 신고하기 (바텀시트)</div>
         </div>
       </div>
 
@@ -356,13 +383,20 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <span class="section-name">인증</span>
           <span class="section-toggle">▼</span>
         </div>
-        <div class="section-route">/login</div>
+        <div class="section-route">/login · /signup</div>
         <div class="section-children">
-          <div class="child-item"><div class="child-dot dot-p1"></div>로그인 <span class="child-route">/login</span></div>
-          <div class="child-item"><div class="child-dot dot-p1"></div>회원가입 <span class="child-route">/signup</span></div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 닉네임 설정</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 관심 카테고리</div>
-          <div class="child-item"><div class="child-dot dot-p1"></div>본인인증 (모달)</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div><strong>로그인 [AUTH01]</strong> <span class="child-route">/login</span></div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ A. 로그인 메인 (카카오/이메일)</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ B. 이메일 로그인</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ C. 비밀번호 찾기</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ D. 로그인 유도 바텀시트</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div><strong>회원가입 [AUTH02]</strong> <span class="child-route">/signup</span></div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ Step 1: 약관 동의</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ Step 2: 계정 정보 (이메일 가입만)</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ Step 3: 프로필 설정</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ Step 4: 관심 카테고리 (선택)</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 가입 완료</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>본인인증 (모달/바텀시트, Just-in-time)</div>
         </div>
       </div>
 
@@ -511,7 +545,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 </div><!-- end canvas -->
 
 <div class="footer">
-  애픽 월드 (Aepik World) IA 사이트맵 v1.1 · 기반: PRD v5.0, IA v1.0 · 2026-03-06
+  애픽 월드 (Aepik World) IA 사이트맵 v1.3 · 기반: PRD v5.0, IA v1.0 · 2026-03-06
 </div>
 
 <script>

@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AUTH02 회원가입</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+      background: #fff;
+      height: 100%;
+    }
+
+    /* ==================== META BAR ==================== */
+    .meta-bar {
+      background: #fff;
+      border-bottom: 2px solid #2563EB;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 14px;
+      flex-wrap: wrap;
+    }
+
+    .meta-bar .title {
+      font-weight: 700;
+      color: #2563EB;
+      font-size: 16px;
+      min-width: 60px;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .meta-label {
+      color: #888;
+      font-weight: 600;
+    }
+
+    .meta-value {
+      color: #333;
+      font-weight: 500;
+    }
+
+    /* ==================== MAIN LAYOUT ==================== */
+    .main-layout { overflow-x: hidden;
+      display: flex;
+      min-height: calc(100vh - 48px);
+    }
+
+    .wireframe-side {
+      flex: 1 1 55%; min-width: 0;
+      background: #EAEAEA;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      overflow-y: auto;
+    }
+
+    .desc-side {
+      flex: 1 1 45%; min-width: 0;
+      background: #fff;
+      padding: 24px 28px;
+      border-left: 1px solid #ddd;
+      overflow-y: auto;
+    }
+
+    /* ==================== PHONE FRAMES ==================== */
+    .phone-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+    }
+
+    .phone-frame {
+      max-width: 375px; width: 100%;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+      overflow: hidden;
+      position: relative;
+      margin: 0 auto;
+    }
+
+    .frame-label {
+      text-align: center;
+      font-size: 13px;
+      color: #666;
+      margin-top: 12px;
+      font-weight: 500;
+    }
+
+    /* ==================== WIREFRAME COMPONENTS ==================== */
+    .wf-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+      height: 56px;
+    }
+
+    .wf-back-btn,
+    .wf-close-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .wf-header-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1f2937;
+      flex: 1;
+      text-align: center;
+      margin-right: 32px;
+    }
+
+    /* Stepper */
+    .wf-stepper {
+      padding: 16px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .step-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      position: relative;
+    }
+
+    .step-circle.active {
+      background: #2563EB;
+      color: #fff;
+    }
+
+    .step-circle.completed {
+      background: #2563EB;
+      color: #fff;
+    }
+
+    .step-circle.future {
+      background: #e5e7eb;
+      color: #9ca3af;
+    }
+
+    .step-line {
+      width: 24px;
+      height: 2px;
+      position: relative;
+      top: -2px;
+    }
+
+    .step-line.completed {
+      background: #2563EB;
+    }
+
+    .step-line.future {
+      background: #d1d5db;
+    }
+
+    /* Content area */
+    .wf-content {
+      padding: 24px 16px;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .wf-section {
+      position: relative;
+    }
+
+    .wf-text {
+      font-size: 14px;
+      color: #4b5563;
+      line-height: 1.6;
+    }
+
+    .wf-text.subtitle {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 4px;
+    }
+
+    .wf-checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .wf-checkbox-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+
+    .wf-checkbox-item:hover {
+      background: #f3f4f6;
+    }
+
+    .wf-checkbox-item.all {
+      padding: 12px;
+      background: #f0f4ff;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .wf-checkbox {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #d1d5db;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .wf-checkbox.checked {
+      background: #2563EB;
+      border-color: #2563EB;
+      color: #fff;
+    }
+
+    .wf-checkbox-label {
+      font-size: 13px;
+      color: #1f2937;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .wf-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      background: #fecaca;
+      color: #991b1b;
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-right: 4px;
+    }
+
+    .wf-badge.optional {
+      background: #e0e7ff;
+      color: #3730a3;
+    }
+
+    .wf-badge.required {
+      background: #fecaca;
+      color: #991b1b;
+    }
+
+    .wf-link {
+      color: #2563EB;
+      text-decoration: none;
+      font-size: 13px;
+      cursor: pointer;
+      margin-left: auto;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+
+    .wf-link:hover {
+      background: #eff6ff;
+    }
+
+    /* Input field */
+    .wf-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .wf-input-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1f2937;
+    }
+
+    .wf-input {
+      padding: 10px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #1f2937;
+      background: #fff;
+      outline: none;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+
+    .wf-input:focus {
+      border-color: #2563EB;
+    }
+
+    .wf-input.error {
+      border-color: #ef4444;
+    }
+
+    .wf-input.success {
+      border-color: #10b981;
+    }
+
+    .wf-input-hint {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 4px;
+    }
+
+    .wf-input-hint.error {
+      color: #ef4444;
+    }
+
+    .wf-input-hint.success {
+      color: #10b981;
+    }
+
+    /* Strength bar */
+    .wf-strength-bar {
+      display: flex;
+      gap: 4px;
+      margin-top: 8px;
+    }
+
+    .strength-segment {
+      flex: 1;
+      height: 4px;
+      background: #e5e7eb;
+      border-radius: 2px;
+    }
+
+    .strength-segment.weak {
+      background: #ef4444;
+    }
+
+    .strength-segment.medium {
+      background: #f59e0b;
+    }
+
+    .strength-segment.strong {
+      background: #10b981;
+    }
+
+    .wf-strength-label {
+      font-size: 11px;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    .wf-strength-label.weak {
+      color: #ef4444;
+    }
+
+    .wf-strength-label.medium {
+      color: #f59e0b;
+    }
+
+    .wf-strength-label.strong {
+      color: #10b981;
+    }
+
+    /* Avatar */
+    .wf-avatar-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .wf-avatar-container {
+      position: relative;
+      width: 80px;
+      height: 80px;
+    }
+
+    .wf-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: #f3f4f6;
+      border: 2px solid #d1d5db;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #9ca3af;
+      font-size: 32px;
+    }
+
+    .wf-avatar-overlay {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 28px;
+      height: 28px;
+      background: #2563EB;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+
+    /* Nickname check */
+    .wf-nickname-check {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      font-size: 12px;
+    }
+
+    .wf-check-icon {
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .wf-check-icon.available {
+      color: #10b981;
+    }
+
+    .wf-check-icon.unavailable {
+      color: #ef4444;
+    }
+
+    /* Category cards */
+    .wf-category-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .wf-category-card {
+      aspect-ratio: 160 / 100;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      background: #fff;
+    }
+
+    .wf-category-card:hover {
+      border-color: #9ca3af;
+    }
+
+    .wf-category-card.selected {
+      border-width: 2px;
+    }
+
+    .wf-category-card.purple {
+      border-color: #8B5CF6;
+    }
+
+    .wf-category-card.purple.selected {
+      background: #f3e8ff;
+      border-color: #8B5CF6;
+    }
+
+    .wf-category-card.pink {
+      border-color: #EC4899;
+    }
+
+    .wf-category-card.pink.selected {
+      background: #fce7f3;
+      border-color: #EC4899;
+    }
+
+    .wf-category-card.amber {
+      border-color: #F59E0B;
+    }
+
+    .wf-category-card.amber.selected {
+      background: #fef3c7;
+      border-color: #F59E0B;
+    }
+
+    .wf-category-card.cyan {
+      border-color: #06B6D4;
+    }
+
+    .wf-category-card.cyan.selected {
+      background: #cffafe;
+      border-color: #06B6D4;
+    }
+
+    .wf-category-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #9ca3af;
+    }
+
+    .wf-category-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: #1f2937;
+      text-align: center;
+    }
+
+    .wf-category-check {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 16px;
+      height: 16px;
+      background: #2563EB;
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 10px;
+    }
+
+    .wf-category-card.selected .wf-category-check {
+      display: flex;
+    }
+
+    /* Completion screen */
+    .wf-completion {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+      text-align: center;
+      gap: 20px;
+    }
+
+    .wf-completion-icon {
+      width: 80px;
+      height: 80px;
+      background: #f0fdf4;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #10b981;
+      font-size: 40px;
+    }
+
+    .wf-completion-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1f2937;
+    }
+
+    .wf-completion-subtitle {
+      font-size: 13px;
+      color: #6b7280;
+      line-height: 1.6;
+    }
+
+    /* Buttons */
+    .wf-button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .wf-button {
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .wf-button.primary {
+      background: #2563EB;
+      color: #fff;
+      width: 100%;
+    }
+
+    .wf-button.primary:hover {
+      background: #1d4ed8;
+    }
+
+    .wf-button.primary:disabled {
+      background: #d1d5db;
+      cursor: not-allowed;
+    }
+
+    .wf-button.ghost {
+      background: transparent;
+      color: #2563EB;
+      text-decoration: underline;
+      padding: 8px 0;
+      width: 100%;
+    }
+
+    .wf-button.ghost:hover {
+      background: transparent;
+      color: #1d4ed8;
+    }
+
+    /* Loading spinner */
+    .wf-spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ==================== DESCRIPTION PANEL ==================== */
+    .desc-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #2563EB;
+    }
+
+    .desc-item {
+      margin-bottom: 24px;
+    }
+
+    .desc-num-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .desc-num {
+      width: 22px;
+      height: 22px;
+      background: #2563EB;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .desc-comp-type {
+      display: inline-block;
+      padding: 3px 8px;
+      background: #f3f4f6;
+      color: #9ca3af;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .desc-comp-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1f2937;
+    }
+
+    .desc-body {
+      padding-left: 30px;
+      font-size: 12px;
+      color: #555;
+      line-height: 1.7;
+    }
+
+    .desc-body ul {
+      list-style: none;
+      margin: 8px 0;
+    }
+
+    .desc-body li {
+      margin: 4px 0;
+      padding-left: 12px;
+      position: relative;
+    }
+
+    .desc-body li:before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #2563EB;
+    }
+
+    .desc-body ul.sub {
+      margin: 6px 0;
+    }
+
+    .desc-body ul.sub li:before {
+      content: "└";
+      color: #ccc;
+    }
+
+    .desc-divider {
+      border: none;
+      border-top: 1px dashed #eee;
+      margin: 20px 0;
+    }
+
+    /* Screen states section */
+    .desc-section {
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 2px solid #f0f0f0;
+    }
+
+    .desc-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 12px;
+    }
+
+    .desc-section-item {
+      margin: 8px 0;
+      padding: 8px;
+      background: #f9f9f9;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    /* Related screens table */
+    .desc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+      margin-top: 12px;
+    }
+
+    .desc-table th,
+    .desc-table td {
+      padding: 8px;
+      text-align: left;
+      border: 1px solid #e5e7eb;
+    }
+
+    .desc-table th {
+      background: #f9f9f9;
+      font-weight: 600;
+      color: #1f2937;
+    }
+
+    .desc-table td {
+      color: #555;
+    }
+
+    /* ==================== REVISION BAR ==================== */
+    .revision-bar {
+      background: #fff;
+      border-top: 1px solid #eee;
+      padding: 16px 24px;
+    }
+
+    .revision-bar table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .revision-bar th,
+    .revision-bar td {
+      padding: 8px;
+      text-align: left;
+      border: 1px solid #e5e7eb;
+    }
+
+    .revision-bar th {
+      background: #f9f9f9;
+      font-weight: 600;
+      color: #1f2937;
+    }
+
+    .revision-bar td {
+      color: #555;
+    }
+
+    /* ==================== RESPONSIVE ==================== */
+    @media (max-width: 900px) {
+      .main-layout {
+        flex-direction: column;
+      }
+
+      .wireframe-side {
+        flex: none;
+        padding: 16px;
+        min-height: auto;
+      }
+
+      .desc-side {
+        flex: none;
+        border-left: none;
+        border-top: 1px solid #ddd;
+      }
+    }
+  /* Responsive improvements for laptop/small screens */
+.meta-bar { flex-wrap: wrap; gap: 8px; }
+.phone-frame { max-width: 375px; width: 100%; }
+@media (max-width: 1200px) {
+  .main-layout { gap: 0; }
+  .wireframe-side { flex: 0 0 50%; padding: 20px; }
+  .desc-side { flex: 0 0 50%; padding: 20px; }
+}
+@media (max-width: 700px) {
+  .wireframe-side { padding: 12px; justify-content: center; }
+  .desc-side { padding: 12px 16px; }
+  .phone-frame { max-width: 100%; }
+  .meta-bar { padding: 8px 12px; }
+  .meta-item { font-size: 11px; }
+}
+</style>
+</head>
+<body>
+  <!-- META BAR -->
+  <div class="meta-bar">
+    <span class="title">AUTH02</span>
+    <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">회원가입</span></span>
+    <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/signup</span></span>
+    <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
+    <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.1</span></span>
+    <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
+    <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-06</span></span>
+  </div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="main-layout">
+    <!-- WIREFRAME SIDE -->
+    <div class="wireframe-side">
+      <div class="phone-stack">
+        <!-- FRAME A: Step 1 약관 동의 -->
+        <div>
+          <div class="phone-frame">
+            <div class="wf-header">
+              <div class="wf-close-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px;">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </div>
+              <div class="wf-header-title">회원가입</div>
+            </div>
+
+            <div class="wf-stepper">
+              <div class="step-circle active">1</div>
+              <div class="step-line future"></div>
+              <div class="step-circle future">2</div>
+              <div class="step-line future"></div>
+              <div class="step-circle future">3</div>
+              <div class="step-line future"></div>
+              <div class="step-circle future">4</div>
+            </div>
+
+            <div class="wf-content">
+              <div class="wf-section">
+                <div class="num-circle" style="top: 0; left: 0;">1</div>
+                <div class="wf-text" style="font-weight: 600; color: #1f2937;">서비스 이용을 위해 약관에 동의해주세요</div>
+              </div>
+
+              <div class="wf-checkbox-group">
+                <div class="wf-checkbox-item all">
+                  <div class="wf-checkbox checked">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                  <div class="wf-checkbox-label">전체 동의</div>
+                </div>
+
+                <div class="wf-checkbox-item">
+                  <div class="wf-checkbox checked">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                  <div class="wf-checkbox-label">
+                    <span class="wf-badge required">필수</span>이용약관 동의
+                  </div>
+                  <a class="wf-link">+보기</a>
+                </div>
+
+                <div class="wf-checkbox-item">
+                  <div class="wf-checkbox checked">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                  <div class="wf-checkbox-label">
+                    <span class="wf-badge required">필수</span>개인정보처리방침 동의
+                  </div>
+                  <a class="wf-link">+보기</a>
+                </div>
+
+                <div class="wf-checkbox-item">
+                  <div class="wf-checkbox">
+                  </div>
+                  <div class="wf-checkbox-label">
+                    <span class="wf-badge optional">선택</span>마케팅 수신 동의
+                  </div>
+                </div>
+
+                <div class="wf-checkbox-item">
+                  <div class="wf-checkbox checked">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                  <div class="wf-checkbox-label">
+                    <span class="wf-badge required">필수</span>만 14세 이상 확인
+                  </div>
+                </div>
+              </div>
+
+              <div class="wf-button-group" style="margin-top: 32px;">
+                <button class="wf-button primary">다음</button>
+              </div>
+            </div>
+          </div>
+          <div class="frame-label">프레임 A: Step 1 약관 동의</div>
+        </div>
+
+        <!-- FRAME B: Step 2 계정 정보 입력 -->
+        <div>
+          <div class="phone-frame">
+            <div class="wf-header">
+              <div class="wf-back-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px;">
+                  <line x1="19" y1="12" x2="5" y2="12"></line>
+                  <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+              </div>
+              <div class="wf-header-title">회원가입</div>
+            </div>
+
+            <div class="wf-stepper">
+              <div class="step-circle completed">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+              <div class="step-line completed"></div>
+              <div class="step-circle active">2</div>
+              <div class="step-line future"></div>
+              <div class="step-circle future">3</div>
+              <div class="step-line future"></div>
+              <div class="step-circle future">4</div>
+            </div>
+
+            <div class="wf-content">
+              <div class="wf-section">
+                <div class="num-circle" style="top: 0; left: 0;">2</div>
+                <div class="wf-input-group">
+                  <div class="wf-input-label">이메일</div>
+                  <input type="text" class="wf-input" placeholder="example@email.com" value="user@example.com">
+                  <div class="wf-input-hint">중복 확인됨</div>
+                </div>
+              </div>
+
+              <div class="wf-section">
+                <div class="num-circle" style="top: 0; left: 0;">3</div>
+                <div class="wf-input-group">
+                  <div class="wf-input-label">비밀번호</div>
+                  <input type="password" class="wf-input" placeholder="8자 이상, 영문+숫자+특수문자" value="Pass1234!">
+                  <div class="wf-strength-bar">
+                    <div class="strength-segment strong"></div>
+                    <div class="strength-segment strong"></div>
+                    <div class="strength-segment strong"></div>
+                  </div>
+                  <div class="wf-strength-label strong">강함</div>
+                </div>
+              </div>
+
+              <div class="wf-section">
+                <div class="wf-input-group">
+                  <div class="wf-input-label">비밀번호 확인</div>
+                  <input type="password" class="wf-input success" placeholder="비밀번호 재입력" value="Pass1234!">
+                  <div class="wf-input-hint success">일치함</div>
+                </div>
+              </div>
+
+              <div class="wf-button-group" style="margin-top: 32px;">
+                <button class="wf-button primary">다음</button>
+              </div>
+            </div>
+          </div>
+          <div class="frame-label">프레임 B: Step 2 계정 정보</div>
+        </div>
+
+        <!-- FRAME C: Step 3 프로필 설정 -->
+        <div>
+          <div class="phone-frame">
+            <div class="wf-header">
+              <div class="wf-back-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px;">
+                  <line x1="19" y1="12" x2="5" y2="12"></line>
+                  <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+              </div>
+              <div class="wf-header-title">프로필 설정</div>
+            </div>
+
+            <div class="wf-stepper">
+              <div class="step-circle completed">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+              <div class="step-line completed"></div>
+              <div class="step-circle completed">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+              <div class="step-line completed"></div>
+              <div class="step-circle active">3</div>
+              <div class="step-line future"></div>
+              <div class="step-circle future">4</div>
+            </div>
+
+            <div class="wf-content">
+              <div class="wf-section">
+                <div class="num-circle" style="top: 0; left: 0;">4</div>
+                <div class="wf-avatar-wrapper">
+                  <div class="wf-avatar-container">
+                    <div class="wf-avatar">A</div>
+                    <div class="wf-avatar-overlay">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                        <circle cx="12" cy="13" r="4"></circle>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="wf-section">
+                <div class="num-circle" style="top: 0; left: 0;">5</div>
+                <div class="wf-input-group">
+                  <div class="wf-input-label">닉네임</div>
+                  <input type="text" class="wf-input success" placeholder="2~12자 (한글/영문/숫자)" value="애니팬">
+                  <div class="wf-input-hint">2~12자, 한글/영문/숫자 사용 가능</div>
+                  <div class="wf-nickname-check">
+                    <div class="wf-check-icon available">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </div>
+                    <span style="color: #10b981;">사용 가능한 닉네임입니다</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="wf-button-group" style="margin-top: 32px;">
+                <button class="wf-button primary">다음</button>
+              </div>
+            </div>
+          </div>
+          <div class="frame-label">프레임 C: Step 3 프로필 설정</div>
+        </div>
+
+        <!-- FRAME D: Step 4 관심 카테고리 -->
+        <div>
+          <div class="phone-frame">
+            <div class="wf-header">
+              <div class="wf-back-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px;">
+                  <line x1="19" y1="12" x2="5" y2="12"></line>
+                  <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+              </div>
+              <div class="wf-header-title">관심 카테고리</div>
+            </div>
+
+            <div class="wf-stepper">
+              <div class="step-circle completed">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+              <div class="step-line completed"></div>
+              <div class="step-circle completed">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+              <div class="step-line completed"></div>
+              <div class="step-circle completed">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+              <div class="step-line completed"></div>
+              <div class="step-circle active">4</div>
+            </div>
+
+            <div class="wf-content">
+              <div class="wf-section">
+                <div class="num-circle" style="top: 0; left: 0;">6</div>
+                <div class="wf-text">좋아하는 카테고리를 선택해주세요</div>
+              </div>
+
+              <div class="wf-category-grid">
+                <div class="wf-category-card purple selected">
+                  <div class="wf-category-icon">☆</div>
+                  <div class="wf-category-name">애니/만화/<br/>소설</div>
+                  <div class="wf-category-check">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 12px; height: 12px;">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                </div>
+                <div class="wf-category-card pink">
+                  <div class="wf-category-icon">♪</div>
+                  <div class="wf-category-name">아이돌/<br/>아티스트</div>
+                  <div class="wf-category-check">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 12px; height: 12px;">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                </div>
+                <div class="wf-category-card amber">
+                  <div class="wf-category-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><rect x="2" y="2" width="20" height="20" rx="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg></div>
+                  <div class="wf-category-name">배우/<br/>무대</div>
+                  <div class="wf-category-check">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 12px; height: 12px;">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                </div>
+                <div class="wf-category-card cyan">
+                  <div class="wf-category-icon">▬</div>
+                  <div class="wf-category-name">게임</div>
+                  <div class="wf-category-check">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 12px; height: 12px;">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <div class="wf-button-group" style="margin-top: 32px;">
+                <button class="wf-button primary">시작하기</button>
+                <button class="wf-button ghost">나중에 설정할게요</button>
+              </div>
+            </div>
+          </div>
+          <div class="frame-label">프레임 D: Step 4 관심 카테고리</div>
+        </div>
+
+        <!-- FRAME E: 가입 완료 -->
+        <div>
+          <div class="phone-frame">
+            <div class="wf-completion">
+              <div class="wf-completion-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 40px; height: 40px;">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+              <div>
+                <div class="wf-completion-title">애니팬님,<br/>환영합니다!</div>
+                <div class="wf-completion-subtitle">이제 애픽 월드에서 멋진 굿즈를 교환해보세요</div>
+              </div>
+              <div class="wf-button-group">
+                <button class="wf-button primary">시작하기</button>
+              </div>
+            </div>
+          </div>
+          <div class="frame-label">프레임 E: 가입 완료</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESCRIPTION SIDE -->
+    <div class="desc-side">
+      <div class="desc-title">회원가입 프로세스 상세</div>
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">1</div>
+          <span class="desc-comp-type">[Header]</span>
+          <span class="desc-comp-name">공통 헤더</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>Step 1: X 닫기 버튼 (가입 취소, AUTH01로 이동)</li>
+            <li>Step 2~4: 뒤로가기 버튼 (이전 단계로 이동)</li>
+            <li>제목: "회원가입" (Step 1~2) / "프로필 설정" (Step 3) / "관심 카테고리" (Step 4)</li>
+            <li>높이: 56px, padding 12px 16px</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">2</div>
+          <span class="desc-comp-type">[Stepper]</span>
+          <span class="desc-comp-name">스텝 인디케이터</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>4단계 진행 표시</li>
+            <li>현재 단계: 파란색 배경(#2563EB) + 흰색 숫자</li>
+            <li>완료 단계: 파란색 배경 + 흰색 체크마크</li>
+            <li>미래 단계: 회색 배경(#e5e7eb) + 회색 숫자</li>
+            <li>라인: 완료 구간은 파란색, 나머지는 회색</li>
+            <li>padding: 16px, flex with gap 8px</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">3</div>
+          <span class="desc-comp-type">[Section]</span>
+          <span class="desc-comp-name">Step 1 - 약관 동의</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>제목: "서비스 이용을 위해 약관에 동의해주세요" (14px, weight 600)</li>
+            <li>구성:
+              <ul class="sub">
+                <li>└ 전체 동의 (체크박스) - 파란색 배경 토글</li>
+                <li>└ [필수] 이용약관 동의 + 보기 링크 → STAT01</li>
+                <li>└ [필수] 개인정보처리방침 동의 + 보기 링크 → STAT01</li>
+                <li>└ [선택] 마케팅 수신 동의</li>
+                <li>└ [필수] 만 14세 이상 확인</li>
+              </ul>
+            </li>
+            <li>동작: 모든 필수 항목(3개)이 체크되면 "다음" 활성화</li>
+            <li>전체 동의 체크 → 하위 모든 항목 체크, 하나라도 미체크 → 전체 동의 자동 미체크</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">4</div>
+          <span class="desc-comp-type">[Checkbox]</span>
+          <span class="desc-comp-name">체크박스 (필수/선택 뱃지 포함)</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>크기: 20px x 20px, border-radius 4px</li>
+            <li>기본: 회색 테두리(#d1d5db)</li>
+            <li>체크됨: 파란색 배경(#2563EB) + 흰색 체크마크</li>
+            <li>뱃지: 필수(빨강 #fecaca), 선택(보라 #e0e7ff)</li>
+            <li>폰트: 13px, color #1f2937</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">5</div>
+          <span class="desc-comp-type">[Link]</span>
+          <span class="desc-comp-name">약관 보기 링크</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>텍스트: "+보기" (13px, color #2563EB, text-decoration none)</li>
+            <li>위치: 체크박스 라벨 우측에 우정렬</li>
+            <li>동작: 클릭 시 STAT01 (이용약관/개인정보처리방침 페이지) 인앱 웹뷰 오픈</li>
+            <li>Hover: 배경 #eff6ff, border-radius 4px</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">6</div>
+          <span class="desc-comp-type">[Section]</span>
+          <span class="desc-comp-name">Step 2 - 계정 정보 입력</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>이메일 가입 전용 (카카오/소셜 로그인 경유 시 Step 3으로 스킵)</li>
+            <li>구성:
+              <ul class="sub">
+                <li>└ 이메일 필드 (RFC 5322 형식 검증)</li>
+                <li>└ 비밀번호 필드 (강도 바 표시)</li>
+                <li>└ 비밀번호 확인 필드 (일치 여부 표시)</li>
+              </ul>
+            </li>
+            <li>동작: 모든 필드 유효하면 "다음" 활성화</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">7</div>
+          <span class="desc-comp-type">[Input]</span>
+          <span class="desc-comp-name">이메일 필드</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>플레이스홀더: "example@email.com"</li>
+            <li>검증: RFC 5322 형식 체크</li>
+            <li>중복 확인: 입력 후 500ms debounce 자동 확인</li>
+            <li>상태:
+              <ul class="sub">
+                <li>└ 기본: 회색 테두리</li>
+                <li>└ 포커스: 파란색 테두리</li>
+                <li>└ 검증 실패: 빨강 테두리 + 힌트 "유효하지 않은 이메일" (빨강)</li>
+                <li>└ 중복: 빨강 테두리 + 힌트 "이미 사용 중인 이메일입니다" + "로그인" 링크</li>
+                <li>└ 성공: 초록색 힌트 "중복 확인됨"</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">8</div>
+          <span class="desc-comp-type">[Input]</span>
+          <span class="desc-comp-name">비밀번호 필드</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>플레이스홀더: "8자 이상, 영문+숫자+특수문자"</li>
+            <li>요구사항: 최소 8자, 영문 + 숫자 + 특수문자 포함</li>
+            <li>강도 표시 바:
+              <ul class="sub">
+                <li>└ 약함 (빨강 #ef4444): 요구사항 일부만 만족</li>
+                <li>└ 보통 (호박색 #f59e0b): 8~11자, 조건 충족</li>
+                <li>└ 강함 (초록색 #10b981): 12자 이상 또는 조건 초과</li>
+              </ul>
+            </li>
+            <li>강도 라벨: 해당 색상으로 표시</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">9</div>
+          <span class="desc-comp-type">[Section]</span>
+          <span class="desc-comp-name">Step 3 - 프로필 설정</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>구성:
+              <ul class="sub">
+                <li>└ 프로필 이미지 (선택)</li>
+                <li>└ 닉네임 (필수)</li>
+              </ul>
+            </li>
+            <li>제목: "프로필 설정"</li>
+            <li>동작: 닉네임만 필수 입력 시 "다음" 활성화</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">10</div>
+          <span class="desc-comp-type">[Avatar]</span>
+          <span class="desc-comp-name">프로필 이미지</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>크기: 80px x 80px 원형</li>
+            <li>기본: 회색 배경(#f3f4f6) + 초기 닉네임 첫 글자</li>
+            <li>오버레이: 카메라 아이콘(파란 배경, 우하단)</li>
+            <li>동작: 클릭 시 갤러리 열기 (이미지 선택 후 자동 업로드 및 크롭)</li>
+            <li>지원 포맷: JPEG, PNG (최대 5MB)</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">11</div>
+          <span class="desc-comp-type">[Input]</span>
+          <span class="desc-comp-name">닉네임 필드</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>길이: 2~12자</li>
+            <li>허용 문자: 한글, 영문(대소문자), 숫자</li>
+            <li>중복 확인: 입력 후 500ms debounce 자동 확인</li>
+            <li>상태:
+              <ul class="sub">
+                <li>└ 기본: 회색 테두리</li>
+                <li>└ 포커스: 파란색 테두리</li>
+                <li>└ 검증 실패: 빨강 테두리 + 힌트 "2~12자 한글/영문/숫자만 사용 가능"</li>
+                <li>└ 중복: 빨강 테두리 + "이미 사용 중인 닉네임입니다" (빨강)</li>
+                <li>└ 성공: 초록 테두리 + 초록 힌트 "사용 가능한 닉네임입니다" + 체크마크</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">12</div>
+          <span class="desc-comp-type">[Section]</span>
+          <span class="desc-comp-name">Step 4 - 관심 카테고리</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>제목: "관심 카테고리"</li>
+            <li>설명: "좋아하는 카테고리를 선택해주세요"</li>
+            <li>구성: 4개 카테고리 카드 (2x2 그리드)</li>
+            <li>선택: 복수 선택 가능 / 미선택도 허용</li>
+            <li>버튼:
+              <ul class="sub">
+                <li>└ "시작하기" (Primary, 전체 항상 활성)</li>
+                <li>└ "나중에 설정할게요" (Ghost Link, 나중에 마이페이지에서 설정 가능)</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">13</div>
+          <span class="desc-comp-type">[Card]</span>
+          <span class="desc-comp-name">카테고리 카드</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>크기: ~160px x 100px</li>
+            <li>기본 상태: 흰색 배경 + 1px 회색 테두리</li>
+            <li>선택 상태: 2px 컬러 테두리 + 연한 배경</li>
+            <li>카테고리별 색상:
+              <ul class="sub">
+                <li>└ 애니/만화/소설: Purple #8B5CF6</li>
+                <li>└ 아이돌/아티스트: Pink #EC4899</li>
+                <li>└ 배우/무대: Amber #F59E0B</li>
+                <li>└ 게임: Cyan #06B6D4</li>
+              </ul>
+            </li>
+            <li>구성: 아이콘(위) + 카테고리명(아래) + 체크마크(선택 시만 우상단에 표시)</li>
+            <li>border-radius: 8px</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">14</div>
+          <span class="desc-comp-type">[Screen]</span>
+          <span class="desc-comp-name">가입 완료</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>구성: 중앙 정렬
+              <ul class="sub">
+                <li>└ 축하 아이콘(80px 원형, 초록 배경)</li>
+                <li>└ 제목 "{닉네임}님, 환영합니다!" (20px, weight 700)</li>
+                <li>└ 부제 "이제 애픽 월드에서 멋진 굿즈를 교환해보세요" (13px, 회색)</li>
+                <li>└ "시작하기" 버튼 (Primary)</li>
+              </ul>
+            </li>
+            <li>동작: "시작하기" 클릭 → HOME01로 이동</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- SCREEN STATES -->
+      <div class="desc-section">
+        <div class="desc-section-title">화면 상태 (States)</div>
+        <div class="desc-section-item">
+          <strong>로딩 중:</strong> "다음" / "시작하기" 버튼에 로딩 스피너 표시, 버튼 비활성
+        </div>
+        <div class="desc-section-item">
+          <strong>이메일 중복:</strong> 이메일 필드 빨강 테두리 + 인라인 에러 "이미 사용 중인 이메일입니다" + "로그인" 링크 (AUTH01)
+        </div>
+        <div class="desc-section-item">
+          <strong>닉네임 중복:</strong> 닉네임 필드 빨강 테두리 + 인라인 에러 "이미 사용 중인 닉네임입니다" (빨강)
+        </div>
+        <div class="desc-section-item">
+          <strong>네트워크 오류:</strong> 토스트 메시지 (아래 중앙) "일시적인 오류가 발생했습니다" + 재시도 버튼
+        </div>
+        <div class="desc-section-item">
+          <strong>이미지 업로드 실패:</strong> 토스트 메시지 "이미지 업로드에 실패했습니다" (기본값 유지, 재시도 가능)
+        </div>
+      </div>
+
+      <!-- RELATED SCREENS -->
+      <div class="desc-section">
+        <div class="desc-section-title">연관 화면</div>
+        <table class="desc-table">
+          <thead>
+            <tr>
+              <th>이동 대상</th>
+              <th>조건 / 동작</th>
+              <th>화면코드</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>로그인</td>
+              <td>X 닫기 (Step 1) / 이메일 중복 시 "로그인" 링크</td>
+              <td>AUTH01</td>
+            </tr>
+            <tr>
+              <td>이용약관</td>
+              <td>"+보기" 링크 (Step 1) → 인앱 웹뷰</td>
+              <td>STAT01</td>
+            </tr>
+            <tr>
+              <td>개인정보처리방침</td>
+              <td>"+보기" 링크 (Step 1) → 인앱 웹뷰</td>
+              <td>STAT01</td>
+            </tr>
+            <tr>
+              <td>메인 홈</td>
+              <td>"시작하기" (가입 완료 후)</td>
+              <td>HOME01</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- REVISION BAR -->
+  <div class="revision-bar">
+    <table>
+      <thead>
+        <tr>
+          <th>날짜</th>
+          <th>버전</th>
+          <th>내용</th>
+          <th>작성자</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2026-03-06</td>
+          <td>0.1</td>
+          <td>초안 작성 (5개 프레임: 약관동의, 계정정보, 프로필설정, 관심카테고리, 완료)</td>
+          <td>-</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <style>
+    /* NUM CIRCLE - positioned absolute in wireframes */
+    .num-circle {
+      position: absolute;
+      top: -20px;
+      left: -20px;
+      z-index: 10;
+      background: #2563EB;
+      color: #fff;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    }
+  /* Responsive improvements for laptop/small screens */
+.meta-bar { flex-wrap: wrap; gap: 8px; }
+.phone-frame { max-width: 375px; width: 100%; }
+@media (max-width: 1200px) {
+  .main-layout { gap: 0; }
+  .wireframe-side { flex: 0 0 50%; padding: 20px; }
+  .desc-side { flex: 0 0 50%; padding: 20px; }
+}
+@media (max-width: 700px) {
+  .wireframe-side { padding: 12px; justify-content: center; }
+  .desc-side { padding: 12px 16px; }
+  .phone-frame { max-width: 100%; }
+  .meta-bar { padding: 8px 12px; }
+  .meta-item { font-size: 11px; }
+}
+</style>
+</body>
+</html>

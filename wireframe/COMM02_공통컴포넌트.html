@@ -269,7 +269,13 @@
             .phone-frame { width:100%; max-width:375px; }
             .desc-side { position:static; max-height:none; }
         }
-    </style>
+    /* Responsive improvements for laptop/small screens */
+.meta-bar { flex-wrap: wrap; gap: 8px; }
+@media (max-width: 700px) {
+  .meta-bar { padding: 8px 12px; }
+  .meta-item { font-size: 11px; }
+}
+</style>
 </head>
 <body>
 
@@ -415,7 +421,13 @@
 
             <div class="demo-label">상태 도트</div>
             <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:12px;">
-                <div class="badge-dot" style="color:#065F46;"><style>.bd-green::before{background:#10B981;}</style><span class="badge-dot bd-green" style="--dot:#10B981;">● 거래 완료</span></div>
+                <div class="badge-dot" style="color:#065F46;"><style>.bd-green::before{background:#10B981;}/* Responsive improvements for laptop/small screens */
+.meta-bar { flex-wrap: wrap; gap: 8px; }
+@media (max-width: 700px) {
+  .meta-bar { padding: 8px 12px; }
+  .meta-item { font-size: 11px; }
+}
+</style><span class="badge-dot bd-green" style="--dot:#10B981;">● 거래 완료</span></div>
                 <div style="display:flex; align-items:center; gap:6px; font-size:12px;"><span style="width:8px;height:8px;border-radius:50%;background:#F59E0B;display:inline-block;"></span> 진행 결정 대기</div>
                 <div style="display:flex; align-items:center; gap:6px; font-size:12px;"><span style="width:8px;height:8px;border-radius:50%;background:#EF4444;display:inline-block;"></span> 무산</div>
             </div>

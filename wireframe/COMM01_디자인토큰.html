@@ -89,7 +89,13 @@
             .section { padding: 20px; }
             .color-grid { grid-template-columns: repeat(2, 1fr); }
         }
-    </style>
+    /* Responsive improvements for laptop/small screens */
+.meta-bar { flex-wrap: wrap; gap: 8px; }
+@media (max-width: 700px) {
+  .meta-bar { padding: 8px 12px; }
+  .meta-item { font-size: 11px; }
+}
+</style>
 </head>
 <body>
 

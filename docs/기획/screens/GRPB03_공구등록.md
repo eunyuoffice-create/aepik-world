@@ -141,23 +141,23 @@
 
 | 필드 | 타입 | 필수 | 설명 |
 |------|------|------|------|
-| type | string | ✅ | "regular" 또는 "set" |
-| category | string | ✅ | 카테고리 (anime_manga/idol_artist/actor_stage/game) |
-| title | string | ✅ | 상품명 |
-| images | string[] | ❌ | 이미지 URL 배열 (S3) |
-| work_id | string | ❌ | 작품 ID (세트 공구 필수) |
-| goods_type | string | ❌ | 굿즈 타입 |
-| price_per_person | number | ✅ | 1인당 가격(일반) 또는 캐릭터당 가격(세트) |
-| delivery_included | boolean | ✅ | 배송비 포함 여부 |
-| target_count | number | ✅ | 목표 인원 |
-| min_count | number | ❌ | 최소 인원 |
-| deadline | string | ✅ | 마감일 (ISO 8601) |
-| delivery_date | string | ✅ | 배송 예정일 (ISO 8601) |
-| description | string | ❌ | 상세 설명 (마크다운) |
-| character_slots | array | ❌ | 캐릭터 슬롯 (세트 공구 필수) |
-| character_slots[].character_id | string | ✅ | 캐릭터 ID |
-| character_slots[].quantity | number | ✅ | 선점 가능 수량 |
-| character_slots[].reserved_by_organizer | number | ✅ | 진행자 선점 수량 |
+| type | string | O | "regular" 또는 "set" |
+| category | string | O | 카테고리 (anime_manga/idol_artist/actor_stage/game) |
+| title | string | O | 상품명 |
+| images | string[] | X | 이미지 URL 배열 (S3) |
+| work_id | string | X | 작품 ID (세트 공구 필수) |
+| goods_type | string | X | 굿즈 타입 |
+| price_per_person | number | O | 1인당 가격(일반) 또는 캐릭터당 가격(세트) |
+| delivery_included | boolean | O | 배송비 포함 여부 |
+| target_count | number | O | 목표 인원 |
+| min_count | number | X | 최소 인원 |
+| deadline | string | O | 마감일 (ISO 8601) |
+| delivery_date | string | O | 배송 예정일 (ISO 8601) |
+| description | string | X | 상세 설명 (마크다운) |
+| character_slots | array | X | 캐릭터 슬롯 (세트 공구 필수) |
+| character_slots[].character_id | string | O | 캐릭터 ID |
+| character_slots[].quantity | number | O | 선점 가능 수량 |
+| character_slots[].reserved_by_organizer | number | O | 진행자 선점 수량 |
 
 **Response:**
 

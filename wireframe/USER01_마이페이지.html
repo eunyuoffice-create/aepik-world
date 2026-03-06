@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>USER01 — 마이페이지 와이어프레임</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+
+/* ===== META HEADER ===== */
+.meta-bar {
+  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
+}
+.meta-item { font-size: 11px; }
+.meta-label { color: #999; }
+.meta-value { font-weight: 600; color: #333; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+
+/* ===== MAIN LAYOUT ===== */
+.main-layout { overflow-x: hidden;
+  display: flex; min-height: calc(100vh - 48px);
+}
+
+/* ===== WIREFRAME SIDE ===== */
+.wireframe-side {
+  flex: 1 1 55%; min-width: 0; background: #EAEAEA; padding: 32px;
+  display: flex; flex-direction: column; align-items: center; overflow-y: auto;
+}
+
+.phone-stack {
+  display: flex; flex-direction: column; gap: 24px; align-items: center;
+}
+
+.phone-frame {
+  max-width: 375px; width: 100%; background: #fff; border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative;
+  overflow: hidden; }
+
+.frame-label {
+  font-size: 13px; font-weight: 600; color: #2563EB;
+  margin-bottom: 12px; text-align: center;
+}
+
+/* ===== DESCRIPTION SIDE ===== */
+.desc-side {
+  flex: 1 1 45%; min-width: 0; background: #fff; padding: 24px 28px;
+  overflow-y: auto; border-left: 1px solid #ddd;
+}
+.desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+
+.desc-item { margin-bottom: 20px; }
+.desc-num-row {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+}
+.desc-num {
+  background: #2563EB; color: #fff; width: 22px; height: 22px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0;
+}
+.desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-name { font-size: 14px; font-weight: 600; }
+
+.desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
+.desc-body ul { list-style: none; }
+.desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
+.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #888; }
+.desc-body .sub li::before { content: '└'; color: #ccc; }
+
+.desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
+
+/* ===== WIREFRAME ELEMENTS ===== */
+.wf-section { position: relative; }
+
+/* Number circle overlay */
+.num-circle {
+  position: absolute; z-index: 10;
+  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+/* Header */
+.wf-header {
+  display: flex; align-items: center; padding: 12px 16px;
+  border-bottom: 1px solid #eee; position: relative;
+}
+.wf-page-title { font-weight: 700; font-size: 16px; color: #1A1A1A; }
+.wf-header-icons { margin-left: auto; display: flex; gap: 12px; }
+.wf-icon { width: 24px; height: 24px; background: #f0f0f0; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #888; }
+.wf-back-arrow { width: auto; background: none; font-size: 16px; color: #1A1A1A; }
+
+/* Profile Card */
+.wf-profile-card {
+  padding: 20px 16px; text-align: center; border-bottom: 1px solid #f0f0f0;
+}
+.wf-profile-avatar {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: #E5E5E5; margin: 0 auto 12px; display: flex;
+  align-items: center; justify-content: center; font-size: 11px; color: #bbb;
+}
+.wf-profile-nickname-row {
+  display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 4px;
+}
+.wf-profile-nickname { font-size: 18px; font-weight: 700; color: #1A1A1A; }
+.wf-check-badge {
+  width: 16px; height: 16px; background: #2563EB; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; color: #fff; font-size: 10px;
+  flex-shrink: 0;
+}
+.wf-profile-stats { font-size: 12px; color: #888; margin-bottom: 8px; }
+.wf-profile-bias { font-size: 12px; color: #555; margin-bottom: 12px; }
+.wf-btn-secondary {
+  display: inline-block; padding: 8px 16px; font-size: 12px; font-weight: 500;
+  border: 1px solid #ddd; border-radius: 6px; background: #fff; color: #1A1A1A;
+  cursor: pointer;
+}
+.wf-btn-secondary:hover { background: #F5F5F5; }
+
+/* Quick Count */
+.wf-quick-count {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  padding: 16px; gap: 10px;
+}
+.wf-count-item {
+  padding: 12px; background: #F9F9F9; border: 1px solid #eee;
+  border-radius: 8px; text-align: center;
+}
+.wf-count-value { font-size: 20px; font-weight: 700; color: #2563EB; }
+.wf-count-label { font-size: 11px; color: #888; margin-top: 4px; }
+
+/* Menu List */
+.wf-menu-list { padding: 0; }
+.wf-menu-group { border-bottom: 1px solid #f0f0f0; }
+.wf-menu-group-title {
+  padding: 12px 16px 8px; font-size: 11px; font-weight: 600; color: #999; text-transform: uppercase;
+}
+.wf-menu-item {
+  display: flex; align-items: center; padding: 14px 16px; border-bottom: 1px solid #fafafa;
+  position: relative;
+}
+.wf-menu-icon { width: 20px; height: 20px; background: #f0f0f0; border-radius: 4px; margin-right: 12px; }
+.wf-menu-label { flex: 1; font-size: 14px; color: #1A1A1A; }
+.wf-menu-badge {
+  background: #2563EB; color: #fff; font-size: 9px; font-weight: 600;
+  padding: 2px 6px; border-radius: 10px; margin-right: 8px;
+}
+.wf-menu-arrow { color: #ccc; font-size: 14px; }
+
+/* Logout Button */
+.wf-logout-btn {
+  padding: 16px; text-align: center;
+  border-top: 1px solid #f0f0f0;
+}
+.wf-btn-ghost {
+  font-size: 14px; color: #999; background: none; border: none;
+  cursor: pointer; text-decoration: none;
+}
+
+/* Tabs */
+.wf-tabs {
+  display: flex; border-bottom: 1px solid #eee; padding: 0;
+  position: relative;
+}
+.wf-tab {
+  flex: 1; padding: 12px 0; text-align: center; font-size: 13px;
+  font-weight: 500; color: #999; position: relative; background: #fff;
+}
+.wf-tab.active {
+  color: #2563EB; font-weight: 600;
+}
+.wf-tab.active::after {
+  content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+  height: 2px; background: #2563EB;
+}
+
+/* Grid Layout */
+.wf-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  padding: 8px 16px;
+}
+.wf-product-card {
+  background: #fff; border: 1px solid #eee; border-radius: 8px; overflow: hidden;
+}
+.wf-product-img {
+  width: 100%; aspect-ratio: 1; background: #E5E5E5;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: #bbb;
+}
+.wf-product-body { padding: 8px; }
+.wf-product-tags { display: flex; gap: 4px; margin-bottom: 4px; }
+.wf-tag { font-size: 9px; padding: 1px 5px; border-radius: 3px; }
+.wf-tag.anime { background: #F5F3FF; color: #7C3AED; }
+.wf-tag.idol { background: #FDF2F8; color: #DB2777; }
+.wf-tag.actor { background: #FFFBEB; color: #F59E0B; }
+.wf-tag.game { background: #ECFEFF; color: #0891B2; }
+.wf-product-name { font-size: 11px; font-weight: 500; line-height: 1.3; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.wf-product-meta { font-size: 10px; color: #999; }
+
+/* Form Elements */
+.wf-form-group { padding: 16px; border-bottom: 1px solid #f0f0f0; }
+.wf-form-label { font-size: 13px; font-weight: 600; color: #1A1A1A; margin-bottom: 8px; display: block; }
+.wf-input {
+  width: 100%; padding: 10px 12px; font-size: 14px;
+  border: 1px solid #ddd; border-radius: 6px; background: #fff;
+  position: relative;
+}
+.wf-input-wrapper { position: relative; }
+.wf-counter { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 12px; color: #999; }
+.wf-validation { font-size: 11px; margin-top: 6px; }
+.wf-validation.success { color: #16A34A; }
+.wf-validation.error { color: #DC2626; }
+
+/* Category Tags */
+.wf-category-tags {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px;
+}
+.wf-category-tag {
+  padding: 8px 12px; border-radius: 6px; font-size: 12px; font-weight: 500;
+  color: #fff;
+}
+.wf-category-tag.purple { background: #8B5CF6; }
+.wf-category-tag.pink { background: #EC4899; }
+.wf-category-tag.amber { background: #F59E0B; }
+.wf-category-tag.cyan { background: #06B6D4; }
+
+/* Reviews */
+.wf-reviews-section { padding: 0; }
+.wf-review-item {
+  padding: 12px 16px; border-bottom: 1px solid #f0f0f0;
+  display: flex; gap: 12px;
+}
+.wf-review-icon {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 14px;
+}
+.wf-review-icon.positive { background: #EFF6FF; color: #2563EB; }
+.wf-review-icon.negative { background: #FEE2E2; color: #DC2626; }
+.wf-review-body { flex: 1; }
+.wf-review-text { font-size: 12px; color: #555; margin-bottom: 4px; }
+.wf-review-date { font-size: 10px; color: #999; }
+
+/* Revision footer */
+.revision-bar {
+  background: #fff; border-top: 1px solid #eee; padding: 12px 24px;
+  font-size: 11px; color: #999;
+}
+.revision-bar table { width: 100%; border-collapse: collapse; }
+.revision-bar th { text-align: left; font-weight: 600; color: #666; padding: 4px 8px; border-bottom: 1px solid #eee; }
+.revision-bar td { padding: 4px 8px; }
+
+@media (max-width: 900px) {
+  .main-layout { flex-direction: column; }
+  .wireframe-side { flex: none; padding: 16px; }
+  .desc-side { flex: none; border-left: none; border-top: 1px solid #ddd; }
+}
+/* Responsive improvements for laptop/small screens */
+.meta-bar { flex-wrap: wrap; gap: 8px; }
+.phone-frame { max-width: 375px; width: 100%; }
+@media (max-width: 1200px) {
+  .main-layout { gap: 0; }
+  .wireframe-side { flex: 0 0 50%; padding: 20px; }
+  .desc-side { flex: 0 0 50%; padding: 20px; }
+}
+@media (max-width: 700px) {
+  .wireframe-side { padding: 12px; justify-content: center; }
+  .desc-side { padding: 12px 16px; }
+  .phone-frame { max-width: 100%; }
+  .meta-bar { padding: 8px 12px; }
+  .meta-item { font-size: 11px; }
+}
+</style>
+</head>
+<body>
+
+<!-- META HEADER -->
+<div class="meta-bar">
+  <span class="title">USER01</span>
+  <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">마이페이지</span></span>
+  <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/my, /my/edit, /user/[userId]</span></span>
+  <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.1</span></span>
+  <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
+  <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-06</span></span>
+</div>
+
+<!-- MAIN LAYOUT: Wireframe + Description -->
+<div class="main-layout">
+
+  <!-- ===== WIREFRAME ===== -->
+  <div class="wireframe-side">
+
+    <div class="phone-stack">
+
+      <!-- ===== FRAME A: 마이페이지 메인 (/my) ===== -->
+      <div class="frame-label">Frame A: 마이페이지 메인 (/my)</div>
+      <div class="phone-frame">
+
+        <!-- A-1: Header -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">1</div>
+          <div class="wf-header">
+            <span class="wf-page-title">마이페이지</span>
+            <div class="wf-header-icons">
+              <div class="wf-icon" style="background:#EFF6FF; color:#2563EB;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px; height:14px;">
+                  <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- A-2: Profile Card -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">2</div>
+          <div class="wf-profile-card">
+            <div class="wf-profile-avatar">72px</div>
+            <div class="wf-profile-nickname-row">
+              <span class="wf-profile-nickname">닉네임</span>
+              <div class="wf-check-badge">
+                <svg viewBox="0 0 24 24" fill="currentColor" style="width:10px; height:10px;">
+                  <path d="M20.285 2l-11.285 11.567-5.571-5.571L0 9.715l5.571 5.571L9 18.285l11.285-11.285z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="wf-profile-stats">교환 12회 · 긍정 95% · 가입일 2025.08</div>
+            <div class="wf-profile-bias">최애: 히나타 쇼요</div>
+            <button class="wf-btn-secondary">프로필 편집</button>
+          </div>
+        </div>
+
+        <!-- A-3: Quick Count -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">3</div>
+          <div class="wf-quick-count">
+            <div class="wf-count-item">
+              <div class="wf-count-value">5</div>
+              <div class="wf-count-label">내 교환글</div>
+            </div>
+            <div class="wf-count-item">
+              <div class="wf-count-value">2</div>
+              <div class="wf-count-label">내 공구</div>
+            </div>
+            <div class="wf-count-item">
+              <div class="wf-count-value">3</div>
+              <div class="wf-count-label">내 구함글</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- A-4: Menu List -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">4</div>
+          <div class="wf-menu-list">
+            <div class="wf-menu-group-title">내 활동</div>
+            <div class="wf-menu-item">
+              <div class="wf-menu-icon"></div>
+              <span class="wf-menu-label">교환 내역</span>
+              <span class="wf-menu-arrow">›</span>
+            </div>
+            <div class="wf-menu-item">
+              <div class="wf-menu-icon"></div>
+              <span class="wf-menu-label">받은 후기</span>
+              <span class="wf-menu-arrow">›</span>
+            </div>
+            <div class="wf-menu-item">
+              <div class="wf-menu-icon"></div>
+              <span class="wf-menu-label">찜 목록</span>
+              <div class="wf-menu-badge">3</div>
+              <span class="wf-menu-arrow">›</span>
+            </div>
+            <div class="wf-menu-item">
+              <div class="wf-menu-icon"></div>
+              <span class="wf-menu-label">보낸/받은 교환 제안</span>
+              <span class="wf-menu-arrow">›</span>
+            </div>
+
+            <div class="wf-menu-group-title">알림</div>
+            <div class="wf-menu-item">
+              <div class="wf-menu-icon"></div>
+              <span class="wf-menu-label">키워드 알림 설정</span>
+              <div class="wf-menu-badge">3개</div>
+              <span class="wf-menu-arrow">›</span>
+            </div>
+
+            <div class="wf-menu-group-title">지원</div>
+            <div class="wf-menu-item">
+              <div class="wf-menu-icon"></div>
+              <span class="wf-menu-label">공지사항</span>
+              <span class="wf-menu-arrow">›</span>
+            </div>
+            <div class="wf-menu-item">
+              <div class="wf-menu-icon"></div>
+              <span class="wf-menu-label">고객센터</span>
+              <span class="wf-menu-arrow">›</span>
+            </div>
+
+            <div class="wf-menu-group-title">정보</div>
+            <div class="wf-menu-item">
+              <div class="wf-menu-icon"></div>
+              <span class="wf-menu-label">이용약관</span>
+              <span class="wf-menu-arrow">›</span>
+            </div>
+            <div class="wf-menu-item">
+              <div class="wf-menu-icon"></div>
+              <span class="wf-menu-label">개인정보처리방침</span>
+              <span class="wf-menu-arrow">›</span>
+            </div>
+            <div class="wf-menu-item">
+              <div class="wf-menu-icon"></div>
+              <span class="wf-menu-label">앱 버전</span>
+              <span style="color: #999; font-size: 12px; margin-left: auto;">1.0.0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- A-5: Logout -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">5</div>
+          <div class="wf-logout-btn">
+            <button class="wf-btn-ghost">로그아웃</button>
+          </div>
+        </div>
+
+      </div><!-- end Frame A -->
+
+      <!-- ===== FRAME B: 프로필 편집 (/my/edit) ===== -->
+      <div class="frame-label">Frame B: 프로필 편집 (/my/edit)</div>
+      <div class="phone-frame">
+
+        <!-- B-1: Header -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">6</div>
+          <div class="wf-header">
+            <span class="wf-back-arrow">‹</span>
+            <span style="flex:1; text-align:center; font-weight:700; font-size:16px;">프로필 편집</span>
+            <span style="color:#2563EB; font-size:14px; font-weight:600;">저장</span>
+          </div>
+        </div>
+
+        <!-- B-2: Profile Image -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">7</div>
+          <div style="padding:20px 16px; text-align:center;">
+            <div style="width:100px; height:100px; border-radius:50%; background:#E5E5E5; margin:0 auto 12px; display:flex; align-items:center; justify-content:center; position:relative;">
+              <span style="font-size:11px; color:#bbb;">100px</span>
+              <div style="position:absolute; bottom:0; right:0; width:28px; height:28px; background:#2563EB; border-radius:50%; border:2px solid white; display:flex; align-items:center; justify-content:center; color:white; font-size:14px;">
+                <svg viewBox="0 0 24 24" fill="currentColor" style="width:14px; height:14px;">
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- B-3: Nickname -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">8</div>
+          <div class="wf-form-group">
+            <label class="wf-form-label">닉네임</label>
+            <div class="wf-input-wrapper">
+              <input class="wf-input" type="text" value="닉네임" placeholder="닉네임">
+              <span class="wf-counter">5/12</span>
+            </div>
+            <div class="wf-validation success">사용 가능</div>
+          </div>
+        </div>
+
+        <!-- B-4: Bias -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">9</div>
+          <div class="wf-form-group">
+            <label class="wf-form-label">최애 표시 (프로필에 공개)</label>
+            <div class="wf-input-wrapper">
+              <input class="wf-input" type="text" placeholder="예: 영지 (블루아카이브)" value="히나타 쇼요">
+              <span style="position:absolute; right:12px; top:50%; transform:translateY(-50%); cursor:pointer; color:#999; font-size:14px;">×</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- B-5: Category -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">10</div>
+          <div class="wf-form-group">
+            <label class="wf-form-label">관심 카테고리</label>
+            <div class="wf-category-tags">
+              <div class="wf-category-tag purple">애니/만화/소설</div>
+              <div class="wf-category-tag pink">아이돌/아티스트</div>
+              <div class="wf-category-tag amber">배우/무대</div>
+              <div class="wf-category-tag cyan">게임</div>
+            </div>
+            <button style="margin-top:12px; font-size:12px; color:#2563EB; background:none; border:none; cursor:pointer; font-weight:500;">변경</button>
+          </div>
+        </div>
+
+      </div><!-- end Frame B -->
+
+      <!-- ===== FRAME C: 타인 프로필 (/user/[userId]) ===== -->
+      <div class="frame-label">Frame C: 타인 프로필 (/user/[userId])</div>
+      <div class="phone-frame">
+
+        <!-- C-1: Header -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">11</div>
+          <div class="wf-header">
+            <span class="wf-back-arrow">‹</span>
+            <span style="flex:1; text-align:center; font-weight:700; font-size:16px;">사용자닉네임</span>
+            <div class="wf-icon" style="background:#f0f0f0;">⋯</div>
+          </div>
+        </div>
+
+        <!-- C-2: Profile -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">12</div>
+          <div class="wf-profile-card">
+            <div class="wf-profile-avatar" style="width:80px; height:80px;">80px</div>
+            <div class="wf-profile-nickname-row">
+              <span class="wf-profile-nickname">사용자닉네임</span>
+              <div class="wf-check-badge">
+                <svg viewBox="0 0 24 24" fill="currentColor" style="width:10px; height:10px;">
+                  <path d="M20.285 2l-11.285 11.567-5.571-5.571L0 9.715l5.571 5.571L9 18.285l11.285-11.285z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="wf-profile-bias">최애: 캐릭터명</div>
+            <div class="wf-profile-stats">교환 8회 · 긍정 88% · 가입일 2025.08</div>
+            <div style="font-size:12px; color:#888; margin-top:8px;">2025년 08월 가입</div>
+          </div>
+        </div>
+
+        <!-- C-3: Tabs -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:4px; left:6px;">13</div>
+          <div class="wf-tabs">
+            <div class="wf-tab active">교환글 5</div>
+            <div class="wf-tab">공구 2</div>
+            <div class="wf-tab">구함글 1</div>
+          </div>
+        </div>
+
+        <!-- C-4: Product Grid -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:4px; left:6px;">13</div>
+          <div class="wf-grid">
+            <div class="wf-product-card">
+              <div class="wf-product-img">IMG</div>
+              <div class="wf-product-body">
+                <div class="wf-product-tags">
+                  <span class="wf-tag anime">애니/만화/소설</span>
+                </div>
+                <div class="wf-product-name">상품명 1</div>
+                <div class="wf-product-meta">작품 · 캐릭터</div>
+              </div>
+            </div>
+            <div class="wf-product-card">
+              <div class="wf-product-img">IMG</div>
+              <div class="wf-product-body">
+                <div class="wf-product-tags">
+                  <span class="wf-tag anime">애니/만화/소설</span>
+                </div>
+                <div class="wf-product-name">상품명 2</div>
+                <div class="wf-product-meta">작품 · 캐릭터</div>
+              </div>
+            </div>
+            <div class="wf-product-card">
+              <div class="wf-product-img">IMG</div>
+              <div class="wf-product-body">
+                <div class="wf-product-tags">
+                  <span class="wf-tag anime">애니/만화/소설</span>
+                </div>
+                <div class="wf-product-name">상품명 3</div>
+                <div class="wf-product-meta">작품 · 캐릭터</div>
+              </div>
+            </div>
+            <div class="wf-product-card">
+              <div class="wf-product-img">IMG</div>
+              <div class="wf-product-body">
+                <div class="wf-product-tags">
+                  <span class="wf-tag anime">애니/만화/소설</span>
+                </div>
+                <div class="wf-product-name">상품명 4</div>
+                <div class="wf-product-meta">작품 · 캐릭터</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- C-5: Reviews -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">14</div>
+          <div style="padding:12px 16px; font-size:13px; font-weight:600; color:#1A1A1A;">받은 후기</div>
+          <div class="wf-reviews-section">
+            <div class="wf-review-item">
+              <div class="wf-review-icon positive">+</div>
+              <div class="wf-review-body">
+                <div class="wf-review-text">좋은 사람과 거래했습니다!</div>
+                <div class="wf-review-date">2025년 02월 15일</div>
+              </div>
+            </div>
+            <div class="wf-review-item">
+              <div class="wf-review-icon positive">+</div>
+              <div class="wf-review-body">
+                <div class="wf-review-text">빠른 배송 감사합니다.</div>
+                <div class="wf-review-date">2025년 01월 20일</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end Frame C -->
+
+    </div><!-- end phone-stack -->
+
+  </div><!-- end wireframe-side -->
+
+  <!-- ===== DESCRIPTION ===== -->
+  <div class="desc-side">
+    <div class="desc-title">USER01 — 마이페이지</div>
+    <div class="desc-subtitle">라우트: /my, /my/edit, /user/[userId] &nbsp;|&nbsp; 비로그인 접근: /my 제한, /user 가능 &nbsp;|&nbsp; Phase 1</div>
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">1</div>
+        <span class="desc-comp-type">[Header]</span>
+        <span class="desc-comp-name">앱 헤더 (마이페이지 메인)</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>좌측: 페이지 제목 "마이페이지"</li>
+          <li>우측 아이콘: 설정 톱니바퀴 아이콘 (파란 배경)</li>
+          <li>설정 아이콘 탭 시: USER03 설정 화면 이동</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">2</div>
+        <span class="desc-comp-type">[ProfileCard]</span>
+        <span class="desc-comp-name">프로필 카드</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>72px 원형 프로필 이미지 (미등록 시 기본 아바타)</li>
+          <li>닉네임 18px Bold + 본인인증 체크 뱃지 (16px, 파란색)</li>
+          <li>신뢰 지표: "교환 N회 · 긍정 N% · 가입일 YYYY.MM"</li>
+          <li>최애 표시: "최애: [캐릭터/아이돌명]" (있을 때만 표시)</li>
+          <li>"프로필 편집" Secondary Small 버튼 → 모드 B 이동</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">3</div>
+        <span class="desc-comp-type">[QuickCount]</span>
+        <span class="desc-comp-name">퀵 카운트</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>가로 3등분 카드 (탭 가능)</li>
+          <li>항목: "내 교환글 N" / "내 공구 N" / "내 구함글 N"</li>
+          <li>카드 탭 시: USER02 해당 탭으로 이동</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">4</div>
+        <span class="desc-comp-type">[MenuList]</span>
+        <span class="desc-comp-name">메뉴 리스트</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>4개 그룹 구조 (내 활동 / 알림 / 지원 / 정보)</li>
+          <li>내 활동 그룹:
+            <ul class="sub">
+              <li>교환 내역 → USER02 교환내역 탭</li>
+              <li>받은 후기 → USER02 후기 탭</li>
+              <li>찜 목록 → USER02 찜 탭 (찜 카운트 뱃지 표시)</li>
+              <li>보낸/받은 교환 제안 → EXCH05</li>
+            </ul>
+          </li>
+          <li>알림 그룹: 키워드 알림 설정 → USER03 (등록 키워드 N개 뱃지)</li>
+          <li>지원 그룹: 공지사항, 고객센터 → STAT01</li>
+          <li>정보 그룹: 이용약관, 개인정보처리방침, 앱 버전 (현재 버전 표시)</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">5</div>
+        <span class="desc-comp-type">[Button]</span>
+        <span class="desc-comp-name">로그아웃</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>Ghost 텍스트 버튼 "로그아웃" (메뉴 하단)</li>
+          <li>탭 시 확인 팝업: "로그아웃 하시겠습니까?" / [취소] [로그아웃]</li>
+          <li>확인 시: JWT 토큰 삭제, AUTH01로 이동</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">6</div>
+        <span class="desc-comp-type">[Header]</span>
+        <span class="desc-comp-name">편집 헤더</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>좌측: 뒤로가기 화살표 (마이페이지로 복귀)</li>
+          <li>중앙: "프로필 편집"</li>
+          <li>우측: "저장" 텍스트 버튼 (변경 사항 있을 때만 활성)</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">7</div>
+        <span class="desc-comp-type">[ImageEdit]</span>
+        <span class="desc-comp-name">프로필 이미지 변경</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>100px 원형 이미지, 중앙 정렬</li>
+          <li>우하단 28px 원형 버튼에 카메라 아이콘</li>
+          <li>탭 시 액션시트: 카메라 촬영 / 앨범에서 선택 / 기본 이미지로 변경</li>
+          <li>업로드 제한: 5MB, JPG/PNG/WebP, 리사이즈 400x400</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">8</div>
+        <span class="desc-comp-type">[Input]</span>
+        <span class="desc-comp-name">닉네임 변경</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>인풋 필드: 현재 닉네임 pre-fill, 44px 높이</li>
+          <li>글자 수 카운터: 우측 하단 "N/12"</li>
+          <li>실시간 중복 확인: debounce 500ms, 사용 가능(초록) / 이미 사용 중(빨강)</li>
+          <li>규칙: 2~12자, 한글/영문/숫자, 특수문자/공백 불가</li>
+          <li>금칙어 검사: 서버사이드 필터링</li>
+          <li>변경 제한: 30일에 1회만 변경 가능</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">9</div>
+        <span class="desc-comp-type">[Input]</span>
+        <span class="desc-comp-name">최애 표시 설정</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>라벨: "최애 표시 (프로필에 공개)"</li>
+          <li>자유 입력, 최대 20자</li>
+          <li>예시 placeholder: "예: 영지 (블루아카이브)"</li>
+          <li>인풋 우측 X 버튼으로 비우기</li>
+          <li>빈 값 저장 시 프로필에서 최애 행 숨김</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">10</div>
+        <span class="desc-comp-type">[Tags]</span>
+        <span class="desc-comp-name">관심 카테고리 변경</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>현재 선택된 4개 카테고리 태그 표시 (Purple/Pink/Amber/Cyan)</li>
+          <li>"변경" 버튼 탭 시 카테고리 선택 바텀시트 (AUTH02 Step 4와 동일)</li>
+          <li>4개 카테고리 카드, 복수 선택 가능</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">11</div>
+        <span class="desc-comp-type">[Header]</span>
+        <span class="desc-comp-name">타인 프로필 헤더</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>좌측: 뒤로가기 화살표</li>
+          <li>중앙: 닉네임 표시</li>
+          <li>우측: 더보기 메뉴 (점 3개) → 신고하기 옵션</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">12</div>
+        <span class="desc-comp-type">[ProfileCard]</span>
+        <span class="desc-comp-name">타인 프로필 영역</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>80px 원형 프로필 이미지</li>
+          <li>닉네임 18px Bold + 인증 뱃지 (해당 시)</li>
+          <li>최애 표시 (있을 시 표시)</li>
+          <li>신뢰 지표: "교환 N회 · 긍정 N% · 가입일 YYYY.MM"</li>
+          <li>가입일 라벨: "YYYY년 MM월 가입"</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">13</div>
+        <span class="desc-comp-type">[Tabs+Grid]</span>
+        <span class="desc-comp-name">등록 매물 탭 및 그리드</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>탭 바: "교환글 N" / "공구 N" / "구함글 N"</li>
+          <li>각 탭 내 2열 그리드 카드 (ProductCard)</li>
+          <li>활성 매물만 표시 (완료/삭제 제외)</li>
+          <li>빈 상태: "등록된 [교환글/공구/구함글]이 없습니다"</li>
+          <li>카드 탭 시: 해당 상세 화면 (EXCH02/GRPB02/WANT01) 이동</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">14</div>
+        <span class="desc-comp-type">[Reviews]</span>
+        <span class="desc-comp-name">받은 후기</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>후기 카드: 긍정/부정 아이콘 + 작성자 텍스트 + 날짜</li>
+          <li>긍정 아이콘: 파란 배경 + + 기호</li>
+          <li>부정 아이콘: 빨강 배경 + - 기호</li>
+          <li>정렬: 최신순</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- States -->
+    <div style="margin-top:16px;">
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">화면 상태</div>
+      <div class="desc-body" style="padding-left:0;">
+        <ul>
+          <li><strong>로딩 중</strong>: 프로필 카드 + 메뉴 스켈레톤 UI (회색 박스 펄스 애니메이션)</li>
+          <li><strong>에러</strong>: "연결이 불안정합니다" + 재시도 버튼</li>
+          <li><strong>비로그인 (/my 접근)</strong>: 로그인 유도 바텀시트 (AUTH01-D)</li>
+          <li><strong>타인 프로필 빈 상태</strong>: 매물 0건 시 "등록된 매물이 없습니다"</li>
+          <li><strong>탈퇴 사용자</strong>: "탈퇴한 사용자입니다" 안내</li>
+          <li><strong>정지 사용자</strong>: "이용이 제한된 사용자입니다" 안내</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Connected screens -->
+    <div style="margin-top:16px;">
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">연관 화면</div>
+      <div class="desc-body" style="padding-left:0;">
+        <table style="width:100%; font-size:11px; border-collapse:collapse;">
+          <thead>
+            <tr style="border-bottom:1px solid #eee;">
+              <th style="text-align:left; padding:4px 8px; color:#888;">이동 대상</th>
+              <th style="text-align:left; padding:4px 8px; color:#888;">조건</th>
+              <th style="text-align:left; padding:4px 8px; color:#888;">화면코드</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:4px 8px;">설정</td><td style="padding:4px 8px;">설정 아이콘 탭</td><td style="padding:4px 8px;">USER03</td></tr>
+            <tr><td style="padding:4px 8px;">내 활동 관리</td><td style="padding:4px 8px;">퀵카운트 탭</td><td style="padding:4px 8px;">USER02</td></tr>
+            <tr><td style="padding:4px 8px;">교환 신청함</td><td style="padding:4px 8px;">메뉴 탭</td><td style="padding:4px 8px;">EXCH05</td></tr>
+            <tr><td style="padding:4px 8px;">고객센터</td><td style="padding:4px 8px;">메뉴 탭</td><td style="padding:4px 8px;">STAT01</td></tr>
+            <tr><td style="padding:4px 8px;">로그인</td><td style="padding:4px 8px;">비로그인 /my 접근 / 로그아웃</td><td style="padding:4px 8px;">AUTH01</td></tr>
+            <tr><td style="padding:4px 8px;">교환 목록</td><td style="padding:4px 8px;">타인 프로필 > 교환글 탭</td><td style="padding:4px 8px;">EXCH01</td></tr>
+            <tr><td style="padding:4px 8px;">공구 목록</td><td style="padding:4px 8px;">타인 프로필 > 공구 탭</td><td style="padding:4px 8px;">GRPB01</td></tr>
+            <tr><td style="padding:4px 8px;">교환 상세</td><td style="padding:4px 8px;">타인 프로필 > 교환글 카드</td><td style="padding:4px 8px;">EXCH02</td></tr>
+            <tr><td style="padding:4px 8px;">공구 상세</td><td style="padding:4px 8px;">타인 프로필 > 공구 카드</td><td style="padding:4px 8px;">GRPB02</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- end desc-side -->
+
+</div><!-- end main-layout -->
+
+<!-- REVISION FOOTER -->
+<div class="revision-bar">
+  <table>
+    <thead>
+      <tr><th>날짜</th><th>버전</th><th>내용</th><th>작성자</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>2026-03-06</td><td>0.1</td><td>초안 작성 — 마이페이지 메인(A) + 프로필 편집(B) + 타인 프로필(C) 3개 프레임</td><td>AI (Claude)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

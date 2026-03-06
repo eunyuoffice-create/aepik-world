@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AUTH01 — 로그인 와이어프레임</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+
+/* ===== META HEADER ===== */
+.meta-bar {
+  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
+}
+.meta-item { font-size: 11px; }
+.meta-label { color: #999; }
+.meta-value { font-weight: 600; color: #333; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+
+/* ===== MAIN LAYOUT ===== */
+.main-layout { overflow-x: hidden;
+  display: flex; min-height: calc(100vh - 48px);
+}
+
+/* ===== WIREFRAME SIDE ===== */
+.wireframe-side {
+  flex: 1 1 55%; min-width: 0; background: #EAEAEA; padding: 32px;
+  display: flex; justify-content: center; overflow-y: auto;
+}
+.phone-stack {
+  display: flex; flex-direction: column; gap: 24px;
+  align-items: center;
+}
+.phone-frame {
+  max-width: 375px; width: 100%; background: #fff; border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative;
+  overflow: hidden; }
+.frame-label {
+  margin-top: 8px; text-align: center; font-size: 12px;
+  color: #666; font-weight: 500;
+}
+
+/* ===== DESCRIPTION SIDE ===== */
+.desc-side {
+  flex: 1 1 45%; min-width: 0; background: #fff; padding: 24px 28px;
+  overflow-y: auto; border-left: 1px solid #ddd;
+}
+.desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+
+.desc-item { margin-bottom: 20px; }
+.desc-num-row {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+}
+.desc-num {
+  background: #2563EB; color: #fff; width: 22px; height: 22px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0;
+}
+.desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-name { font-size: 14px; font-weight: 600; }
+
+.desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
+.desc-body ul { list-style: none; }
+.desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
+.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #888; }
+.desc-body .sub li::before { content: '└'; color: #ccc; }
+
+.desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
+
+/* ===== WIREFRAME ELEMENTS ===== */
+.wf-section { position: relative; }
+
+/* Number circle overlay */
+.num-circle {
+  position: absolute; z-index: 10;
+  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+/* LOGIN SPECIFIC STYLES */
+
+/* Logo section */
+.wf-login-logo {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 60px 20px 40px; text-align: center;
+}
+.wf-logo-text {
+  font-size: 20px; font-weight: 700; color: #2563EB; margin-bottom: 8px;
+}
+.wf-slogan {
+  font-size: 14px; color: #666; line-height: 1.4;
+  max-width: 300px;
+}
+
+/* CTA Buttons */
+.wf-cta-section {
+  display: flex; flex-direction: column; gap: 10px; padding: 0 20px;
+}
+.wf-btn {
+  padding: 12px 16px; border-radius: 8px; font-size: 14px;
+  font-weight: 600; text-align: center; border: none; cursor: pointer;
+  transition: all 0.2s ease;
+}
+.wf-btn-primary {
+  background: #2563EB; color: #fff;
+}
+.wf-btn-kakao {
+  background: #FEE500; color: #000; display: flex;
+  align-items: center; justify-content: center; gap: 8px;
+}
+.wf-btn-ghost {
+  background: #F5F5F5; color: #333; border: 1px solid #ddd;
+}
+.wf-btn-ghost:hover {
+  background: #FAFAFA;
+}
+.wf-btn-disabled {
+  opacity: 0.5; cursor: not-allowed;
+}
+
+/* Icon placeholder */
+.wf-icon-inline {
+  width: 18px; height: 18px; background: #ddd;
+  border-radius: 3px; display: inline-flex;
+  align-items: center; justify-content: center;
+  font-size: 10px;
+}
+
+/* Helper links section */
+.wf-login-helpers {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 20px; text-align: center;
+}
+.wf-link {
+  font-size: 12px; color: #2563EB; text-decoration: none;
+  font-weight: 500;
+}
+.wf-link-text {
+  font-size: 11px; color: #999;
+}
+
+/* Form section */
+.wf-form {
+  display: flex; flex-direction: column; gap: 12px; padding: 0 20px;
+}
+.wf-input-group {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.wf-input-label {
+  font-size: 12px; font-weight: 500; color: #333;
+}
+.wf-input {
+  padding: 10px 12px; border: 1px solid #ddd; border-radius: 6px;
+  font-size: 13px; background: #fff;
+}
+.wf-input:focus {
+  outline: none; border-color: #2563EB; box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+.wf-input.error {
+  border-color: #EF4444;
+}
+
+/* Password toggle */
+.wf-password-toggle {
+  position: relative;
+}
+.wf-toggle-icon {
+  position: absolute; right: 12px; top: 50%;
+  transform: translateY(-50%); cursor: pointer;
+  width: 18px; height: 18px; background: #ddd;
+  border-radius: 3px; display: flex;
+  align-items: center; justify-content: center;
+  font-size: 10px; color: #666;
+}
+
+/* Error message */
+.wf-error-msg {
+  font-size: 11px; color: #EF4444; padding: 8px 0;
+}
+
+/* Success message */
+.wf-success-msg {
+  font-size: 12px; color: #16A34A; padding: 12px;
+  background: #F0FDF4; border-radius: 6px; border-left: 3px solid #16A34A;
+}
+
+/* Back header */
+.wf-back-header {
+  display: flex; align-items: center; padding: 12px 16px;
+  border-bottom: 1px solid #eee; position: relative;
+  gap: 12px;
+}
+.wf-back-icon {
+  width: 24px; height: 24px; display: flex;
+  align-items: center; justify-content: center;
+  cursor: pointer;
+}
+.wf-header-title {
+  font-size: 16px; font-weight: 600; color: #333;
+}
+
+/* Description text */
+.wf-desc-text {
+  font-size: 12px; color: #666; padding: 20px;
+  line-height: 1.5;
+}
+
+/* Bottom sheet */
+.wf-dimmed {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.4); display: flex;
+  align-items: flex-end;
+}
+.wf-bottom-sheet {
+  width: 100%; background: #fff; border-radius: 16px 16px 0 0;
+  padding: 20px 20px 24px; display: flex;
+  flex-direction: column; gap: 12px;
+}
+.wf-sheet-handle {
+  width: 40px; height: 4px; background: #ddd;
+  border-radius: 2px; margin: 0 auto 8px;
+}
+.wf-sheet-icon {
+  width: 40px; height: 40px; background: #F0F0F0;
+  border-radius: 50%; display: flex;
+  align-items: center; justify-content: center;
+  margin: 0 auto 8px; font-size: 20px;
+}
+.wf-sheet-title {
+  font-size: 16px; font-weight: 700; text-align: center;
+  color: #333; margin-bottom: 4px;
+}
+.wf-sheet-desc {
+  font-size: 13px; color: #666; text-align: center;
+  line-height: 1.4; margin-bottom: 12px;
+}
+
+/* Terms notice */
+.wf-terms-notice {
+  font-size: 10px; color: #999; padding: 16px 20px 0;
+  text-align: center; line-height: 1.4;
+}
+
+/* Revision footer */
+.revision-bar {
+  background: #fff; border-top: 1px solid #eee; padding: 12px 24px;
+  font-size: 11px; color: #999;
+}
+.revision-bar table { width: 100%; border-collapse: collapse; }
+.revision-bar th { text-align: left; font-weight: 600; color: #666; padding: 4px 8px; border-bottom: 1px solid #eee; }
+.revision-bar td { padding: 4px 8px; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .main-layout { flex-direction: column; }
+  .wireframe-side { flex: none; padding: 16px; }
+  .desc-side { flex: none; border-left: none; border-top: 1px solid #ddd; }
+}
+/* Responsive improvements for laptop/small screens */
+.meta-bar { flex-wrap: wrap; gap: 8px; }
+.phone-frame { max-width: 375px; width: 100%; }
+@media (max-width: 1200px) {
+  .main-layout { gap: 0; }
+  .wireframe-side { flex: 0 0 50%; padding: 20px; }
+  .desc-side { flex: 0 0 50%; padding: 20px; }
+}
+@media (max-width: 700px) {
+  .wireframe-side { padding: 12px; justify-content: center; }
+  .desc-side { padding: 12px 16px; }
+  .phone-frame { max-width: 100%; }
+  .meta-bar { padding: 8px 12px; }
+  .meta-item { font-size: 11px; }
+}
+</style>
+</head>
+<body>
+
+<!-- META HEADER -->
+<div class="meta-bar">
+  <span class="title">AUTH01</span>
+  <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">로그인</span></span>
+  <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/login</span></span>
+  <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.1</span></span>
+  <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
+  <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-06</span></span>
+</div>
+
+<!-- MAIN LAYOUT: Wireframe + Description -->
+<div class="main-layout">
+
+  <!-- ===== WIREFRAME ===== -->
+  <div class="wireframe-side">
+    <div class="phone-stack">
+
+      <!-- FRAME A: 로그인 메인 -->
+      <div>
+        <div class="phone-frame">
+          
+          <!-- ① Logo Section -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:60px; left:12px;">1</div>
+            <div class="wf-login-logo">
+              <div class="wf-logo-text">애픽 월드</div>
+              <div class="wf-slogan">내 최애 굿즈, 교환하고 함께 사자</div>
+            </div>
+          </div>
+
+          <!-- ② Kakao Login Button -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:150px; left:12px;">2</div>
+            <div class="wf-cta-section">
+              <button class="wf-btn wf-btn-kakao">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" stroke="none">
+                  <circle cx="12" cy="12" r="10" fill="#000" opacity="0.3"/>
+                  <circle cx="12" cy="11" r="5" fill="#000"/>
+                </svg>
+                카카오 로그인
+              </button>
+            </div>
+          </div>
+
+          <!-- ③ Email Login Button -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:218px; left:12px;">3</div>
+            <div class="wf-cta-section" style="padding-top: 8px;">
+              <button class="wf-btn wf-btn-ghost">이메일 로그인</button>
+            </div>
+          </div>
+
+          <!-- ④ Browse Link -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:272px; left:12px;">4</div>
+            <div class="wf-login-helpers">
+              <a class="wf-link">로그인 없이 둘러보기</a>
+            </div>
+          </div>
+
+          <!-- ⑤ Terms Notice -->
+          <div class="wf-section">
+            <div class="num-circle" style="bottom:12px; left:12px;">5</div>
+            <div class="wf-terms-notice">
+              로그인 시 이용약관 및 개인정보처리방침에 동의합니다
+            </div>
+          </div>
+
+        </div>
+        <div class="frame-label">Frame A. 로그인 메인</div>
+      </div>
+
+      <!-- FRAME B: 이메일 로그인 -->
+      <div>
+        <div class="phone-frame">
+
+          <!-- Back Header -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:12px; left:12px;">6</div>
+            <div class="wf-back-header">
+              <div class="wf-back-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+              </div>
+              <div class="wf-header-title">이메일 로그인</div>
+            </div>
+          </div>
+
+          <!-- ⑦ Email Input -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:66px; left:12px;">7</div>
+            <div class="wf-form">
+              <div class="wf-input-group">
+                <label class="wf-input-label">이메일</label>
+                <input type="email" class="wf-input" placeholder="user@example.com" value="">
+              </div>
+            </div>
+          </div>
+
+          <!-- ⑧ Password Input -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:130px; left:12px;">8</div>
+            <div class="wf-form">
+              <div class="wf-input-group">
+                <label class="wf-input-label">비밀번호</label>
+                <div class="wf-password-toggle">
+                  <input type="password" class="wf-input" placeholder="비밀번호를 입력하세요" value="">
+                  <div class="wf-toggle-icon">
+                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Error/Success State Area -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:200px; left:12px;">9</div>
+            <div class="wf-form">
+              <div class="wf-error-msg" style="display:none;">
+                이메일 또는 비밀번호가 일치하지 않습니다
+              </div>
+              <button class="wf-btn wf-btn-primary wf-btn-disabled" style="margin-top: 4px;">
+                로그인
+              </button>
+            </div>
+          </div>
+
+          <!-- Helper Links -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:270px; left:12px;">10</div>
+            <div class="wf-login-helpers">
+              <a class="wf-link">비밀번호를 잊으셨나요?</a>
+              <span style="color: #ddd; font-size: 11px;">·</span>
+              <a class="wf-link">회원가입</a>
+            </div>
+          </div>
+
+        </div>
+        <div class="frame-label">Frame B. 이메일 로그인</div>
+      </div>
+
+      <!-- FRAME C: 비밀번호 찾기 -->
+      <div>
+        <div class="phone-frame">
+
+          <!-- Back Header -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:12px; left:12px;">11</div>
+            <div class="wf-back-header">
+              <div class="wf-back-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+              </div>
+              <div class="wf-header-title">비밀번호 찾기</div>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:66px; left:12px;">12</div>
+            <div class="wf-desc-text">
+              등록된 이메일로 비밀번호 재설정 링크를 보내드립니다.
+            </div>
+          </div>
+
+          <!-- Email Input -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:135px; left:12px;">13</div>
+            <div class="wf-form">
+              <div class="wf-input-group">
+                <label class="wf-input-label">이메일</label>
+                <input type="email" class="wf-input" placeholder="user@example.com" value="">
+              </div>
+            </div>
+          </div>
+
+          <!-- Send Button -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:200px; left:12px;">14</div>
+            <div class="wf-form">
+              <button class="wf-btn wf-btn-primary">재설정 링크 보내기</button>
+            </div>
+          </div>
+
+          <!-- Success Message Area -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:260px; left:12px;">15</div>
+            <div class="wf-form" style="padding-top: 8px;">
+              <div class="wf-success-msg" style="display:none;">
+                비밀번호 재설정 링크가 이메일로 발송되었습니다. 이메일을 확인해주세요.
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="frame-label">Frame C. 비밀번호 찾기</div>
+      </div>
+
+      <!-- FRAME D: 로그인 유도 바텀시트 -->
+      <div>
+        <div class="phone-frame" style="height: 480px;">
+
+          <!-- Dimmed background + Bottom sheet -->
+          <div class="wf-dimmed">
+            <div class="wf-bottom-sheet">
+
+              <!-- ⑯ Sheet Handle -->
+              <div class="wf-section">
+                <div class="num-circle" style="top:2px; left:163px;">16</div>
+                <div class="wf-sheet-handle"></div>
+              </div>
+
+              <!-- ⑰ Lock Icon -->
+              <div class="wf-section">
+                <div class="num-circle" style="top:8px; left:163px;">17</div>
+                <div class="wf-sheet-icon">
+                  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                </div>
+              </div>
+
+              <!-- ⑱ Sheet Title & Description -->
+              <div class="wf-section">
+                <div class="num-circle" style="top:92px; left:163px;">18</div>
+                <div>
+                  <div class="wf-sheet-title">로그인이 필요한 기능입니다</div>
+                  <div class="wf-sheet-desc">
+                    교환 신청, 공구 참여, 채팅 등의 기능은 로그인 후 이용할 수 있습니다.
+                  </div>
+                </div>
+              </div>
+
+              <!-- ⑲ Kakao Login Button -->
+              <div class="wf-section">
+                <div class="num-circle" style="top:200px; left:163px;">19</div>
+                <button class="wf-btn wf-btn-kakao">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" stroke="none">
+                    <circle cx="12" cy="12" r="10" fill="#000" opacity="0.3"/>
+                    <circle cx="12" cy="11" r="5" fill="#000"/>
+                  </svg>
+                  카카오 로그인
+                </button>
+              </div>
+
+              <!-- ⑳ Email Login Button -->
+              <div class="wf-section">
+                <div class="num-circle" style="top:250px; left:163px;">20</div>
+                <button class="wf-btn wf-btn-ghost">이메일 로그인</button>
+              </div>
+
+              <!-- ㉑ Later Link -->
+              <div class="wf-section">
+                <div class="num-circle" style="bottom:20px; left:163px;">21</div>
+                <div style="text-align: center; padding: 8px 0;">
+                  <a class="wf-link">나중에</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+        <div class="frame-label">Frame D. 로그인 유도 바텀시트</div>
+      </div>
+
+    </div><!-- end phone-stack -->
+  </div><!-- end wireframe-side -->
+
+  <!-- ===== DESCRIPTION ===== -->
+  <div class="desc-side">
+    <div class="desc-title">AUTH01 — 로그인</div>
+    <div class="desc-subtitle">라우트: /login &nbsp;|&nbsp; 비로그인 접근: 가능 &nbsp;|&nbsp; Phase 1</div>
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">1</div>
+        <span class="desc-comp-type">[Screen]</span>
+        <span class="desc-comp-name">로그인 메인</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>상단 로고: 애픽 월드 (Brand Blue #2563EB, 20px weight 700)</li>
+          <li>슬로건: "내 최애 굿즈, 교환하고 함께 사자" (14px Gray 600, 중앙 정렬, 최대 너비 300px)</li>
+          <li>CTA 버튼 영역 (gap 10px):
+            <ul class="sub">
+              <li>카카오 로그인</li>
+              <li>이메일 로그인</li>
+            </ul>
+          </li>
+          <li>보조 링크: "로그인 없이 둘러보기" (아래 EXCH01로 비로그인 세션 HOME01 이동)</li>
+          <li>하단 약관 안내 (10px Gray 600)</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">2</div>
+        <span class="desc-comp-type">[Button]</span>
+        <span class="desc-comp-name">카카오 로그인</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>Primary CTA, 최상단 배치</li>
+          <li>스타일: #FEE500 배경 + 검정 텍스트 (카카오 브랜드)</li>
+          <li>너비: 100% (padding 0 20px)</li>
+          <li>높이: 44px, border-radius: 8px</li>
+          <li>좌측 Kakao 아이콘 (16×16px)</li>
+          <li>탭 시: Kakao OAuth 플로우 진입</li>
+          <li>성공 시: JWT 토큰 발급 → HOME01 리다이렉트</li>
+          <li>실패 시: 에러 팝업 ("카카오 계정으로 로그인 실패. 다시 시도해주세요")</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">3</div>
+        <span class="desc-comp-type">[Button]</span>
+        <span class="desc-comp-name">이메일 로그인</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>Secondary CTA (Ghost style)</li>
+          <li>배경: #F5F5F5 + 테두리: 1px #ddd, 텍스트: #333</li>
+          <li>너비: 100%, 높이: 44px, border-radius: 8px</li>
+          <li>탭 시: Frame B (이메일 로그인 모드) 전환 또는 EXCH02 이동</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">4</div>
+        <span class="desc-comp-type">[Link]</span>
+        <span class="desc-comp-name">로그인 없이 둘러보기</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>텍스트 링크, Blue #2563EB, 12px 500 weight</li>
+          <li>탭 시:
+            <ul class="sub">
+              <li>비로그인 세션 쿠키 생성 (로컬 스토리지 시간제한 없음)</li>
+              <li>HOME01 이동</li>
+              <li>이후 로그인 없이 교환/공구 조회 가능, 작성/거래 시도 시 로그인 유도</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">5</div>
+        <span class="desc-comp-type">[Text]</span>
+        <span class="desc-comp-name">약관 안내</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>텍스트: "로그인 시 이용약관 및 개인정보처리방침에 동의합니다"</li>
+          <li>10px Gray 600, 중앙 정렬</li>
+          <li>하단 고정 (pb 16px)</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">6</div>
+        <span class="desc-comp-type">[Screen]</span>
+        <span class="desc-comp-name">이메일 로그인 모드</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>상단 헤더: [←] + "이메일 로그인" 타이틀</li>
+          <li>뒤로가기: 탭 시 Frame A로 돌아감</li>
+          <li>이메일 입력 필드</li>
+          <li>비밀번호 입력 필드 (마스킹, 눈 아이콘 토글)</li>
+          <li>로그인 버튼 (초기 상태: disabled, 두 필드 모두 입력 시 활성화)</li>
+          <li>보조 링크: "비밀번호를 잊으셨나요?" + "회원가입" (중앙 정렬)</li>
+          <li>에러 메시지 영역 (인라인, 빨강 #EF4444)</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">7</div>
+        <span class="desc-comp-type">[Input]</span>
+        <span class="desc-comp-name">이메일/비밀번호 필드</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>높이: 40px, border-radius: 6px, padding: 10px 12px</li>
+          <li>테두리: 1px #ddd (기본), 1px #2563EB (포커스)</li>
+          <li>포커스 시: box-shadow 0 0 0 3px rgba(37,99,235,0.1) 추가</li>
+          <li>에러 시: 테두리 1px #EF4444</li>
+          <li>이메일 필드:
+            <ul class="sub">
+              <li>플레이스홀더: "user@example.com"</li>
+              <li>유효성: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ (기본 형식 검증)</li>
+            </ul>
+          </li>
+          <li>비밀번호 필드:
+            <ul class="sub">
+              <li>플레이스홀더: "비밀번호를 입력하세요"</li>
+              <li>타입: password (마스킹)</li>
+              <li>우측 눈 아이콘: 토글 시 평문 표시</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">8</div>
+        <span class="desc-comp-type">[Button]</span>
+        <span class="desc-comp-name">로그인 버튼</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>Primary 스타일 (#2563EB), 너비 100%, 높이 44px</li>
+          <li>상태:
+            <ul class="sub">
+              <li>비활성: opacity 0.5, cursor not-allowed (두 필드 미입력 시)</li>
+              <li>활성: 정상 상태</li>
+              <li>로딩: 버튼 텍스트 "로그인 중..." + 좌측 스피너</li>
+            </ul>
+          </li>
+          <li>탭 시:
+            <ul class="sub">
+              <li>/api/auth/email/login POST 요청 (email, password)</li>
+              <li>성공: JWT 토큰 발급 → HOME01 리다이렉트</li>
+              <li>실패: 에러 메시지 표시</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">9</div>
+        <span class="desc-comp-type">[Link]</span>
+        <span class="desc-comp-name">보조 링크</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>좌측 "비밀번호를 잊으셨나요?" → Frame C (비밀번호 찾기) 이동</li>
+          <li>우측 "회원가입" → AUTH02 (회원가입) 이동</li>
+          <li>스타일: 12px Blue #2563EB 500 weight</li>
+          <li>중앙 구분점 (·)</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">10</div>
+        <span class="desc-comp-type">[Screen]</span>
+        <span class="desc-comp-name">비밀번호 찾기</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>상단 헤더: [←] + "비밀번호 찾기" 타이틀</li>
+          <li>설명 텍스트: "등록된 이메일로 비밀번호 재설정 링크를 보내드립니다."</li>
+          <li>이메일 입력 필드</li>
+          <li>"재설정 링크 보내기" Primary 버튼</li>
+          <li>성공 메시지 영역 (Green 배경)</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">11</div>
+        <span class="desc-comp-type">[Screen]</span>
+        <span class="desc-comp-name">로그인 유도 바텀시트</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>트리거: 비로그인 사용자가 교환 신청, 공구 참여, 채팅 등 시도 시 노출</li>
+          <li>구성:
+            <ul class="sub">
+              <li>Dimmed 배경: rgba(0,0,0,0.4)</li>
+              <li>Bottom sheet (border-radius 16px 16px 0 0, padding 20px)</li>
+              <li>Drag handle (40×4px, #ddd)</li>
+              <li>Lock 아이콘 (40×40px 원형, Gray 배경)</li>
+              <li>제목: "로그인이 필요한 기능입니다" (16px 700 weight)</li>
+              <li>설명: "교환 신청, 공구 참여, 채팅 등의 기능은 로그인 후 이용할 수 있습니다."</li>
+              <li>카카오 로그인 버튼</li>
+              <li>이메일 로그인 버튼</li>
+              <li>"나중에" 텍스트 링크</li>
+            </ul>
+          </li>
+          <li>"나중에" 탭: 시트 닫기, 페이지 유지</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- Business Logic -->
+    <div style="margin-top: 16px;">
+      <div style="font-size: 13px; font-weight: 600; margin-bottom: 8px; color: #2563EB;">비즈니스 로직</div>
+      <div class="desc-body" style="padding-left: 0;">
+        <table style="width: 100%; font-size: 11px; border-collapse: collapse;">
+          <thead>
+            <tr style="border-bottom: 1px solid #eee;">
+              <th style="text-align: left; padding: 4px 8px; color: #888;">항목</th>
+              <th style="text-align: left; padding: 4px 8px; color: #888;">처리 방식</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 4px 8px;">이메일 중복 검사</td><td style="padding: 4px 8px;">실시간 (입력 후 1초 딜레이)</td></tr>
+            <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 4px 8px;">로그인 실패 횟수</td><td style="padding: 4px 8px;">5회 연속 실패 시 30분 계정 잠금 (IP 기반)</td></tr>
+            <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 4px 8px;">JWT 토큰 유효기간</td><td style="padding: 4px 8px;">Access: 30분, Refresh: 14일</td></tr>
+            <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 4px 8px;">OAuth 에러</td><td style="padding: 4px 8px;">에러 팝업 + 이메일 로그인 자동 제안</td></tr>
+            <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 4px 8px;">휴면 계정 (6개월 미접속)</td><td style="padding: 4px 8px;">휴면 해제 팝업 → "동의" 탭 시 비밀번호 확인 → 해제</td></tr>
+            <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 4px 8px;">정지 계정</td><td style="padding: 4px 8px;">로그인 불가, "계정 정지" 안내 + 사유 + 해제 예정일</td></tr>
+            <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 4px 8px;">비밀번호 재설정 링크</td><td style="padding: 4px 8px;">이메일 발송, 유효기간 1시간</td></tr>
+            <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 4px 8px;">비로그인 세션</td><td style="padding: 4px 8px;">로컬 스토리지 쿠키, 만료 없음 (브라우저 닫기 시 유지)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- States -->
+    <div style="margin-top: 16px;">
+      <div style="font-size: 13px; font-weight: 600; margin-bottom: 8px; color: #2563EB;">화면 상태</div>
+      <div class="desc-body" style="padding-left: 0;">
+        <ul>
+          <li><strong>로딩 상태</strong>: 버튼 텍스트 "로그인 중..." + 좌측 스피너, 버튼 비활성화</li>
+          <li><strong>로그인 실패</strong>: 인라인 에러 메시지 (빨강 #EF4444) "이메일 또는 비밀번호가 일치하지 않습니다"</li>
+          <li><strong>계정 잠금</strong>: "로그인 시도 초과. 30분 후 다시 시도해주세요" 에러 팝업</li>
+          <li><strong>OAuth 에러</strong>: 에러 팝업 + "다시 시도" 또는 "이메일 로그인" 버튼</li>
+          <li><strong>휴면 계정</strong>: "휴면 계정입니다. 휴면을 해제하시겠습니까?" 팝업 → 비밀번호 확인</li>
+          <li><strong>정지 계정</strong>: "이 계정은 신고로 인해 2026-03-20까지 정지되었습니다" (사유+날짜 포함)</li>
+          <li><strong>비밀번호 찾기 성공</strong>: "비밀번호 재설정 링크가 이메일로 발송되었습니다. 이메일을 확인해주세요." (Green 배경)</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- Connected screens -->
+    <div style="margin-top: 16px;">
+      <div style="font-size: 13px; font-weight: 600; margin-bottom: 8px; color: #2563EB;">연관 화면</div>
+      <div class="desc-body" style="padding-left: 0;">
+        <table style="width: 100%; font-size: 11px; border-collapse: collapse;">
+          <thead>
+            <tr style="border-bottom: 1px solid #eee;">
+              <th style="text-align: left; padding: 4px 8px; color: #888;">이동 대상</th>
+              <th style="text-align: left; padding: 4px 8px; color: #888;">조건</th>
+              <th style="text-align: left; padding: 4px 8px; color: #888;">화면코드</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 4px 8px;">메인 홈</td><td style="padding: 4px 8px;">로그인 성공 또는 둘러보기</td><td style="padding: 4px 8px;">HOME01</td></tr>
+            <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 4px 8px;">회원가입</td><td style="padding: 4px 8px;">신규 회원가입 또는 "회원가입" 링크</td><td style="padding: 4px 8px;">AUTH02</td></tr>
+            <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 4px 8px;">이용약관</td><td style="padding: 4px 8px;">약관 텍스트 탭</td><td style="padding: 4px 8px;">STAT01</td></tr>
+            <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 4px 8px;">마이페이지</td><td style="padding: 4px 8px;">로그인 후 로그아웃 후 재접속</td><td style="padding: 4px 8px;">USER01</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- end desc-side -->
+
+</div><!-- end main-layout -->
+
+<!-- REVISION FOOTER -->
+<div class="revision-bar">
+  <table>
+    <thead>
+      <tr><th>날짜</th><th>버전</th><th>내용</th><th>작성자</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>2026-03-06</td><td>0.1</td><td>초안 작성</td><td>AI (Claude)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
