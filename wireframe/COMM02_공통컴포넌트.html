@@ -98,6 +98,125 @@
         .bs-title { font-size:16px; font-weight:600; margin-bottom:12px; }
         .bs-option { display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid #F3F4F6; font-size:14px; }
         .bs-option:last-child { border-bottom:none; }
+
+        /* Image Gallery */
+        .gallery-upload-area { width:100px; height:100px; border:2px dashed #D1D5DB; border-radius:8px; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; background:#FAFAFA; transition:border-color .2s; margin-bottom:8px; }
+        .gallery-upload-area:hover { border-color:#3B82F6; }
+        .gallery-thumb { position:relative; width:80px; height:80px; border-radius:8px; background:#E5E7EB; overflow:hidden; }
+        .gallery-thumb-delete { position:absolute; top:2px; right:2px; width:18px; height:18px; background:#EF4444; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; cursor:pointer; }
+        .gallery-badge { position:absolute; top:4px; left:4px; font-size:10px; font-weight:600; background:#3B82F6; color:#fff; padding:2px 6px; border-radius:4px; }
+        
+        /* Carousel */
+        .carousel-container { position:relative; width:100%; background:#E5E7EB; border-radius:8px; overflow:hidden; }
+        .carousel-main { width:100%; aspect-ratio:375/200; background:#D1D5DB; display:flex; align-items:center; justify-content:center; }
+        .carousel-dots { display:flex; justify-content:center; gap:6px; padding:8px 0; }
+        .carousel-dot { width:6px; height:6px; border-radius:50%; background:#D1D5DB; cursor:pointer; }
+        .carousel-dot.active { background:#3B82F6; }
+        .carousel-nav { position:absolute; top:50%; transform:translateY(-50%); width:28px; height:28px; background:rgba(0,0,0,.3); color:#fff; border:none; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:14px; }
+        .carousel-nav.left { left:8px; }
+        .carousel-nav.right { right:8px; }
+        .carousel-counter { position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,.5); color:#fff; font-size:11px; padding:4px 8px; border-radius:4px; }
+        
+        /* Profile Card */
+        .profile-row { display:flex; align-items:center; gap:8px; padding:8px 0; }
+        .profile-avatar { width:40px; height:40px; border-radius:50%; background:#D1D5DB; flex-shrink:0; }
+        .profile-avatar.large { width:64px; height:64px; }
+        .profile-info { flex:1; min-width:0; }
+        .profile-name { font-size:14px; font-weight:600; color:#111827; }
+        .profile-trust { font-size:12px; color:#9CA3AF; }
+        .profile-rate { font-size:12px; color:#059669; }
+        .profile-badge { display:inline-block; font-size:10px; font-weight:600; background:#F3F4F6; color:#374151; padding:2px 6px; border-radius:4px; margin-right:4px; }
+        .trust-level-1 { color:#EF4444; }
+        .trust-level-2 { color:#F59E0B; }
+        .trust-level-3 { color:#3B82F6; }
+        .trust-level-4 { color:#059669; }
+        
+        /* Stepper */
+        .stepper-horizontal { display:flex; align-items:center; margin-bottom:16px; }
+        .step { display:flex; flex-direction:column; align-items:center; flex:1; }
+        .step-dot { width:28px; height:28px; border-radius:50%; background:#E5E7EB; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; color:#374151; position:relative; z-index:2; }
+        .step-dot.active { background:#3B82F6; color:#fff; }
+        .step-dot.completed { background:#059669; color:#fff; }
+        .step-line { flex:1; height:2px; background:#E5E7EB; margin:0 -8px; }
+        .step-line.active { background:#3B82F6; }
+        .step-label { font-size:11px; color:#6B7280; margin-top:4px; text-align:center; }
+        .step-label.active { color:#3B82F6; font-weight:600; }
+        
+        /* Timeline */
+        .timeline { position:relative; padding-left:24px; margin-bottom:16px; }
+        .timeline::before { content:''; position:absolute; left:4px; top:0; bottom:0; width:2px; background:#E5E7EB; }
+        .timeline-item { margin-bottom:16px; position:relative; }
+        .timeline-dot { position:absolute; left:-19px; top:2px; width:14px; height:14px; border-radius:50%; background:#E5E7EB; border:2px solid #fff; }
+        .timeline-dot.active { background:#3B82F6; }
+        .timeline-dot.completed { background:#059669; }
+        .timeline-label { font-size:12px; font-weight:600; color:#374151; }
+        
+        /* Notification */
+        .noti-item { display:flex; gap:10px; padding:12px; border-bottom:1px solid #F3F4F6; align-items:flex-start; }
+        .noti-item:last-child { border-bottom:none; }
+        .noti-unread { background:#F0F9FF; }
+        .noti-indicator { width:8px; height:8px; border-radius:50%; background:#3B82F6; margin-top:6px; }
+        .noti-content { flex:1; min-width:0; }
+        .noti-title { font-size:13px; font-weight:600; color:#111827; margin-bottom:2px; }
+        .noti-desc { font-size:12px; color:#6B7280; line-height:1.4; }
+        .noti-time { font-size:11px; color:#9CA3AF; margin-top:4px; }
+        .noti-filter { display:flex; gap:6px; margin-bottom:12px; overflow-x:auto; padding-bottom:8px; }
+        .noti-filter-chip { display:inline-flex; align-items:center; padding:6px 12px; border:1px solid #D1D5DB; border-radius:999px; font-size:12px; color:#374151; white-space:nowrap; cursor:pointer; }
+        .noti-filter-chip.active { background:#3B82F6; color:#fff; border-color:#3B82F6; }
+        
+        /* Chat Bubble */
+        .chat-bubble { margin-bottom:8px; display:flex; gap:8px; align-items:flex-end; }
+        .chat-bubble.sent { justify-content:flex-end; }
+        .chat-bubble.received { justify-content:flex-start; }
+        .chat-message { max-width:70%; padding:10px 12px; border-radius:16px; font-size:13px; line-height:1.4; word-wrap:break-word; }
+        .chat-message.sent { background:#3B82F6; color:#fff; border-bottom-right-radius:4px; }
+        .chat-message.received { background:#F3F4F6; color:#111827; border-bottom-left-radius:4px; }
+        .chat-message.system { width:100%; text-align:center; background:transparent; color:#9CA3AF; font-size:12px; padding:0; }
+        .chat-avatar { width:28px; height:28px; border-radius:50%; background:#D1D5DB; flex-shrink:0; }
+        .chat-image { max-width:200px; height:auto; border-radius:8px; margin-bottom:4px; }
+        .chat-card { border:1px solid #E5E7EB; border-radius:8px; padding:8px; margin-bottom:4px; }
+        
+        /* Map & Location */
+        .map-area { width:100%; aspect-ratio:375/200; background:#E5E7EB; border-radius:8px; display:flex; align-items:center; justify-content:center; color:#6B7280; font-size:13px; margin-bottom:8px; }
+        .location-card { border:1px solid #E5E7EB; border-radius:12px; padding:12px; margin-bottom:8px; }
+        .location-address { font-size:13px; font-weight:600; color:#111827; margin-bottom:4px; }
+        .location-subway { font-size:12px; color:#6B7280; }
+        
+        /* Calendar */
+        .calendar-container { margin-bottom:12px; }
+        .calendar-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+        .calendar-title { font-size:14px; font-weight:600; color:#111827; }
+        .calendar-grid { display:grid; grid-template-columns:repeat(7, 1fr); gap:4px; margin-bottom:12px; }
+        .calendar-dow { font-size:11px; font-weight:600; color:#6B7280; text-align:center; padding:4px; }
+        .calendar-day { aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-size:12px; border-radius:6px; position:relative; }
+        .calendar-day.other-month { color:#D1D5DB; }
+        .calendar-day.today { background:#3B82F6; color:#fff; font-weight:600; }
+        .calendar-day.has-event::after { content:''; position:absolute; bottom:2px; width:4px; height:4px; border-radius:50%; background:#3B82F6; }
+        .calendar-view-toggle { display:flex; gap:6px; margin-bottom:12px; }
+        .calendar-view-btn { flex:1; padding:6px; border:1px solid #D1D5DB; border-radius:6px; font-size:11px; text-align:center; color:#374151; cursor:pointer; }
+        .calendar-view-btn.active { background:#3B82F6; color:#fff; border-color:#3B82F6; }
+        
+        /* Badge & Dot */
+        .count-badge { position:absolute; min-width:18px; height:18px; background:#EF4444; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; top:-4px; right:-4px; border:2px solid #fff; }
+        .dot-indicator { position:absolute; width:8px; height:8px; background:#EF4444; border-radius:50%; top:-2px; right:-2px; border:2px solid #fff; }
+        
+        /* Avatar */
+        .avatar { border-radius:50%; background:#D1D5DB; display:flex; align-items:center; justify-content:center; color:#6B7280; flex-shrink:0; }
+        .avatar-24 { width:24px; height:24px; font-size:11px; }
+        .avatar-32 { width:32px; height:32px; font-size:12px; }
+        .avatar-40 { width:40px; height:40px; font-size:14px; }
+        .avatar-48 { width:48px; height:48px; font-size:16px; }
+        .avatar-64 { width:64px; height:64px; font-size:20px; }
+        .avatar-online { position:relative; }
+        .avatar-online::after { content:''; position:absolute; bottom:0; right:0; width:10px; height:10px; background:#059669; border-radius:50%; border:2px solid #fff; }
+        .avatar-group { display:flex; margin-left:-8px; }
+        .avatar-group .avatar { border:2px solid #fff; }
+        .avatar-group .avatar:first-child { margin-left:0; }
+        .avatar-trust-ring { border:2px solid #D1D5DB; }
+        .avatar-trust-ring.level-1 { border-color:#EF4444; }
+        .avatar-trust-ring.level-2 { border-color:#F59E0B; }
+        .avatar-trust-ring.level-3 { border-color:#3B82F6; }
+        .avatar-trust-ring.level-4 { border-color:#059669; }
         .bs-option .icon { font-size:18px; width:24px; text-align:center; }
 
         /* Snackbar */
@@ -156,7 +275,7 @@
 
 <div class="page-header">
     <h1>COMM02 공통 컴포넌트</h1>
-    <p>애픽 월드 (Aepik World) UI Component Library — v1.0 | 2026-03-06</p>
+    <p>애픽 월드 (Aepik World) UI Component Library — v2.0 | 2026-03-06</p>
 </div>
 
 <div class="main">
@@ -607,6 +726,495 @@
     </div>
 </div>
 
+
+<!-- ===== 8. 이미지 업로드/갤러리 (Image Upload & Gallery) ===== -->
+<div>
+    <div class="phone-section-label">8. 이미지 업로드/갤러리</div>
+    <div class="phone-frame">
+        <div class="phone-inner">
+            <div class="demo-label">사진 추가 영역</div>
+            <div class="gallery-upload-area">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <div style="font-size:11px; color:#6B7280; margin-top:6px;">사진 추가</div>
+            </div>
+
+            <div class="demo-label">업로드된 사진 (3/10)</div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;">
+                <div style="position:relative;">
+                    <div class="gallery-thumb">
+                        <div style="width:100%; height:100%; background:#8B5CF6; display:flex; align-items:center; justify-content:center; color:#fff; font-size:24px;">예</div>
+                    </div>
+                    <div class="gallery-badge">대표</div>
+                </div>
+                <div style="position:relative;">
+                    <div class="gallery-thumb">
+                        <div style="width:100%; height:100%; background:#EC4899; display:flex; align-items:center; justify-content:center; color:#fff; font-size:24px;">②</div>
+                    </div>
+                    <div class="gallery-thumb-delete">×</div>
+                </div>
+                <div style="position:relative;">
+                    <div class="gallery-thumb">
+                        <div style="width:100%; height:100%; background:#F59E0B; display:flex; align-items:center; justify-content:center; color:#fff; font-size:24px;">③</div>
+                    </div>
+                    <div class="gallery-thumb-delete">×</div>
+                </div>
+            </div>
+
+            <div class="demo-label">드래그 힌트</div>
+            <div style="display:flex; align-items:center; gap:6px; padding:8px 10px; background:#EFF6FF; border-radius:6px; font-size:11px; color:#0284C7;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+                순서 변경: 사진을 드래그하세요
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== 9. 캐러셀/슬라이더 (Carousel / Slider) ===== -->
+<div>
+    <div class="phone-section-label">9. 캐러셀/슬라이더</div>
+    <div class="phone-frame">
+        <div class="phone-inner">
+            <div class="demo-label">배너 캐러셀</div>
+            <div class="carousel-container" style="margin-bottom:16px;">
+                <div class="carousel-main">
+                    <div style="font-size:14px; color:#9CA3AF;">배너 이미지</div>
+                </div>
+                <button class="carousel-nav left">‹</button>
+                <button class="carousel-nav right">›</button>
+                <div class="carousel-counter">1/8</div>
+                <div class="carousel-dots">
+                    <div class="carousel-dot active"></div>
+                    <div class="carousel-dot"></div>
+                    <div class="carousel-dot"></div>
+                </div>
+            </div>
+
+            <div class="demo-label">상세 이미지 슬라이더</div>
+            <div style="margin-bottom:12px;">
+                <div class="carousel-main" style="aspect-ratio:375/240; height:auto;">
+                    <div style="font-size:13px; color:#9CA3AF;">상세 이미지</div>
+                </div>
+                <div style="display:flex; gap:4px; margin-top:6px; overflow-x:auto;">
+                    <div style="width:60px; height:60px; background:#D1D5DB; border-radius:6px; flex-shrink:0; border:2px solid #3B82F6;"></div>
+                    <div style="width:60px; height:60px; background:#D1D5DB; border-radius:6px; flex-shrink:0;"></div>
+                    <div style="width:60px; height:60px; background:#D1D5DB; border-radius:6px; flex-shrink:0;"></div>
+                </div>
+            </div>
+
+            <div style="font-size:11px; color:#9CA3AF; background:#F3F4F6; padding:6px 10px; border-radius:6px; text-align:center;">
+                자동 슬라이드 5초 • 스와이프 지원
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== 10. 프로필/신뢰도 카드 (Profile & Trust Card) ===== -->
+<div>
+    <div class="phone-section-label">10. 프로필/신뢰도 카드</div>
+    <div class="phone-frame">
+        <div class="phone-inner">
+            <div class="demo-label">컴팩트 프로필 행</div>
+            <div class="profile-row" style="border-bottom:1px solid #E5E7EB; padding-bottom:8px;">
+                <div class="profile-avatar" style="background:#8B5CF6;"></div>
+                <div class="profile-info">
+                    <div class="profile-name">초음속 팬</div>
+                    <div class="profile-trust" style="color:#F59E0B;">신뢰도 Lv.2 · 긍정률 98%</div>
+                </div>
+            </div>
+
+            <div class="demo-label" style="margin-top:12px;">확장 프로필 카드</div>
+            <div style="border:1px solid #E5E7EB; border-radius:12px; padding:12px; margin-top:8px;">
+                <div style="display:flex; gap:12px; margin-bottom:12px;">
+                    <div class="profile-avatar large avatar-trust-ring level-2" style="background:#F59E0B;"></div>
+                    <div style="flex:1;">
+                        <div class="profile-name">초음속 팬</div>
+                        <div class="profile-trust" style="color:#F59E0B; margin-bottom:4px;">신뢰도 Lv.2</div>
+                        <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:4px;">
+                            <span class="profile-badge">휴대폰 인증</span>
+                            <span class="profile-badge">이메일 인증</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding:8px 0; border-top:1px solid #F3F4F6; font-size:12px;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                        <span style="color:#6B7280;">교환 횟수</span>
+                        <span style="color:#111827; font-weight:600;">12회</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between;">
+                        <span style="color:#6B7280;">긍정률</span>
+                        <span style="color:#059669; font-weight:600;">98% (12/12)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== 11. 프로그레스/스텝퍼 (Progress & Stepper) ===== -->
+<div>
+    <div class="phone-section-label">11-1. 수평 스텝퍼</div>
+    <div class="phone-frame">
+        <div class="phone-inner">
+            <div class="demo-label">교환 플로우 (6단계)</div>
+            <div class="stepper-horizontal" style="margin-bottom:24px;">
+                <div class="step">
+                    <div class="step-dot completed">✓</div>
+                    <div class="step-label">제안</div>
+                </div>
+                <div class="step-line completed"></div>
+                <div class="step">
+                    <div class="step-dot completed">✓</div>
+                    <div class="step-label">수락</div>
+                </div>
+                <div class="step-line completed"></div>
+                <div class="step">
+                    <div class="step-dot active">3</div>
+                    <div class="step-label active">채팅</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step">
+                    <div class="step-dot">4</div>
+                    <div class="step-label">거래</div>
+                </div>
+            </div>
+
+            <div class="demo-label">공구 상태 (타임라인)</div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot completed"></div>
+                    <div class="timeline-label">모집중</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot completed"></div>
+                    <div class="timeline-label">진행결정대기</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot active"></div>
+                    <div class="timeline-label" style="color:#3B82F6;">진행확정</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-label">배송중</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-label">완료</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="phone-section-label">11-2. 타이머/카운트다운</div>
+    <div class="phone-frame">
+        <div class="phone-inner">
+            <div class="demo-label">D+3 경고 (카운트다운)</div>
+            <div style="background:#FEF3C7; border:1px solid #FCD34D; border-radius:10px; padding:12px; margin-bottom:12px;">
+                <div style="font-size:12px; color:#92400E; font-weight:600; margin-bottom:6px;">진행 여부 결정 마감까지</div>
+                <div style="font-size:24px; font-weight:700; color:#D97706; margin-bottom:6px; text-align:center;">2일 15시간</div>
+                <div style="width:100%; height:8px; background:#FCD34D; border-radius:4px; overflow:hidden;">
+                    <div style="width:40%; height:100%; background:#D97706;"></div>
+                </div>
+            </div>
+
+            <div class="demo-label">시간 표시</div>
+            <div style="background:#EFF6FF; border:1px solid #BFDBFE; border-radius:8px; padding:8px 12px; text-align:center;">
+                <div style="font-size:11px; color:#1E40AF; margin-bottom:4px;">남은 시간</div>
+                <div style="font-size:18px; font-weight:700; color:#2563EB;">72h 36m</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== 12. 알림 아이템 (Notification Item) ===== -->
+<div>
+    <div class="phone-section-label">12. 알림 아이템</div>
+    <div class="phone-frame">
+        <div class="phone-inner">
+            <div class="demo-label">카테고리 필터</div>
+            <div class="noti-filter">
+                <div class="noti-filter-chip active">전체</div>
+                <div class="noti-filter-chip">교환</div>
+                <div class="noti-filter-chip">공구</div>
+                <div class="noti-filter-chip">시스템</div>
+            </div>
+
+            <div class="demo-label">알림 목록</div>
+            <div class="noti-item noti-unread">
+                <div class="noti-indicator"></div>
+                <div class="noti-content">
+                    <div class="noti-title">제안이 수락되었어요</div>
+                    <div class="noti-desc">초음속 팬님이 "하츠네 미쿠 아크릴" 교환 제안을 수락했습니다.</div>
+                    <div class="noti-time">2분 전</div>
+                </div>
+            </div>
+
+            <div class="noti-item">
+                <div style="width:8px;"></div>
+                <div class="noti-content">
+                    <div class="noti-title">공구 진행 확정되었어요</div>
+                    <div class="noti-desc">참여한 "세계관 그룹 구매" 공구가 진행 확정되었습니다.</div>
+                    <div class="noti-time">2시간 전</div>
+                </div>
+            </div>
+
+            <div class="noti-item">
+                <div style="width:8px;"></div>
+                <div class="noti-content">
+                    <div class="noti-title">시스템 공지</div>
+                    <div class="noti-desc">애픽 월드 서비스 점검 예정입니다. 공지사항을 확인해 주세요.</div>
+                    <div class="noti-time">1일 전</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== 13. 채팅 버블 (Chat Bubble) ===== -->
+<div>
+    <div class="phone-section-label">13. 채팅 버블</div>
+    <div class="phone-frame">
+        <div class="phone-inner">
+            <div class="demo-label">채팅 대화</div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+                <div class="chat-bubble received">
+                    <div class="chat-avatar"></div>
+                    <div class="chat-message received">초음속 팬입니다!</div>
+                </div>
+
+                <div class="chat-bubble sent">
+                    <div class="chat-message sent">안녕하세요!</div>
+                </div>
+
+                <div class="chat-bubble received">
+                    <div class="chat-avatar"></div>
+                    <div style="display:flex; flex-direction:column;">
+                        <div class="chat-message received">아크릴 스탠드 컨디션이 어떻게 되나요?</div>
+                    </div>
+                </div>
+
+                <div class="chat-bubble sent">
+                    <div class="chat-message sent">미개봉 새상품입니다.</div>
+                </div>
+
+                <div style="text-align:center; margin:8px 0;">
+                    <div class="chat-message system">거래 확인</div>
+                </div>
+
+                <div class="chat-bubble received">
+                    <div class="chat-avatar"></div>
+                    <div style="display:flex; flex-direction:column;">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Crect width='120' height='120' fill='%23D1D5DB'/%3E%3C/svg%3E" class="chat-image" style="width:120px; height:120px;">
+                        <span style="font-size:11px; color:#9CA3AF;">사진</span>
+                    </div>
+                </div>
+
+                <div class="chat-bubble received">
+                    <div class="chat-avatar"></div>
+                    <div class="chat-card" style="width:100%; max-width:none;">
+                        <div style="font-size:11px; font-weight:600; color:#2563EB; margin-bottom:4px;">거래 제안</div>
+                        <div style="font-size:12px; color:#374151; margin-bottom:8px;">초음속 팬님의 아크릴 스탠드 ↔ 당신의 피규어</div>
+                        <div style="display:flex; gap:6px;">
+                            <button class="btn btn-sm btn-primary">수락</button>
+                            <button class="btn btn-sm btn-secondary">거절</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== 14. 지도/위치 선택 (Map & Location Picker) ===== -->
+<div>
+    <div class="phone-section-label">14. 지도/위치 선택</div>
+    <div class="phone-frame">
+        <div class="phone-inner">
+            <div class="demo-label">지도 영역</div>
+            <div class="map-area">
+                <div style="display:flex; flex-direction:column; align-items:center; gap:6px; color:#6B7280;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span style="font-size:12px;">카카오맵 API</span>
+                </div>
+            </div>
+
+            <div class="demo-label">위치 선택됨</div>
+            <div class="location-card">
+                <div style="display:flex; gap:8px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-top:2px; flex-shrink:0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <div style="flex:1;">
+                        <div class="location-address">서울 강남구 역삼동 테헤란로</div>
+                        <div class="location-subway">지하철 2호선 강남역 9번 출구</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-label" style="margin-top:12px;">위치 검색</div>
+            <div class="input-group">
+                <input type="text" class="input-field" placeholder="위치, 주소 검색" value="강남역">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== 15. 캘린더 (Calendar) ===== -->
+<div>
+    <div class="phone-section-label">15. 캘린더</div>
+    <div class="phone-frame">
+        <div class="phone-inner">
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button style="background:none; border:none; cursor:pointer; font-size:16px;">←</button>
+                    <span class="calendar-title">2026년 3월</span>
+                    <button style="background:none; border:none; cursor:pointer; font-size:16px;">→</button>
+                </div>
+
+                <div class="calendar-grid">
+                    <div class="calendar-dow">일</div>
+                    <div class="calendar-dow">월</div>
+                    <div class="calendar-dow">화</div>
+                    <div class="calendar-dow">수</div>
+                    <div class="calendar-dow">목</div>
+                    <div class="calendar-dow">금</div>
+                    <div class="calendar-dow">토</div>
+
+                    <div class="calendar-day other-month">1</div>
+                    <div class="calendar-day other-month">2</div>
+                    <div class="calendar-day other-month">3</div>
+                    <div class="calendar-day other-month">4</div>
+                    <div class="calendar-day other-month">5</div>
+                    <div class="calendar-day other-month">6</div>
+                    <div class="calendar-day">1</div>
+
+                    <div class="calendar-day">2</div>
+                    <div class="calendar-day">3</div>
+                    <div class="calendar-day">4</div>
+                    <div class="calendar-day">5</div>
+                    <div class="calendar-day">6</div>
+                    <div class="calendar-day" style="background:#8B5CF6; color:#fff;">7</div>
+                    <div class="calendar-day">8</div>
+
+                    <div class="calendar-day">9</div>
+                    <div class="calendar-day">10</div>
+                    <div class="calendar-day has-event">11</div>
+                    <div class="calendar-day">12</div>
+                    <div class="calendar-day today">13</div>
+                    <div class="calendar-day has-event">14</div>
+                    <div class="calendar-day">15</div>
+
+                    <div class="calendar-day">16</div>
+                    <div class="calendar-day has-event">17</div>
+                    <div class="calendar-day">18</div>
+                </div>
+            </div>
+
+            <div class="demo-label">보기 모드</div>
+            <div class="calendar-view-toggle">
+                <div class="calendar-view-btn active">월별</div>
+                <div class="calendar-view-btn">리스트</div>
+                <div class="calendar-view-btn">지도</div>
+            </div>
+
+            <div class="demo-label">이벤트 리스트</div>
+            <div style="border:1px solid #E5E7EB; border-radius:8px; padding:8px; font-size:12px;">
+                <div style="padding:4px 0; border-bottom:1px solid #F3F4F6;"><span style="color:#8B5CF6; font-weight:600;">3월 11일</span> - 생일 축제</div>
+                <div style="padding:4px 0;"><span style="color:#EC4899; font-weight:600;">3월 14일</span> - 신곡 발표</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== 16. 카운트 뱃지/닷 (Count Badge & Dot) ===== -->
+<div>
+    <div class="phone-section-label">16. 카운트 뱃지/닷</div>
+    <div class="phone-frame">
+        <div class="phone-inner">
+            <div class="demo-label">빨간 점 (알림)</div>
+            <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+                <div style="position:relative; display:flex; align-items:center; justify-content:center;">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    <div class="dot-indicator"></div>
+                </div>
+                <span style="font-size:12px; color:#6B7280;">알림 있음</span>
+            </div>
+
+            <div class="demo-label">숫자 뱃지 (채팅)</div>
+            <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+                <div style="position:relative; display:flex; align-items:center; justify-content:center;">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    <div class="count-badge">99+</div>
+                </div>
+                <span style="font-size:12px; color:#6B7280;">99건 이상</span>
+            </div>
+
+            <div class="demo-label">탭 카운트</div>
+            <div style="display:flex; gap:16px; margin-bottom:16px; border-bottom:1px solid #E5E7EB; padding-bottom:8px;">
+                <div style="flex:1; text-align:center; position:relative; padding-bottom:8px;">
+                    <div style="font-size:12px; color:#111827;">받은 제안</div>
+                    <div class="count-badge" style="position:absolute; top:-6px; right:20%;">3</div>
+                </div>
+                <div style="flex:1; text-align:center; padding-bottom:8px;">
+                    <div style="font-size:12px; color:#6B7280;">보낸 제안</div>
+                </div>
+            </div>
+
+            <div class="demo-label">버튼 위 뱃지</div>
+            <div style="position:relative; display:inline-block;">
+                <button class="btn btn-md btn-primary">설정 변경</button>
+                <div class="count-badge" style="font-size:9px;">1</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== 17. 아바타 (Avatar) ===== -->
+<div>
+    <div class="phone-section-label">17. 아바타</div>
+    <div class="phone-frame">
+        <div class="phone-inner">
+            <div class="demo-label">사이즈별 아바타</div>
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+                <div class="avatar avatar-24" style="background:#8B5CF6; color:#fff;">초</div>
+                <div class="avatar avatar-32" style="background:#EC4899; color:#fff;">초</div>
+                <div class="avatar avatar-40" style="background:#F59E0B; color:#fff;">초</div>
+                <div class="avatar avatar-48" style="background:#06B6D4; color:#fff;">초</div>
+                <div class="avatar avatar-64" style="background:#3B82F6; color:#fff;">초</div>
+            </div>
+
+            <div class="demo-label">온라인 상태</div>
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+                <div class="avatar avatar-40 avatar-online" style="background:#8B5CF6;"></div>
+                <span style="font-size:12px; color:#6B7280;">온라인 표시 (초록 점)</span>
+            </div>
+
+            <div class="demo-label">신뢰도 등급 테두리</div>
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+                <div class="avatar avatar-40 avatar-trust-ring level-1" style="background:#EF4444;"></div>
+                <div class="avatar avatar-40 avatar-trust-ring level-2" style="background:#F59E0B;"></div>
+                <div class="avatar avatar-40 avatar-trust-ring level-3" style="background:#3B82F6;"></div>
+                <div class="avatar avatar-40 avatar-trust-ring level-4" style="background:#059669;"></div>
+            </div>
+
+            <div class="demo-label">아바타 그룹</div>
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+                <div class="avatar-group">
+                    <div class="avatar avatar-32 avatar-trust-ring level-2" style="background:#F59E0B;"></div>
+                    <div class="avatar avatar-32 avatar-trust-ring level-3" style="background:#3B82F6;"></div>
+                    <div class="avatar avatar-32 avatar-trust-ring level-1" style="background:#EF4444;"></div>
+                </div>
+                <span style="font-size:12px; color:#6B7280;">참여자 3명</span>
+            </div>
+
+            <div class="demo-label">기본 아바타</div>
+            <div class="avatar avatar-40" style="background:#D1D5DB;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#6B7280;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </div><!-- wireframe-side end -->
 
 <!-- ========== RIGHT: Description Panel ========== -->
@@ -702,7 +1310,137 @@
         </div>
 
         <!-- Tab 2: 인터랙션 -->
-        <div class="desc-panel" id="tab-interaction">
+                    <div class="desc-item">
+                <div class="desc-item-title"><span class="desc-num">8</span> 이미지 업로드/갤러리</div>
+                <div class="desc-text">사진 추가 영역(점선 보더), 업로드된 이미지 그리드, 대표 이미지 뱃지, 삭제 버튼, 드래그 재정렬 지원. 최대 5~10장.</div>
+                <table class="spec-table">
+                    <tr><th>요소</th><th>크기</th><th>스타일</th></tr>
+                    <tr><td>업로드 영역</td><td>100x100px</td><td>점선 보더, hover 시 파랑</td></tr>
+                    <tr><td>이미지 썸네일</td><td>80x80px</td><td>radius 8px</td></tr>
+                    <tr><td>대표 뱃지</td><td>auto</td><td>파랑, 좌상단 고정</td></tr>
+                    <tr><td>삭제 버튼</td><td>18x18px</td><td>우상단 원형, 빨강</td></tr>
+                    <tr><td>카운터</td><td>auto</td><td>"3/10" 텍스트</td></tr>
+                </table>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title"><span class="desc-num">9</span> 캐러셀/슬라이더</div>
+                <div class="desc-text">풀폭 배너 캐러셀 (좌우 화살표, 하단 닷 인디케이터, "1/8" 카운터), 상세 이미지 슬라이더 (메인 이미지 + 썸네일 스트립).</div>
+                <table class="spec-table">
+                    <tr><th>항목</th><th>사양</th></tr>
+                    <tr><td>배너 높이</td><td>200px (375:200 비율)</td></tr>
+                    <tr><td>자동 슬라이드</td><td>5초 (설정 가능)</td></tr>
+                    <tr><td>네비게이션</td><td>좌우 화살표 또는 닷</td></tr>
+                    <tr><td>상호작용</td><td>스와이프 제스처 지원</td></tr>
+                    <tr><td>카운터</td><td>우측 하단 "1/8"</td></tr>
+                    <tr><td>썸네일 크기</td><td>60x60px, radius 6px</td></tr>
+                </table>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title"><span class="desc-num">10</span> 프로필/신뢰도 카드</div>
+                <div class="desc-text">컴팩트 행(아바타 40px + 닉네임 + 신뢰도 뱃지 + 긍정률), 확장 카드(아바타 64px + 신뢰도 Lv. + 인증 뱃지 + 교환 횟수/긍정률).</div>
+                <table class="spec-table">
+                    <tr><th>레이아웃</th><th>구성</th></tr>
+                    <tr><td>컴팩트</td><td>아바타 40px + 텍스트, 한 줄</td></tr>
+                    <tr><td>확장</td><td>아바타 64px + 다중 정보</td></tr>
+                    <tr><td>신뢰도 컬러</td><td>Lv.1~4: Red/Amber/Blue/Green</td></tr>
+                    <tr><td>인증 뱃지</td><td>폰/이메일/신원, 회색 배경</td></tr>
+                    <tr><td>긍정률</td><td>초록색, 예: 98% (12/12)</td></tr>
+                </table>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title"><span class="desc-num">11</span> 프로그레스/스텝퍼</div>
+                <div class="desc-text">수평 스텝퍼(6단계 교환 플로우: 제안→수락→채팅→거래→평가→완료), 수직 타임라인(공구 5상태), 타이머/카운트다운(D+3 경고, 진행바).</div>
+                <table class="spec-table">
+                    <tr><th>유형</th><th>구성</th><th>상태</th></tr>
+                    <tr><td>수평 스텝퍼</td><td>원형 닷 + 연결선</td><td>완료(초록)/활성(파랑)/비활성(회색)</td></tr>
+                    <tr><td>타임라인</td><td>세로 선 + 닷</td><td>동일</td></tr>
+                    <tr><td>타이머</td><td>진행바 + 남은 시간 텍스트</td><td>주황색 경고</td></tr>
+                    <tr><td>닷 크기</td><td>28px (스텝) / 14px (타임라인)</td></tr>
+                </table>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title"><span class="desc-num">12</span> 알림 아이템</div>
+                <div class="desc-text">카테고리 필터 칩(전체/교환/공구/시스템), 알림 목록(미읽 파란 점 + 굵은 텍스트, 읽음 일반), 각 아이템(아이콘/텍스트/시간).</div>
+                <table class="spec-table">
+                    <tr><th>항목</th><th>사양</th></tr>
+                    <tr><td>미읽 표시</td><td>파란 점 8px, 배경색 #F0F9FF</td></tr>
+                    <tr><td>타이틀</td><td>13px 굵음, 검정</td></tr>
+                    <tr><td>설명</td><td>12px, 회색, 1줄 또는 2줄</td></tr>
+                    <tr><td>시간</td><td>11px, 밝은 회색</td></tr>
+                    <tr><td>필터 칩</td><td>활성: 파랑, 비활성: 회색 보더</td></tr>
+                </table>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title"><span class="desc-num">13</span> 채팅 버블</div>
+                <div class="desc-text">발신 버블(우측, 파랑 #3B82F6), 수신 버블(좌측, 회색 #F3F4F6), 시스템 메시지(중앙, 회색 작은 글씨), 이미지 메시지(썸네일), 거래 확인 카드(inline).</div>
+                <table class="spec-table">
+                    <tr><th>유형</th><th>배경</th><th>텍스트</th><th>특징</th></tr>
+                    <tr><td>발신</td><td>#3B82F6</td><td>#fff</td><td>우측 정렬, radius 16px 우하단 4px</td></tr>
+                    <tr><td>수신</td><td>#F3F4F6</td><td>#111827</td><td>좌측 정렬, radius 16px 좌하단 4px</td></tr>
+                    <tr><td>시스템</td><td>transparent</td><td>#9CA3AF</td><td>중앙, 작은 글씨</td></tr>
+                    <tr><td>이미지</td><td>-</td><td>-</td><td>최대 200px, radius 8px</td></tr>
+                    <tr><td>거래카드</td><td>#F3F4F6</td><td>#111827</td><td>보더 1px, 내부 버튼</td></tr>
+                </table>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title"><span class="desc-num">14</span> 지도/위치 선택</div>
+                <div class="desc-text">카카오맵 API 플레이스홀더, 선택된 위치 카드(주소 + 지하철 정보), 위치 검색 인풋.</div>
+                <table class="spec-table">
+                    <tr><th>요소</th><th>사양</th></tr>
+                    <tr><td>지도 영역</td><td>375:200 비율, 회색 배경</td></tr>
+                    <tr><td>위치 카드</td><td>보더 1px, radius 12px, 핀 아이콘</td></tr>
+                    <tr><td>주소</td><td>13px 굵음, 검정</td></tr>
+                    <tr><td>지하철</td><td>12px, 회색</td></tr>
+                    <tr><td>검색 인풋</td><td>표준 인풋 44px</td></tr>
+                </table>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title"><span class="desc-num">15</span> 캘린더</div>
+                <div class="desc-text">월별 캘린더 그리드(요일 헤더, 날짜 셀), 오늘 표시(파랑 원형), 이벤트 날짜 점 표시, 보기 토글(월별/리스트/지도), 이벤트 리스트.</div>
+                <table class="spec-table">
+                    <tr><th>항목</th><th>사양</th></tr>
+                    <tr><td>오늘 날짜</td><td>파란 원형, 흰 텍스트</td></tr>
+                    <tr><td>이벤트 표시</td><td>날짜 하단 컬러 점</td></tr>
+                    <tr><td>요일 헤더</td><td>11px 굵음, 회색</td></tr>
+                    <tr><td>셀 크기</td><td>정사각형, flex grid</td></tr>
+                    <tr><td>보기 토글</td><td>3개 버튼, 활성 파랑</td></tr>
+                    <tr><td>이벤트 카드</td><td>12px, 카테고리별 컬러</td></tr>
+                </table>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title"><span class="desc-num">16</span> 카운트 뱃지/닷</div>
+                <div class="desc-text">빨간 점(8px, 알림), 숫자 뱃지(최소 18px, "99+" 표시), 탭 카운트, 버튼 위 뱃지. 모두 우상단 위치(-4px offset).</div>
+                <table class="spec-table">
+                    <tr><th>유형</th><th>스타일</th><th>위치</th></tr>
+                    <tr><td>점</td><td>8px 원형, 빨강, 흰 보더 2px</td><td>absolute top-right</td></tr>
+                    <tr><td>숫자 뱃지</td><td>min 18px, 빨강, 흰 텍스트</td><td>absolute top-right</td></tr>
+                    <tr><td>최대 표시</td><td>"99+" (100 이상)</td></tr>
+                </table>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title"><span class="desc-num">17</span> 아바타</div>
+                <div class="desc-text">5가지 사이즈(24/32/40/48/64px 원형), 온라인 표시(초록 점), 신뢰도 테두리(등급별 컬러), 아바타 그룹(3개 겹침), 기본 아바타(person 아이콘).</div>
+                <table class="spec-table">
+                    <tr><th>사이즈</th><th>용도</th></tr>
+                    <tr><td>24px</td><td>코멘트, 작은 리스트</td></tr>
+                    <tr><td>32px</td><td>알림, 카드 미리보기</td></tr>
+                    <tr><td>40px</td><td>프로필 행, 채팅 목록</td></tr>
+                    <tr><td>48px</td><td>모달, 프로필 상세</td></tr>
+                    <tr><td>64px</td><td>프로필 페이지</td></tr>
+                    <tr><td colspan="2">온라인: 우하단 초록 10px • 신뢰도: 테두리 2px, Lv별 컬러 • 그룹: 좌측 -8px 겹침, 흰 보더</td></tr>
+                </table>
+            </div>
+
+<div class="desc-panel" id="tab-interaction">
             <div class="desc-item">
                 <div class="desc-item-title">버튼 인터랙션</div>
                 <div class="desc-text">
@@ -770,7 +1508,240 @@
         </div>
 
         <!-- Tab 3: 사용 가이드 -->
-        <div class="desc-panel" id="tab-logic">
+                    <div class="desc-item">
+                <div class="desc-item-title">이미지 업로드 인터랙션</div>
+                <div class="desc-text">
+                    업로드 영역 탭: 네이티브 file input 또는 드래그&드롭 지원<br>
+                    이미지 선택: 최대 5~10장까지만 가능, 초과 시 경고<br>
+                    삭제: 각 썸네일 우상단 X 버튼 탭 → 확인 모달 또는 즉시 삭제<br>
+                    드래그 재정렬: 모바일 터치 드래그 또는 데스크톱 마우스 드래그<br>
+                    대표 지정: 첫 이미지가 자동 대표, 변경 시 뱃지 이동
+                </div>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title">캐러셀 인터랙션</div>
+                <div class="desc-text">
+                    자동 슬라이드: 5초마다 다음 이미지로 전환<br>
+                    좌우 화살표 탭: 즉시 해당 방향 슬라이드<br>
+                    닷 인디케이터 탭: 해당 슬라이드로 점프<br>
+                    스와이프: 좌/우 손가락 드래그로 슬라이드 전환<br>
+                    카운터: "현재/전체" 실시간 업데이트<br>
+                    터치 시 자동 슬라이드 중지, 터치 해제 후 재개
+                </div>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title">프로필 카드 인터랙션</div>
+                <div class="desc-text">
+                    프로필 행 탭: 해당 유저 프로필 페이지로 이동<br>
+                    신뢰도 뱃지 탭: 신뢰도 정보 상세 모달 또는 페이지<br>
+                    아바타 탭: 프로필 페이지 진입<br>
+                    "+" 아이콘(언팔로우/추가): 토글 액션<br>
+                    확장 카드의 인증 뱃지: 각 인증 상태 상세 정보 팝오버
+                </div>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title">스텝퍼/타임라인 인터랙션</div>
+                <div class="desc-text">
+                    스텝 닷 탭: 완료된 단계는 상세 정보 팝오버, 현재 또는 미래 단계는 비활성<br>
+                    타임라인 상태 탭: 해당 상태의 이력/상세 정보 표시<br>
+                    타이머 카운트다운: 실시간 업데이트, 진행바 애니메이션<br>
+                    D+0~D+5 타이머: 단계별 상이한 색상 (주황→빨강 경고)<br>
+                    진행바: 남은 시간에 따라 left-to-right 애니메이션
+                </div>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title">알림 리스트 인터랙션</div>
+                <div class="desc-text">
+                    필터 칩 탭: 해당 카테고리만 필터링<br>
+                    알림 아이템 탭: 해당 거래/공구 상세 또는 채팅으로 이동<br>
+                    미읽 알림: 파란 점 표시, 배경색 강조<br>
+                    우측 스와이프: 삭제 또는 아카이브 액션 (선택적)<br>
+                    타임스탬프: 상대 시간 표시 (2분 전, 1시간 전 등)
+                </div>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title">채팅 버블 인터랙션</div>
+                <div class="desc-text">
+                    메시지 장압: 복사 / 삭제 / 신고 컨텍스트 메뉴<br>
+                    이미지 메시지 탭: 전체 화면 뷰어 또는 lightbox<br>
+                    거래 카드 (수락/거절 버튼): 거래 확인 모달로 이동<br>
+                    메시지 타임: 정렬 또는 그룹화 (시간대별)<br>
+                    아바타 탭: 프로필 팝오버 또는 상세 페이지<br>
+                    아바타 온라인 상태: 실시간 업데이트
+                </div>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title">지도/위치 선택 인터랙션</div>
+                <div class="desc-text">
+                    지도 영역 탭: 지도 풀화면 모드 또는 상호작용형 맵으로 진입<br>
+                    위치 검색 인풋: 입력 시 자동완성 API 호출, 500ms 디바운스<br>
+                    자동완성 항목 탭: 지도 위치 업데이트 + 위치 카드 새로고침<br>
+                    X 버튼: 입력 필드 클리어<br>
+                    위치 카드 탭: 지도 상세 보기 또는 길찾기 앱 호출 가능<br>
+                    핀 드래그: 지도에서 직접 위치 변경
+                </div>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title">캘린더 인터랙션</div>
+                <div class="desc-text">
+                    좌우 화살표: 이전/다음 월 전환<br>
+                    날짜 셀 탭: 해당 날짜의 이벤트 상세 보기 또는 예약 추가<br>
+                    오늘(today) 버튼: 현재 달로 즉시 이동<br>
+                    보기 토글(월별/리스트/지도): 레이아웃 전환<br>
+                    이벤트 리스트 아이템: 이벤트 상세 페이지로 이동<br>
+                    이벤트 점 색상: 카테고리별 다른 색상 (미쿠 #8B5CF6, 인생 #EC4899 등)
+                </div>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title">뱃지/닷 애니메이션</div>
+                <div class="desc-text">
+                    뱃지 나타남: scale-in 애니메이션 150ms ease-out<br>
+                    점 맥임: pulse 애니메이션 (알림 강조)<br>
+                    숫자 업데이트: 텍스트 페이드, 카운트 올림 (선택적)<br>
+                    제거: fade-out 애니메이션 100ms<br>
+                    위치: absolute 최소 -4px offset, 겹침 방지
+                </div>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title">아바타 인터랙션</div>
+                <div class="desc-text">
+                    아바타 탭: 프로필 팝오버 또는 상세 페이지로 진입<br>
+                    온라인 상태 점: 실시간 업데이트 (연결/해제 시 색상 변화)<br>
+                    신뢰도 테두리 색상: 등급 변경 시 smooth 애니메이션<br>
+                    아바타 그룹 호버: 각 멤버 프로필 팝오버 순차 표시<br>
+                    기본 아바타: 아이콘 placeholder, 이미지 로드 후 교체<br>
+                    배지(온라인 점): 초록색 점이 호버 시 상세 상태 팝오버
+                </div>
+            </div>
+
+<div class="desc-panel" id="tab-logic">
+            <div class="desc-item">
+                <div class="desc-item-title">이미지 업로드 사용 원칙</div>
+                <div class="desc-text">
+                    모든 거래(교환, 공구) 게시글에 최소 1장, 최대 5~10장 필수/권장.<br>
+                    첫 이미지가 카드 대표 이미지(썸네일)로 자동 사용되므로 가장 중요한 이미지를 먼저 배치.<br>
+                    이미지 순서는 드래그로 재정렬 가능 — 재정렬 후 저장 시 반영.<br>
+                    삭제된 이미지는 복구 불가 — 명확한 확인 메시지 필수.<br>
+                    이미지 업로드 완료 후 자동 압축 및 CDN 배포 (Sharp 엔진).
+                </div>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title">캐러셀 사용 원칙</div>
+                <div class="desc-text">
+                    배너 캐러셀: 메인 홈 최상단, 최대 8슬롯/일(별도 관리 페이지).<br>
+                    상세 이미지 슬라이더: 교환/공구 상세 페이지, 사용자 업로드 이미지 표시.<br>
+                    자동 슬라이드 5초 설정 (설정 페이지에서 변경 가능).<br>
+                    스와이프 제스처 필수 (모바일).<br>
+                    현재/전체 카운터 항상 표시, 닷 인디케이터로 시각적 피드백 제공.
+                </div>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title">프로필 카드 사용 원칙</div>
+                <div class="desc-text">
+                    거래 목록 카드: 판매자/제안자 컴팩트 프로필 표시 (40px).<br>
+                    상세 페이지/채팅: 확장 프로필 카드 (64px) 사용.<br>
+                    신뢰도 Lv. 색상: Lv.1 빨강 / Lv.2 주황 / Lv.3 파랑 / Lv.4 초록.<br>
+                    인증 뱃지: 휴대폰 / 이메일 / 신원 인증 상태 표시.<br>
+                    긍정률: 초록색, 수치와 백분율 함께 표시 (예: 98% (12/12)).
+                </div>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title">스텝퍼/타이머 사용 원칙</div>
+                <div class="desc-text">
+                    교환 플로우: 6단계 수평 스텝퍼로 명확한 진행 상황 안내.<br>
+                    공구 상태: 5단계 수직 타임라인으로 시간 흐름 표현.<br>
+                    현재 단계: 파란색(active) 강조, 완료 단계는 초록 체크마크.<br>
+                    D+3 경고 타이머: 주황색 배경, 진행바로 남은 시간 시각화.<br>
+                    타이머 텍스트: "2일 15시간" 또는 "72h 36m" 형식 (설정 가능).<br>
+                    자동 무산: D+5 도달 시 시스템 자동 무산 처리, 사전 알림 필수.
+                </div>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title">알림 사용 원칙</div>
+                <div class="desc-text">
+                    미읽 알림: 파란 점 + 배경색 강조 + 굵은 텍스트.<br>
+                    읽음 알림: 일반 텍스트, 배경색 없음.<br>
+                    카테고리 필터: 전체 / 교환 / 공구 / 시스템 4가지.<br>
+                    최대 표시 알림: 최근 100개, 이전 알림은 아카이브 또는 삭제.<br>
+                    푸시 알림(FCM): 앱 background에서 도착 시 배너 띄우기.<br>
+                    알림 클릭: 해당 거래/공구/채팅으로 직진, 자동 읽음 처리.
+                </div>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title">채팅 사용 원칙</div>
+                <div class="desc-text">
+                    발신/수신 버블: 자동 구분, 우측/좌측 정렬.<br>
+                    메시지 시간: 각 메시지 또는 시간대별 그룹헤더로 표시.<br>
+                    이미지 메시지: 최대 너비 200px, 전체화면 뷰어 지원.<br>
+                    거래 확인 카드: 양측 수락 필요한 경우, 인라인 카드 + 수락/거절 버튼.<br>
+                    읽음 상태: 상대 아바타 하단 초록 점 또는 "읽음" 표시 (선택적).<br>
+                    메시지 저장 및 검색: 추후 단계 고려.<br>
+                    차단된 유저: 메시지 송수신 불가, 명확한 안내 필수.
+                </div>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title">지도/위치 사용 원칙</div>
+                <div class="desc-text">
+                    카카오맵 API 연동: 배포 지역 한정(한국).<br>
+                    위치 검색 자동완성: 500ms 디바운스, 최대 5개 결과.<br>
+                    선택된 위치: 주소 + 지하철 정보 카드 표시.<br>
+                    위치 변경: 검색 재입력 또는 지도 직접 핀 드래그.<br>
+                    거래 알림: "우리 동네", "인접 동네" 필터링 (향후).<br>
+                    개인정보: 정확한 주소는 거래 확정 후에만 공개.
+                </div>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title">캘린더 사용 원칙</div>
+                <div class="desc-text">
+                    이벤트 표시: 활동 있는 날짜 하단 컬러 점 (카테고리별).<br>
+                    오늘 표시: 파란 원형, 항상 현재 달에서 강조.<br>
+                    뷰 모드: 월별(그리드) / 리스트(시간순) / 지도(위치).<br>
+                    이벤트 카테고리: 애니/만화/소설(Purple) / 아이돌/아티스트(Pink) / 배우/무대(Amber) / 게임(Cyan).<br>
+                    이벤트 추가: 날짜 탭 → "새로운 일정" 또는 거래 진행 시 자동 추가.<br>
+                    알림: 이벤트 당일 아침 또는 설정된 시간 이전 알림.
+                </div>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title">뱃지/닷 사용 원칙</div>
+                <div class="desc-text">
+                    빨간 점(8px): 일반 알림 표시, 개별 카운트 불필요.<br>
+                    숫자 뱃지: 정확한 카운트 필요 시 (미읽 메시지, 제안 개수).<br>
+                    최대 표시: 100 이상일 경우 "99+" (overflow 처리).<br>
+                    배치: 아이콘/버튼/탭 우상단 absolute 위치.<br>
+                    색상: 빨강 기본, 상황에 따라 주황색(경고) 또는 파랑(정보) 가능.<br>
+                    애니메이션: 첫 나타남 시 scale-in, 업데이트 시 fade, 제거 시 fade-out.
+                </div>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title">아바타 사용 원칙</div>
+                <div class="desc-text">
+                    사이즈별 용도: 24px(댓글) / 32px(알림) / 40px(채팅) / 48px(모달) / 64px(프로필).<br>
+                    온라인 상태: 초록 점(10px) 우하단, hover 시 상태(온라인/자리비움/오프라인) 팝오버.<br>
+                    신뢰도 테두리: 2px 테두리, 등급별 색상(빨강/주황/파랑/초록).<br>
+                    아바타 그룹: 3명 이상일 때 좌측 -8px 겹침, 흰 보더로 구분.<br>
+                    기본 아바타: person 아이콘 silhouette, 로드 완료 시 이미지 교체.<br>
+                    캐싱: 네트워크 효율을 위해 아바타 이미지 캐싱 권장.
+                </div>
+            </div>
+
             <div class="desc-item">
                 <div class="desc-item-title">버튼 사용 원칙</div>
                 <div class="desc-text">
@@ -834,7 +1805,7 @@
 </div><!-- main end -->
 
 <div class="page-footer">
-    애픽 월드 (Aepik World) 공통 컴포넌트 가이드 v1.0 — 2026-03-06 작성
+    애픽 월드 (Aepik World) 공통 컴포넌트 가이드 v2.0 — 2026-03-06 작성
 </div>
 
 <script>
