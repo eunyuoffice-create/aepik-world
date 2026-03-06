@@ -265,8 +265,40 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         </div>
       </div>
 
+      <h4 style="font-size: 13px; color: #3B82F6; margin: 20px 0 12px;">3-1. 검색 플로우 (SRCH01)</h4>
+      <div class="flow-diagram">
+        <div class="flow-node start">검색바 탭 (홈 / 하단 네비)</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-node page">검색 입력 모드 (SRCH01-A)</div>
+        <div class="flow-arrow"></div>
+        <div style="display:flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
+          <div class="flow-node process" style="min-width:140px; font-size:12px;">인기 검색어 탭<br>즉시 검색 실행</div>
+          <div class="flow-node process" style="min-width:140px; font-size:12px;">최근 검색어 탭<br>재검색 / 삭제</div>
+          <div class="flow-node process" style="min-width:140px; font-size:12px;">텍스트 입력<br>자동완성 (300ms)</div>
+        </div>
+        <div class="flow-arrow"></div>
+        <div class="flow-node action">검색 실행 (엔터 / 자동완성 탭)</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-node page">검색 결과 모드 (SRCH01-B)</div>
+        <div class="flow-arrow"></div>
+        <div style="display:flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
+          <div class="flow-node process" style="min-width:130px; font-size:12px;">탭 바 전환<br>전체/교환/공구/구함/이벤트</div>
+          <div class="flow-node process" style="min-width:130px; font-size:12px;">작품/캐릭터<br>칩 필터</div>
+          <div class="flow-node action" style="min-width:130px; font-size:12px;">필터 아이콘 탭<br>바텀시트 열기</div>
+          <div class="flow-node process" style="min-width:130px; font-size:12px;">결과 카드 탭<br>상세 이동</div>
+        </div>
+        <div class="flow-arrow"></div>
+        <div class="flow-node decision">필터 바텀시트 (SRCH01-C)</div>
+        <div class="flow-arrow"></div>
+        <div style="display:flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
+          <div class="flow-node process" style="min-width:180px; font-size:12px;">6개 필터 그룹 선택<br>카테고리 / 굿즈 타입 / 상태 / 거래방법 / 정렬 / 추가옵션</div>
+          <div class="flow-node action" style="min-width:120px; font-size:12px;">[N건 보기]<br>필터 적용</div>
+          <div class="flow-node process" style="min-width:100px; font-size:12px;">[초기화]<br>필터 리셋</div>
+        </div>
+      </div>
+
       <div class="flow-note" style="margin-top: 16px;">
-        🔎 <strong>검색 플로우</strong>: 검색바 탭 → 검색 페이지 → 텍스트 입력 (자동완성) → 검색 실행 → 결과 페이지 (필터+정렬) → 카드 탭 → 상세 페이지
+        <strong>검색 연결</strong>: 결과 카드 탭 시 교환(EXCH02) / 공구(GRPB02) / 구함(WANT01) / 이벤트(EVNT02) 상세 페이지로 이동
       </div>
     </div>
   </div>
