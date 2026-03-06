@@ -727,6 +727,88 @@
 </div>
 
 
+<!-- ===== 7-3. 필터 바텀시트 ===== -->
+<div>
+    <div class="phone-section-label">7-3. 필터 바텀시트</div>
+    <div class="phone-frame">
+        <!-- 딤 배경 -->
+        <div style="position:relative; background:rgba(0,0,0,.4); min-height:700px;">
+            <!-- 바텀시트 본체 -->
+            <div style="position:absolute; bottom:0; left:0; right:0; background:#fff; border-radius:16px 16px 0 0; padding:16px;">
+                <!-- 드래그 핸들 -->
+                <div style="display:flex; justify-content:center; margin-bottom:16px;">
+                    <div style="width:40px; height:4px; background:#D1D5DB; border-radius:2px;"></div>
+                </div>
+                <!-- 헤더 -->
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;">
+                    <span style="font-size:18px; font-weight:700; color:#111827;">필터</span>
+                    <span style="font-size:13px; color:#6B7280; cursor:pointer;">초기화</span>
+                </div>
+
+                <div class="demo-label">카테고리</div>
+                <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;">
+                    <span style="padding:8px 14px; border:1.5px solid #8B5CF6; background:#F3E8FF; border-radius:999px; font-size:13px; color:#7C3AED; font-weight:500;">애니/만화/소설</span>
+                    <span style="padding:8px 14px; border:1px solid #E5E7EB; border-radius:999px; font-size:13px; color:#374151;">아이돌/아티스트</span>
+                    <span style="padding:8px 14px; border:1px solid #E5E7EB; border-radius:999px; font-size:13px; color:#374151;">배우/무대</span>
+                    <span style="padding:8px 14px; border:1px solid #E5E7EB; border-radius:999px; font-size:13px; color:#374151;">게임</span>
+                </div>
+
+                <div class="demo-label">굿즈 타입</div>
+                <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;">
+                    <span style="padding:6px 12px; border:1.5px solid #3B82F6; background:#EFF6FF; border-radius:999px; font-size:12px; color:#2563EB; font-weight:500;">포토카드</span>
+                    <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151;">아크릴</span>
+                    <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151;">인형/플러시</span>
+                    <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151;">앨범/CD</span>
+                    <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151;">기타</span>
+                </div>
+
+                <div class="demo-label">상품 상태</div>
+                <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;">
+                    <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151;">S급</span>
+                    <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151;">A급</span>
+                    <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151;">B급</span>
+                    <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151;">C급</span>
+                </div>
+
+                <div class="demo-label">거래 방법</div>
+                <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;">
+                    <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151;">택배</span>
+                    <span style="padding:6px 12px; border:1.5px solid #3B82F6; background:#EFF6FF; border-radius:999px; font-size:12px; color:#2563EB; font-weight:500;">직거래</span>
+                    <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151;">둘 다</span>
+                </div>
+
+                <div class="demo-label">정렬</div>
+                <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;">
+                    <span style="padding:6px 12px; border:1.5px solid #3B82F6; background:#EFF6FF; border-radius:999px; font-size:12px; color:#2563EB; font-weight:500;">최신순</span>
+                    <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151;">인기순</span>
+                    <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151;">조회순</span>
+                </div>
+
+                <div class="demo-label">추가 옵션</div>
+                <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:20px;">
+                    <label style="display:flex; align-items:center; gap:10px; font-size:13px; color:#374151; cursor:pointer;">
+                        <div style="width:20px; height:20px; border:2px solid #3B82F6; border-radius:4px; background:#3B82F6; display:flex; align-items:center; justify-content:center;">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        </div>
+                        차액 협의 가능만
+                    </label>
+                    <label style="display:flex; align-items:center; gap:10px; font-size:13px; color:#374151; cursor:pointer;">
+                        <div style="width:20px; height:20px; border:2px solid #E5E7EB; border-radius:4px;"></div>
+                        거래 가능만
+                    </label>
+                </div>
+
+                <!-- 하단 버튼 -->
+                <div style="display:flex; gap:8px;">
+                    <button style="flex:1; height:48px; border:1px solid #E5E7EB; border-radius:10px; background:#fff; font-size:15px; color:#4B5563; cursor:pointer;">초기화</button>
+                    <button style="flex:2; height:48px; border:none; border-radius:10px; background:#3B82F6; font-size:15px; font-weight:600; color:#fff; cursor:pointer;">42건 보기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!-- ===== 8. 이미지 업로드/갤러리 (Image Upload & Gallery) ===== -->
 <div>
     <div class="phone-section-label">8. 이미지 업로드/갤러리</div>
@@ -1307,6 +1389,25 @@
                 </table>
                 <div class="desc-detail">검색 바는 홈 탑바와 전용 검색 페이지 두 곳에서 사용. 홈에서 탭 → 검색 페이지로 이동(push). 검색어 입력 중 X 버튼으로 클리어.</div>
             </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title"><span class="desc-num">7-3</span> 필터 바텀시트</div>
+                <div class="desc-text">검색 결과의 "필터" 칩 탭 시 올라오는 바텀시트. 카테고리(4대 팬덤), 굿즈 타입, 상품 상태, 거래 방법, 정렬, 추가 옵션 필터 제공.</div>
+                <table class="spec-table">
+                    <tr><th>요소</th><th>스펙</th><th>비고</th></tr>
+                    <tr><td>바텀시트</td><td>라운딩 16px 16px 0 0, 딤 배경 rgba(0,0,0,.4)</td><td>300ms translateY 진입, 드래그 닫기 지원</td></tr>
+                    <tr><td>드래그 핸들</td><td>40x4px, `#D1D5DB`</td><td>중앙 정렬</td></tr>
+                    <tr><td>카테고리 칩</td><td>pill, 선택 시 카테고리 컬러 보더+배경</td><td>복수 선택 가능, 4대 카테고리</td></tr>
+                    <tr><td>굿즈 타입 칩</td><td>pill, 선택 시 Blue 보더+배경</td><td>포토카드/아크릴/인형/앨범/기타</td></tr>
+                    <tr><td>상품 상태</td><td>pill, S/A/B/C급</td><td>복수 선택 가능</td></tr>
+                    <tr><td>거래 방법</td><td>pill, 택배/직거래/둘 다</td><td>복수 선택 가능</td></tr>
+                    <tr><td>정렬</td><td>pill, 단일 선택</td><td>최신순/인기순/조회순</td></tr>
+                    <tr><td>체크박스 옵션</td><td>20x20px, Blue 체크</td><td>차액 협의 가능만, 거래 가능만</td></tr>
+                    <tr><td>초기화 버튼</td><td>Ghost, 높이 48px</td><td>flex:1</td></tr>
+                    <tr><td>적용 버튼</td><td>Primary, 높이 48px, "N건 보기"</td><td>flex:2, 결과 건수 동적 표시</td></tr>
+                </table>
+                <div class="desc-detail">Desktop(768px+)에서는 중앙 모달로 전환. 적용 시 검색 결과 즉시 필터링, 필터 칩 바에 선택된 필터 반영.</div>
+            </div>
         </div>
 
         <!-- Tab 2: 인터랙션 -->
@@ -1502,7 +1603,22 @@
                     X 버튼: 입력 클리어, 최근/인기 검색어 패널로 복귀<br>
                     검색 실행: 엔터 또는 키보드 검색 버튼<br>
                     필터 칩: 탭 토글 (선택/해제), 복수 선택 가능<br>
-                    결과 탭 전환: 탭 인디케이터 슬라이드, 결과 리스트 교체
+                    결과 탭 전환: 탭 인디케이터 슬라이드, 결과 리스트 교체<br>
+                    <strong>"필터" 칩 탭: 필터 바텀시트 올라옴 (300ms translateY)</strong>
+                </div>
+            </div>
+
+            <div class="desc-item">
+                <div class="desc-item-title">필터 바텀시트 인터랙션</div>
+                <div class="desc-text">
+                    필터 칩(카테고리/굿즈/상태/거래방법) 탭: 선택 토글, 복수 선택 가능<br>
+                    정렬 칩: 단일 선택 (기존 해제 후 새 선택)<br>
+                    체크박스: 탭 토글 (체크/언체크)<br>
+                    헤더 "초기화" 텍스트: 모든 필터 값 초기화<br>
+                    하단 "초기화" 버튼: 모든 필터 값 초기화<br>
+                    "N건 보기" 버튼: 필터 적용 + 바텀시트 닫기 + 결과 즉시 갱신<br>
+                    딤 배경 탭 / 아래 드래그 100px+: 바텀시트 닫기 (미적용 상태 유지)<br>
+                    Desktop(768px+): 중앙 모달로 전환, ESC 키 닫기 지원
                 </div>
             </div>
         </div>
@@ -1786,6 +1902,19 @@
                     인기 검색어: 서버 집계, 24시간 기준 갱신.<br>
                     빈 결과: 항상 대안 안내 (다른 키워드 제안 또는 전체 목록 CTA).<br>
                     필터: 카테고리(4대), 거래 유형(교환/공구/구함), 정렬(최신/인기) 지원.
+                </div>
+            </div>
+            <div class="desc-item">
+                <div class="desc-item-title">필터 바텀시트 사용 원칙</div>
+                <div class="desc-text">
+                    진입: 검색 결과 화면의 "필터" 칩 탭 시 바텀시트 올라옴.<br>
+                    필터 그룹: 카테고리(4대 팬덤) > 굿즈 타입 > 상품 상태(S/A/B/C) > 거래 방법 > 정렬 > 추가 옵션 순서.<br>
+                    칩 선택: 복수 선택 가능 (정렬만 단일 선택).<br>
+                    선택 상태: Blue 보더+배경 (카테고리는 해당 카테고리 컬러 사용).<br>
+                    "N건 보기": 실시간 결과 건수 갱신, 0건이어도 버튼 활성 상태 유지.<br>
+                    적용 후: 필터 칩 바에 선택된 필터가 칩으로 표시됨.<br>
+                    초기화: 모든 필터 해제, 기본값(최신순)으로 복귀.<br>
+                    Desktop(768px+): 중앙 모달 전환, 최대 너비 480px.
                 </div>
             </div>
             <div class="desc-item">
