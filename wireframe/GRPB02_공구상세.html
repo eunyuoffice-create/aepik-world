@@ -1,1339 +1,970 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GRPB02 공구 상세 - Wireframe</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background-color: #f5f5f5;
-      padding: 20px;
-    }
-
-    .container {
-      display: flex;
-      gap: 30px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    /* Meta Bar */
-    .meta-bar {
-      grid-column: 1 / -1;
-      background-color: #2563EB;
-      color: white;
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 14px;
-      margin-bottom: 20px;
-    }
-
-    /* Left Side - Wireframe */
-    .wireframe-side {
-      flex: 55%;
-      min-width: 0;
-    }
-
-    .wireframe-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 20px;
-    }
-
-    .phone-frame {
-      width: 375px;
-      background-color: white;
-      border: 8px solid #333;
-      border-radius: 40px;
-      overflow: hidden;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-      position: relative;
-    }
-
-    .phone-frame::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 150px;
-      height: 25px;
-      background-color: #333;
-      border-radius: 0 0 20px 20px;
-      z-index: 10;
-    }
-
-    .screen-content {
-      width: 100%;
-      height: 812px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      padding-top: 15px;
-    }
-
-    /* Header */
-    .header {
-      padding: 15px 16px;
-      border-bottom: 1px solid #e5e5e5;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-shrink: 0;
-    }
-
-    .header-left {
-      font-size: 20px;
-      cursor: pointer;
-    }
-
-    .header-title {
-      flex: 1;
-      text-align: center;
-      font-weight: 600;
-      font-size: 16px;
-      color: #333;
-    }
-
-    .header-right {
-      display: flex;
-      gap: 12px;
-      font-size: 18px;
-      cursor: pointer;
-    }
-
-    /* Image Gallery */
-    .image-gallery {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background-color: #e8e8e8;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      color: #999;
-      flex-shrink: 0;
-      font-weight: 500;
-    }
-
-    .indicator {
-      font-size: 12px;
-      color: #666;
-      text-align: center;
-      padding: 8px;
-      background-color: #f9f9f9;
-      border-bottom: 1px solid #e5e5e5;
-      flex-shrink: 0;
-    }
-
-    /* Tags */
-    .tags-section {
-      padding: 12px 16px;
-      display: flex;
-      gap: 8px;
-      border-bottom: 1px solid #e5e5e5;
-      flex-shrink: 0;
-    }
-
-    .tag {
-      padding: 4px 12px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 600;
-    }
-
-    .tag-type {
-      background-color: #EFF6FF;
-      color: #2563EB;
-    }
-
-    .tag-category {
-      background-color: #F5F3FF;
-      color: #7C3AED;
-    }
-
-    /* Title Section */
-    .title-section {
-      padding: 16px;
-      border-bottom: 1px solid #e5e5e5;
-      flex-shrink: 0;
-    }
-
-    .product-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: #222;
-      margin-bottom: 8px;
-      line-height: 1.4;
-    }
-
-    .price-section {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-    }
-
-    .price {
-      font-size: 18px;
-      font-weight: 700;
-      color: #2563EB;
-    }
-
-    .price-unit {
-      font-size: 13px;
-      color: #666;
-    }
-
-    .shipping-info {
-      font-size: 12px;
-      color: #16a34a;
-      margin-top: 6px;
-    }
-
-    /* Organizer Section */
-    .organizer-section {
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border-bottom: 1px solid #e5e5e5;
-      flex-shrink: 0;
-      cursor: pointer;
-    }
-
-    .organizer-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background-color: #d0d0d0;
-      flex-shrink: 0;
-    }
-
-    .organizer-info {
-      flex: 1;
-    }
-
-    .organizer-name {
-      font-size: 13px;
-      font-weight: 600;
-      color: #222;
-      margin-bottom: 2px;
-    }
-
-    .organizer-meta {
-      display: flex;
-      gap: 6px;
-      font-size: 11px;
-      color: #666;
-    }
-
-    .trust-badge {
-      background-color: #fef3c7;
-      color: #b45309;
-      padding: 2px 6px;
-      border-radius: 3px;
-      font-weight: 600;
-    }
-
-    /* Participation Section - General */
-    .participation-section {
-      padding: 16px;
-      border-bottom: 1px solid #e5e5e5;
-      flex-shrink: 0;
-    }
-
-    .progress-container {
-      margin-bottom: 12px;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 24px;
-      background-color: #e5e5e5;
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 6px;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background-color: #2563EB;
-      width: 60%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      padding-right: 8px;
-      font-size: 11px;
-      font-weight: 600;
-      color: white;
-    }
-
-    .progress-text {
-      font-size: 13px;
-      font-weight: 600;
-      color: #222;
-    }
-
-    .min-participants {
-      font-size: 12px;
-      color: #666;
-      margin-top: 8px;
-    }
-
-    .deadline-info {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px solid #e5e5e5;
-    }
-
-    .deadline-item {
-      flex: 1;
-    }
-
-    .deadline-label {
-      font-size: 11px;
-      color: #999;
-      margin-bottom: 2px;
-    }
-
-    .deadline-value {
-      font-size: 13px;
-      font-weight: 600;
-      color: #222;
-    }
-
-    /* Character Selection Section - Set Type */
-    .character-section {
-      padding: 16px;
-      border-bottom: 1px solid #e5e5e5;
-      flex-shrink: 0;
-      display: none;
-    }
-
-    .character-section.visible {
-      display: block;
-    }
-
-    .character-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: #222;
-      margin-bottom: 12px;
-    }
-
-    .character-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .character-item {
-      padding: 10px;
-      background-color: #f9f9f9;
-      border-radius: 6px;
-      border: 1px solid #e5e5e5;
-    }
-
-    .character-name {
-      font-size: 12px;
-      font-weight: 600;
-      color: #222;
-      margin-bottom: 6px;
-    }
-
-    .character-progress {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .character-bar {
-      flex: 1;
-      height: 6px;
-      background-color: #e5e5e5;
-      border-radius: 3px;
-      overflow: hidden;
-    }
-
-    .character-bar-fill {
-      height: 100%;
-      background-color: #2563EB;
-    }
-
-    .character-count {
-      font-size: 11px;
-      color: #666;
-      min-width: 40px;
-      text-align: right;
-    }
-
-    .character-item.sold-out {
-      opacity: 0.6;
-      background-color: #f0f0f0;
-    }
-
-    .character-item.sold-out .character-name::after {
-      content: ' [마감]';
-      color: #999;
-      font-weight: 500;
-    }
-
-    /* Detail Section */
-    .detail-section {
-      padding: 16px;
-      border-bottom: 1px solid #e5e5e5;
-      flex-shrink: 0;
-    }
-
-    .detail-label {
-      font-size: 12px;
-      font-weight: 600;
-      color: #666;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-    }
-
-    .detail-content {
-      background-color: #f5f5f5;
-      padding: 12px;
-      border-radius: 6px;
-      font-size: 13px;
-      color: #666;
-      line-height: 1.5;
-      min-height: 80px;
-    }
-
-    /* Participants Section */
-    .participants-section {
-      padding: 16px;
-      border-bottom: 1px solid #e5e5e5;
-      flex-shrink: 0;
-    }
-
-    .participants-label {
-      font-size: 12px;
-      font-weight: 600;
-      color: #666;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-    }
-
-    .participants-list {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .participant-avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background-color: #d0d0d0;
-      flex-shrink: 0;
-      border: 2px solid white;
-    }
-
-    .participants-more {
-      font-size: 12px;
-      color: #2563EB;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    /* Bottom CTA Bar */
-    .cta-bar {
-      padding: 12px 16px;
-      display: flex;
-      gap: 10px;
-      border-top: 1px solid #e5e5e5;
-      background-color: white;
-      flex-shrink: 0;
-    }
-
-    .cta-heart {
-      width: 44px;
-      height: 44px;
-      border: 1px solid #e5e5e5;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      cursor: pointer;
-      flex-shrink: 0;
-      background-color: white;
-    }
-
-    .cta-button {
-      flex: 1;
-      height: 44px;
-      background-color: #2563EB;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .cta-button:hover {
-      background-color: #1d4ed8;
-    }
-
-    .cta-button-disabled {
-      background-color: #d1d5db;
-      cursor: not-allowed;
-    }
-
-    .cta-button-outline {
-      background-color: white;
-      border: 1px solid #2563EB;
-      color: #2563EB;
-    }
-
-    /* Status Banners */
-    .status-banner {
-      padding: 12px 16px;
-      border-bottom: 1px solid #e5e5e5;
-      flex-shrink: 0;
-      font-size: 14px;
-      font-weight: 600;
-      text-align: center;
-    }
-
-    .status-banner-amber {
-      background-color: #fef08a;
-      color: #854d0e;
-      border-bottom: 1px solid #facc15;
-    }
-
-    .status-banner-red {
-      background-color: #fee2e2;
-      color: #991b1b;
-      border-bottom: 1px solid #fca5a5;
-    }
-
-    .status-reason-box {
-      background-color: #f3f4f6;
-      padding: 12px 16px;
-      border-bottom: 1px solid #e5e5e5;
-      flex-shrink: 0;
-    }
-
-    .status-reason-title {
-      font-size: 12px;
-      font-weight: 600;
-      color: #666;
-      margin-bottom: 6px;
-      text-transform: uppercase;
-    }
-
-    .status-reason-content {
-      font-size: 13px;
-      color: #222;
-      line-height: 1.4;
-    }
-
-    .status-refund-info {
-      background-color: white;
-      padding: 12px 16px;
-      border-bottom: 1px solid #e5e5e5;
-      flex-shrink: 0;
-      font-size: 13px;
-      color: #666;
-      line-height: 1.4;
-    }
-
-    .dimmed {
-      opacity: 0.6;
-    }
-
-    /* Right Side - Description */
-    .desc-side {
-      flex: 45%;
-      min-width: 0;
-    }
-
-    .desc-content {
-      background-color: white;
-      border-radius: 8px;
-      padding: 24px;
-      line-height: 1.8;
-    }
-
-    .desc-title {
-      font-size: 18px;
-      font-weight: 700;
-      color: #222;
-      margin-bottom: 16px;
-      padding-bottom: 12px;
-      border-bottom: 2px solid #2563EB;
-    }
-
-    .desc-section {
-      margin-bottom: 24px;
-    }
-
-    .desc-section h3 {
-      font-size: 14px;
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 8px;
-      color: #2563EB;
-    }
-
-    .desc-section p {
-      font-size: 13px;
-      color: #666;
-      line-height: 1.6;
-      margin-bottom: 8px;
-    }
-
-    .desc-list {
-      list-style: none;
-      padding-left: 0;
-    }
-
-    .desc-list li {
-      font-size: 13px;
-      color: #666;
-      margin-bottom: 8px;
-      padding-left: 20px;
-      position: relative;
-    }
-
-    .desc-list li::before {
-      content: '▸';
-      position: absolute;
-      left: 6px;
-      color: #2563EB;
-    }
-
-    .tab-toggle {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 20px;
-      border-bottom: 1px solid #e5e5e5;
-      padding-bottom: 12px;
-    }
-
-    .tab-button {
-      padding: 8px 0;
-      border: none;
-      background: none;
-      font-size: 14px;
-      font-weight: 600;
-      color: #999;
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      padding-bottom: 10px;
-    }
-
-    .tab-button.active {
-      color: #2563EB;
-      border-bottom-color: #2563EB;
-    }
-
-    .tab-content {
-      display: none;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    .code-block {
-      background-color: #f0f0f0;
-      padding: 12px;
-      border-radius: 4px;
-      font-family: 'Monaco', 'Courier New', monospace;
-      font-size: 12px;
-      color: #666;
-      overflow-x: auto;
-      margin: 8px 0;
-    }
-
-    @media (max-width: 1200px) {
-      .container {
-        flex-direction: column;
-      }
-
-      .wireframe-side,
-      .desc-side {
-        flex: 100%;
-      }
-
-      .phone-frame {
-        margin: 0 auto;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GRPB02 — 공구 상세 와이어프레임</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+
+/* ===== META HEADER ===== */
+.meta-bar {
+  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
+}
+.meta-item { font-size: 11px; }
+.meta-label { color: #999; }
+.meta-value { font-weight: 600; color: #333; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+
+/* ===== MAIN LAYOUT ===== */
+.main-layout {
+  display: flex; min-height: calc(100vh - 48px);
+}
+
+/* ===== WIREFRAME SIDE ===== */
+.wireframe-side {
+  flex: 0 0 55%; background: #EAEAEA; padding: 32px;
+  display: flex; justify-content: center; overflow-y: auto;
+}
+.phone-stack {
+  display: flex; flex-direction: column; gap: 24px;
+}
+.phone-frame {
+  width: 375px; background: #fff; border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative;
+  overflow: hidden; flex-shrink: 0;
+}
+
+/* ===== DESCRIPTION SIDE ===== */
+.desc-side {
+  flex: 0 0 45%; background: #fff; padding: 24px 28px;
+  overflow-y: auto; border-left: 1px solid #ddd;
+}
+.desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+
+.desc-item { margin-bottom: 20px; }
+.desc-num-row {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+}
+.desc-num {
+  background: #2563EB; color: #fff; width: 22px; height: 22px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0;
+}
+.desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-name { font-size: 14px; font-weight: 600; }
+
+.desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
+.desc-body ul { list-style: none; }
+.desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
+.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #888; }
+.desc-body .sub li::before { content: '└'; color: #ccc; }
+.desc-body table { width: 100%; font-size: 11px; border-collapse: collapse; margin-top: 6px; }
+.desc-body th { text-align: left; padding: 4px 8px; border-bottom: 1px solid #eee; color: #888; font-weight: 600; }
+.desc-body td { padding: 4px 8px; border-bottom: 1px solid #f0f0f0; }
+
+.desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
+
+/* ===== WIREFRAME ELEMENTS ===== */
+.wf-section { position: relative; }
+
+/* Number circle overlay */
+.num-circle {
+  position: absolute; z-index: 10;
+  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+/* Header */
+.wf-header {
+  display: flex; align-items: center; padding: 12px 16px;
+  border-bottom: 1px solid #eee; position: relative;
+}
+.wf-header-back { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #333; }
+.wf-header-title { flex: 1; text-align: center; font-size: 14px; font-weight: 600; color: #333; }
+.wf-header-icons { display: flex; gap: 12px; }
+.wf-icon { width: 20px; height: 20px; background: #ddd; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #888; }
+
+/* Image carousel */
+.wf-carousel {
+  position: relative; width: 100%; aspect-ratio: 1 / 1;
+  background: #E5E5E5; display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.wf-carousel-text { font-size: 12px; color: #bbb; }
+.wf-carousel-indicator {
+  position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 4px; background: rgba(0,0,0,0.3); padding: 4px 8px; border-radius: 12px;
+}
+.wf-indicator-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.6); }
+.wf-indicator-dot.active { background: #fff; }
+
+/* Tag section */
+.wf-tag-section {
+  padding: 12px 16px; display: flex; gap: 6px; flex-wrap: wrap;
+  border-bottom: 1px solid #eee;
+}
+.wf-tag { font-size: 10px; padding: 2px 8px; border-radius: 4px; }
+.wf-tag.groupbuy { background: #EFF6FF; color: #2563EB; }
+.wf-tag.anime { background: #F5F3FF; color: #7C3AED; }
+.wf-tag.idol { background: #FDF2F8; color: #DB2777; }
+.wf-tag.actor { background: #FFFBEB; color: #F59E0B; }
+.wf-tag.game { background: #ECFEFF; color: #0891B2; }
+
+/* Product title & price */
+.wf-product-info {
+  padding: 16px; border-bottom: 1px solid #eee;
+}
+.wf-product-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; line-height: 1.4; }
+.wf-product-price { font-size: 13px; color: #555; margin-bottom: 4px; }
+.wf-shipping-note { font-size: 11px; color: #888; }
+
+/* Organizer card */
+.wf-organizer-card {
+  padding: 16px; border-bottom: 1px solid #eee;
+  display: flex; align-items: center; gap: 12px;
+}
+.wf-organizer-avatar {
+  width: 48px; height: 48px; background: #E5E5E5;
+  border-radius: 50%; flex-shrink: 0;
+}
+.wf-organizer-info { flex: 1; font-size: 12px; }
+.wf-organizer-name { font-weight: 600; margin-bottom: 2px; }
+.wf-organizer-meta { color: #888; font-size: 11px; }
+
+/* Participation info */
+.wf-participation-section {
+  padding: 16px; border-bottom: 1px solid #eee;
+}
+.wf-participation-label { font-size: 12px; font-weight: 600; margin-bottom: 8px; color: #333; }
+.wf-progress-container { margin-bottom: 12px; }
+.wf-progress-bar {
+  height: 8px; background: #E5E5E5; border-radius: 4px;
+  overflow: hidden; margin-bottom: 6px;
+}
+.wf-progress-fill { height: 100%; background: #2563EB; border-radius: 4px; }
+.wf-progress-text { font-size: 11px; color: #666; }
+.wf-participation-detail { font-size: 11px; color: #888; margin-bottom: 4px; }
+
+/* Character slots (for set groupbuy) */
+.wf-character-slots {
+  padding: 16px; border-bottom: 1px solid #eee;
+}
+.wf-character-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 0; border-bottom: 1px solid #f0f0f0;
+}
+.wf-character-row:last-child { border-bottom: none; }
+.wf-character-name { font-size: 12px; font-weight: 500; }
+.wf-character-status {
+  font-size: 10px; color: #2563EB; font-weight: 600;
+}
+.wf-character-status.sold { color: #999; }
+
+/* Description */
+.wf-description-section {
+  padding: 16px; border-bottom: 1px solid #eee;
+}
+.wf-desc-title { font-size: 12px; font-weight: 600; margin-bottom: 8px; color: #333; }
+.wf-desc-text { font-size: 11px; line-height: 1.6; color: #666; }
+
+/* Participants */
+.wf-participants-section {
+  padding: 16px; border-bottom: 1px solid #eee;
+}
+.wf-participants-title { font-size: 12px; font-weight: 600; margin-bottom: 8px; color: #333; }
+.wf-participants-avatars {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+}
+.wf-participant-avatar {
+  width: 32px; height: 32px; background: #E5E5E5;
+  border-radius: 50%; flex-shrink: 0;
+}
+.wf-participants-more { font-size: 11px; color: #2563EB; }
+
+/* Bottom CTA bar (fixed) */
+.wf-bottom-cta {
+  position: absolute; bottom: 0; width: 100%; background: #fff;
+  border-top: 1px solid #eee; padding: 12px 16px; display: flex;
+  gap: 8px; flex-shrink: 0;
+}
+.wf-btn-like {
+  width: 40px; height: 40px; background: #F5F5F5;
+  border-radius: 8px; display: flex; align-items: center;
+  justify-content: center; font-size: 16px; flex-shrink: 0;
+}
+.wf-btn-primary {
+  flex: 1; height: 40px; background: #2563EB; color: #fff;
+  border-radius: 8px; display: flex; align-items: center;
+  justify-content: center; font-size: 12px; font-weight: 600;
+}
+.wf-btn-primary.disabled {
+  background: #ccc; color: #999;
+}
+.wf-btn-outline {
+  flex: 1; height: 40px; background: #fff; color: #2563EB;
+  border: 1px solid #2563EB; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 600;
+}
+
+/* Bottom sheet (modal preview) */
+.wf-sheet-backdrop {
+  display: none; position: absolute; bottom: 0; width: 100%;
+  background: rgba(0,0,0,0.3); height: 100%; z-index: 20;
+}
+.wf-sheet-content {
+  display: none; position: absolute; bottom: 0; width: 100%;
+  background: #fff; border-radius: 16px 16px 0 0; padding: 16px;
+  max-height: 50%; overflow-y: auto; z-index: 21;
+}
+.wf-sheet-handle {
+  width: 32px; height: 4px; background: #ddd;
+  border-radius: 2px; margin: 0 auto 16px;
+}
+.wf-sheet-title { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+.wf-sheet-item { padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
+.wf-sheet-item-label { font-size: 11px; color: #888; }
+.wf-sheet-item-value { font-size: 13px; font-weight: 500; margin-top: 2px; }
+
+/* Revision footer */
+.revision-bar {
+  background: #fff; border-top: 1px solid #eee; padding: 12px 24px;
+  font-size: 11px; color: #999;
+}
+.revision-bar table { width: 100%; border-collapse: collapse; }
+.revision-bar th { text-align: left; font-weight: 600; color: #666; padding: 4px 8px; border-bottom: 1px solid #eee; }
+.revision-bar td { padding: 4px 8px; }
+
+@media (max-width: 900px) {
+  .main-layout { flex-direction: column; }
+  .wireframe-side { flex: none; padding: 16px; }
+  .desc-side { flex: none; border-left: none; border-top: 1px solid #ddd; }
+}
+</style>
 </head>
 <body>
-  <div class="meta-bar">
-    GRPB02 공구 상세 | 공동구매 상세 정보 확인 및 참여 화면
-  </div>
 
-  <div class="container">
-    <!-- Left: Wireframe -->
-    <div class="wireframe-side">
-      <div class="wireframe-title">일반 공구 상세 뷰</div>
+<!-- META HEADER -->
+<div class="meta-bar">
+  <span class="title">GRPB02</span>
+  <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">공구 상세</span></span>
+  <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/groupbuy/[id]</span></span>
+  <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.1</span></span>
+  <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
+  <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-06</span></span>
+</div>
 
+<!-- MAIN LAYOUT: Wireframe + Description -->
+<div class="main-layout">
+
+  <!-- ===== WIREFRAME ===== -->
+  <div class="wireframe-side">
+    <div class="phone-stack">
+
+      <!-- FRAME 1: 일반 공구 (모집중 상태) -->
       <div class="phone-frame">
-        <div class="screen-content">
-          <!-- Header -->
-          <div class="header">
-            <div class="header-left">←</div>
-            <div class="header-title">공구 상세</div>
-            <div class="header-right">
-              <span title="Share">⬈</span>
-              <span title="Report">⚠</span>
+
+        <!-- ① Header -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:6px; left:6px;">1</div>
+          <div class="wf-header">
+            <div class="wf-header-back">←</div>
+            <div class="wf-header-title">공구 상세</div>
+            <div class="wf-header-icons">
+              <div class="wf-icon" title="공유">⬆</div>
+              <div class="wf-icon" title="신고">!</div>
             </div>
-          </div>
-
-          <!-- Image Gallery -->
-          <div class="image-gallery">[IMG]</div>
-          <div class="indicator">1/5</div>
-
-          <!-- Tags -->
-          <div class="tags-section">
-            <span class="tag tag-type">[공구]</span>
-            <span class="tag tag-category">[애니/만화/소설]</span>
-          </div>
-
-          <!-- Title -->
-          <div class="title-section">
-            <div class="product-title">원신 카즈하 아크릴 스탠드 공구</div>
-            <div class="price-section">
-              <span class="price">₩15,000</span>
-              <span class="price-unit">/ 1인</span>
-            </div>
-            <div class="shipping-info">✓ 배송비 포함</div>
-          </div>
-
-          <!-- Organizer -->
-          <div class="organizer-section">
-            <div class="organizer-avatar"></div>
-            <div class="organizer-info">
-              <div class="organizer-name">하늘빛</div>
-              <div class="organizer-meta">
-                <span class="trust-badge">Lv.2</span>
-                <span>거래 12회</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Participation Status -->
-          <div class="participation-section">
-            <div class="progress-container">
-              <div class="progress-bar">
-                <div class="progress-fill">18/30</div>
-              </div>
-              <div class="progress-text">18/30명 참여중 (60%)</div>
-              <div class="min-participants">최소 20명</div>
-            </div>
-            <div class="deadline-info">
-              <div class="deadline-item">
-                <div class="deadline-label">마감일</div>
-                <div class="deadline-value">2026-03-13 (D-7)</div>
-              </div>
-              <div class="deadline-item">
-                <div class="deadline-label">배송 예정</div>
-                <div class="deadline-value">2026-04-01</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Detail Description -->
-          <div class="detail-section">
-            <div class="detail-label">상세 내용</div>
-            <div class="detail-content">공구 상세 내용이 여기에 표시됩니다. 진행자가 작성한 상세 설명, 상품 정보, 배송 관련 안내 등이 포함됩니다.</div>
-          </div>
-
-          <!-- Participants -->
-          <div class="participants-section">
-            <div class="participants-label">참여자</div>
-            <div class="participants-list">
-              <div class="participant-avatar"></div>
-              <div class="participant-avatar"></div>
-              <div class="participant-avatar"></div>
-              <div class="participant-avatar"></div>
-              <div class="participant-avatar"></div>
-              <span class="participants-more">+13명</span>
-            </div>
-          </div>
-
-          <!-- Bottom CTA -->
-          <div class="cta-bar">
-            <div class="cta-heart">♡</div>
-            <button class="cta-button">참여하기</button>
           </div>
         </div>
+
+        <!-- ② Image Carousel -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:4px; left:6px;">2</div>
+          <div class="wf-carousel">
+            <div class="wf-carousel-text">상품 이미지 (1/3)</div>
+            <div class="wf-carousel-indicator">
+              <div class="wf-indicator-dot active"></div>
+              <div class="wf-indicator-dot"></div>
+              <div class="wf-indicator-dot"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ③ Tags -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:4px; left:6px;">3</div>
+          <div class="wf-tag-section">
+            <span class="wf-tag groupbuy">일반공구</span>
+            <span class="wf-tag anime">애니/만화/소설</span>
+          </div>
+        </div>
+
+        <!-- ④ Product Info -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">4</div>
+          <div class="wf-product-info">
+            <div class="wf-product-title">하이큐 아크릴 스탠드 풀세트 공구</div>
+            <div class="wf-product-price">₩15,000 / 1인</div>
+            <div class="wf-shipping-note">배송비 포함 (전국 무료배송)</div>
+          </div>
+        </div>
+
+        <!-- ⑤ Organizer Card -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:6px; left:6px;">5</div>
+          <div class="wf-organizer-card">
+            <div class="wf-organizer-avatar"></div>
+            <div class="wf-organizer-info">
+              <div class="wf-organizer-name">공구천재_미나</div>
+              <div class="wf-organizer-meta">Lv.3 | 거래 42회</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ⑥ Participation Info -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">6</div>
+          <div class="wf-participation-section">
+            <div class="wf-participation-label">참여 현황</div>
+            <div class="wf-progress-container">
+              <div class="wf-progress-bar">
+                <div class="wf-progress-fill" style="width: 62%;"></div>
+              </div>
+              <div class="wf-progress-text">13/21명 (62%)</div>
+            </div>
+            <div class="wf-participation-detail">최소 인원: 20명</div>
+            <div class="wf-participation-detail">마감일: 2026-03-15 (D-9)</div>
+            <div class="wf-participation-detail">배송 예정일: 2026-03-25</div>
+          </div>
+        </div>
+
+        <!-- ⑦ Description -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">7</div>
+          <div class="wf-description-section">
+            <div class="wf-desc-title">상세 설명</div>
+            <div class="wf-desc-text">
+              하이큐의 주요 캐릭터 아크릴 스탠드 세트입니다. 정품 굿즈이며 새상품입니다. 해외구매로 국내배송비가 포함되어 있습니다.
+            </div>
+          </div>
+        </div>
+
+        <!-- ⑧ Participants -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">8</div>
+          <div class="wf-participants-section">
+            <div class="wf-participants-title">현재 참여자</div>
+            <div class="wf-participants-avatars">
+              <div class="wf-participant-avatar"></div>
+              <div class="wf-participant-avatar"></div>
+              <div class="wf-participant-avatar"></div>
+              <div class="wf-participant-avatar"></div>
+              <div class="wf-participants-more">+9명 더보기</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ⑨ Bottom CTA (Fixed) -->
+        <div class="wf-bottom-cta">
+          <div class="num-circle" style="top:-8px; left:-8px;">9</div>
+          <div class="wf-btn-like">♡</div>
+          <div class="wf-btn-primary">참여하기</div>
+        </div>
+
+      </div><!-- end phone-frame 1 -->
+
+      <!-- FRAME 2: 세트 공구 (모집중 상태) -->
+      <div class="phone-frame">
+
+        <!-- ① Header -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:6px; left:6px;">1</div>
+          <div class="wf-header">
+            <div class="wf-header-back">←</div>
+            <div class="wf-header-title">공구 상세</div>
+            <div class="wf-header-icons">
+              <div class="wf-icon" title="공유">⬆</div>
+              <div class="wf-icon" title="신고">!</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ② Image Carousel -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:4px; left:6px;">2</div>
+          <div class="wf-carousel">
+            <div class="wf-carousel-text">상품 이미지</div>
+            <div class="wf-carousel-indicator">
+              <div class="wf-indicator-dot active"></div>
+              <div class="wf-indicator-dot"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ③ Tags -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:4px; left:6px;">3</div>
+          <div class="wf-tag-section">
+            <span class="wf-tag groupbuy">세트공구</span>
+            <span class="wf-tag idol">아이돌/아티스트</span>
+          </div>
+        </div>
+
+        <!-- ④ Product Info -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">4</div>
+          <div class="wf-product-info">
+            <div class="wf-product-title">세븐틴 멤버 포토카드 세트 공구</div>
+            <div class="wf-product-price">₩8,000 / 캐릭터</div>
+            <div class="wf-shipping-note">배송비 별도 5,000원</div>
+          </div>
+        </div>
+
+        <!-- ⑤ Organizer Card -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:6px; left:6px;">5</div>
+          <div class="wf-organizer-card">
+            <div class="wf-organizer-avatar"></div>
+            <div class="wf-organizer-info">
+              <div class="wf-organizer-name">캐럿_사랑꾼</div>
+              <div class="wf-organizer-meta">Lv.2 | 거래 18회</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ⑥ Character Slots (Set) -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">6</div>
+          <div class="wf-character-slots">
+            <div class="wf-participation-label">캐릭터 선점 현황</div>
+            <div class="wf-character-row">
+              <div class="wf-character-name">S.Coups</div>
+              <div style="flex: 1; margin: 0 8px;">
+                <div class="wf-progress-bar"><div class="wf-progress-fill" style="width: 100%;"></div></div>
+              </div>
+              <div class="wf-character-status sold">완료</div>
+            </div>
+            <div class="wf-character-row">
+              <div class="wf-character-name">Hoshi</div>
+              <div style="flex: 1; margin: 0 8px;">
+                <div class="wf-progress-bar"><div class="wf-progress-fill" style="width: 100%;"></div></div>
+              </div>
+              <div class="wf-character-status sold">완료</div>
+            </div>
+            <div class="wf-character-row">
+              <div class="wf-character-name">Wonwoo</div>
+              <div style="flex: 1; margin: 0 8px;">
+                <div class="wf-progress-bar"><div class="wf-progress-fill" style="width: 50%;"></div></div>
+              </div>
+              <div class="wf-character-status">1/2 남음</div>
+            </div>
+            <div class="wf-character-row">
+              <div class="wf-character-name">Jun</div>
+              <div style="flex: 1; margin: 0 8px;">
+                <div class="wf-progress-bar"><div class="wf-progress-fill" style="width: 100%;"></div></div>
+              </div>
+              <div class="wf-character-status">2/2 남음</div>
+            </div>
+            <div class="wf-participation-detail" style="margin-top: 12px;">마감일: 2026-03-12 (D-6)</div>
+            <div class="wf-participation-detail">배송 예정일: 2026-03-20</div>
+          </div>
+        </div>
+
+        <!-- ⑦ Description -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">7</div>
+          <div class="wf-description-section">
+            <div class="wf-desc-title">상세 설명</div>
+            <div class="wf-desc-text">
+              세븐틴 정규앨범 포토카드 세트공구입니다. 각 멤버별로 선점 가능하며 원하는 멤버만 선택할 수 있습니다.
+            </div>
+          </div>
+        </div>
+
+        <!-- ⑧ Participants -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">8</div>
+          <div class="wf-participants-section">
+            <div class="wf-participants-title">현재 참여자</div>
+            <div class="wf-participants-avatars">
+              <div class="wf-participant-avatar"></div>
+              <div class="wf-participant-avatar"></div>
+              <div class="wf-participant-avatar"></div>
+              <div class="wf-participants-more">+4명 더보기</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ⑨ Bottom CTA (Fixed) -->
+        <div class="wf-bottom-cta">
+          <div class="num-circle" style="top:-8px; left:-8px;">9</div>
+          <div class="wf-btn-like">♡</div>
+          <div class="wf-btn-primary">캐릭터 선점하기</div>
+        </div>
+
+      </div><!-- end phone-frame 2 -->
+
+      <!-- FRAME 3: 마감된 공구 (진행 결정 대기) -->
+      <div class="phone-frame">
+
+        <!-- ① Header -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:6px; left:6px;">1</div>
+          <div class="wf-header">
+            <div class="wf-header-back">←</div>
+            <div class="wf-header-title">공구 상세</div>
+            <div class="wf-header-icons">
+              <div class="wf-icon" title="공유">⬆</div>
+              <div class="wf-icon" title="신고">!</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ② Image Carousel -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:4px; left:6px;">2</div>
+          <div class="wf-carousel">
+            <div class="wf-carousel-text">상품 이미지</div>
+          </div>
+        </div>
+
+        <!-- ③ Status Banner (Red) -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:4px; left:6px;">3</div>
+          <div style="background: #FEE2E2; border-bottom: 1px solid #eee; padding: 12px 16px;">
+            <div style="font-size: 12px; color: #DC2626; font-weight: 600;">마감된 공구입니다</div>
+            <div style="font-size: 11px; color: #991B1B; margin-top: 4px;">진행자가 진행 여부를 결정 중입니다</div>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:4px; left:6px;">4</div>
+          <div class="wf-tag-section">
+            <span class="wf-tag groupbuy">일반공구</span>
+            <span class="wf-tag game">게임</span>
+          </div>
+        </div>
+
+        <!-- ④ Product Info -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">5</div>
+          <div class="wf-product-info">
+            <div class="wf-product-title">원신 캐릭터 굿즈 세트</div>
+            <div class="wf-product-price">₩12,000 / 1인</div>
+            <div class="wf-shipping-note">배송비 포함</div>
+          </div>
+        </div>
+
+        <!-- ⑤ Organizer Card -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:6px; left:6px;">6</div>
+          <div class="wf-organizer-card">
+            <div class="wf-organizer-avatar"></div>
+            <div class="wf-organizer-info">
+              <div class="wf-organizer-name">여행가이뮤</div>
+              <div class="wf-organizer-meta">Lv.1 | 거래 5회</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ⑥ Participation Info (Read-only) -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">7</div>
+          <div class="wf-participation-section">
+            <div class="wf-participation-label">참여 현황</div>
+            <div class="wf-progress-container">
+              <div class="wf-progress-bar">
+                <div class="wf-progress-fill" style="width: 78%;"></div>
+              </div>
+              <div class="wf-progress-text">18/23명 (78%)</div>
+            </div>
+            <div class="wf-participation-detail">최소 인원: 20명</div>
+            <div class="wf-participation-detail">마감일: 2026-03-10 (마감)</div>
+            <div class="wf-participation-detail">배송 예정일: 미정</div>
+          </div>
+        </div>
+
+        <!-- ⑦ Description -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">8</div>
+          <div class="wf-description-section">
+            <div class="wf-desc-title">상세 설명</div>
+            <div class="wf-desc-text">
+              원신 아크릴 스탠드 5종 세트입니다. 정품 굿즈이며 해외구매입니다.
+            </div>
+          </div>
+        </div>
+
+        <!-- ⑨ Bottom CTA (Disabled) -->
+        <div class="wf-bottom-cta">
+          <div class="num-circle" style="top:-8px; left:-8px;">9</div>
+          <div class="wf-btn-like">♡</div>
+          <div class="wf-btn-primary disabled">마감된 공구</div>
+        </div>
+
+      </div><!-- end phone-frame 3 -->
+
+    </div><!-- end phone-stack -->
+  </div><!-- end wireframe-side -->
+
+  <!-- ===== DESCRIPTION ===== -->
+  <div class="desc-side">
+    <div class="desc-title">GRPB02 — 공구 상세</div>
+    <div class="desc-subtitle">라우트: /groupbuy/[id] &nbsp;|&nbsp; 비로그인 접근: 가능 &nbsp;|&nbsp; Phase 1</div>
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">1</div>
+        <span class="desc-comp-type">[Header]</span>
+        <span class="desc-comp-name">앱 헤더</span>
       </div>
-
-      <div style="margin-top: 40px;">
-        <div class="wireframe-title">세트 공구 - 캐릭터 선점 뷰</div>
-
-        <div class="phone-frame">
-          <div class="screen-content">
-            <!-- Header -->
-            <div class="header">
-              <div class="header-left">←</div>
-              <div class="header-title">공구 상세</div>
-              <div class="header-right">
-                <span title="Share">⬈</span>
-                <span title="Report">⚠</span>
-              </div>
-            </div>
-
-            <!-- Image Gallery -->
-            <div class="image-gallery">[IMG]</div>
-            <div class="indicator">1/4</div>
-
-            <!-- Tags -->
-            <div class="tags-section">
-              <span class="tag tag-type">[세트공구]</span>
-              <span class="tag tag-category">[애니/만화/소설]</span>
-            </div>
-
-            <!-- Title -->
-            <div class="title-section">
-              <div class="product-title">하이큐 생일 공구</div>
-              <div class="price-section">
-                <span class="price">₩8,000</span>
-                <span class="price-unit">/ 캐릭터</span>
-              </div>
-              <div class="shipping-info">✓ 배송비 포함</div>
-            </div>
-
-            <!-- Organizer -->
-            <div class="organizer-section">
-              <div class="organizer-avatar"></div>
-              <div class="organizer-info">
-                <div class="organizer-name">애니팬클럽</div>
-                <div class="organizer-meta">
-                  <span class="trust-badge">Lv.3</span>
-                  <span>거래 28회</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Character Selection -->
-            <div class="character-section visible">
-              <div class="character-title">캐릭터 선점 현황</div>
-              <div class="character-list">
-                <div class="character-item">
-                  <div class="character-name">히나타 쇼요</div>
-                  <div class="character-progress">
-                    <div class="character-bar">
-                      <div class="character-bar-fill" style="width: 50%;"></div>
-                    </div>
-                    <div class="character-count">1/2</div>
-                  </div>
-                </div>
-                <div class="character-item sold-out">
-                  <div class="character-name">카게야마 토비오</div>
-                  <div class="character-progress">
-                    <div class="character-bar">
-                      <div class="character-bar-fill" style="width: 100%;"></div>
-                    </div>
-                    <div class="character-count">2/2</div>
-                  </div>
-                </div>
-                <div class="character-item">
-                  <div class="character-name">츠키시마 케이</div>
-                  <div class="character-progress">
-                    <div class="character-bar">
-                      <div class="character-bar-fill" style="width: 0%;"></div>
-                    </div>
-                    <div class="character-count">0/2</div>
-                  </div>
-                </div>
-                <div class="character-item">
-                  <div class="character-name">아사히 아샤메</div>
-                  <div class="character-progress">
-                    <div class="character-bar">
-                      <div class="character-bar-fill" style="width: 75%;"></div>
-                    </div>
-                    <div class="character-count">1/1</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Deadline Info -->
-            <div class="participation-section" style="padding: 12px 16px;">
-              <div class="deadline-info">
-                <div class="deadline-item">
-                  <div class="deadline-label">마감일</div>
-                  <div class="deadline-value">2026-03-15 (D-9)</div>
-                </div>
-                <div class="deadline-item">
-                  <div class="deadline-label">배송 예정</div>
-                  <div class="deadline-value">2026-04-10</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Detail Description -->
-            <div class="detail-section">
-              <div class="detail-label">상세 내용</div>
-              <div class="detail-content">선호하는 캐릭터를 선점하세요. 각 캐릭터별 한정 수량이 있습니다. 마감 후에는 취소 불가능합니다.</div>
-            </div>
-
-            <!-- Participants -->
-            <div class="participants-section">
-              <div class="participants-label">참여자</div>
-              <div class="participants-list">
-                <div class="participant-avatar"></div>
-                <div class="participant-avatar"></div>
-                <div class="participant-avatar"></div>
-                <div class="participant-avatar"></div>
-                <span class="participants-more">+24명</span>
-              </div>
-            </div>
-
-            <!-- Bottom CTA -->
-            <div class="cta-bar">
-              <div class="cta-heart">♡</div>
-              <button class="cta-button">캐릭터 선점하기</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div style="margin-top: 40px;">
-        <div class="wireframe-title">진행 결정 대기 상태</div>
-
-        <div class="phone-frame">
-          <div class="screen-content">
-            <!-- Header -->
-            <div class="header">
-              <div class="header-left">←</div>
-              <div class="header-title">공구 상세</div>
-              <div class="header-right">
-                <span title="Share">⬈</span>
-                <span title="Report">⚠</span>
-              </div>
-            </div>
-
-            <!-- Image Gallery -->
-            <div class="image-gallery">[IMG]</div>
-            <div class="indicator">1/5</div>
-
-            <!-- Tags -->
-            <div class="tags-section">
-              <span class="tag tag-type">[공구]</span>
-              <span class="tag tag-category">[애니/만화/소설]</span>
-            </div>
-
-            <!-- Status Banner - Amber -->
-            <div class="status-banner status-banner-amber">
-              진행자가 진행 여부를 결정 중입니다
-            </div>
-
-            <!-- Title -->
-            <div class="title-section">
-              <div class="product-title">원신 카즈하 아크릴 스탠드 공구</div>
-              <div class="price-section">
-                <span class="price">₩15,000</span>
-                <span class="price-unit">/ 1인</span>
-              </div>
-              <div class="shipping-info">✓ 배송비 포함</div>
-            </div>
-
-            <!-- Organizer -->
-            <div class="organizer-section">
-              <div class="organizer-avatar"></div>
-              <div class="organizer-info">
-                <div class="organizer-name">하늘빛</div>
-                <div class="organizer-meta">
-                  <span class="trust-badge">Lv.2</span>
-                  <span>거래 12회</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Participation Status -->
-            <div class="participation-section">
-              <div class="progress-container">
-                <div class="progress-bar">
-                  <div class="progress-fill">18/30</div>
-                </div>
-                <div class="progress-text">18/30명 참여중 (60%)</div>
-                <div class="min-participants">최소 20명</div>
-              </div>
-              <div class="deadline-info">
-                <div class="deadline-item">
-                  <div class="deadline-label">마감일</div>
-                  <div class="deadline-value">2026-03-13 (D-0)</div>
-                </div>
-                <div class="deadline-item">
-                  <div class="deadline-label">배송 예정</div>
-                  <div class="deadline-value">2026-04-01</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Detail Description -->
-            <div class="detail-section">
-              <div class="detail-label">상세 내용</div>
-              <div class="detail-content">공구 상세 내용이 여기에 표시됩니다. 진행자가 작성한 상세 설명, 상품 정보, 배송 관련 안내 등이 포함됩니다.</div>
-            </div>
-
-            <!-- Participants -->
-            <div class="participants-section">
-              <div class="participants-label">참여자</div>
-              <div class="participants-list">
-                <div class="participant-avatar"></div>
-                <div class="participant-avatar"></div>
-                <div class="participant-avatar"></div>
-                <div class="participant-avatar"></div>
-                <div class="participant-avatar"></div>
-                <span class="participants-more">+13명</span>
-              </div>
-            </div>
-
-            <!-- Bottom CTA -->
-            <div class="cta-bar">
-              <div class="cta-heart">♡</div>
-              <button class="cta-button cta-button-disabled">진행 결정 대기중</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div style="margin-top: 40px;">
-        <div class="wireframe-title">무산 공구 상태</div>
-
-        <div class="phone-frame">
-          <div class="screen-content dimmed">
-            <!-- Header -->
-            <div class="header">
-              <div class="header-left">←</div>
-              <div class="header-title">공구 상세</div>
-              <div class="header-right">
-                <span title="Share">⬈</span>
-                <span title="Report">⚠</span>
-              </div>
-            </div>
-
-            <!-- Image Gallery -->
-            <div class="image-gallery">[IMG]</div>
-            <div class="indicator">1/5</div>
-
-            <!-- Tags -->
-            <div class="tags-section">
-              <span class="tag tag-type">[공구]</span>
-              <span class="tag tag-category">[애니/만화/소설]</span>
-            </div>
-
-            <!-- Status Banner - Red -->
-            <div class="status-banner status-banner-red">
-              이 공구는 무산되었습니다
-            </div>
-
-            <!-- Reason Box -->
-            <div class="status-reason-box">
-              <div class="status-reason-title">무산 사유</div>
-              <div class="status-reason-content">판매처 품절로 진행이 불가합니다</div>
-            </div>
-
-            <!-- Refund Info -->
-            <div class="status-refund-info">
-              환불은 진행자와 직접 정산해주세요
-            </div>
-
-            <!-- Title -->
-            <div class="title-section">
-              <div class="product-title">원신 카즈하 아크릴 스탠드 공구</div>
-              <div class="price-section">
-                <span class="price">₩15,000</span>
-                <span class="price-unit">/ 1인</span>
-              </div>
-              <div class="shipping-info">✓ 배송비 포함</div>
-            </div>
-
-            <!-- Organizer -->
-            <div class="organizer-section">
-              <div class="organizer-avatar"></div>
-              <div class="organizer-info">
-                <div class="organizer-name">하늘빛</div>
-                <div class="organizer-meta">
-                  <span class="trust-badge">Lv.2</span>
-                  <span>거래 12회</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Participation Status -->
-            <div class="participation-section">
-              <div class="progress-container">
-                <div class="progress-bar">
-                  <div class="progress-fill">18/30</div>
-                </div>
-                <div class="progress-text">18/30명 참여중 (60%)</div>
-                <div class="min-participants">최소 20명</div>
-              </div>
-              <div class="deadline-info">
-                <div class="deadline-item">
-                  <div class="deadline-label">마감일</div>
-                  <div class="deadline-value">2026-03-13</div>
-                </div>
-                <div class="deadline-item">
-                  <div class="deadline-label">배송 예정</div>
-                  <div class="deadline-value">-</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Detail Description -->
-            <div class="detail-section">
-              <div class="detail-label">상세 내용</div>
-              <div class="detail-content">공구 상세 내용이 여기에 표시됩니다. 진행자가 작성한 상세 설명, 상품 정보, 배송 관련 안내 등이 포함됩니다.</div>
-            </div>
-
-            <!-- Participants -->
-            <div class="participants-section">
-              <div class="participants-label">참여자</div>
-              <div class="participants-list">
-                <div class="participant-avatar"></div>
-                <div class="participant-avatar"></div>
-                <div class="participant-avatar"></div>
-                <div class="participant-avatar"></div>
-                <div class="participant-avatar"></div>
-                <span class="participants-more">+13명</span>
-              </div>
-            </div>
-
-            <!-- Bottom CTA -->
-            <div class="cta-bar">
-              <div class="cta-heart">♡</div>
-              <button class="cta-button cta-button-outline">진행자에게 채팅하기</button>
-            </div>
-          </div>
-        </div>
+      <div class="desc-body">
+        <ul>
+          <li>좌측: 뒤로가기 버튼 (이전 화면 이동)</li>
+          <li>중앙: "공구 상세" 타이틀</li>
+          <li>우측 아이콘:
+            <ul class="sub">
+              <li>공유(Share) 아이콘 → 링크 공유 팝업 (카톡, URL 복사 등)</li>
+              <li>신고(Report) 아이콘 → 신고 모달</li>
+            </ul>
+          </li>
+        </ul>
       </div>
     </div>
 
-    <!-- Right: Description -->
-    <div class="desc-side">
-      <div class="desc-content">
-        <div class="desc-title">GRPB02 공구 상세</div>
+    <hr class="desc-divider">
 
-        <div class="tab-toggle">
-          <button class="tab-button active" onclick="switchTab(event, 'overview')">개요</button>
-          <button class="tab-button" onclick="switchTab(event, 'components')">구성</button>
-          <button class="tab-button" onclick="switchTab(event, 'logic')">로직</button>
-        </div>
-
-        <!-- Overview Tab -->
-        <div id="overview" class="tab-content active">
-          <div class="desc-section">
-            <h3>화면 목적</h3>
-            <p>공동구매(공구) 상세 정보를 확인하고 참여를 진행하는 화면입니다.</p>
-            <ul class="desc-list">
-              <li>일반 공구: 수량 선택 후 참여</li>
-              <li>세트 공구: 캐릭터 선택 후 선점</li>
-            </ul>
-          </div>
-
-          <div class="desc-section">
-            <h3>진입 경로</h3>
-            <ul class="desc-list">
-              <li>공구 목록 > 카드 탭</li>
-              <li>홈 > 인기 공구 카드 탭</li>
-              <li>알림 > 공구 알림 탭</li>
-              <li>채팅 > 공구 링크 탭</li>
-            </ul>
-          </div>
-
-          <div class="desc-section">
-            <h3>이용자</h3>
-            <p>PC / Mobile (주로 Mobile)</p>
-          </div>
-
-          <div class="desc-section">
-            <h3>라우트</h3>
-            <div class="code-block">/groupbuy/[id]</div>
-          </div>
-        </div>
-
-        <!-- Components Tab -->
-        <div id="components" class="tab-content">
-          <div class="desc-section">
-            <h3>① Header</h3>
-            <p>뒤로가기 + 타이틀 + 공유/신고 아이콘</p>
-          </div>
-
-          <div class="desc-section">
-            <h3>② 이미지 갤러리</h3>
-            <p>상품 이미지 좌우 스와이프, 페이지 인디케이터</p>
-          </div>
-
-          <div class="desc-section">
-            <h3>③ 공구 정보</h3>
-            <ul class="desc-list">
-              <li>태그: [공구]/[세트공구] + 카테고리</li>
-              <li>상품명 (bold, large)</li>
-              <li>가격: ₩N,000 / 1인 또는 /캐릭터</li>
-              <li>배송비 포함 여부</li>
-            </ul>
-          </div>
-
-          <div class="desc-section">
-            <h3>④ 진행자 정보</h3>
-            <p>프로필 이미지 + 닉네임 + 신뢰배지(Lv) + 거래횟수</p>
-            <p>탭시 진행자 프로필로 이동</p>
-          </div>
-
-          <div class="desc-section">
-            <h3>⑤ 참여 현황</h3>
-            <p><strong>일반 공구:</strong> 프로그레스 바 + N/M명 + 최소인원 + 마감일 + 배송예정</p>
-            <p><strong>세트 공구:</strong> 캐릭터별 선점 상태 리스트</p>
-          </div>
-
-          <div class="desc-section">
-            <h3>⑥ 상세 설명</h3>
-            <p>진행자가 작성한 공구 상세 내용</p>
-          </div>
-
-          <div class="desc-section">
-            <h3>⑦ 참여자 목록</h3>
-            <p>프로필 아이콘 최대 5개 + "+N명 더보기"</p>
-          </div>
-
-          <div class="desc-section">
-            <h3>⑧ 하단 CTA</h3>
-            <p>찜 버튼 + 참여하기/캐릭터 선점하기 버튼</p>
-          </div>
-        </div>
-
-        <!-- Logic Tab -->
-        <div id="logic" class="tab-content">
-          <div class="desc-section">
-            <h3>API 호출</h3>
-            <div class="code-block">GET /api/groupbuy/[id]</div>
-            <p>응답: 공구 전체 정보 + 진행자 + 참여자 + 캐릭터 슬롯(세트 타입)</p>
-          </div>
-
-          <div class="desc-section">
-            <h3>참여 흐름</h3>
-            <ul class="desc-list">
-              <li>참여하기 버튼 클릭 → 바텀시트 오픈</li>
-              <li>수량/캐릭터 선택 → 금액 계산</li>
-              <li>참여 확정 → 참여 목록에 추가</li>
-              <li>※ 결제는 진행자와 직접 정산</li>
-            </ul>
-          </div>
-
-          <div class="desc-section">
-            <h3>상태 관리</h3>
-            <ul class="desc-list">
-              <li>마감 전: 참여 가능</li>
-              <li>마감 후: 버튼 비활성 "마감된 공구입니다"</li>
-              <li>이미 참여: "참여 취소" 버튼</li>
-              <li>비로그인: 로그인 유도</li>
-            </ul>
-          </div>
-
-          <div class="desc-section">
-            <h3>세트 공구 특징</h3>
-            <ul class="desc-list">
-              <li>캐릭터별 제한 수량 설정</li>
-              <li>선착순 선점 (동시성 제어)</li>
-              <li>마감 캐릭터는 회색 처리 및 클릭 불가</li>
-              <li>선택한 캐릭터의 합계로 결제금액 계산</li>
-            </ul>
-          </div>
-
-          <div class="desc-section">
-            <h3>공구 상태별 표시</h3>
-            <table style="width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px;">
-              <thead>
-                <tr style="border-bottom: 2px solid #2563EB;">
-                  <th style="text-align: left; padding: 8px; font-weight: 600; color: #333;">상태</th>
-                  <th style="text-align: left; padding: 8px; font-weight: 600; color: #333;">배지</th>
-                  <th style="text-align: left; padding: 8px; font-weight: 600; color: #333;">CTA 버튼</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr style="border-bottom: 1px solid #e5e5e5;">
-                  <td style="padding: 8px; color: #666;">모집중</td>
-                  <td style="padding: 8px;"><span style="display: inline-block; background-color: #dcfce7; color: #166534; padding: 4px 8px; border-radius: 3px; font-size: 11px; font-weight: 600;">Green</span></td>
-                  <td style="padding: 8px; color: #666;">[참여하기] 활성</td>
-                </tr>
-                <tr style="border-bottom: 1px solid #e5e5e5;">
-                  <td style="padding: 8px; color: #666;">마감/진행 결정 대기</td>
-                  <td style="padding: 8px;"><span style="display: inline-block; background-color: #fef08a; color: #854d0e; padding: 4px 8px; border-radius: 3px; font-size: 11px; font-weight: 600;">Amber</span></td>
-                  <td style="padding: 8px; color: #666;">비활성 "진행자가 진행 여부를 결정 중입니다"</td>
-                </tr>
-                <tr style="border-bottom: 1px solid #e5e5e5;">
-                  <td style="padding: 8px; color: #666;">진행 확정</td>
-                  <td style="padding: 8px;"><span style="display: inline-block; background-color: #dbeafe; color: #1e40af; padding: 4px 8px; border-radius: 3px; font-size: 11px; font-weight: 600;">Blue</span></td>
-                  <td style="padding: 8px; color: #666;">비활성 "공구가 확정되었습니다"</td>
-                </tr>
-                <tr style="border-bottom: 1px solid #e5e5e5;">
-                  <td style="padding: 8px; color: #666;">배송중</td>
-                  <td style="padding: 8px;"><span style="display: inline-block; background-color: #dbeafe; color: #1e40af; padding: 4px 8px; border-radius: 3px; font-size: 11px; font-weight: 600;">Blue</span></td>
-                  <td style="padding: 8px; color: #666;">비활성 "배송이 진행 중입니다"</td>
-                </tr>
-                <tr style="border-bottom: 1px solid #e5e5e5;">
-                  <td style="padding: 8px; color: #666;">완료</td>
-                  <td style="padding: 8px;"><span style="display: inline-block; background-color: #f3f4f6; color: #4b5563; padding: 4px 8px; border-radius: 3px; font-size: 11px; font-weight: 600;">Gray</span></td>
-                  <td style="padding: 8px; color: #666;">[후기 작성]</td>
-                </tr>
-                <tr style="border-bottom: 1px solid #e5e5e5;">
-                  <td style="padding: 8px; color: #666;">무산</td>
-                  <td style="padding: 8px;"><span style="display: inline-block; background-color: #fee2e2; color: #991b1b; padding: 4px 8px; border-radius: 3px; font-size: 11px; font-weight: 600;">Red</span></td>
-                  <td style="padding: 8px; color: #666;">Red 배너 + 사유 + 환불 안내 + [진행자에게 채팅하기]</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="desc-section">
-            <h3>자동 무산 타이머</h3>
-            <p>마감일 도달 후 다음 흐름으로 진행됩니다:</p>
-            <ul class="desc-list">
-              <li><strong>D+0 (마감일):</strong> 진행 결정 대기 상태 진입 → 진행자에게 결정 알림</li>
-              <li><strong>D+1:</strong> 진행자 리마인더 알림 (결정 요청)</li>
-              <li><strong>D+3:</strong> 참여자 "진행자 미응답" 알림 표시</li>
-              <li><strong>D+5:</strong> 자동 무산 처리 → Red 배너 + 무산 사유 자동 입력 (예: "진행자 미응답")</li>
-            </ul>
-          </div>
-        </div>
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">2</div>
+        <span class="desc-comp-type">[ImageCarousel]</span>
+        <span class="desc-comp-name">이미지 갤러리</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>상품 이미지 스와이프 기능 (좌우)</li>
+          <li>하단 페이지 인디케이터: N/M 형식</li>
+          <li>1:1 비율 이미지 영역</li>
+          <li>이미지 없는 경우: 회색 배경 플레이스홀더</li>
+        </ul>
       </div>
     </div>
-  </div>
 
-  <script>
-    function switchTab(event, tabName) {
-      // Hide all tab contents
-      const contents = document.querySelectorAll('.tab-content');
-      contents.forEach(content => content.classList.remove('active'));
+    <hr class="desc-divider">
 
-      // Deactivate all tab buttons
-      const buttons = document.querySelectorAll('.tab-button');
-      buttons.forEach(button => button.classList.remove('active'));
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">3</div>
+        <span class="desc-comp-type">[Tags]</span>
+        <span class="desc-comp-name">공구 타입 & 카테고리 태그</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>첫 번째 태그: [일반공구] 또는 [세트공구] (Blue 배경)</li>
+          <li>두 번째 태그: 카테고리 (애니/만화/소설 / 아이돌/아티스트 / 배우/무대 / 게임)</li>
+          <li>각 카테고리별 색상: Purple / Pink / Amber / Cyan</li>
+        </ul>
+      </div>
+    </div>
 
-      // Show selected tab content
-      document.getElementById(tabName).classList.add('active');
+    <hr class="desc-divider">
 
-      // Activate clicked button
-      event.target.classList.add('active');
-    }
-  </script>
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">4</div>
+        <span class="desc-comp-type">[ProductInfo]</span>
+        <span class="desc-comp-name">공구 기본 정보</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>공구명 (Bold, Large 텍스트)</li>
+          <li>가격:
+            <ul class="sub">
+              <li>일반 공구: ₩N/1인</li>
+              <li>세트 공구: ₩N/캐릭터</li>
+            </ul>
+          </li>
+          <li>배송비 표시: "배송비 포함" 또는 "배송비 별도 ₩N"</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">5</div>
+        <span class="desc-comp-type">[OrganizerCard]</span>
+        <span class="desc-comp-name">진행자 정보</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>프로필 이미지 (48×48px, 원형)</li>
+          <li>닉네임</li>
+          <li>신뢰 배지 (Lv.1~3)</li>
+          <li>거래 횟수 (예: 거래 12회)</li>
+          <li>탭 시: 진행자 프로필 페이지(USER02) 이동</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">6</div>
+        <span class="desc-comp-type">[ParticipationInfo]</span>
+        <span class="desc-comp-name">참여 현황 (일반 공구)</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>프로그레스 바: 큰 크기, Blue 채우기 (80% 이상일 경우 Green)</li>
+          <li>참여 현황: N/M명 (X%) 표시</li>
+          <li>최소 인원: "최소 20명" 형식</li>
+          <li>마감일: "YYYY-MM-DD (D-N)" 형식</li>
+          <li>배송 예정일: "YYYY-MM-DD" 또는 "미정"</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">6-B</div>
+        <span class="desc-comp-type">[CharacterSlots]</span>
+        <span class="desc-comp-name">캐릭터 선점 현황 (세트 공구)</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>각 행 구성:
+            <ul class="sub">
+              <li>캐릭터명</li>
+              <li>프로그레스 바 (선점 현황)</li>
+              <li>선점 상태: "선점 가능", "N/M 남음", 또는 "완료" 뱃지</li>
+            </ul>
+          </li>
+          <li>마감된 캐릭터는 회색 처리 (비활성화)</li>
+          <li>마감일 & 배송 예정일 하단 표시</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">7</div>
+        <span class="desc-comp-type">[Description]</span>
+        <span class="desc-comp-name">상세 설명</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>진행자가 작성한 공구 상세 내용</li>
+          <li>Plain text 또는 마크다운 포맷 지원</li>
+          <li>최대 높이 제한 후 "더보기" (scrollable)</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">8</div>
+        <span class="desc-comp-type">[ParticipantsList]</span>
+        <span class="desc-comp-name">참여자 목록</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>현재 참여자 프로필 아바타 나열 (원형, 32×32px)</li>
+          <li>최대 4명 표시 후 "+N명 더보기" 링크</li>
+          <li>"+N명 더보기" 탭 시: 전체 참여자 목록 모달</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">9</div>
+        <span class="desc-comp-type">[BottomCTA]</span>
+        <span class="desc-comp-name">하단 CTA 바 (Fixed)</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>좌측: 찜 버튼 (♡ 또는 ♥ 토글)</li>
+          <li>우측: 주 액션 버튼 (Full-width)
+            <ul class="sub">
+              <li><strong>일반 공구</strong>: [참여하기] (Blue)</li>
+              <li><strong>세트 공구</strong>: [캐릭터 선점하기] (Blue)</li>
+              <li><strong>마감된 공구</strong>: [마감된 공구] (Disabled Gray)</li>
+              <li><strong>이미 참여 중</strong>: [참여 취소] (Outline)</li>
+            </ul>
+          </li>
+          <li>비로그인: 로그인 유도 모달</li>
+          <li>미인증: 본인인증 유도 모달</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- 상태별 바텀시트 -->
+    <div style="margin-top:16px;">
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">모달 & 바텀시트</div>
+      <div class="desc-body" style="padding-left:0;">
+        <ul>
+          <li><strong>참여 확인 바텀시트 (일반 공구)</strong>:
+            <ul class="sub">
+              <li>상품명 + 단가</li>
+              <li>참여 수량 스피너 (1~N개)</li>
+              <li>총 결제금액 계산</li>
+              <li>[참여 확정] 버튼</li>
+              <li>안내: "결제는 진행자와 직접 정산합니다"</li>
+            </ul>
+          </li>
+          <li><strong>캐릭터 선점 바텀시트 (세트 공구)</strong>:
+            <ul class="sub">
+              <li>선점 가능 캐릭터만 활성화</li>
+              <li>캐릭터별 수량 선택 (체크박스 + 스피너)</li>
+              <li>선택 시 총 결제금액 자동 계산</li>
+              <li>[선점 확정] 버튼</li>
+            </ul>
+          </li>
+          <li><strong>공유 팝업</strong>: 카톡, URL 복사, 기타 SNS</li>
+          <li><strong>신고 모달</strong>: 신고 사유 선택 + 상세 입력</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- States -->
+    <div style="margin-top:16px;">
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">화면 상태</div>
+      <div class="desc-body" style="padding-left:0;">
+        <table>
+          <thead>
+            <tr>
+              <th>상태</th>
+              <th>뱃지 색상</th>
+              <th>CTA 버튼</th>
+              <th>안내 메시지</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>모집중</td>
+              <td>Green</td>
+              <td>[참여하기] / [캐릭터 선점하기]</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>마감 (진행 결정 대기)</td>
+              <td>Amber</td>
+              <td>비활성</td>
+              <td>"진행자가 진행 여부를 결정 중입니다"</td>
+            </tr>
+            <tr>
+              <td>진행 확정</td>
+              <td>Blue</td>
+              <td>비활성</td>
+              <td>"공구가 확정되었습니다. 진행자 공지를 확인하세요"</td>
+            </tr>
+            <tr>
+              <td>배송중</td>
+              <td>Blue</td>
+              <td>비활성</td>
+              <td>"배송이 진행 중입니다"</td>
+            </tr>
+            <tr>
+              <td>완료</td>
+              <td>Gray</td>
+              <td>[후기 작성]</td>
+              <td>"공구가 완료되었습니다"</td>
+            </tr>
+            <tr>
+              <td>무산</td>
+              <td>Red</td>
+              <td>비활성</td>
+              <td>"공구가 무산되었습니다" + 사유 표시</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Connected screens -->
+    <div style="margin-top:16px;">
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">연관 화면</div>
+      <div class="desc-body" style="padding-left:0;">
+        <table>
+          <thead>
+            <tr>
+              <th>이동 대상</th>
+              <th>조건</th>
+              <th>화면코드</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>공구 목록</td>
+              <td>뒤로가기 버튼</td>
+              <td>GRPB01</td>
+            </tr>
+            <tr>
+              <td>진행자 프로필</td>
+              <td>진행자 카드 탭</td>
+              <td>USER02</td>
+            </tr>
+            <tr>
+              <td>전체 참여자</td>
+              <td>+N명 더보기 탭</td>
+              <td>Modal</td>
+            </tr>
+            <tr>
+              <td>진행자 채팅</td>
+              <td>무산 공구 채팅 버튼</td>
+              <td>CHAT01</td>
+            </tr>
+            <tr>
+              <td>로그인</td>
+              <td>비로그인 + CTA 버튼</td>
+              <td>AUTH01</td>
+            </tr>
+            <tr>
+              <td>본인인증</td>
+              <td>미인증 + CTA 버튼</td>
+              <td>Auth Modal</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- end desc-side -->
+
+</div><!-- end main-layout -->
+
+<!-- REVISION FOOTER -->
+<div class="revision-bar">
+  <table>
+    <thead>
+      <tr><th>날짜</th><th>버전</th><th>내용</th><th>작성자</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>2026-03-06</td><td>0.1</td><td>HOME01 참조 패턴으로 완전 재작성 (3개 Frame: 일반공구 모집중, 세트공구, 마감 상태)</td><td>AI (Claude)</td></tr>
+    </tbody>
+  </table>
+</div>
+
 </body>
 </html>

@@ -1,1021 +1,565 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GRPB04 - 공구 관리 (총대)</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f5f5f5;
-            padding: 20px;
-        }
-
-        .wireframe-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            gap: 30px;
-            align-items: flex-start;
-        }
-
-        .meta-bar {
-            width: 100%;
-            padding: 10px 15px;
-            background-color: #2563EB;
-            color: white;
-            font-weight: bold;
-            font-size: 13px;
-            margin-bottom: 15px;
-            border-radius: 4px;
-        }
-
-        .left-section {
-            width: 55%;
-        }
-
-        .phone-frames-container {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .right-section {
-            width: 45%;
-            padding: 20px;
-            background-color: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .phone-frame {
-            width: 375px;
-            height: auto;
-            background-color: white;
-            border: 1px solid #d0d0d0;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            margin: 0 auto;
-        }
-
-        .frame-label {
-            text-align: center;
-            font-size: 12px;
-            font-weight: 600;
-            color: #666;
-            padding: 8px;
-            background-color: #f9f9f9;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .screen-content {
-            width: 100%;
-            padding: 0;
-        }
-
-        /* Header */
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 16px;
-            border-bottom: 1px solid #e0e0e0;
-            background-color: white;
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex: 1;
-        }
-
-        .back-btn {
-            font-size: 20px;
-            color: #333;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .header-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: #333;
-        }
-
-        .header-right {
-            width: 24px;
-            height: 24px;
-            background-color: #f0f0f0;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            color: #999;
-        }
-
-        /* Summary Card */
-        .summary-card {
-            padding: 12px 16px;
-            background-color: #fafafa;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .summary-top {
-            display: flex;
-            align-items: baseline;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
-
-        .summary-tag {
-            font-size: 11px;
-            font-weight: 700;
-            color: #2563EB;
-            padding: 2px 6px;
-            border: 1px solid #2563EB;
-            border-radius: 3px;
-        }
-
-        .summary-title {
-            font-size: 13px;
-            font-weight: 700;
-            color: #333;
-            flex: 1;
-            line-height: 1.4;
-        }
-
-        .summary-progress {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-            font-size: 12px;
-            color: #666;
-        }
-
-        .progress-bar {
-            flex: 1;
-            height: 6px;
-            background-color: #e0e0e0;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background-color: #2563EB;
-            width: 60%;
-        }
-
-        .summary-meta {
-            display: flex;
-            gap: 8px;
-            font-size: 12px;
-            color: #666;
-        }
-
-        .badge-status {
-            background-color: #4CAF50;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 3px;
-            font-size: 11px;
-            font-weight: 700;
-        }
-
-        .badge-status.amber {
-            background-color: #FFA500;
-            color: white;
-        }
-
-        /* Step Indicator */
-        .step-indicator {
-            padding: 12px 16px;
-            background-color: white;
-            border-bottom: 1px solid #e0e0e0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 2px;
-            font-size: 10px;
-            flex-wrap: wrap;
-        }
-
-        .step {
-            flex: 1;
-            min-width: 55px;
-            text-align: center;
-            padding: 6px 2px;
-            border-radius: 4px;
-            color: #999;
-            font-weight: 600;
-        }
-
-        .step.active {
-            background-color: #2563EB;
-            color: white;
-        }
-
-        .step-arrow {
-            color: #ddd;
-            font-size: 11px;
-            flex: 0 0 auto;
-        }
-
-        .step-branch {
-            width: 100%;
-            text-align: center;
-            font-size: 9px;
-            color: #f44336;
-            font-weight: 600;
-            padding: 4px;
-            margin-top: 4px;
-        }
-
-        /* Alert Panel */
-        .alert-panel {
-            padding: 12px 16px;
-            background-color: #FFF3CD;
-            border-left: 4px solid #FFC107;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .alert-text {
-            font-size: 13px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .alert-buttons {
-            display: flex;
-            gap: 8px;
-        }
-
-        .alert-btn {
-            flex: 1;
-            padding: 10px 12px;
-            border: none;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .alert-btn.confirm {
-            background-color: #2563EB;
-            color: white;
-        }
-
-        .alert-btn.cancel {
-            background-color: white;
-            color: #f44336;
-            border: 1px solid #f44336;
-        }
-
-        /* Warning Bar */
-        .warning-bar {
-            padding: 10px 16px;
-            background-color: #FFEBEE;
-            border-bottom: 1px solid #e0e0e0;
-            font-size: 12px;
-            color: #c62828;
-            font-weight: 600;
-            text-align: center;
-        }
-
-        /* Notice Section */
-        .notice-section {
-            padding: 12px 16px;
-            border-bottom: 1px solid #e0e0e0;
-            background-color: white;
-        }
-
-        .notice-title {
-            font-size: 12px;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 8px;
-        }
-
-        .notice-input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 12px;
-            font-family: inherit;
-            margin-bottom: 8px;
-            resize: vertical;
-            min-height: 50px;
-        }
-
-        .notice-btn {
-            width: 100%;
-            padding: 8px;
-            background-color: #2563EB;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .past-notice {
-            padding: 8px;
-            background-color: #f9f9f9;
-            border-radius: 4px;
-            margin-top: 8px;
-            font-size: 11px;
-        }
-
-        .past-notice-date {
-            color: #999;
-            font-weight: 600;
-        }
-
-        .past-notice-text {
-            color: #555;
-            margin-top: 4px;
-            line-height: 1.4;
-        }
-
-        /* Filter Tabs */
-        .filter-tabs {
-            display: flex;
-            gap: 8px;
-            padding: 12px 16px;
-            background-color: white;
-            border-bottom: 1px solid #e0e0e0;
-            overflow-x: auto;
-        }
-
-        .filter-tab {
-            padding: 6px 12px;
-            border: 1px solid #ddd;
-            background-color: white;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 600;
-            color: #666;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .filter-tab.active {
-            background-color: #2563EB;
-            color: white;
-            border-color: #2563EB;
-        }
-
-        /* Participant List */
-        .participant-list {
-            padding: 0;
-            background-color: white;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .participant-row {
-            display: flex;
-            align-items: center;
-            padding: 12px 16px;
-            border-bottom: 1px solid #f0f0f0;
-            gap: 10px;
-        }
-
-        .participant-row:last-child {
-            border-bottom: none;
-        }
-
-        .participant-avatar {
-            width: 32px;
-            height: 32px;
-            background-color: #e0e0e0;
-            border-radius: 50%;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            color: #999;
-        }
-
-        .participant-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .participant-name {
-            font-size: 12px;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 3px;
-        }
-
-        .participant-qty {
-            font-size: 11px;
-            color: #999;
-        }
-
-        .participant-status {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            align-items: flex-end;
-            flex-shrink: 0;
-        }
-
-        .status-badge {
-            padding: 3px 8px;
-            border-radius: 3px;
-            font-size: 10px;
-            font-weight: 700;
-            white-space: nowrap;
-        }
-
-        .status-confirmed {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        .status-unconfirmed {
-            background-color: white;
-            color: #f44336;
-            border: 1px solid #f44336;
-        }
-
-        .status-pending {
-            background-color: #e0e0e0;
-            color: #666;
-        }
-
-        .status-shipped {
-            background-color: #2196F3;
-            color: white;
-        }
-
-        .chat-icon {
-            width: 24px;
-            height: 24px;
-            background-color: #f0f0f0;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            color: #2563EB;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-
-        /* Action Bar */
-        .action-bar {
-            display: flex;
-            gap: 8px;
-            padding: 12px 16px;
-            background-color: white;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        .action-btn {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ddd;
-            background-color: white;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 700;
-            color: #333;
-            cursor: pointer;
-        }
-
-        .action-btn.primary {
-            background-color: #2563EB;
-            color: white;
-            border-color: #2563EB;
-        }
-
-        .action-btn.amber {
-            background-color: #FFA500;
-            color: white;
-            border-color: #FFA500;
-        }
-
-        .action-btn.danger {
-            background-color: white;
-            color: #f44336;
-            border-color: #f44336;
-        }
-
-        .action-btn:disabled {
-            background-color: #e0e0e0;
-            color: #999;
-            border-color: #e0e0e0;
-            cursor: not-allowed;
-        }
-
-        /* Right Panel - Description */
-        .right-section h3 {
-            font-size: 14px;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #2563EB;
-        }
-
-        .desc-section {
-            margin-bottom: 20px;
-        }
-
-        .desc-label {
-            font-size: 12px;
-            font-weight: 700;
-            color: #2563EB;
-            margin-bottom: 6px;
-        }
-
-        .desc-content {
-            font-size: 11px;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        .element-list {
-            font-size: 11px;
-            color: #555;
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .element-list li {
-            margin-bottom: 8px;
-            padding-left: 16px;
-            position: relative;
-        }
-
-        .element-list li:before {
-            content: "●";
-            position: absolute;
-            left: 0;
-            color: #2563EB;
-        }
-
-        .numbered-circle {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            background-color: #2563EB;
-            color: white;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 20px;
-            font-size: 10px;
-            font-weight: 700;
-            margin-right: 6px;
-            flex-shrink: 0;
-        }
-
-        .element-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-
-        .element-content {
-            flex: 1;
-            padding-top: 2px;
-        }
-
-        hr {
-            border: none;
-            border-top: 1px solid #e0e0e0;
-            margin: 16px 0;
-        }
-
-        .sub-label {
-            font-size: 10px;
-            font-weight: 700;
-            color: #666;
-            margin-top: 8px;
-            margin-bottom: 4px;
-        }
-
-        .scenario-box {
-            background-color: #f5f5f5;
-            padding: 8px;
-            border-left: 3px solid #2563EB;
-            margin-bottom: 8px;
-            font-size: 10px;
-            color: #555;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GRPB04 — 공구 관리 와이어프레임</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+
+/* ===== META HEADER ===== */
+.meta-bar {
+  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
+}
+.meta-item { font-size: 11px; }
+.meta-label { color: #999; }
+.meta-value { font-weight: 600; color: #333; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+
+/* ===== MAIN LAYOUT ===== */
+.main-layout {
+  display: flex; min-height: calc(100vh - 48px);
+}
+
+/* ===== WIREFRAME SIDE ===== */
+.wireframe-side {
+  flex: 0 0 55%; background: #EAEAEA; padding: 32px;
+  display: flex; justify-content: center; overflow-y: auto;
+}
+.phone-frame {
+  width: 375px; background: #fff; border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative;
+  overflow: hidden; flex-shrink: 0;
+}
+
+/* ===== DESCRIPTION SIDE ===== */
+.desc-side {
+  flex: 0 0 45%; background: #fff; padding: 24px 28px;
+  overflow-y: auto; border-left: 1px solid #ddd;
+}
+.desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+
+.desc-item { margin-bottom: 20px; }
+.desc-num-row {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+}
+.desc-num {
+  background: #2563EB; color: #fff; width: 22px; height: 22px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0;
+}
+.desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-name { font-size: 14px; font-weight: 600; }
+
+.desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
+.desc-body ul { list-style: none; }
+.desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
+.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #888; }
+.desc-body .sub li::before { content: '└'; color: #ccc; }
+
+.desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
+
+/* ===== WIREFRAME ELEMENTS ===== */
+.wf-section { position: relative; }
+
+/* Number circle overlay */
+.num-circle {
+  position: absolute; z-index: 10;
+  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+/* Header */
+.wf-header {
+  display: flex; align-items: center; padding: 12px 16px;
+  border-bottom: 1px solid #eee; position: relative;
+}
+.wf-back-btn { width: 20px; height: 20px; background: #ddd; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #888; }
+.wf-header-title { flex: 1; margin-left: 12px; font-weight: 600; font-size: 14px; }
+.wf-header-icons { display: flex; gap: 12px; }
+.wf-icon { width: 20px; height: 20px; background: #ddd; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #888; }
+
+/* Summary card */
+.wf-summary-card {
+  margin: 12px 16px; padding: 12px; background: #FAFAFA;
+  border: 1px solid #eee; border-radius: 8px;
+}
+.wf-summary-title { font-size: 12px; font-weight: 600; margin-bottom: 6px; }
+.wf-summary-tags { display: flex; gap: 4px; margin-bottom: 6px; }
+.wf-tag { font-size: 9px; padding: 1px 5px; border-radius: 3px; background: #EFF6FF; color: #2563EB; }
+.wf-summary-meta { font-size: 11px; color: #999; margin-bottom: 4px; }
+.wf-progress-bar { height: 4px; background: #eee; border-radius: 2px; overflow: hidden; margin-bottom: 4px; }
+.wf-progress-fill { height: 100%; background: #2563EB; border-radius: 2px; }
+.wf-status-badge { display: inline-block; font-size: 9px; padding: 2px 6px; border-radius: 3px; background: #EFF6FF; color: #2563EB; }
+
+/* Alert panel */
+.wf-alert-panel {
+  margin: 12px 16px; padding: 10px 12px; background: #FFFBEB;
+  border-left: 3px solid #F59E0B; border-radius: 4px;
+}
+.wf-alert-text { font-size: 11px; color: #555; margin-bottom: 8px; line-height: 1.5; }
+.wf-alert-buttons { display: flex; gap: 6px; }
+.wf-btn { font-size: 10px; padding: 4px 8px; border-radius: 4px; border: none; font-weight: 600; }
+.wf-btn.primary { background: #2563EB; color: #fff; }
+.wf-btn.secondary { background: #fff; color: #dc2626; border: 1px solid #dc2626; }
+.wf-btn.danger { background: #dc2626; color: #fff; }
+
+/* Section header */
+.wf-sec-header {
+  display: flex; align-items: center; padding: 12px 16px 6px;
+  position: relative;
+}
+.wf-sec-title { font-size: 13px; font-weight: 600; }
+
+/* Notice area */
+.wf-notice-input {
+  margin: 12px 16px; padding: 10px; background: #fff;
+  border: 1px solid #eee; border-radius: 6px; font-size: 11px;
+  color: #999; min-height: 40px; resize: none;
+}
+.wf-notice-btn { margin: 0 16px 8px; padding: 6px 12px; background: #2563EB; color: #fff; font-size: 10px; border: none; border-radius: 4px; font-weight: 600; }
+.wf-notice-list { padding: 8px 16px; }
+.wf-notice-item {
+  padding: 8px 0; border-bottom: 1px solid #f0f0f0;
+}
+.wf-notice-date { font-size: 10px; color: #999; }
+.wf-notice-content { font-size: 11px; margin: 4px 0; line-height: 1.4; }
+.wf-notice-more { font-size: 10px; color: #2563EB; }
+
+/* Participant table header */
+.wf-table-header {
+  display: flex; padding: 10px 16px; background: #f5f5f5;
+  border-bottom: 1px solid #eee; font-size: 10px; font-weight: 600;
+  color: #666;
+}
+.wf-table-col { flex: 1; }
+
+/* Participant item */
+.wf-participant-item {
+  display: flex; padding: 10px 16px; border-bottom: 1px solid #f0f0f0;
+  align-items: center; font-size: 11px;
+}
+.wf-participant-avatar { width: 28px; height: 28px; background: #ddd; border-radius: 50%; margin-right: 8px; flex-shrink: 0; }
+.wf-participant-info { flex: 1; }
+.wf-participant-name { font-weight: 600; margin-bottom: 2px; }
+.wf-participant-meta { font-size: 10px; color: #999; }
+.wf-participant-col { flex: 0.8; text-align: center; }
+.wf-status-toggle { width: 28px; height: 16px; background: #e5e5e5; border-radius: 8px; display: inline-block; position: relative; }
+.wf-status-toggle.active { background: #2563EB; }
+.wf-participant-actions { flex: 0.6; text-align: center; }
+.wf-action-icon { font-size: 11px; }
+
+/* Action bar */
+.wf-action-bar {
+  padding: 12px 16px; display: flex; gap: 8px; border-top: 1px solid #eee;
+}
+.wf-action-btn { flex: 1; padding: 8px; font-size: 10px; border: none; border-radius: 4px; font-weight: 600; }
+.wf-action-btn.blue { background: #2563EB; color: #fff; }
+.wf-action-btn.amber { background: #F59E0B; color: #fff; }
+.wf-action-btn.red { background: #fff; color: #dc2626; border: 1px solid #dc2626; }
+.wf-action-btn.gray { background: #e5e5e5; color: #999; }
+
+/* Filter tabs */
+.wf-filter-tabs {
+  display: flex; padding: 8px 16px; gap: 8px; border-bottom: 1px solid #eee;
+  overflow-x: auto;
+}
+.wf-tab { font-size: 10px; padding: 6px 8px; background: #f5f5f5; border-radius: 4px; white-space: nowrap; }
+.wf-tab.active { background: #2563EB; color: #fff; font-weight: 600; }
+
+/* Revision footer */
+.revision-bar {
+  background: #fff; border-top: 1px solid #eee; padding: 12px 24px;
+  font-size: 11px; color: #999;
+}
+.revision-bar table { width: 100%; border-collapse: collapse; }
+.revision-bar th { text-align: left; font-weight: 600; color: #666; padding: 4px 8px; border-bottom: 1px solid #eee; }
+.revision-bar td { padding: 4px 8px; }
+
+@media (max-width: 900px) {
+  .main-layout { flex-direction: column; }
+  .wireframe-side { flex: none; padding: 16px; }
+  .desc-side { flex: none; border-left: none; border-top: 1px solid #ddd; }
+}
+</style>
 </head>
 <body>
-    <div class="meta-bar">GRPB04 - 공구 관리 (총대) | 상태: 초안 | 작성: 2026-03-06</div>
 
-    <div class="wireframe-container">
-        <!-- Left Section: Phone Frames -->
-        <div class="left-section">
-            <div class="phone-frames-container">
-                <!-- Frame 1: 모집중 상태 -->
-                <div class="phone-frame">
-                    <div class="frame-label">①　모집중 상태</div>
-                    <div class="screen-content">
-                        <!-- Header -->
-                        <div class="header">
-                            <div class="header-left">
-                                <span class="back-btn">&lt;</span>
-                                <span class="header-title">공구 관리</span>
-                            </div>
-                            <div class="header-right">⚙</div>
-                        </div>
+<!-- META HEADER -->
+<div class="meta-bar">
+  <span class="title">GRPB04</span>
+  <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">공구 관리 (총대)</span></span>
+  <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/groupbuy/[id]/manage</span></span>
+  <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.1</span></span>
+  <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
+  <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-06</span></span>
+</div>
 
-                        <!-- Summary Card -->
-                        <div class="summary-card">
-                            <div class="summary-top">
-                                <span class="summary-tag">공구</span>
-                                <span class="summary-title">원신 카즈하 아크릴 스탠드</span>
-                            </div>
-                            <div class="summary-progress">
-                                <span>18/30명</span>
-                                <div class="progress-bar">
-                                    <div class="progress-fill"></div>
-                                </div>
-                            </div>
-                            <div class="summary-meta">
-                                <span>D-7</span>
-                                <span class="badge-status">모집중</span>
-                            </div>
-                        </div>
+<!-- MAIN LAYOUT: Wireframe + Description -->
+<div class="main-layout">
 
-                        <!-- Step Indicator -->
-                        <div class="step-indicator">
-                            <div class="step active">1. 모집중</div>
-                            <div class="step-arrow">→</div>
-                            <div class="step">2. 진행 결정</div>
-                            <div class="step-arrow">→</div>
-                            <div class="step">3. 진행 확정</div>
-                            <div class="step-arrow">→</div>
-                            <div class="step">4. 배송</div>
-                            <div class="step-arrow">→</div>
-                            <div class="step">5. 완료</div>
-                            <div class="step-branch">↓ 무산</div>
-                        </div>
+  <!-- ===== WIREFRAME ===== -->
+  <div class="wireframe-side">
+    <div class="phone-frame">
 
-                        <!-- Notice Section -->
-                        <div class="notice-section">
-                            <div class="notice-title">공지 작성</div>
-                            <textarea class="notice-input" placeholder="참여자들에게 공지할 내용..."></textarea>
-                            <button class="notice-btn">등록</button>
-                            <div class="past-notice">
-                                <span class="past-notice-date">3/5</span>
-                                <div class="past-notice-text">목표 인원 60% 달성! 마감일까지...</div>
-                            </div>
-                        </div>
-
-                        <!-- Filter Tabs -->
-                        <div class="filter-tabs">
-                            <div class="filter-tab active">전체(18)</div>
-                            <div class="filter-tab">미입금(5)</div>
-                            <div class="filter-tab">입금완료(13)</div>
-                            <div class="filter-tab">배송완료(0)</div>
-                        </div>
-
-                        <!-- Participant List -->
-                        <div class="participant-list">
-                            <!-- Participant 1 -->
-                            <div class="participant-row">
-                                <div class="participant-avatar">덕</div>
-                                <div class="participant-info">
-                                    <div class="participant-name">덕후A</div>
-                                    <div class="participant-qty">1개</div>
-                                </div>
-                                <div class="participant-status">
-                                    <span class="status-badge status-confirmed">입금확인</span>
-                                    <span class="status-badge status-pending">대기</span>
-                                </div>
-                                <div class="chat-icon">💬</div>
-                            </div>
-
-                            <!-- Participant 2 -->
-                            <div class="participant-row">
-                                <div class="participant-avatar">오</div>
-                                <div class="participant-info">
-                                    <div class="participant-name">오타쿠B</div>
-                                    <div class="participant-qty">2개</div>
-                                </div>
-                                <div class="participant-status">
-                                    <span class="status-badge status-unconfirmed">미입금</span>
-                                    <span class="status-badge status-pending">대기</span>
-                                </div>
-                                <div class="chat-icon">💬</div>
-                            </div>
-
-                            <!-- Participant 3 -->
-                            <div class="participant-row">
-                                <div class="participant-avatar">팬</div>
-                                <div class="participant-info">
-                                    <div class="participant-name">팬C</div>
-                                    <div class="participant-qty">1개</div>
-                                </div>
-                                <div class="participant-status">
-                                    <span class="status-badge status-confirmed">입금확인</span>
-                                    <span class="status-badge status-shipped">발송완료</span>
-                                </div>
-                                <div class="chat-icon">💬</div>
-                            </div>
-
-                            <!-- Participant 4 -->
-                            <div class="participant-row">
-                                <div class="participant-avatar">유</div>
-                                <div class="participant-info">
-                                    <div class="participant-name">유저D</div>
-                                    <div class="participant-qty">1개</div>
-                                </div>
-                                <div class="participant-status">
-                                    <span class="status-badge status-confirmed">입금확인</span>
-                                    <span class="status-badge status-pending">대기</span>
-                                </div>
-                                <div class="chat-icon">💬</div>
-                            </div>
-                        </div>
-
-                        <!-- Action Bar -->
-                        <div class="action-bar">
-                            <button class="action-btn amber">조기 마감</button>
-                            <button class="action-btn" disabled>일괄 발송처리</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Frame 2: 진행 결정 대기 상태 -->
-                <div class="phone-frame">
-                    <div class="frame-label">②　진행 결정 대기 상태</div>
-                    <div class="screen-content">
-                        <!-- Header -->
-                        <div class="header">
-                            <div class="header-left">
-                                <span class="back-btn">&lt;</span>
-                                <span class="header-title">공구 관리</span>
-                            </div>
-                            <div class="header-right">⚙</div>
-                        </div>
-
-                        <!-- Summary Card -->
-                        <div class="summary-card">
-                            <div class="summary-top">
-                                <span class="summary-tag">공구</span>
-                                <span class="summary-title">원신 카즈하 아크릴 스탠드</span>
-                            </div>
-                            <div class="summary-progress">
-                                <span>30/30명</span>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 100%;"></div>
-                                </div>
-                            </div>
-                            <div class="summary-meta">
-                                <span>D-3</span>
-                                <span class="badge-status amber">진행 결정 대기</span>
-                            </div>
-                        </div>
-
-                        <!-- Step Indicator -->
-                        <div class="step-indicator">
-                            <div class="step">1. 모집중</div>
-                            <div class="step-arrow">→</div>
-                            <div class="step active">2. 진행 결정</div>
-                            <div class="step-arrow">→</div>
-                            <div class="step">3. 진행 확정</div>
-                            <div class="step-arrow">→</div>
-                            <div class="step">4. 배송</div>
-                            <div class="step-arrow">→</div>
-                            <div class="step">5. 완료</div>
-                            <div class="step-branch">↓ 무산</div>
-                        </div>
-
-                        <!-- Alert Panel: 진행 결정 -->
-                        <div class="alert-panel">
-                            <div class="alert-text">목표 인원이 달성되었습니다! 공구를 진행하시겠습니까?</div>
-                            <div class="alert-buttons">
-                                <button class="alert-btn confirm">진행 확정</button>
-                                <button class="alert-btn cancel">무산 처리</button>
-                            </div>
-                        </div>
-
-                        <!-- Warning Bar: 자동 무산 타이머 -->
-                        <div class="warning-bar">진행 결정까지 4일 남았습니다. 미결정 시 자동 무산됩니다.</div>
-
-                        <!-- Notice Section -->
-                        <div class="notice-section">
-                            <div class="notice-title">공지 작성</div>
-                            <textarea class="notice-input" placeholder="참여자들에게 공지할 내용..."></textarea>
-                            <button class="notice-btn">등록</button>
-                        </div>
-
-                        <!-- Filter Tabs -->
-                        <div class="filter-tabs">
-                            <div class="filter-tab active">전체(30)</div>
-                            <div class="filter-tab">미입금(0)</div>
-                            <div class="filter-tab">입금완료(30)</div>
-                            <div class="filter-tab">배송완료(0)</div>
-                        </div>
-
-                        <!-- Participant List (simplified) -->
-                        <div class="participant-list">
-                            <div class="participant-row">
-                                <div class="participant-avatar">덕</div>
-                                <div class="participant-info">
-                                    <div class="participant-name">덕후A</div>
-                                    <div class="participant-qty">1개</div>
-                                </div>
-                                <div class="participant-status">
-                                    <span class="status-badge status-confirmed">입금확인</span>
-                                    <span class="status-badge status-pending">대기</span>
-                                </div>
-                                <div class="chat-icon">💬</div>
-                            </div>
-                        </div>
-
-                        <!-- Action Bar -->
-                        <div class="action-bar">
-                            <button class="action-btn primary">진행 확정</button>
-                            <button class="action-btn danger">무산 처리</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <!-- ① Header -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:6px; left:6px;">1</div>
+        <div class="wf-header">
+          <div class="wf-back-btn">&larr;</div>
+          <div class="wf-header-title">공구 관리</div>
+          <div class="wf-header-icons">
+            <div class="wf-icon">&#x1F514;</div>
+          </div>
         </div>
+      </div>
 
-        <!-- Right Section: Description -->
-        <div class="right-section">
-            <h3>요소별 설명</h3>
-
-            <div class="desc-section">
-                <div class="desc-label">Header (①)</div>
-                <div class="element-item">
-                    <span class="numbered-circle">1</span>
-                    <div class="element-content">뒤로가기 버튼 + "공구 관리" 타이틀 + 설정 아이콘</div>
-                </div>
-            </div>
-
-            <div class="desc-section">
-                <div class="desc-label">Summary Card (②)</div>
-                <div class="element-item">
-                    <span class="numbered-circle">2</span>
-                    <div class="element-content">
-                        공구 태그, 상품명, 참여 현황 프로그레스바 (18/30), 마감일 (D-7), 상태 뱃지
-                        <ul class="element-list" style="margin-top: 8px;">
-                            <li>모집중: 초록색 배경</li>
-                            <li>진행 결정 대기: 주황색 배경</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="desc-section">
-                <div class="desc-label">Step Indicator (③)</div>
-                <div class="element-item">
-                    <span class="numbered-circle">3</span>
-                    <div class="element-content">
-                        공구 진행 상태 플로우
-                        <ul class="element-list" style="margin-top: 8px;">
-                            <li>1. 모집중 → 2. 진행 결정 → 3. 진행 확정 → 4. 배송 → 5. 완료</li>
-                            <li>현재 단계는 파랑색 강조</li>
-                            <li>무산 분기: 진행 결정 단계에서 분기 (빨강색)</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="desc-section">
-                <div class="desc-label">③-B 진행 결정 패널</div>
-                <div class="element-item">
-                    <span class="numbered-circle">3-B</span>
-                    <div class="element-content">
-                        노란색/주황색 알림 패널 (상태: 진행 결정 대기)
-                        <ul class="element-list" style="margin-top: 8px;">
-                            <li>텍스트: "목표 인원이 달성되었습니다! 공구를 진행하시겠습니까?"</li>
-                            <li>[진행 확정] 버튼 (파랑색 배경)</li>
-                            <li>[무산 처리] 버튼 (흰색 배경, 빨강색 테두리)</li>
-                        </ul>
-                        <div class="sub-label">시나리오별 텍스트:</div>
-                        <div class="scenario-box">
-                            <strong>1) 목표 달성:</strong> "목표 인원이 달성되었습니다! 공구를 진행하시겠습니까?"
-                        </div>
-                        <div class="scenario-box">
-                            <strong>2) 목표 미달 + 최소 충족:</strong> "목표는 미달했지만 최소 인원이 확보되었습니다. 공구를 진행하시겠습니까?"
-                        </div>
-                        <div class="scenario-box">
-                            <strong>3) 목표 미달 + 최소 미충족:</strong> "최소 인원이 미달되었습니다. 공구를 무산 처리합니다." (버튼 없음, 자동 무산)
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="desc-section">
-                <div class="desc-label">③-C 자동 무산 타이머</div>
-                <div class="element-item">
-                    <span class="numbered-circle">3-C</span>
-                    <div class="element-content">
-                        빨강색 경고 바 (상태: 진행 결정 대기)
-                        <ul class="element-list" style="margin-top: 8px;">
-                            <li>텍스트: "진행 결정까지 4일 남았습니다. 미결정 시 자동 무산됩니다."</li>
-                            <li>자동 무산 스케줄: D+1 리마인더 → D+3 최종 경고 → D+5 자동 무산 처리</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="desc-section">
-                <div class="desc-label">Notice Section (④)</div>
-                <div class="element-item">
-                    <span class="numbered-circle">4</span>
-                    <div class="element-content">참여자 공지 작성: Textarea + 등록 버튼, 기존 공지 목록 (최신순 표시)</div>
-                </div>
-            </div>
-
-            <div class="desc-section">
-                <div class="desc-label">Filter Tabs (⑤)</div>
-                <div class="element-item">
-                    <span class="numbered-circle">5</span>
-                    <div class="element-content">참여자 목록 필터: 전체, 미입금, 입금완료, 배송완료 (상태별 카운트 표시)</div>
-                </div>
-            </div>
-
-            <div class="desc-section">
-                <div class="desc-label">Participant List (⑥)</div>
-                <div class="element-item">
-                    <span class="numbered-circle">6</span>
-                    <div class="element-content">
-                        각 행: 프로필 + 닉네임, 수량 | 입금상태 배지 | 배송상태 | 채팅 아이콘
-                        <ul class="element-list" style="margin-top: 8px;">
-                            <li>입금상태: 미입금(빨강 테두리) / 입금확인(초록 배경)</li>
-                            <li>배송상태: 대기(회색) / 발송완료(파랑)</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="desc-section">
-                <div class="desc-label">Action Bar (⑦)</div>
-                <div class="element-item">
-                    <span class="numbered-circle">7</span>
-                    <div class="element-content">
-                        상태별 버튼 분기:
-                        <ul class="element-list" style="margin-top: 8px;">
-                            <li><strong>모집중 상태:</strong> [조기 마감](주황색) + [일괄 발송처리](회색, 비활성)</li>
-                            <li><strong>진행 결정 대기:</strong> [진행 확정](파랑색) + [무산 처리](빨강색 테두리)</li>
-                            <li><strong>진행 확정:</strong> [배송 시작] + [운송장 입력]</li>
-                            <li><strong>배송 중:</strong> [배송 완료] + [미배송 확인]</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <hr>
-
-            <div class="desc-section">
-                <div class="desc-label">주요 기능</div>
-                <div class="element-list">
-                    <li>진행자만 접근 가능한 관리 화면</li>
-                    <li>마감일 도달 시 자동으로 "진행 결정" 단계로 전환</li>
-                    <li>목표 인원 달성 여부에 따라 진행/무산 판단</li>
-                    <li>최소 인원 조건 미충족 시 자동 무산 처리</li>
-                    <li>진행 결정 단계에서 총대의 수동 진행/무산 선택 가능</li>
-                    <li>미결정 상태 5일 경과 시 자동 무산 처리</li>
-                    <li>참여자별 입금 확인 상태 토글</li>
-                    <li>배송상태 관리 및 운송장 번호 입력</li>
-                    <li>참여자 목록 필터링 (입금상태, 배송상태)</li>
-                    <li>공지사항 작성 및 발송</li>
-                </div>
-            </div>
-
-            <div class="desc-section">
-                <div class="desc-label">상태 뱃지 색상</div>
-                <div class="element-list">
-                    <li>모집중: 초록색 배경 (#4CAF50)</li>
-                    <li>진행 결정 대기: 주황색 배경 (#FFA500)</li>
-                    <li>입금확인: 초록색 배경 (#4CAF50)</li>
-                    <li>미입금: 흰색 배경 + 빨강 테두리 (#f44336)</li>
-                    <li>대기: 회색 배경 (#e0e0e0)</li>
-                    <li>발송완료: 파랑 배경 (#2196F3)</li>
-                </div>
-            </div>
+      <!-- ② Summary Card -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:4px; left:6px;">2</div>
+        <div class="wf-summary-card">
+          <div class="wf-summary-title">원신 카즈하 아크릴 스탠드 공구</div>
+          <div class="wf-summary-tags">
+            <span class="wf-tag">공구</span>
+          </div>
+          <div class="wf-summary-meta">참여 인원: 18/30명 · 마감 D-7</div>
+          <div class="wf-progress-bar"><div class="wf-progress-fill" style="width:60%;"></div></div>
+          <div style="font-size:10px; color:#555;">
+            <span class="wf-status-badge">모집중</span>
+          </div>
         </div>
+      </div>
+
+      <!-- ③ State Indicator (Step) -->
+      <div class="wf-section" style="padding: 12px 16px; font-size:10px;">
+        <div class="num-circle" style="top:4px; left:6px;">3</div>
+        <div style="display:flex; gap:4px; align-items:center;">
+          <div style="background:#2563EB; color:#fff; padding:4px 6px; border-radius:3px;">1.모집</div>
+          <div style="color:#ccc;">→</div>
+          <div style="background:#ddd; color:#999; padding:4px 6px; border-radius:3px;">2.결정</div>
+          <div style="color:#ccc;">→</div>
+          <div style="background:#ddd; color:#999; padding:4px 6px; border-radius:3px;">3.확정</div>
+          <div style="color:#ccc;">→</div>
+          <div style="background:#ddd; color:#999; padding:4px 6px; border-radius:3px;">4.배송</div>
+          <div style="color:#ccc;">→</div>
+          <div style="background:#ddd; color:#999; padding:4px 6px; border-radius:3px;">5.완료</div>
+        </div>
+      </div>
+
+      <!-- ④ Notice Section -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:8px; left:6px;">4</div>
+        <div class="wf-sec-header">
+          <span class="wf-sec-title">공지사항</span>
+        </div>
+        <textarea class="wf-notice-input" placeholder="참여자에게 전달할 공지사항을 작성하세요 (500자 이내)"></textarea>
+        <button class="wf-notice-btn">등록</button>
+        <div class="wf-notice-list">
+          <div class="wf-notice-item">
+            <div class="wf-notice-date">3/5</div>
+            <div class="wf-notice-content">목표 인원 60% 달성! 마감일까지 남은 기간...</div>
+            <div class="wf-notice-more">더보기</div>
+          </div>
+          <div class="wf-notice-item">
+            <div class="wf-notice-date">3/3</div>
+            <div class="wf-notice-content">공구 참여해주셔서 감사합니다. 이번주 금요일...</div>
+            <div class="wf-notice-more">더보기</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ⑤ Filter Tabs -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:4px; left:6px;">5</div>
+        <div class="wf-filter-tabs">
+          <div class="wf-tab active">전체 (18)</div>
+          <div class="wf-tab">미입금 (2)</div>
+          <div class="wf-tab">입금완료 (16)</div>
+          <div class="wf-tab">배송완료 (5)</div>
+        </div>
+      </div>
+
+      <!-- ⑥ Participant Table -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:4px; left:6px;">6</div>
+        <div class="wf-table-header">
+          <div class="wf-table-col" style="flex:1.5;">닉네임</div>
+          <div class="wf-table-col">참여수량</div>
+          <div class="wf-table-col">입금상태</div>
+          <div class="wf-table-col">배송상태</div>
+          <div class="wf-table-col">액션</div>
+        </div>
+        <div class="wf-participant-item">
+          <div class="wf-participant-info" style="flex:1.5;">
+            <div class="wf-participant-avatar"></div>
+            <div class="wf-participant-name">덕후A</div>
+            <div class="wf-participant-meta">@user_001</div>
+          </div>
+          <div class="wf-participant-col">1</div>
+          <div class="wf-participant-col">
+            <div class="wf-status-toggle active"></div>
+          </div>
+          <div class="wf-participant-col" style="font-size:9px; color:#999;">대기중</div>
+          <div class="wf-participant-actions">
+            <span class="wf-action-icon">💬</span>
+            <span class="wf-action-icon">▶</span>
+          </div>
+        </div>
+        <div class="wf-participant-item">
+          <div class="wf-participant-info" style="flex:1.5;">
+            <div class="wf-participant-avatar"></div>
+            <div class="wf-participant-name">오타쿠B</div>
+            <div class="wf-participant-meta">@user_002</div>
+          </div>
+          <div class="wf-participant-col">2</div>
+          <div class="wf-participant-col">
+            <div class="wf-status-toggle"></div>
+          </div>
+          <div class="wf-participant-col" style="font-size:9px; color:#999;">대기중</div>
+          <div class="wf-participant-actions">
+            <span class="wf-action-icon">💬</span>
+            <span class="wf-action-icon">▶</span>
+          </div>
+        </div>
+        <div class="wf-participant-item">
+          <div class="wf-participant-info" style="flex:1.5;">
+            <div class="wf-participant-avatar"></div>
+            <div class="wf-participant-name">애니팬C</div>
+            <div class="wf-participant-meta">@user_003</div>
+          </div>
+          <div class="wf-participant-col">1</div>
+          <div class="wf-participant-col">
+            <div class="wf-status-toggle active"></div>
+          </div>
+          <div class="wf-participant-col" style="font-size:9px; color:#999;">발송완료</div>
+          <div class="wf-participant-actions">
+            <span class="wf-action-icon">💬</span>
+            <span class="wf-action-icon">▶</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ⑦ Action Bar -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:4px; left:6px;">7</div>
+        <div class="wf-action-bar">
+          <button class="wf-action-btn amber">조기 마감</button>
+          <button class="wf-action-btn gray">일괄 발송처리</button>
+        </div>
+      </div>
+
+    </div><!-- end phone-frame -->
+  </div><!-- end wireframe-side -->
+
+  <!-- ===== DESCRIPTION ===== -->
+  <div class="desc-side">
+    <div class="desc-title">GRPB04 — 공구 관리</div>
+    <div class="desc-subtitle">라우트: /groupbuy/[id]/manage &nbsp;|&nbsp; 진행자 전용 &nbsp;|&nbsp; Phase 1</div>
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">1</div>
+        <span class="desc-comp-type">[Header]</span>
+        <span class="desc-comp-name">헤더</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>좌측: 뒤로가기 버튼</li>
+          <li>중앙: "공구 관리" 제목</li>
+          <li>우측: 알림 아이콘 (공지 설정)</li>
+          <li>상단 고정</li>
+        </ul>
+      </div>
     </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">2</div>
+        <span class="desc-comp-type">[Card]</span>
+        <span class="desc-comp-name">공구 요약 카드</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>상품명: 공구의 정식 명칭</li>
+          <li>태그: [공구] 또는 [세트공구] 구분</li>
+          <li>참여 현황: 프로그레스바로 N/M명 표시 (예: 18/30)</li>
+          <li>마감일: D-N 형식</li>
+          <li>상태 뱃지: 모집중(파랑) / 마감(주황) / 구매진행중(파랑) / 배송중(파랑) / 완료(회색)</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">3</div>
+        <span class="desc-comp-type">[Stepper]</span>
+        <span class="desc-comp-name">상태 스텝 인디케이터</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>현재 진행 단계 하이라이트: 1.모집 → 2.결정 → 3.확정 → 4.배송 → 5.완료</li>
+          <li>무산 경로는 분기로 표시</li>
+          <li>현재 상태: 파랑(활성), 이전 상태: 회색(비활성)</li>
+          <li>진행 결정 단계에서 "무산" 옵션 선택 가능</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">4</div>
+        <span class="desc-comp-type">[Form + List]</span>
+        <span class="desc-comp-name">공지사항 섹션</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>공지 작성: Textarea 입력 필드 (500자 제한) + 등록 버튼</li>
+          <li>기존 공지 목록: 최신순 정렬
+            <ul class="sub">
+              <li>작성일시 (M/D 형식)</li>
+              <li>공지 내용 (최대 2줄 미리보기)</li>
+              <li>더보기 링크</li>
+            </ul>
+          </li>
+          <li>등록 후 즉시 목록 상단에 반영</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">5</div>
+        <span class="desc-comp-type">[Tabs]</span>
+        <span class="desc-comp-name">참여자 필터 탭</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>전체 (N명)</li>
+          <li>미입금 (N명)</li>
+          <li>입금완료 (N명)</li>
+          <li>배송완료 (N명)</li>
+          <li>활성 탭: 파랑 배경, 비활성: 회색 배경</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">6</div>
+        <span class="desc-comp-type">[Table]</span>
+        <span class="desc-comp-name">참여자 목록 테이블</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>컬럼 (일반 공구 기준):
+            <ul class="sub">
+              <li>닉네임: 프로필 이미지 + 닉네임</li>
+              <li>참여수량: 구매 수량 (개수)</li>
+              <li>입금상태: 미입금 / 입금확인 (토글)</li>
+              <li>배송상태: 대기 / 발송완료 / 수취확인</li>
+              <li>액션: 채팅 바로가기, 상세 정보 보기</li>
+            </ul>
+          </li>
+          <li>입금 확인 토글: 클릭 시 상태 즉시 변경, 파랑(입금) / 회색(미입금)</li>
+          <li>배송상태 변경: 드롭다운 또는 모달에서 운송장 번호 입력</li>
+          <li>채팅 바로가기: CHAT02 화면으로 이동</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">7</div>
+        <span class="desc-comp-type">[ButtonBar]</span>
+        <span class="desc-comp-name">일괄 액션 바</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>상태별로 표시되는 버튼이 달라집니다:
+            <ul class="sub">
+              <li>모집중 상태: [조기 마감] (Amber) · [일괄 발송처리] (비활성)</li>
+              <li>진행 결정 대기: [진행 확정] (Blue) · [무산 처리] (Red Outline)</li>
+              <li>진행 확정: [일괄 발송처리] (Blue) · [공구 취소] (Red Outline)</li>
+              <li>배송중/완료: [일괄 발송처리] (미발송 건만 활성)</li>
+            </ul>
+          </li>
+          <li>조기 마감: 마감일 전에 수동 마감 → 진행 결정 단계로 이동</li>
+          <li>일괄 발송처리: 선택한 참여자들의 배송상태 일괄 변경</li>
+          <li>진행 확정 / 무산 처리: 확인 모달 필수</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- States -->
+    <div style="margin-top:16px;">
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">화면 상태</div>
+      <div class="desc-body" style="padding-left:0;">
+        <ul>
+          <li><strong>모집중 상태</strong>: 조기 마감 버튼 활성, 일괄 발송처리 비활성</li>
+          <li><strong>진행 결정 대기</strong>: 진행 확정/무산 처리 버튼 활성, 자동 무산 타이머 표시</li>
+          <li><strong>진행 확정 상태</strong>: 일괄 발송처리 활성, 공구 취소 가능</li>
+          <li><strong>배송중/완료</strong>: 미발송 건이 있을 때만 일괄 발송처리 활성</li>
+          <li><strong>진행자 미접근</strong>: 권한 없음 오류 메시지</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Connected screens -->
+    <div style="margin-top:16px;">
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">연관 화면</div>
+      <div class="desc-body" style="padding-left:0;">
+        <table style="width:100%; font-size:11px; border-collapse:collapse;">
+          <thead>
+            <tr style="border-bottom:1px solid #eee;">
+              <th style="text-align:left; padding:4px 8px; color:#888;">이동 대상</th>
+              <th style="text-align:left; padding:4px 8px; color:#888;">조건</th>
+              <th style="text-align:left; padding:4px 8px; color:#888;">화면코드</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:4px 8px;">공구 상세</td><td style="padding:4px 8px;">뒤로가기 버튼</td><td style="padding:4px 8px;">GRPB02</td></tr>
+            <tr><td style="padding:4px 8px;">참여자 채팅</td><td style="padding:4px 8px;">채팅 아이콘 탭</td><td style="padding:4px 8px;">CHAT02</td></tr>
+            <tr><td style="padding:4px 8px;">참여자 상세</td><td style="padding:4px 8px;">상세정보 보기 탭</td><td style="padding:4px 8px;">USER01</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- end desc-side -->
+
+</div><!-- end main-layout -->
+
+<!-- REVISION FOOTER -->
+<div class="revision-bar">
+  <table>
+    <thead>
+      <tr><th>날짜</th><th>버전</th><th>내용</th><th>작성자</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>2026-03-06</td><td>0.1</td><td>초안 작성 - HOME01 패턴 표준화</td><td>AI (Claude)</td></tr>
+    </tbody>
+  </table>
+</div>
+
 </body>
 </html>

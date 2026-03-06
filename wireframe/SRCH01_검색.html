@@ -19,17 +19,22 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 .meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
 
 /* ===== MAIN LAYOUT ===== */
-.main-layout { display: flex; min-height: calc(100vh - 48px); }
+.main-layout {
+  display: flex; min-height: calc(100vh - 48px);
+}
 
 /* ===== WIREFRAME SIDE ===== */
 .wireframe-side {
   flex: 0 0 55%; background: #EAEAEA; padding: 32px;
-  display: flex; flex-direction: column; align-items: center; overflow-y: auto; gap: 40px;
+  display: flex; justify-content: center; overflow-y: auto;
+}
+.phone-stack {
+  display: flex; gap: 32px; flex-wrap: wrap; justify-content: center;
 }
 .phone-frame {
   width: 375px; background: #fff; border-radius: 16px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative;
-  overflow: hidden; flex-shrink: 0; min-height: 600px;
+  overflow: hidden; flex-shrink: 0; min-height: 812px;
 }
 
 /* ===== DESCRIPTION SIDE ===== */
@@ -39,8 +44,11 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 }
 .desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
 .desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+
 .desc-item { margin-bottom: 20px; }
-.desc-num-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.desc-num-row {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+}
 .desc-num {
   background: #2563EB; color: #fff; width: 22px; height: 22px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
@@ -48,28 +56,20 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 }
 .desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
 .desc-comp-name { font-size: 14px; font-weight: 600; }
+
 .desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
 .desc-body ul { list-style: none; }
 .desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
 .desc-body li::before { content: '•'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
 .desc-body .sub { padding-left: 14px; color: #888; }
 .desc-body .sub li::before { content: '└'; color: #ccc; }
+
 .desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
-
-/* ===== Connected Screens Table ===== */
-.conn-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px; }
-.conn-table th { background: #F5F5F5; padding: 6px 8px; text-align: left; font-weight: 600; border-bottom: 1px solid #ddd; }
-.conn-table td { padding: 6px 8px; border-bottom: 1px solid #eee; }
-.conn-table .code { color: #2563EB; font-weight: 600; }
-
-/* States section */
-.states-section { margin-top: 16px; padding: 12px; background: #FAFAFA; border-radius: 8px; border: 1px solid #eee; }
-.states-title { font-size: 12px; font-weight: 600; margin-bottom: 8px; }
-.states-item { font-size: 11px; color: #666; margin-bottom: 4px; padding-left: 14px; position: relative; }
-.states-item::before { content: '▸'; position: absolute; left: 0; color: #2563EB; }
 
 /* ===== WIREFRAME ELEMENTS ===== */
 .wf-section { position: relative; }
+
+/* Number circle overlay */
 .num-circle {
   position: absolute; z-index: 10;
   background: #2563EB; color: #fff; width: 20px; height: 20px;
@@ -79,75 +79,76 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
 /* Header */
 .wf-header {
-  display: flex; align-items: center; padding: 12px 16px;
-  border-bottom: 1px solid #eee; position: relative; gap: 10px;
+  display: flex; align-items: center; padding: 8px 16px;
+  border-bottom: 1px solid #eee; gap: 8px;
 }
-.wf-back-btn {
-  width: 24px; height: 24px; border: none; background: transparent;
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  color: #1A1A1A;
-}
+.wf-back-btn { width: 32px; height: 32px; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #374151; }
 .wf-search-input {
-  flex: 1; padding: 10px 12px; border: 2px solid #2563EB; border-radius: 10px;
-  font-size: 13px; color: #333; outline: none; background: #fff;
-  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  flex: 1; padding: 10px 14px; background: #F3F4F6;
+  border-radius: 8px; border: 1px solid #E5E7EB; font-size: 13px;
+  color: #1F2937; display: flex; align-items: center; gap: 8px;
+  position: relative;
 }
-.wf-search-input::placeholder { color: #bbb; }
-.wf-clear-btn {
-  width: 24px; height: 24px; border: none; background: transparent;
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  color: #999; font-size: 14px;
-}
+.wf-search-input-icon { color: #9CA3AF; font-size: 14px; }
+.wf-search-input-text { color: #6B7280; flex: 1; }
+.wf-search-input-clear { width: 24px; height: 24px; background: transparent; border: none; cursor: pointer; color: #9CA3AF; font-size: 14px; }
 
-/* Recent/Popular searches */
-.wf-search-section {
-  padding: 16px;
+/* Autocomplete dropdown */
+.wf-autocomplete {
+  position: absolute; top: 100%; left: 16px; right: 16px; z-index: 20;
+  background: #fff; border: 1px solid #E5E7EB; border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-top: 8px;
 }
-.wf-search-section-header {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 10px;
+.wf-autocomplete-item {
+  padding: 12px 14px; font-size: 13px; border-bottom: 1px solid #F3F4F6;
+  display: flex; align-items: center; gap: 8px; height: 44px;
+  cursor: pointer;
 }
-.wf-search-section-title {
-  font-size: 12px; font-weight: 600; color: #333;
-}
-.wf-search-section-action {
-  font-size: 11px; color: #2563EB; cursor: pointer; text-decoration: none;
-}
-.wf-search-chips {
-  display: flex; flex-wrap: wrap; gap: 6px;
-}
-.wf-search-chip {
-  padding: 6px 10px; border-radius: 16px; font-size: 12px;
-  background: #F0F0F0; color: #555; display: flex; align-items: center; gap: 4px;
-  white-space: nowrap;
-}
-.wf-search-chip.popular {
-  background: #EFF6FF; color: #1E40AF;
-}
-.wf-search-chip-x {
-  cursor: pointer; font-weight: 700; color: #999;
-}
+.wf-autocomplete-item:last-child { border-bottom: none; }
+.wf-autocomplete-item-icon { color: #D1D5DB; font-size: 14px; }
+.wf-autocomplete-item-text { color: #1F2937; }
 
-/* Filter/Sort Bar */
-.wf-filter-bar {
-  display: flex; gap: 6px; padding: 10px 16px; overflow-x: auto;
-  border-bottom: 1px solid #f0f0f0; position: relative;
+/* Recent searches section */
+.wf-section-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 16px 12px; font-size: 13px; font-weight: 600; color: #1F2937;
+}
+.wf-section-action { font-size: 12px; color: #9CA3AF; cursor: pointer; }
+
+/* Search chips (recent, popular, filter) */
+.wf-chips-row {
+  display: flex; flex-wrap: wrap; gap: 8px; padding: 0 16px 16px;
 }
 .wf-chip {
-  flex-shrink: 0; padding: 5px 10px; border-radius: 16px;
-  font-size: 11px; background: #F5F5F5; color: #555; border: 1px solid #E5E5E5;
-  white-space: nowrap;
+  padding: 6px 12px; border-radius: 999px; font-size: 12px;
+  background: #F3F4F6; color: #374151; border: 1px solid #E5E7EB;
+  display: inline-flex; align-items: center; gap: 4px; cursor: pointer;
 }
-.wf-chip.selected { background: #2563EB; color: #fff; border-color: #2563EB; }
+.wf-chip-remove { color: #9CA3AF; cursor: pointer; font-size: 14px; }
+.wf-chip.popular { background: #EFF6FF; color: #2563EB; border: 1px solid transparent; }
+.wf-chip.popular .wf-chip-remove { color: #9CA3AF; }
+
+/* Empty state */
+.wf-empty-state {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 48px 16px; text-align: center;
+}
+.wf-empty-icon { font-size: 40px; color: #D1D5DB; margin-bottom: 12px; }
+.wf-empty-title { font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 8px; }
+.wf-empty-desc { font-size: 12px; color: #9CA3AF; margin-bottom: 20px; }
+.wf-empty-btn {
+  padding: 8px 16px; background: #F3F4F6; border: 1px solid #D1D5DB;
+  border-radius: 6px; font-size: 12px; color: #374151; cursor: pointer;
+}
 
 /* Tabs */
 .wf-tabs {
-  display: flex; border-bottom: 1px solid #eee; background: #fff;
-  position: relative;
+  display: flex; border-bottom: 1px solid #E5E7EB; position: relative;
+  padding: 0 16px;
 }
 .wf-tab {
-  flex: 1; padding: 10px 0; text-align: center; font-size: 12px;
-  color: #999; cursor: pointer; position: relative;
+  flex: 1; padding: 12px 8px; font-size: 13px; color: #9CA3AF;
+  text-align: center; cursor: pointer; position: relative; font-weight: 500;
 }
 .wf-tab.active {
   color: #2563EB; font-weight: 600;
@@ -157,160 +158,153 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   height: 2px; background: #2563EB;
 }
 
-/* Count */
-.wf-count {
-  padding: 8px 16px; font-size: 11px; color: #999;
-}
-.wf-count-num {
-  font-weight: 600; color: #333;
-}
-
-/* Product cards (list style) */
-.wf-product-list {
-  padding: 8px 16px;
-}
-.wf-product-card-list {
-  display: flex; gap: 10px; margin-bottom: 10px;
-  border: 1px solid #eee; border-radius: 8px; padding: 8px;
-  background: #fff;
-}
-.wf-product-img-list {
-  width: 80px; height: 80px; background: #E5E5E5;
-  border-radius: 6px; flex-shrink: 0; display: flex;
-  align-items: center; justify-content: center; font-size: 11px; color: #bbb;
-}
-.wf-product-info {
-  flex: 1; display: flex; flex-direction: column; justify-content: space-between;
-}
-.wf-product-tags {
-  display: flex; gap: 4px; margin-bottom: 4px;
-}
-.wf-tag { font-size: 9px; padding: 2px 6px; border-radius: 3px; white-space: nowrap; }
-.wf-tag.exchange { background: #FFF7ED; color: #EA580C; }
-.wf-tag.anime { background: #F5F3FF; color: #7C3AED; }
-.wf-tag.idol { background: #FDF2F8; color: #DB2777; }
-.wf-tag.actor { background: #FFFBEB; color: #F59E0B; }
-.wf-tag.game { background: #ECFEFF; color: #0891B2; }
-.wf-product-name {
-  font-size: 12px; font-weight: 500; margin-bottom: 3px; color: #1A1A1A;
-}
-.wf-product-meta {
-  font-size: 11px; color: #888; margin-bottom: 3px;
-}
-.wf-product-time {
-  font-size: 10px; color: #bbb;
-}
-
-/* Empty state */
-.wf-empty-state {
-  display: flex; flex-direction: column; align-items: center;
-  justify-content: center; padding: 60px 16px; text-align: center;
-}
-.wf-empty-icon {
-  width: 40px; height: 40px; margin-bottom: 12px;
-  color: #ccc;
-}
-.wf-empty-title {
-  font-size: 14px; font-weight: 600; color: #333; margin-bottom: 6px;
-}
-.wf-empty-desc {
-  font-size: 12px; color: #999;
-}
-
-/* Bottom Sheet */
-.wf-dimmer {
-  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.4); z-index: 30;
-}
-.wf-bottom-sheet {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  background: #fff; border-radius: 16px 16px 0 0; z-index: 40;
-  box-shadow: 0 -4px 12px rgba(0,0,0,0.1); max-height: 80vh; overflow-y: auto;
-  padding-bottom: 20px;
-}
-.wf-sheet-handle {
-  width: 40px; height: 4px; background: #E5E5E5;
-  border-radius: 2px; margin: 8px auto;
-}
-.wf-sheet-header {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 12px 16px; border-bottom: 1px solid #eee;
-}
-.wf-sheet-title {
-  font-size: 14px; font-weight: 600; color: #333;
-}
-.wf-sheet-reset {
-  font-size: 11px; color: #2563EB; cursor: pointer; text-decoration: none;
-}
-.wf-filter-group {
-  padding: 16px;
-  border-bottom: 1px solid #f0f0f0;
-}
-.wf-filter-group-title {
-  font-size: 12px; font-weight: 600; color: #333; margin-bottom: 10px;
-}
-.wf-filter-chips {
-  display: flex; flex-wrap: wrap; gap: 6px;
+/* Filter bar */
+.wf-filter-bar {
+  display: flex; gap: 8px; padding: 8px 16px; overflow-x: auto; border-bottom: 1px solid #E5E7EB;
+  scroll-behavior: smooth;
 }
 .wf-filter-chip {
-  padding: 6px 10px; border-radius: 16px; border: 1px solid #E5E5E5;
-  font-size: 11px; color: #555; background: #fff; cursor: pointer;
+  padding: 6px 12px; border-radius: 6px; font-size: 12px;
+  background: #fff; color: #374151; border: 1px solid #E5E7EB;
+  white-space: nowrap; cursor: pointer; flex-shrink: 0;
+  display: flex; align-items: center; gap: 4px;
 }
-.wf-filter-chip.selected {
-  background: #F3E8FF; border-color: #8B5CF6; color: #7C3AED;
+.wf-filter-chip.active {
+  background: #EFF6FF; color: #2563EB; border: 1px solid #2563EB;
 }
-.wf-checkbox-group {
-  display: flex; flex-direction: column; gap: 10px;
+.wf-filter-chip.primary {
+  background: transparent; border: none; color: #2563EB;
+  font-weight: 600; padding: 6px 4px;
 }
-.wf-checkbox-item {
-  display: flex; align-items: center; gap: 8px; font-size: 12px; color: #555;
+
+/* Result count */
+.wf-result-count {
+  padding: 12px 16px; font-size: 12px; color: #6B7280;
+}
+
+/* Search result card list */
+.wf-result-list {
+  padding: 8px 16px;
+}
+.wf-result-card {
+  display: flex; gap: 8px; padding: 8px 0; border-bottom: 1px solid #F0F0F0;
+}
+.wf-result-card:last-child { border-bottom: none; }
+.wf-result-img {
+  width: 80px; height: 80px; background: #E5E5E5;
+  border-radius: 8px; flex-shrink: 0; display: flex;
+  align-items: center; justify-content: center; font-size: 11px; color: #bbb;
+}
+.wf-result-body { flex: 1; }
+.wf-result-tags {
+  display: flex; gap: 4px; margin-bottom: 4px;
+}
+.wf-result-tag {
+  font-size: 9px; padding: 2px 6px; border-radius: 3px;
+  background: #F3F4F6; color: #6B7280;
+}
+.wf-result-tag.exchange { background: #FFF7ED; color: #EA580C; }
+.wf-result-tag.anime { background: #F5F3FF; color: #7C3AED; }
+.wf-result-tag.idol { background: #FDF2F8; color: #DB2777; }
+.wf-result-tag.actor { background: #FFFBEB; color: #F59E0B; }
+.wf-result-tag.game { background: #ECFEFF; color: #0891B2; }
+.wf-result-name {
+  font-size: 13px; font-weight: 600; color: #1F2937;
+  line-height: 1.3; margin-bottom: 2px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap;
+}
+.wf-result-meta { font-size: 11px; color: #9CA3AF; }
+
+/* Bottom sheet */
+.wf-bottom-sheet {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 30;
+  background: #fff; border-radius: 16px 16px 0 0;
+  max-height: 80vh; overflow-y: auto;
+  box-shadow: 0 -4px 24px rgba(0,0,0,0.1);
+}
+.wf-bottom-sheet-drag {
+  width: 40px; height: 4px; background: #D1D5DB;
+  border-radius: 2px; margin: 8px auto;
+}
+.wf-bottom-sheet-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px; border-bottom: 1px solid #E5E7EB;
+}
+.wf-bottom-sheet-title { font-size: 16px; font-weight: 700; color: #1F2937; }
+.wf-bottom-sheet-reset { font-size: 13px; color: #6B7280; cursor: pointer; }
+
+/* Filter groups */
+.wf-filter-group {
+  padding: 16px; border-bottom: 1px solid #F0F0F0;
+}
+.wf-filter-group-title {
+  font-size: 12px; font-weight: 700; color: #374151;
+  margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.wf-filter-options {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.wf-filter-option {
+  padding: 6px 12px; border-radius: 6px; font-size: 12px;
+  background: #F3F4F6; color: #374151; border: 1px solid #E5E7EB;
+  cursor: pointer; transition: all 0.2s;
+}
+.wf-filter-option.selected {
+  border: 1px solid #2563EB; background: #EFF6FF; color: #2563EB; font-weight: 600;
+}
+.wf-filter-option.selected.anime { border-color: #7C3AED; background: #F5F3FF; color: #7C3AED; }
+.wf-filter-option.selected.idol { border-color: #DB2777; background: #FDF2F8; color: #DB2777; }
+.wf-filter-option.selected.actor { border-color: #F59E0B; background: #FFFBEB; color: #F59E0B; }
+.wf-filter-option.selected.game { border-color: #0891B2; background: #ECFEFF; color: #0891B2; }
+
+/* Checkbox options */
+.wf-checkbox-option {
+  display: flex; align-items: center; gap: 8px; padding: 8px 0; cursor: pointer;
 }
 .wf-checkbox {
-  width: 18px; height: 18px; border: 1px solid #ddd; border-radius: 4px;
-  background: #fff; cursor: pointer; display: flex; align-items: center;
-  justify-content: center; flex-shrink: 0;
+  width: 18px; height: 18px; border: 1px solid #D1D5DB; border-radius: 3px;
+  background: #fff; flex-shrink: 0;
 }
-.wf-checkbox.checked {
-  background: #2563EB; border-color: #2563EB; color: #fff; font-size: 11px;
-}
+.wf-checkbox.checked { background: #2563EB; border-color: #2563EB; }
+.wf-checkbox-label { font-size: 12px; color: #374151; cursor: pointer; }
+
+/* Bottom sheet buttons */
 .wf-sheet-buttons {
-  display: flex; gap: 10px; padding: 16px;
+  display: flex; gap: 8px; padding: 16px; border-top: 1px solid #E5E7EB;
+  background: #fff;
 }
 .wf-btn {
-  flex: 1; padding: 10px; border-radius: 8px; border: none;
-  font-size: 12px; font-weight: 600; cursor: pointer;
+  padding: 10px 16px; border-radius: 6px; font-size: 12px; font-weight: 600;
+  border: none; cursor: pointer; flex: 1; text-align: center;
 }
-.wf-btn-ghost {
-  background: transparent; border: 1px solid #ddd; color: #999;
+.wf-btn-reset {
+  background: #F3F4F6; color: #374151; border: 1px solid #D1D5DB;
 }
-.wf-btn-primary {
+.wf-btn-apply {
   background: #2563EB; color: #fff;
 }
 
-/* Bottom nav */
-.wf-bottom-nav {
-  position: relative; bottom: 0; left: 0; right: 0;
-  display: flex; justify-content: space-around; align-items: center;
-  padding: 10px 0 14px; background: #fff; border-top: 1px solid #eee;
+/* Frame labels */
+.frame-label {
+  position: absolute; top: 4px; left: 4px; z-index: 5;
+  background: #374151; color: #fff; padding: 2px 6px;
+  border-radius: 3px; font-size: 10px; font-weight: 600;
 }
-.wf-nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 9px; color: #bbb; }
-.wf-nav-item.active { color: #2563EB; }
-.wf-nav-icon { font-size: 16px; }
 
 /* Revision footer */
 .revision-bar {
-  background: #FAFAFA; border-top: 1px solid #eee; padding: 12px 24px;
+  background: #fff; border-top: 1px solid #eee; padding: 12px 24px;
   font-size: 11px; color: #999;
 }
 .revision-bar table { width: 100%; border-collapse: collapse; }
-.revision-bar th { text-align: left; font-weight: 600; padding: 4px 8px; border-bottom: 1px solid #eee; }
-.revision-bar td { padding: 4px 8px; border-bottom: 1px solid #f0f0f0; }
+.revision-bar th { text-align: left; font-weight: 600; color: #666; padding: 4px 8px; border-bottom: 1px solid #eee; }
+.revision-bar td { padding: 4px 8px; }
 
-/* SVG Icon base */
-.wf-svg-icon {
-  width: 20px;
-  height: 20px;
-  color: #1A1A1A;
+@media (max-width: 900px) {
+  .main-layout { flex-direction: column; }
+  .wireframe-side { flex: none; padding: 16px; }
+  .phone-stack { justify-content: center; }
+  .desc-side { flex: none; border-left: none; border-top: 1px solid #ddd; }
 }
 </style>
 </head>
@@ -318,572 +312,469 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
 <!-- META HEADER -->
 <div class="meta-bar">
-  <span class="title">SRCH01 — 검색</span>
-  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.1</span></span>
+  <span class="title">SRCH01</span>
+  <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">검색</span></span>
   <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/search</span></span>
-  <span class="meta-item"><span class="meta-label">화면코드</span><span class="meta-value">SRCH01</span></span>
+  <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.1</span></span>
   <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
+  <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-06</span></span>
 </div>
 
-<!-- MAIN LAYOUT -->
+<!-- MAIN LAYOUT: Wireframe + Description -->
 <div class="main-layout">
 
-  <!-- ===== WIREFRAME SIDE ===== -->
+  <!-- ===== WIREFRAME ===== -->
   <div class="wireframe-side">
+    <div class="phone-stack">
 
-    <!-- FRAME 1: 검색 입력 모드 -->
-    <div class="phone-frame">
+      <!-- FRAME 1: 검색 입력 모드 -->
+      <div class="phone-frame">
+        <div class="frame-label">검색 입력 모드</div>
 
-      <!-- ① 검색 헤더 -->
-      <div class="wf-section">
-        <div class="num-circle" style="top:8px; left:6px;">1</div>
-        <div class="wf-header">
-          <button class="wf-back-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="wf-svg-icon">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-          </button>
-          <input type="text" class="wf-search-input" placeholder="작품, 캐릭터, 굿즈 검색" autofocus>
-          <button class="wf-clear-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="wf-svg-icon">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M15 9l-6 6M9 9l6 6"/>
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- ② 최근 검색어 -->
-      <div class="wf-section">
-        <div class="num-circle" style="top:4px; left:6px;">2</div>
-        <div class="wf-search-section">
-          <div class="wf-search-section-header">
-            <span class="wf-search-section-title">최근 검색어</span>
-            <a class="wf-search-section-action">전체 삭제</a>
-          </div>
-          <div class="wf-search-chips">
-            <div class="wf-search-chip">
-              하츠네 미쿠<span class="wf-search-chip-x">×</span>
-            </div>
-            <div class="wf-search-chip">
-              아이브 포카<span class="wf-search-chip-x">×</span>
-            </div>
-            <div class="wf-search-chip">
-              원신 카즈하<span class="wf-search-chip-x">×</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ③ 인기 검색어 -->
-      <div class="wf-section">
-        <div class="num-circle" style="top:4px; left:6px;">3</div>
-        <div class="wf-search-section">
-          <div class="wf-search-section-header">
-            <span class="wf-search-section-title">인기 검색어</span>
-            <span style="font-size:10px; color:#999;">24시간 갱신</span>
-          </div>
-          <div class="wf-search-chips">
-            <div class="wf-search-chip popular">
-              <span style="font-weight:600;">1</span> 하이큐
-            </div>
-            <div class="wf-search-chip popular">
-              <span style="font-weight:600;">2</span> 원신
-            </div>
-            <div class="wf-search-chip popular">
-              <span style="font-weight:600;">3</span> 아이브
-            </div>
-            <div class="wf-search-chip popular">
-              <span style="font-weight:600;">4</span> 하츠네 미쿠
-            </div>
-            <div class="wf-search-chip popular">
-              <span style="font-weight:600;">5</span> NCT
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /phone-frame -->
-
-    <!-- FRAME 2: 검색 결과 -->
-    <div class="phone-frame">
-
-      <!-- ① 검색 헤더 (검색어 입력) -->
-      <div class="wf-section">
-        <div class="num-circle" style="top:8px; left:6px;">4</div>
-        <div class="wf-header">
-          <button class="wf-back-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="wf-svg-icon">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-          </button>
-          <input type="text" class="wf-search-input" value="하츠네 미쿠" style="border-color:#2563EB;">
-          <button class="wf-clear-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="wf-svg-icon">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M15 9l-6 6M9 9l6 6"/>
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- ② 거래 유형 탭 -->
-      <div class="wf-section">
-        <div class="num-circle" style="top:4px; left:6px;">5</div>
-        <div class="wf-tabs">
-          <div class="wf-tab active">전체 <span style="color:#999;">(42)</span></div>
-          <div class="wf-tab">교환 <span style="color:#999;">(28)</span></div>
-          <div class="wf-tab">공구 <span style="color:#999;">(10)</span></div>
-          <div class="wf-tab">구함 <span style="color:#999;">(4)</span></div>
-        </div>
-      </div>
-
-      <!-- ③ 필터 & 정렬 칩 바 -->
-      <div class="wf-section">
-        <div class="num-circle" style="top:4px; left:6px;">6</div>
-        <div class="wf-filter-bar">
-          <div class="wf-chip">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px; height:12px; display:inline; margin-right:3px;">
-              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
-            </svg>
-            필터
-          </div>
-          <div class="wf-chip selected">애니/만화</div>
-          <div class="wf-chip">최신순 ↓</div>
-          <div class="wf-chip">거래 가능</div>
-        </div>
-      </div>
-
-      <!-- ④ 검색 결과 수 -->
-      <div class="wf-section">
-        <div class="num-circle" style="top:2px; left:6px;">7</div>
-        <div class="wf-count">검색 결과 <span class="wf-count-num">42</span>건</div>
-      </div>
-
-      <!-- ⑤ 검색 결과 카드 -->
-      <div class="wf-section">
-        <div class="num-circle" style="top:4px; left:6px;">8</div>
-        <div class="wf-product-list">
-          <!-- Card 1 -->
-          <div class="wf-product-card-list">
-            <div class="wf-product-img-list">IMG</div>
-            <div class="wf-product-info">
-              <div style="flex:1;">
-                <div class="wf-product-tags">
-                  <span class="wf-tag exchange">교환</span>
-                  <span class="wf-tag anime">애니/만화</span>
-                </div>
-                <div class="wf-product-name">하츠네 미쿠 포토카드</div>
-              </div>
-              <div style="font-size:10px; color:#999;">2시간 전 · 조회 24</div>
-            </div>
-          </div>
-          <!-- Card 2 -->
-          <div class="wf-product-card-list">
-            <div class="wf-product-img-list">IMG</div>
-            <div class="wf-product-info">
-              <div style="flex:1;">
-                <div class="wf-product-tags">
-                  <span class="wf-tag exchange">교환</span>
-                  <span class="wf-tag anime">애니/만화</span>
-                </div>
-                <div class="wf-product-name">미쿠 아크릴 스탠드</div>
-              </div>
-              <div style="font-size:10px; color:#999;">5시간 전 · 조회 12</div>
-            </div>
-          </div>
-          <!-- Card 3 -->
-          <div class="wf-product-card-list">
-            <div class="wf-product-img-list">IMG</div>
-            <div class="wf-product-info">
-              <div style="flex:1;">
-                <div class="wf-product-tags">
-                  <span class="wf-tag anime">애니/만화</span>
-                </div>
-                <div class="wf-product-name">미쿠 굿즈 세트</div>
-              </div>
-              <div style="font-size:10px; color:#999;">1일 전 · 조회 45</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /phone-frame -->
-
-    <!-- FRAME 3: 필터 바텀시트 -->
-    <div class="phone-frame" style="position:relative;">
-      <div class="wf-dimmer"></div>
-
-      <div class="wf-section">
-        <div class="num-circle" style="top:4px; left:6px;">9</div>
-      </div>
-
-      <div class="wf-bottom-sheet">
-        <div class="wf-sheet-handle"></div>
-
-        <!-- Header -->
-        <div class="wf-sheet-header">
-          <span class="wf-sheet-title">필터</span>
-          <a class="wf-sheet-reset">초기화</a>
-        </div>
-
-        <!-- 카테고리 -->
-        <div class="wf-filter-group">
-          <div class="wf-filter-group-title">카테고리</div>
-          <div class="wf-filter-chips">
-            <div class="wf-filter-chip selected" style="background:#F3E8FF; border-color:#8B5CF6;">
-              애니/만화/소설
-            </div>
-            <div class="wf-filter-chip">
-              아이돌/아티스트
-            </div>
-            <div class="wf-filter-chip">
-              배우/무대
-            </div>
-            <div class="wf-filter-chip">
-              게임
+        <!-- ① 검색 헤더 -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:6px; left:6px;">1</div>
+          <div class="wf-header">
+            <button class="wf-back-btn">‹</button>
+            <div class="wf-search-input">
+              <span class="wf-search-input-icon">🔍</span>
+              <span class="wf-search-input-text">작품, 캐릭터, 굿즈 검색</span>
             </div>
           </div>
         </div>
 
-        <!-- 굿즈 타입 -->
-        <div class="wf-filter-group">
-          <div class="wf-filter-group-title">굿즈 타입</div>
-          <div class="wf-filter-chips">
-            <div class="wf-filter-chip selected">
+        <!-- ② 최근 검색어 -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">2</div>
+          <div class="wf-section-header">
+            <span>최근 검색어</span>
+            <span class="wf-section-action">전체 삭제</span>
+          </div>
+          <div class="wf-chips-row">
+            <div class="wf-chip">
+              하이큐
+              <span class="wf-chip-remove">×</span>
+            </div>
+            <div class="wf-chip">
+              세븐틴
+              <span class="wf-chip-remove">×</span>
+            </div>
+            <div class="wf-chip">
+              원신
+              <span class="wf-chip-remove">×</span>
+            </div>
+            <div class="wf-chip">
               포토카드
-            </div>
-            <div class="wf-filter-chip">
-              아크릴
-            </div>
-            <div class="wf-filter-chip">
-              인형/플러시
-            </div>
-            <div class="wf-filter-chip">
-              앨범/CD
-            </div>
-            <div class="wf-filter-chip">
-              기타
+              <span class="wf-chip-remove">×</span>
             </div>
           </div>
         </div>
 
-        <!-- 상품 상태 -->
-        <div class="wf-filter-group">
-          <div class="wf-filter-group-title">상품 상태</div>
-          <div class="wf-filter-chips">
-            <div class="wf-filter-chip">S급</div>
-            <div class="wf-filter-chip">A급</div>
-            <div class="wf-filter-chip">B급</div>
-            <div class="wf-filter-chip">C급</div>
+        <!-- ③ 인기 검색어 -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">3</div>
+          <div class="wf-section-header">
+            <span>인기 검색어</span>
+            <span class="wf-section-action">방금 갱신</span>
+          </div>
+          <div class="wf-chips-row">
+            <div class="wf-chip popular">1 하이큐</div>
+            <div class="wf-chip popular">2 세븐틴</div>
+            <div class="wf-chip popular">3 원신</div>
+            <div class="wf-chip popular">4 아크릴</div>
+            <div class="wf-chip popular">5 포토카드</div>
+            <div class="wf-chip popular">6 뉴진스</div>
           </div>
         </div>
 
-        <!-- 거래 방법 -->
-        <div class="wf-filter-group">
-          <div class="wf-filter-group-title">거래 방법</div>
-          <div class="wf-filter-chips">
-            <div class="wf-filter-chip selected">택배</div>
-            <div class="wf-filter-chip">직거래</div>
-            <div class="wf-filter-chip">둘 다</div>
+      </div><!-- end phone-frame 1 -->
+
+      <!-- FRAME 2: 검색 결과 모드 -->
+      <div class="phone-frame">
+        <div class="frame-label">검색 결과 모드</div>
+
+        <!-- ① 검색 헤더 (결과 모드) -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:6px; left:6px;">1</div>
+          <div class="wf-header">
+            <button class="wf-back-btn">‹</button>
+            <div class="wf-search-input">
+              <span class="wf-search-input-icon">🔍</span>
+              <span class="wf-search-input-text">하이큐</span>
+            </div>
+            <button class="wf-search-input-clear">×</button>
           </div>
         </div>
 
-        <!-- 정렬 -->
-        <div class="wf-filter-group">
-          <div class="wf-filter-group-title">정렬</div>
-          <div class="wf-filter-chips">
-            <div class="wf-filter-chip selected">최신순</div>
-            <div class="wf-filter-chip">인기순</div>
-            <div class="wf-filter-chip">조회순</div>
+        <!-- ② 거래 유형 탭 -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">2</div>
+          <div class="wf-tabs">
+            <div class="wf-tab active">전체<br><span style="font-size:10px; color:#9CA3AF;">(24)</span></div>
+            <div class="wf-tab">교환<br><span style="font-size:10px; color:#9CA3AF;">(12)</span></div>
+            <div class="wf-tab">공구<br><span style="font-size:10px; color:#9CA3AF;">(8)</span></div>
+            <div class="wf-tab">구함<br><span style="font-size:10px; color:#9CA3AF;">(4)</span></div>
           </div>
         </div>
 
-        <!-- 추가 옵션 -->
-        <div class="wf-filter-group">
-          <div class="wf-filter-group-title">추가 옵션</div>
-          <div class="wf-checkbox-group">
-            <div class="wf-checkbox-item">
-              <div class="wf-checkbox checked">
-                <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style="width:12px; height:12px;">
-                  <path d="M20 6L9 17l-5-5"/>
-                </svg>
+        <!-- ③ 필터 & 정렬 칩 바 -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">3</div>
+          <div class="wf-filter-bar">
+            <div class="wf-filter-chip primary">필터</div>
+            <div class="wf-filter-chip active">애니/만화</div>
+            <div class="wf-filter-chip active">최신순</div>
+            <div class="wf-filter-chip">거래 가능</div>
+          </div>
+        </div>
+
+        <!-- ④ 결과 건수 -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:4px; left:6px;">4</div>
+          <div class="wf-result-count">
+            검색 결과 <strong>12</strong>건
+          </div>
+        </div>
+
+        <!-- ⑤ 검색 결과 카드 리스트 -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">5</div>
+          <div class="wf-result-list">
+            <div class="wf-result-card">
+              <div class="wf-result-img">IMG</div>
+              <div class="wf-result-body">
+                <div class="wf-result-tags">
+                  <span class="wf-result-tag exchange">교환</span>
+                  <span class="wf-result-tag anime">애니/만화</span>
+                </div>
+                <div class="wf-result-name">하이큐 히나타 아크릴 스탠드</div>
+                <div class="wf-result-meta">하이큐 · 히나타 쇼요</div>
+                <div class="wf-result-meta">1시간 전 · 조회 24회</div>
               </div>
-              차액 협의 가능만
             </div>
-            <div class="wf-checkbox-item">
-              <div class="wf-checkbox">
+            <div class="wf-result-card">
+              <div class="wf-result-img">IMG</div>
+              <div class="wf-result-body">
+                <div class="wf-result-tags">
+                  <span class="wf-result-tag exchange">교환+차액</span>
+                  <span class="wf-result-tag anime">애니/만화</span>
+                </div>
+                <div class="wf-result-name">하이큐 카게야마 포토카드 4종</div>
+                <div class="wf-result-meta">하이큐 · 카게야마</div>
+                <div class="wf-result-meta">3시간 전 · 조회 12회</div>
               </div>
-              거래 가능만
+            </div>
+            <div class="wf-result-card">
+              <div class="wf-result-img">IMG</div>
+              <div class="wf-result-body">
+                <div class="wf-result-tags">
+                  <span class="wf-result-tag" style="background:#FFF7ED; color:#EA580C;">공구</span>
+                  <span class="wf-result-tag anime">애니/만화</span>
+                </div>
+                <div class="wf-result-name">하이큐 아크릴 스탠드 풀세트</div>
+                <div class="wf-result-meta">하이큐 · 전캐릭터</div>
+                <div class="wf-result-meta">5/8명 · 마감 D-5</div>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Buttons -->
-        <div class="wf-sheet-buttons">
-          <button class="wf-btn wf-btn-ghost">초기화</button>
-          <button class="wf-btn wf-btn-primary">42건 보기</button>
+      </div><!-- end phone-frame 2 -->
+
+      <!-- FRAME 3: 필터 바텀시트 -->
+      <div class="phone-frame" style="position: relative;">
+        <div class="frame-label">필터 바텀시트</div>
+
+        <!-- Dimmed background (light visualization) -->
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 25;"></div>
+
+        <!-- ⑥ 바텀시트 본체 -->
+        <div class="wf-section" style="position: relative; z-index: 30;">
+          <div class="num-circle" style="top:8px; left:6px;">6</div>
+          <div class="wf-bottom-sheet">
+            <div class="wf-bottom-sheet-drag"></div>
+            <div class="wf-bottom-sheet-header">
+              <span class="wf-bottom-sheet-title">필터</span>
+              <span class="wf-bottom-sheet-reset">초기화</span>
+            </div>
+
+            <!-- 카테고리 필터 -->
+            <div class="wf-filter-group">
+              <div class="wf-filter-group-title">카테고리</div>
+              <div class="wf-filter-options">
+                <div class="wf-filter-option selected anime">애니/만화/소설</div>
+                <div class="wf-filter-option">아이돌/아티스트</div>
+                <div class="wf-filter-option">배우/무대</div>
+                <div class="wf-filter-option">게임</div>
+              </div>
+            </div>
+
+            <!-- 굿즈 타입 필터 -->
+            <div class="wf-filter-group">
+              <div class="wf-filter-group-title">굿즈 타입</div>
+              <div class="wf-filter-options">
+                <div class="wf-filter-option">포토카드</div>
+                <div class="wf-filter-option">아크릴</div>
+                <div class="wf-filter-option">인형/플러시</div>
+                <div class="wf-filter-option">앨범/CD</div>
+                <div class="wf-filter-option">기타</div>
+              </div>
+            </div>
+
+            <!-- 상품 상태 필터 -->
+            <div class="wf-filter-group">
+              <div class="wf-filter-group-title">상품 상태</div>
+              <div class="wf-filter-options">
+                <div class="wf-filter-option">S급</div>
+                <div class="wf-filter-option">A급</div>
+                <div class="wf-filter-option">B급</div>
+                <div class="wf-filter-option">C급</div>
+              </div>
+            </div>
+
+            <!-- 거래 방법 필터 -->
+            <div class="wf-filter-group">
+              <div class="wf-filter-group-title">거래 방법</div>
+              <div class="wf-filter-options">
+                <div class="wf-filter-option">택배</div>
+                <div class="wf-filter-option">직거래</div>
+                <div class="wf-filter-option">둘 다</div>
+              </div>
+            </div>
+
+            <!-- 정렬 필터 -->
+            <div class="wf-filter-group">
+              <div class="wf-filter-group-title">정렬</div>
+              <div class="wf-filter-options">
+                <div class="wf-filter-option selected">최신순</div>
+                <div class="wf-filter-option">인기순</div>
+                <div class="wf-filter-option">조회순</div>
+              </div>
+            </div>
+
+            <!-- 추가 옵션 (체크박스) -->
+            <div class="wf-filter-group">
+              <div class="wf-filter-group-title">추가 옵션</div>
+              <div>
+                <div class="wf-checkbox-option">
+                  <div class="wf-checkbox checked"></div>
+                  <span class="wf-checkbox-label">차액 협의 가능만</span>
+                </div>
+                <div class="wf-checkbox-option">
+                  <div class="wf-checkbox"></div>
+                  <span class="wf-checkbox-label">거래 가능만</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 바텀시트 버튼 -->
+            <div class="wf-sheet-buttons">
+              <button class="wf-btn wf-btn-reset">초기화</button>
+              <button class="wf-btn wf-btn-apply">12건 보기</button>
+            </div>
+          </div>
         </div>
-      </div>
 
-    </div><!-- /phone-frame -->
+      </div><!-- end phone-frame 3 -->
 
-  </div><!-- /wireframe-side -->
+    </div><!-- end phone-stack -->
+  </div><!-- end wireframe-side -->
 
-  <!-- ===== DESCRIPTION SIDE ===== -->
+  <!-- ===== DESCRIPTION ===== -->
   <div class="desc-side">
-    <div class="desc-title">SRCH01 검색</div>
-    <div class="desc-subtitle">작품, 캐릭터, 굿즈를 통합 검색하고 필터링하는 화면</div>
+    <div class="desc-title">SRCH01 — 검색</div>
+    <div class="desc-subtitle">라우트: /search &nbsp;|&nbsp; 비로그인 접근: 가능 &nbsp;|&nbsp; Phase 1</div>
 
-    <!-- ① 검색 헤더 -->
     <div class="desc-item">
       <div class="desc-num-row">
         <div class="desc-num">1</div>
         <span class="desc-comp-type">[Header]</span>
-        <span class="desc-comp-name">검색 헤더 (입력 모드)</span>
+        <span class="desc-comp-name">검색 헤더</span>
       </div>
       <div class="desc-body">
         <ul>
-          <li>좌측: 뒤로가기 버튼 (←)</li>
-          <li>중앙: 검색 인풋
+          <li>좌측: 뒤로 가기 버튼 (‹), 이전 화면 복귀</li>
+          <li>중앙: 검색 입력 필드
             <ul class="sub">
-              <li>44px 높이, 라운딩 10px, 파란색 테두리 2px</li>
-              <li>플레이스홀더: "작품, 캐릭터, 굿즈 검색"</li>
-              <li>자동 포커스 (진입 시 키보드 올라옴)</li>
+              <li>placeholder: "작품, 캐릭터, 굿즈 검색"</li>
+              <li>높이 44px, border-radius 10px, 배경 #F3F4F6</li>
+              <li>포커스 시: border 2px #2563EB + ring 2px</li>
+              <li>입력값 있을 때: 우측 X 클리어 버튼 노출</li>
             </ul>
           </li>
-          <li>우측: 입력 값 지우기 버튼 (X)</li>
+          <li>초기 진입 시 자동 포커스 + 키보드 올라옴</li>
+          <li>결과 모드에서는 입력값 표시 + 수정 가능</li>
         </ul>
       </div>
     </div>
 
     <hr class="desc-divider">
 
-    <!-- ② 최근 검색어 -->
     <div class="desc-item">
       <div class="desc-num-row">
         <div class="desc-num">2</div>
-        <span class="desc-comp-type">[ChipGroup]</span>
+        <span class="desc-comp-type">[Chips]</span>
         <span class="desc-comp-name">최근 검색어</span>
       </div>
       <div class="desc-body">
         <ul>
-          <li>헤더: "최근 검색어" 제목 + "전체 삭제" 링크</li>
-          <li>Pill 칩 형태 (배경 Gray 100 #F0F0F0)</li>
-          <li>최대 10개 표시</li>
-          <li>개별 X 버튼으로 삭제 가능</li>
-          <li>"전체 삭제" 탭 시 모든 검색어 제거</li>
-          <li>탭 시: 해당 검색어로 검색 실행 → 결과 화면 전환</li>
+          <li>입력값 없을 때만 표시 (결과 모드에서는 숨김)</li>
+          <li>섹션 헤더: "최근 검색어" + 우측 "전체 삭제" 버튼</li>
+          <li>칩 형태: pill (border-radius 999px), 배경 #F3F4F6</li>
+          <li>각 칩 우측: X 삭제 아이콘 (개별 삭제)</li>
+          <li>저장: 로컬 스토리지 (FIFO, 최대 10개)</li>
+          <li>로그인 시 서버 동기화</li>
+          <li>0건 시: "최근 검색어가 없어요" 안내 텍스트</li>
         </ul>
       </div>
     </div>
 
     <hr class="desc-divider">
 
-    <!-- ③ 인기 검색어 -->
     <div class="desc-item">
       <div class="desc-num-row">
         <div class="desc-num">3</div>
-        <span class="desc-comp-type">[ChipGroup]</span>
+        <span class="desc-comp-type">[Chips]</span>
         <span class="desc-comp-name">인기 검색어</span>
       </div>
       <div class="desc-body">
         <ul>
-          <li>헤더: "인기 검색어" + "24시간 갱신" 타임스탐프</li>
-          <li>Pill 칩 형태 (배경 Blue 50 #EFF6FF, 텍스트 Blue 900)</li>
-          <li>순위 번호 표시 (1~5번)</li>
-          <li>24시간마다 자동 갱신 (서버에서)</li>
-          <li>탭 시: 해당 검색어로 검색 실행</li>
+          <li>입력값 없을 때만 표시</li>
+          <li>섹션 헤더: "인기 검색어" + 우측 갱신 시각 (예: "방금 갱신")</li>
+          <li>칩 형태: pill, 배경 #EFF6FF, 텍스트 #2563EB</li>
+          <li>순위 번호 포함 (1~10)</li>
+          <li>데이터: 서버 집계 (24시간 기준)</li>
+          <li>칩 탭 시: 해당 검색어로 즉시 검색 실행</li>
+          <li>2열 레이아웃 (모바일), 가로 나열 (데스크톱)</li>
         </ul>
       </div>
     </div>
 
     <hr class="desc-divider">
 
-    <!-- ④ 자동완성 (미포함 - 기술 스펙) -->
     <div class="desc-item">
       <div class="desc-num-row">
-        <div class="desc-num">-</div>
-        <span class="desc-comp-type">[Dropdown]</span>
-        <span class="desc-comp-name">자동완성 (입력 중)</span>
+        <div class="desc-num">4</div>
+        <span class="desc-comp-type">[Tabs]</span>
+        <span class="desc-comp-name">거래 유형 탭</span>
       </div>
       <div class="desc-body">
         <ul>
-          <li>2자 이상 입력 시 드롭다운 표시</li>
-          <li>최대 5개 추천 검색어</li>
-          <li>일치하는 키워드는 Bold + Blue 강조</li>
-          <li>최근/인기 검색어에서 우선 추천</li>
-          <li>탭 시: 검색 실행</li>
+          <li>표시: 전체(N) | 교환(N) | 공구(N) | 구함(N)</li>
+          <li>활성 탭: #2563EB 텍스트 + 하단 2px 인디케이터</li>
+          <li>비활성 탭: #9CA3AF 텍스트</li>
+          <li>탭 전환 시 인디케이터 슬라이드 애니메이션</li>
+          <li>각 탭 내 건수 표시 (결과 모드에서만 노출)</li>
+          <li>탭 전환 시: 해당 유형 결과만 필터링 (다른 필터는 유지)</li>
         </ul>
       </div>
     </div>
 
     <hr class="desc-divider">
 
-    <!-- ⑤ 거래 유형 탭 -->
     <div class="desc-item">
       <div class="desc-num-row">
         <div class="desc-num">5</div>
-        <span class="desc-comp-type">[Tabs]</span>
-        <span class="desc-comp-name">거래 유형 필터 탭</span>
+        <span class="desc-comp-type">[Card]</span>
+        <span class="desc-comp-name">검색 결과 카드</span>
       </div>
       <div class="desc-body">
         <ul>
-          <li>4개 탭: 전체 | 교환 | 공구 | 구함</li>
-          <li>각 탭에 결과 건수 표시</li>
-          <li>활성 탭: 파란색 텍스트 + 하단 인디케이터 (2px)</li>
-          <li>탭 전환 시 인디케이터 슬라이드 애니메이션</li>
-          <li>탭 선택 시: 결과 목록 즉시 필터링</li>
+          <li>레이아웃: 리스트형 (좌측 이미지 80×80 + 우측 정보)</li>
+          <li>카드 구성:
+            <ul class="sub">
+              <li>이미지 썸네일 (80×80px, border-radius 8px, object-fit: cover)</li>
+              <li>태그: [거래유형] + [카테고리]</li>
+              <li>상품명 (13px Bold, 1줄 ellipsis)</li>
+              <li>작품명 · 캐릭터명 (11px #9CA3AF)</li>
+              <li>등록 시간 / 조회수 또는 공구 진행률</li>
+            </ul>
+          </li>
+          <li>카드 간격: 8px</li>
+          <li>카드 탭 시: 해당 상세 페이지로 이동</li>
+          <li>로딩 시: 스켈레톤 UI (펄스 애니메이션)</li>
         </ul>
       </div>
     </div>
 
     <hr class="desc-divider">
 
-    <!-- ⑥ 필터 & 정렬 칩 바 -->
     <div class="desc-item">
       <div class="desc-num-row">
         <div class="desc-num">6</div>
-        <span class="desc-comp-type">[ChipBar]</span>
-        <span class="desc-comp-name">필터 & 정렬 칩 바</span>
-      </div>
-      <div class="desc-body">
-        <ul>
-          <li>가로 스크롤 칩 바</li>
-          <li>항목:
-            <ul class="sub">
-              <li>"필터" 칩 (필터 아이콘 + 텍스트) → 탭 시 바텀시트 올라옴</li>
-              <li>선택된 카테고리 칩 (파란색 배경) + X로 삭제 가능</li>
-              <li>"최신순 ↓" 등 정렬 옵션</li>
-              <li>"거래 가능" 등 상태 필터</li>
-            </ul>
-          </li>
-          <li>칩 탭 시: 필터값 변경 → 결과 즉시 업데이트</li>
-        </ul>
-      </div>
-    </div>
-
-    <hr class="desc-divider">
-
-    <!-- ⑦ 결과 카드 -->
-    <div class="desc-item">
-      <div class="desc-num-row">
-        <div class="desc-num">8</div>
-        <span class="desc-comp-type">[CardList]</span>
-        <span class="desc-comp-name">검색 결과 카드 (리스트형)</span>
-      </div>
-      <div class="desc-body">
-        <ul>
-          <li>리스트형 카드 (그리드 아님)</li>
-          <li>구조: 좌측 이미지(80×80) + 우측 정보
-            <ul class="sub">
-              <li>이미지: 1:1 비율, object-fit: cover</li>
-              <li>태그: [거래유형] + [카테고리] (필터 칩과 동일 스타일)</li>
-              <li>상품명 (1~2줄)</li>
-              <li>시간 + 조회수 (Gray 400)</li>
-            </ul>
-          </li>
-          <li>무한 스크롤 (Intersection Observer)</li>
-          <li>카드 탭 시: 교환상세(EXCH02) 또는 공구상세(GRPB02) 이동 (거래유형별)</li>
-        </ul>
-      </div>
-    </div>
-
-    <hr class="desc-divider">
-
-    <!-- ⑨ 필터 바텀시트 -->
-    <div class="desc-item">
-      <div class="desc-num-row">
-        <div class="desc-num">9</div>
         <span class="desc-comp-type">[BottomSheet]</span>
         <span class="desc-comp-name">필터 바텀시트</span>
       </div>
       <div class="desc-body">
         <ul>
-          <li>배경: 어두운 오버레이 (rgba 0,0,0,0.4)</li>
-          <li>시트: 하단 border-radius 16px 16px 0 0</li>
-          <li>드래그 핸들 (40×4px, 상단)</li>
-          <li>헤더: "필터" 제목 + "초기화" 링크</li>
-          <li>필터 그룹 (각 padding 16px):
+          <li>진입: "필터" 칩 탭 시, 300ms translateY 애니메이션</li>
+          <li>UI 요소:
             <ul class="sub">
-              <li>카테고리 — 4개 칩 (Purple selected)</li>
-              <li>굿즈 타입 — 5개 칩</li>
-              <li>상품 상태 — 4개 칩 (S/A/B/C급)</li>
-              <li>거래 방법 — 3개 칩 (택배/직거래/둘다)</li>
-              <li>정렬 — 3개 칩 (최신/인기/조회)</li>
-              <li>추가 옵션 — 2개 체크박스 (차액협의, 거래가능)</li>
+              <li>드래그 핸들: 40×4px, #D1D5DB (중앙)</li>
+              <li>헤더: "필터" (18px Bold) + 우측 "초기화" (13px #6B7280)</li>
+              <li>필터 그룹: 6개 (카테고리, 굿즈 타입, 상품 상태, 거래 방법, 정렬, 추가 옵션)</li>
+              <li>하단 버튼: [초기화] (Ghost) + [N건 보기] (Primary)</li>
             </ul>
           </li>
-          <li>하단 버튼 (2개):
-            <ul class="sub">
-              <li>"초기화" — Ghost 스타일 (회색 테두리)</li>
-              <li>"N건 보기" — Primary Blue 스타일</li>
-            </ul>
-          </li>
+          <li>Desktop (768px+): 중앙 모달 전환, 최대 너비 480px</li>
+          <li>닫기: 딤 배경 탭 또는 드래그 아래로</li>
         </ul>
       </div>
     </div>
 
     <hr class="desc-divider">
 
-    <!-- 빈 검색 결과 상태 -->
-    <div class="desc-item">
-      <div class="desc-num-row">
-        <span class="desc-comp-name" style="font-size:13px;">검색 결과 없음 상태</span>
-      </div>
-      <div class="desc-body">
+    <div style="margin-top:16px;">
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">화면 상태</div>
+      <div class="desc-body" style="padding-left:0;">
         <ul>
-          <li>중앙 정렬된 콘텐츠</li>
-          <li>큰 검색 아이콘 (40px, 회색)</li>
-          <li>"검색 결과가 없어요" (14px, 600 weight)</li>
-          <li>"다른 키워드로 검색해 보세요" (12px, Gray 500)</li>
-          <li>선택 해제 후 새로 검색하기 유도</li>
+          <li><strong>초기 진입</strong>: 검색 입력 모드, 최근/인기 검색어 표시, 키보드 올라옴</li>
+          <li><strong>검색 중 (디바운스)</strong>: 자동완성 드롭다운 표시, 최대 5개 항목</li>
+          <li><strong>결과 모드</strong>: 거래 유형 탭 + 필터 칩 바 + 카드 리스트</li>
+          <li><strong>필터 바텀시트 열림</strong>: 딤 배경 + 바텀시트, 스크롤 고정</li>
+          <li><strong>빈 결과</strong>: 검색 아이콘 + "검색 결과가 없어요" + "다른 키워드로 검색해 보세요" + CTA 버튼</li>
+          <li><strong>로딩</strong>: 각 카드 스켈레톤 UI (펄스 애니메이션)</li>
+          <li><strong>에러</strong>: "데이터를 불러올 수 없습니다" + 재시도 버튼</li>
         </ul>
       </div>
     </div>
 
-    <hr class="desc-divider">
-
-    <!-- 연관 화면 -->
-    <div class="desc-item">
-      <div class="desc-num-row">
-        <span class="desc-comp-name" style="font-size:13px;">연관 화면</span>
+    <!-- Connected screens -->
+    <div style="margin-top:16px;">
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">연관 화면</div>
+      <div class="desc-body" style="padding-left:0;">
+        <table style="width:100%; font-size:11px; border-collapse:collapse;">
+          <thead>
+            <tr style="border-bottom:1px solid #eee;">
+              <th style="text-align:left; padding:4px 8px; color:#888;">이동 대상</th>
+              <th style="text-align:left; padding:4px 8px; color:#888;">조건</th>
+              <th style="text-align:left; padding:4px 8px; color:#888;">화면코드</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:4px 8px;">검색 입력 모드 (이전)</td><td style="padding:4px 8px;">뒤로 버튼 (결과 모드)</td><td style="padding:4px 8px;">SRCH01</td></tr>
+            <tr><td style="padding:4px 8px;">이전 화면</td><td style="padding:4px 8px;">뒤로 버튼 (입력 모드)</td><td style="padding:4px 8px;">-</td></tr>
+            <tr><td style="padding:4px 8px;">교환 상세</td><td style="padding:4px 8px;">교환 카드 탭</td><td style="padding:4px 8px;">EXCH02</td></tr>
+            <tr><td style="padding:4px 8px;">공구 상세</td><td style="padding:4px 8px;">공구 카드 탭</td><td style="padding:4px 8px;">GRPB02/03</td></tr>
+            <tr><td style="padding:4px 8px;">구함 상세</td><td style="padding:4px 8px;">구함 카드 탭</td><td style="padding:4px 8px;">WANT02</td></tr>
+          </tbody>
+        </table>
       </div>
-      <table class="conn-table">
-        <thead>
-          <tr><th>이동 대상</th><th>조건</th><th>화면코드</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>메인 홈</td><td>뒤로가기 버튼</td><td class="code">HOME01</td></tr>
-          <tr><td>교환 목록</td><td>검색 결과 (교환)</td><td class="code">EXCH01</td></tr>
-          <tr><td>교환 상세</td><td>결과 카드 탭 (교환)</td><td class="code">EXCH02</td></tr>
-          <tr><td>공구 목록</td><td>검색 결과 (공구)</td><td class="code">GRPB01</td></tr>
-          <tr><td>공구 상세</td><td>결과 카드 탭 (공구)</td><td class="code">GRPB02</td></tr>
-        </tbody>
-      </table>
     </div>
 
-    <!-- 화면 상태 -->
-    <div class="states-section">
-      <div class="states-title">화면 상태 체크리스트</div>
-      <div class="states-item"><strong>초기 진입</strong>: 검색 인풋 포커스 + 최근/인기 검색어 표시</div>
-      <div class="states-item"><strong>입력 중</strong>: 2자 이상 시 자동완성 드롭다운 표시</div>
-      <div class="states-item"><strong>검색 완료</strong>: 결과 탭 + 필터 칩 + 카드 목록</div>
-      <div class="states-item"><strong>필터 활성</strong>: 바텀시트 올라옴 (z-index 40)</div>
-      <div class="states-item"><strong>빈 결과</strong>: 검색 아이콘 + 안내 메시지 + 다시 검색 유도</div>
-      <div class="states-item"><strong>로딩</strong>: 무한 스크롤 하단 로딩 시 스켈레톤 카드 표시</div>
-      <div class="states-item"><strong>필터 선택</strong>: 칩에 배경색 변경 + "N건 보기" 버튼 활성화</div>
-    </div>
+  </div><!-- end desc-side -->
 
-  </div><!-- /desc-side -->
-</div><!-- /main-layout -->
+</div><!-- end main-layout -->
 
 <!-- REVISION FOOTER -->
 <div class="revision-bar">
   <table>
-    <thead><tr><th>날짜</th><th>버전</th><th>내용</th></tr></thead>
+    <thead>
+      <tr><th>날짜</th><th>버전</th><th>내용</th><th>작성자</th></tr>
+    </thead>
     <tbody>
-      <tr><td>2026-03-06</td><td>0.1</td><td>초안 작성: 검색 입력, 결과, 필터 바텀시트 3 frames</td></tr>
+      <tr><td>2026-03-06</td><td>0.1</td><td>초안 작성 -- 검색 입력/결과/필터 바텀시트 3개 모드 와이어프레임 완성</td><td>AI (Claude)</td></tr>
     </tbody>
   </table>
 </div>

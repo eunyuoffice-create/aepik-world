@@ -209,13 +209,118 @@
 
 ## 6. 와이어프레임 HTML 작성 규칙
 
-- **구조**: 좌측 폰 프레임 (375×812) + 우측 문서화 패널
-- **폰 프레임**: 실제 모바일 UI 와이어프레임 (회색톤)
-- **우측 패널**: 탭 구조 (구성요소 / 인터랙션 / 비즈니스 로직)
-- **반응형**: 모바일 퍼스트, 2 브레이크포인트 (0~767px / 768px+)
-- **카테고리 컬러**: Purple/Pink/Amber/Cyan (4대 카테고리)
+> **레퍼런스 파일: `wireframe/HOME01_메인홈.html`**
+> 모든 와이어프레임 HTML은 HOME01의 레이아웃·CSS·디스크립션 구조를 **그대로** 따라야 합니다.
+
+### 6-1. 전체 구조 (필수)
+
+| 영역 | 클래스 | 스타일 |
+|------|--------|--------|
+| **메타 헤더** | `.meta-bar` | 흰 배경, `border-bottom: 2px solid #2563EB`, padding 12px 24px |
+| **메인 레이아웃** | `.main-layout` | `display: flex; min-height: calc(100vh - 48px)` |
+| **와이어프레임 영역** | `.wireframe-side` | `flex: 0 0 55%; background: #EAEAEA; padding: 32px; justify-content: center` |
+| **디스크립션 영역** | `.desc-side` | `flex: 0 0 45%; background: #fff; padding: 24px 28px; border-left: 1px solid #ddd` |
+| **리비전 푸터** | `.revision-bar` | 흰 배경, `border-top: 1px solid #eee`, table 형태 (날짜/버전/내용/작성자) |
+
+### 6-2. 메타 헤더 (.meta-bar)
+
+```html
+<div class="meta-bar">
+  <span class="title">XXXX</span>  <!-- 화면코드 -->
+  <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">화면명</span></span>
+  <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/route</span></span>
+  <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.1</span></span>
+  <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
+  <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-06</span></span>
+</div>
+```
+
+### 6-3. 폰 프레임
+
+- 너비: **375px**, 흰 배경, `border-radius: 16px`, `box-shadow: 0 4px 24px rgba(0,0,0,0.12)`
+- **두꺼운 테두리(border: 8px solid #333) 금지**, 노치 시뮬레이션(`::before`) 금지
+- 다중 프레임 필요 시: `.phone-stack` (`display: flex; flex-direction: column; gap: 24px`) 안에 여러 `.phone-frame`을 세로 배치
+- 각 프레임 위에 `<div class="frame-label">프레임명</div>` 라벨 추가 가능
+
+### 6-4. 넘버 서클 (와이어프레임 위 번호 뱃지)
+
+```css
+.num-circle {
+  position: absolute; z-index: 10;
+  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+```
+
+- 와이어프레임 각 섹션(`.wf-section`)의 좌상단에 절대 위치로 배치
+- 번호는 디스크립션 패널의 번호와 1:1 대응
+
+### 6-5. 디스크립션 패널 (우측) — 반드시 플랫 넘버드 리스트
+
+> **탭(Tab) 구조 금지** — 모든 항목을 평면 번호 리스트로 나열합니다.
+
+각 항목의 구조:
+```html
+<div class="desc-item">
+  <div class="desc-num-row">
+    <div class="desc-num">1</div>                    <!-- 22px 파란 원 -->
+    <span class="desc-comp-type">[Header]</span>      <!-- 10px 회색 배경 태그 -->
+    <span class="desc-comp-name">앱 헤더</span>       <!-- 14px 600 weight -->
+  </div>
+  <div class="desc-body">
+    <ul>
+      <li>설명 항목 1</li>
+      <li>설명 항목 2
+        <ul class="sub">
+          <li>하위 항목 (└ 접두사)</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+<hr class="desc-divider">  <!-- 점선 구분선: border-top: 1px dashed #eee -->
+```
+
+- `desc-body`: `padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7`
+- 불릿: `•` (파란색 #2563EB), 서브 불릿: `└` (회색 #ccc)
+
+### 6-6. 디스크립션 하단 필수 섹션
+
+번호 항목 이후 반드시 아래 2개 섹션을 포함:
+
+1. **화면 상태** — 로딩/빈 상태/에러/비로그인 등
+2. **연관 화면** — 테이블 (이동 대상 / 조건 / 화면코드) 3열
+
+### 6-7. 리비전 푸터
+
+```html
+<div class="revision-bar">
+  <table>
+    <thead><tr><th>날짜</th><th>버전</th><th>내용</th><th>작성자</th></tr></thead>
+    <tbody><tr><td>2026-03-06</td><td>0.1</td><td>초안 작성</td><td>-</td></tr></tbody>
+  </table>
+</div>
+```
+
+### 6-8. 반응형
+
+```css
+@media (max-width: 900px) {
+  .main-layout { flex-direction: column; }
+  .wireframe-side { flex: none; padding: 16px; }
+  .desc-side { flex: none; border-left: none; border-top: 1px solid #ddd; }
+}
+```
+
+### 6-9. 기타 규칙
+
+- **CSS 기반**: HOME01의 CSS 블록을 그대로 복사한 뒤, 화면별 와이어프레임 요소 스타일만 추가
+- **카테고리 컬러**: Purple(#8B5CF6)/Pink(#EC4899)/Amber(#F59E0B)/Cyan(#06B6D4)
 - **WBS 링크**: 새 와이어프레임 생성 시 WBS의 산출물 열에 `<a class="wire-link" href="파일명.html">` 추가
 - **이모지 사용 금지**: 와이어프레임 HTML, 기획서 MD 등 모든 산출물에 이모지(emoji) 사용 금지. 아이콘이 필요한 경우 Lucide 스타일 인라인 SVG 아이콘 사용 (`viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"`). HOME01_디자인시안.html의 아이콘 패턴 참고
+- **독립 실행**: 단일 HTML 파일, 외부 의존성 없음
 
 ### 공통 디자인 시스템 참고 필수
 

@@ -19,7 +19,9 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 .meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
 
 /* ===== MAIN LAYOUT ===== */
-.main-layout { display: flex; min-height: calc(100vh - 48px); }
+.main-layout {
+  display: flex; min-height: calc(100vh - 48px);
+}
 
 /* ===== WIREFRAME SIDE ===== */
 .wireframe-side {
@@ -39,8 +41,11 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 }
 .desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
 .desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+
 .desc-item { margin-bottom: 20px; }
-.desc-num-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.desc-num-row {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+}
 .desc-num {
   background: #2563EB; color: #fff; width: 22px; height: 22px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
@@ -48,28 +53,20 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 }
 .desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
 .desc-comp-name { font-size: 14px; font-weight: 600; }
+
 .desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
 .desc-body ul { list-style: none; }
 .desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
 .desc-body li::before { content: '•'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
 .desc-body .sub { padding-left: 14px; color: #888; }
 .desc-body .sub li::before { content: '└'; color: #ccc; }
+
 .desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
-
-/* ===== Connected Screens Table ===== */
-.conn-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px; }
-.conn-table th { background: #F5F5F5; padding: 6px 8px; text-align: left; font-weight: 600; border-bottom: 1px solid #ddd; }
-.conn-table td { padding: 6px 8px; border-bottom: 1px solid #eee; }
-.conn-table .code { color: #2563EB; font-weight: 600; }
-
-/* States section */
-.states-section { margin-top: 16px; padding: 12px; background: #FAFAFA; border-radius: 8px; border: 1px solid #eee; }
-.states-title { font-size: 12px; font-weight: 600; margin-bottom: 8px; }
-.states-item { font-size: 11px; color: #666; margin-bottom: 4px; padding-left: 14px; position: relative; }
-.states-item::before { content: '▸'; position: absolute; left: 0; color: #2563EB; }
 
 /* ===== WIREFRAME ELEMENTS ===== */
 .wf-section { position: relative; }
+
+/* Number circle overlay */
 .num-circle {
   position: absolute; z-index: 10;
   background: #2563EB; color: #fff; width: 20px; height: 20px;
@@ -181,23 +178,31 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
 /* Revision footer */
 .revision-bar {
-  background: #FAFAFA; border-top: 1px solid #eee; padding: 12px 24px;
+  background: #fff; border-top: 1px solid #eee; padding: 12px 24px;
   font-size: 11px; color: #999;
 }
 .revision-bar table { width: 100%; border-collapse: collapse; }
-.revision-bar th { text-align: left; font-weight: 600; padding: 4px 8px; border-bottom: 1px solid #eee; }
-.revision-bar td { padding: 4px 8px; border-bottom: 1px solid #f0f0f0; }
+.revision-bar th { text-align: left; font-weight: 600; color: #666; padding: 4px 8px; border-bottom: 1px solid #eee; }
+.revision-bar td { padding: 4px 8px; }
+
+@media (max-width: 900px) {
+  .main-layout { flex-direction: column; }
+  .wireframe-side { flex: none; padding: 16px; }
+  .desc-side { flex: none; border-left: none; border-top: 1px solid #ddd; }
+}
 </style>
 </head>
 <body>
 
 <!-- META HEADER -->
 <div class="meta-bar">
-  <span class="title">EXCH01 — 교환 목록</span>
-  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.2</span></span>
+  <span class="title">EXCH01</span>
+  <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">교환 목록</span></span>
   <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/exchange</span></span>
-  <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">PC / Mobile</span></span>
+  <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.2</span></span>
   <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
+  <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-06</span></span>
 </div>
 
 <!-- MAIN LAYOUT -->
@@ -279,7 +284,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <div class="wf-product-card">
             <div class="wf-product-img">IMG
               <div class="wf-badge-container">
-                <div class="wf-badge bumped">🔥 UP</div>
+                <div class="wf-badge bumped">UP</div>
               </div>
             </div>
             <div class="wf-product-body">
@@ -449,7 +454,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
               <li>이미지 우상단 뱃지 (선택):
                 <ul class="sub">
                   <li>제안 받은 매물 (본인 글): "제안 N건" 파란색 뱃지</li>
-                  <li>끌어올리기된 매물: "🔥 UP" 주황색 뱃지</li>
+                  <li>끌어올리기된 매물: "UP" 주황색 뱃지</li>
                 </ul>
               </li>
               <li>태그: [거래유형] + [카테고리]</li>
@@ -517,34 +522,42 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
     <hr class="desc-divider">
 
-    <!-- 연관 화면 -->
-    <div class="desc-item">
-      <div class="desc-num-row">
-        <span class="desc-comp-name" style="font-size:13px;">📎 연관 화면</span>
+    <!-- 화면 상태 -->
+    <div style="margin-top:16px;">
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">화면 상태</div>
+      <div class="desc-body" style="padding-left:0;">
+        <ul>
+          <li><strong>기본 상태</strong>: 필터 적용된 교환글 목록 표시</li>
+          <li><strong>로딩 상태</strong>: 스켈레톤 카드 6개 (2×3) 펄스 애니메이션</li>
+          <li><strong>빈 상태</strong>: "조건에 맞는 교환글이 없어요" + 빈 상자 일러스트 + [교환글 등록하기] CTA</li>
+          <li><strong>에러 상태</strong>: "네트워크 오류" + [다시 시도] 버튼</li>
+          <li><strong>비로그인</strong>: 목록 조회 가능, FAB 탭 시 로그인 유도</li>
+          <li><strong>뱃지 표시</strong>: 끌어올리기된 매물은 상단 정렬 + UP 뱃지 / 본인 글의 제안 있음 → 제안 N건 뱃지</li>
+        </ul>
       </div>
-      <table class="conn-table">
-        <thead>
-          <tr><th>이동 대상</th><th>조건</th><th>화면코드</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>교환 상세</td><td>카드 탭</td><td class="code">EXCH02</td></tr>
-          <tr><td>교환글 등록</td><td>FAB 탭</td><td class="code">EXCH03</td></tr>
-          <tr><td>검색</td><td>🔍 아이콘 탭</td><td class="code">SRCH01</td></tr>
-          <tr><td>홈</td><td>홈 탭 / 뒤로가기</td><td class="code">HOME01</td></tr>
-          <tr><td>로그인</td><td>비로그인 + FAB</td><td class="code">AUTH01</td></tr>
-        </tbody>
-      </table>
     </div>
 
-    <!-- 화면 상태 -->
-    <div class="states-section">
-      <div class="states-title">📋 화면 상태 체크리스트</div>
-      <div class="states-item"><strong>기본 상태</strong>: 필터 적용된 교환글 목록 표시</div>
-      <div class="states-item"><strong>로딩 상태</strong>: 스켈레톤 카드 6개 (2×3) 펄스 애니메이션</div>
-      <div class="states-item"><strong>빈 상태</strong>: "조건에 맞는 교환글이 없어요" + 빈 상자 일러스트 + [교환글 등록하기] CTA</div>
-      <div class="states-item"><strong>에러 상태</strong>: "네트워크 오류" + [다시 시도] 버튼</div>
-      <div class="states-item"><strong>비로그인</strong>: 목록 조회 가능, FAB 탭 시 로그인 유도</div>
-      <div class="states-item"><strong>뱃지 표시</strong>: 끌어올리기된 매물은 상단 정렬 + 🔥UP 뱃지 / 본인 글의 제안 있음 → 제안 N건 뱃지</div>
+    <!-- 연관 화면 -->
+    <div style="margin-top:16px;">
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">연관 화면</div>
+      <div class="desc-body" style="padding-left:0;">
+        <table style="width:100%; font-size:11px; border-collapse:collapse;">
+          <thead>
+            <tr style="border-bottom:1px solid #eee;">
+              <th style="text-align:left; padding:4px 8px; color:#888;">이동 대상</th>
+              <th style="text-align:left; padding:4px 8px; color:#888;">조건</th>
+              <th style="text-align:left; padding:4px 8px; color:#888;">화면코드</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:4px 8px;">교환 상세</td><td style="padding:4px 8px;">카드 탭</td><td style="padding:4px 8px;">EXCH02</td></tr>
+            <tr><td style="padding:4px 8px;">교환글 등록</td><td style="padding:4px 8px;">FAB 탭</td><td style="padding:4px 8px;">EXCH03</td></tr>
+            <tr><td style="padding:4px 8px;">검색</td><td style="padding:4px 8px;">🔍 아이콘 탭</td><td style="padding:4px 8px;">SRCH01</td></tr>
+            <tr><td style="padding:4px 8px;">홈</td><td style="padding:4px 8px;">홈 탭 / 뒤로가기</td><td style="padding:4px 8px;">HOME01</td></tr>
+            <tr><td style="padding:4px 8px;">로그인</td><td style="padding:4px 8px;">비로그인 + FAB</td><td style="padding:4px 8px;">AUTH01</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
   </div><!-- /desc-side -->
@@ -553,10 +566,10 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 <!-- REVISION FOOTER -->
 <div class="revision-bar">
   <table>
-    <thead><tr><th>날짜</th><th>버전</th><th>내용</th></tr></thead>
+    <thead><tr><th>날짜</th><th>버전</th><th>내용</th><th>작성자</th></tr></thead>
     <tbody>
-      <tr><td>2026-03-06</td><td>0.1</td><td>초안 작성</td></tr>
-      <tr><td>2026-03-06</td><td>0.2</td><td>교환 제안 뱃지, 끌어올리기 뱃지 추가</td></tr>
+      <tr><td>2026-03-06</td><td>0.1</td><td>초안 작성</td><td>AI (Claude)</td></tr>
+      <tr><td>2026-03-06</td><td>0.2</td><td>레이아웃 표준화 적용</td><td>AI (Claude)</td></tr>
     </tbody>
   </table>
 </div>
