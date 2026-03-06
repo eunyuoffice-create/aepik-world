@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXCH02 — 교환 상세 와이어프레임</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+
+/* ===== META HEADER ===== */
+.meta-bar {
+  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
+}
+.meta-item { font-size: 11px; }
+.meta-label { color: #999; }
+.meta-value { font-weight: 600; color: #333; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+
+/* ===== MAIN LAYOUT ===== */
+.main-layout { display: flex; min-height: calc(100vh - 48px); }
+
+/* ===== WIREFRAME SIDE ===== */
+.wireframe-side {
+  flex: 0 0 55%; background: #EAEAEA; padding: 32px;
+  display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; overflow-y: auto;
+}
+.phone-frame {
+  width: 375px; background: #fff; border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative;
+  overflow: hidden; flex-shrink: 0;
+}
+
+/* ===== DESCRIPTION SIDE ===== */
+.desc-side {
+  flex: 0 0 45%; background: #fff; padding: 24px 28px;
+  overflow-y: auto; border-left: 1px solid #ddd;
+}
+.desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+.desc-item { margin-bottom: 20px; }
+.desc-num-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.desc-num {
+  background: #2563EB; color: #fff; width: 22px; height: 22px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0;
+}
+.desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-name { font-size: 14px; font-weight: 600; }
+.desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
+.desc-body ul { list-style: none; }
+.desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
+.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #888; }
+.desc-body .sub li::before { content: '└'; color: #ccc; }
+.desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
+
+.conn-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px; }
+.conn-table th { background: #F5F5F5; padding: 6px 8px; text-align: left; font-weight: 600; border-bottom: 1px solid #ddd; }
+.conn-table td { padding: 6px 8px; border-bottom: 1px solid #eee; }
+.conn-table .code { color: #2563EB; font-weight: 600; }
+.states-section { margin-top: 16px; padding: 12px; background: #FAFAFA; border-radius: 8px; border: 1px solid #eee; }
+.states-title { font-size: 12px; font-weight: 600; margin-bottom: 8px; }
+.states-item { font-size: 11px; color: #666; margin-bottom: 4px; padding-left: 14px; position: relative; }
+.states-item::before { content: '▸'; position: absolute; left: 0; color: #2563EB; }
+
+/* ===== WIREFRAME ELEMENTS ===== */
+.wf-section { position: relative; }
+.num-circle {
+  position: absolute; z-index: 10;
+  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+/* Header */
+.wf-header {
+  display: flex; align-items: center; padding: 12px 16px;
+  border-bottom: 1px solid #eee; position: relative;
+}
+.wf-back { font-size: 16px; color: #555; cursor: pointer; margin-right: 12px; }
+.wf-header-icons { margin-left: auto; display: flex; gap: 12px; }
+.wf-icon { width: 24px; height: 24px; background: #f0f0f0; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #888; }
+
+/* Image slider */
+.wf-img-slider {
+  width: 100%; aspect-ratio: 1; background: #E5E5E5;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: #bbb; position: relative;
+}
+.wf-slider-indicator {
+  position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 5px;
+}
+.wf-slider-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.5); }
+.wf-slider-dot.active { background: #fff; }
+.wf-img-count {
+  position: absolute; bottom: 10px; right: 12px;
+  background: rgba(0,0,0,0.5); color: #fff; padding: 2px 8px;
+  border-radius: 10px; font-size: 10px;
+}
+
+/* Tags */
+.wf-tags { display: flex; gap: 6px; padding: 12px 16px 0; }
+.wf-tag { font-size: 11px; padding: 3px 8px; border-radius: 4px; font-weight: 500; }
+.wf-tag.exchange { background: #FFF7ED; color: #EA580C; }
+.wf-tag.anime { background: #F5F3FF; color: #7C3AED; }
+.wf-tag.idol { background: #FDF2F8; color: #DB2777; }
+.wf-tag.actor { background: #FFFBEB; color: #F59E0B; }
+.wf-tag.game { background: #ECFEFF; color: #0891B2; }
+
+/* Product info */
+.wf-product-info { padding: 8px 16px 12px; }
+.wf-product-title { font-size: 16px; font-weight: 700; line-height: 1.4; margin-bottom: 4px; }
+.wf-product-work { font-size: 12px; color: #2563EB; margin-bottom: 2px; cursor: pointer; }
+.wf-product-date { font-size: 11px; color: #aaa; }
+
+/* Detail box */
+.wf-detail-box {
+  margin: 0 16px 12px; padding: 12px; background: #FAFAFA;
+  border-radius: 8px; border: 1px solid #eee;
+}
+.wf-detail-row {
+  display: flex; justify-content: space-between; padding: 4px 0;
+  font-size: 12px;
+}
+.wf-detail-label { color: #888; }
+.wf-detail-value { color: #333; font-weight: 500; }
+.wf-detail-value.highlight { color: #2563EB; font-weight: 600; }
+
+/* Map */
+.wf-map-area {
+  margin: 0 16px 12px; height: 120px; background: #E0E0E0;
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: #999; position: relative;
+}
+.wf-map-pin { font-size: 18px; margin-bottom: 4px; }
+.wf-map-address { font-size: 10px; color: #888; text-align: center; padding: 4px 16px; }
+
+/* Extra condition */
+.wf-extra {
+  margin: 0 16px 12px; padding: 10px 12px; background: #fff;
+  border: 1px solid #eee; border-radius: 8px; font-size: 12px; color: #555; line-height: 1.6;
+}
+.wf-extra-title { font-size: 11px; font-weight: 600; color: #333; margin-bottom: 4px; }
+
+/* Seller box */
+.wf-seller-box {
+  margin: 0 16px 12px; padding: 12px; background: #fff;
+  border: 1px solid #eee; border-radius: 8px;
+  display: flex; align-items: center; gap: 10px;
+}
+.wf-seller-avatar {
+  width: 40px; height: 40px; border-radius: 50%; background: #E5E5E5;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+}
+.wf-seller-info { flex: 1; }
+.wf-seller-name { font-size: 13px; font-weight: 600; margin-bottom: 1px; }
+.wf-seller-badge { font-size: 10px; color: #2563EB; }
+.wf-seller-stats { font-size: 10px; color: #999; }
+.wf-seller-arrow { color: #ccc; font-size: 14px; }
+
+/* Section divider */
+.wf-section-divider { height: 8px; background: #F5F5F5; }
+
+/* Related section */
+.wf-related { padding: 12px 0; }
+.wf-related-header { padding: 0 16px 8px; font-size: 13px; font-weight: 600; }
+.wf-related-scroll {
+  display: flex; gap: 8px; padding: 0 16px; overflow-x: hidden;
+}
+.wf-related-card {
+  min-width: 110px; flex-shrink: 0;
+  border: 1px solid #eee; border-radius: 6px; overflow: hidden;
+}
+.wf-related-img {
+  width: 110px; height: 110px; background: #E5E5E5;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; color: #ccc;
+}
+.wf-related-body { padding: 6px; }
+.wf-related-name { font-size: 10px; font-weight: 500; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.wf-related-meta { font-size: 9px; color: #aaa; margin-top: 2px; }
+
+/* Bottom CTA */
+.wf-bottom-cta {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 16px 14px; background: #fff; border-top: 1px solid #eee;
+}
+.wf-cta-wish {
+  width: 44px; height: 44px; border: 1px solid #eee; border-radius: 8px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0;
+}
+.wf-cta-wish-count { font-size: 8px; color: #aaa; }
+.wf-cta-btn {
+  flex: 1; height: 44px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 600; color: #fff;
+}
+.wf-cta-chat { background: #fff; color: #333; border: 1px solid #ddd; }
+.wf-cta-exchange { background: #2563EB; }
+
+/* ===== BOTTOM SHEET OVERLAY ===== */
+.wf-bottom-sheet-overlay {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.4); display: flex; flex-direction: column;
+  z-index: 100;
+}
+.wf-bottom-sheet {
+  margin-top: auto; background: #fff; border-radius: 16px 16px 0 0;
+  max-height: 60%; overflow-y: auto; box-shadow: 0 -2px 12px rgba(0,0,0,0.15);
+}
+.wf-sheet-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px; border-bottom: 1px solid #eee; position: relative;
+}
+.wf-sheet-title { font-size: 15px; font-weight: 600; flex: 1; text-align: center; }
+.wf-sheet-close { font-size: 18px; color: #999; cursor: pointer; }
+.wf-sheet-section { padding: 16px; }
+.wf-sheet-section-title { font-size: 12px; font-weight: 600; color: #333; margin-bottom: 8px; }
+.wf-sheet-item-list { display: flex; flex-direction: column; gap: 8px; }
+.wf-item-select {
+  display: flex; align-items: center; gap: 10px; padding: 8px;
+  border: 1px solid #eee; border-radius: 8px; background: #fafafa;
+  cursor: pointer; position: relative;
+}
+.wf-item-select input[type="radio"] { margin: 0; }
+.wf-item-img {
+  width: 40px; height: 40px; background: #E5E5E5; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center; font-size: 10px;
+  color: #ccc; flex-shrink: 0;
+}
+.wf-item-info { flex: 1; }
+.wf-item-title { font-size: 12px; font-weight: 500; }
+.wf-item-condition { font-size: 10px; color: #999; }
+.wf-item-badge {
+  font-size: 8px; padding: 2px 6px; border-radius: 3px; background: #ddd;
+  color: #666; margin-left: auto; white-space: nowrap; flex-shrink: 0;
+}
+.wf-sheet-input {
+  display: flex; flex-direction: column; gap: 6px;
+}
+.wf-sheet-input input {
+  width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 8px;
+  font-size: 12px; font-family: inherit;
+}
+.wf-sheet-input input::placeholder { color: #ccc; }
+.wf-sheet-cta {
+  display: flex; gap: 8px; padding: 12px 16px 16px;
+}
+.wf-sheet-cta-btn {
+  flex: 1; height: 44px; border-radius: 8px; border: none; cursor: pointer;
+  font-size: 13px; font-weight: 600; color: #fff; background: #2563EB;
+}
+.wf-sheet-cta-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+/* ===== RECEIVED PROPOSALS PANEL ===== */
+.wf-proposal-section { padding: 12px 16px; background: #fff; border-top: 1px solid #eee; }
+.wf-proposal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 13px; font-weight: 600; margin-bottom: 10px;
+}
+.wf-proposal-count {
+  background: #2563EB; color: #fff; padding: 2px 6px; border-radius: 10px;
+  font-size: 11px; font-weight: 600;
+}
+.wf-proposal-list { display: flex; flex-direction: column; gap: 8px; }
+.wf-proposal-card {
+  display: flex; gap: 8px; padding: 8px; border: 1px solid #eee;
+  border-radius: 8px; background: #fafafa;
+}
+.wf-proposal-avatar {
+  width: 24px; height: 24px; border-radius: 50%; background: #E5E5E5;
+  display: flex; align-items: center; justify-content: center; font-size: 10px;
+  flex-shrink: 0;
+}
+.wf-proposal-body { flex: 1; min-width: 0; }
+.wf-proposal-meta { display: flex; align-items: center; gap: 4px; margin-bottom: 2px; }
+.wf-proposal-nick { font-size: 12px; font-weight: 600; }
+.wf-proposal-level { font-size: 10px; color: #2563EB; }
+.wf-proposal-time { font-size: 10px; color: #999; margin-left: auto; white-space: nowrap; }
+.wf-proposal-img {
+  width: 48px; height: 48px; background: #E5E5E5; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center; font-size: 10px;
+  color: #ccc; flex-shrink: 0;
+}
+.wf-proposal-goods { display: flex; gap: 6px; margin-bottom: 6px; align-items: flex-start; }
+.wf-proposal-item-title { font-size: 11px; font-weight: 500; flex: 1; }
+.wf-proposal-item-condition { font-size: 10px; color: #999; white-space: nowrap; }
+.wf-proposal-actions {
+  display: flex; gap: 6px; margin-top: 6px;
+}
+.wf-proposal-btn {
+  flex: 1; height: 28px; border: 1px solid #ddd; border-radius: 6px;
+  font-size: 11px; font-weight: 600; cursor: pointer; background: #fff;
+  color: #333;
+}
+.wf-proposal-view-all {
+  text-align: right; padding: 6px 0; font-size: 12px; color: #2563EB;
+  font-weight: 600; cursor: pointer;
+}
+
+/* Owner CTA Bar */
+.wf-owner-cta {
+  display: flex; gap: 8px; padding: 10px 16px 14px; background: #fff;
+  border-top: 1px solid #eee;
+}
+.wf-owner-btn {
+  flex: 1; height: 44px; border-radius: 8px; border: 1px solid #ddd;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 600; color: #333; background: #fff;
+  cursor: pointer;
+}
+
+/* Revision footer */
+.revision-bar {
+  background: #FAFAFA; border-top: 1px solid #eee; padding: 12px 24px;
+  font-size: 11px; color: #999;
+}
+.revision-bar table { width: 100%; border-collapse: collapse; }
+.revision-bar th { text-align: left; font-weight: 600; padding: 4px 8px; border-bottom: 1px solid #eee; }
+.revision-bar td { padding: 4px 8px; border-bottom: 1px solid #f0f0f0; }
+</style>
+</head>
+<body>
+
+<!-- META HEADER -->
+<div class="meta-bar">
+  <span class="title">EXCH02 — 교환 상세</span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.2</span></span>
+  <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/exchange/[id]</span></span>
+  <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">PC / Mobile</span></span>
+  <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">개발</span></span>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="main-layout">
+
+  <!-- ===== WIREFRAME SIDE ===== -->
+  <div class="wireframe-side">
+    <div class="phone-frame">
+
+      <!-- ① Header -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:8px; left:6px;">1</div>
+        <div class="wf-header">
+          <span class="wf-back">←</span>
+          <div class="wf-header-icons">
+            <div class="wf-icon">↗</div>
+            <div class="wf-icon">⋯</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ② 이미지 슬라이더 -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:8px; left:6px;">2</div>
+        <div class="wf-img-slider">
+          <span>상품 이미지 (1/3)</span>
+          <div class="wf-slider-indicator">
+            <div class="wf-slider-dot active"></div>
+            <div class="wf-slider-dot"></div>
+            <div class="wf-slider-dot"></div>
+          </div>
+          <div class="wf-img-count">1/3</div>
+        </div>
+      </div>
+
+      <!-- ③ 태그 + 상품 정보 -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:8px; left:6px;">3</div>
+        <div class="wf-tags">
+          <span class="wf-tag exchange">교환</span>
+          <span class="wf-tag anime">애니/만화/소설</span>
+        </div>
+        <div class="wf-product-info">
+          <div class="wf-product-title">하이큐 히나타 아크릴 스탠드</div>
+          <div class="wf-product-work">하이큐!! · 히나타 쇼요 ›</div>
+          <div class="wf-product-date">2026.03.05 등록 · 조회 234</div>
+        </div>
+      </div>
+
+      <!-- ④ 상세 정보 박스 -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:8px; left:6px;">4</div>
+        <div class="wf-detail-box">
+          <div class="wf-detail-row">
+            <span class="wf-detail-label">상태</span>
+            <span class="wf-detail-value">S급 (미개봉)</span>
+          </div>
+          <div class="wf-detail-row">
+            <span class="wf-detail-label">굿즈 타입</span>
+            <span class="wf-detail-value">아크릴 스탠드</span>
+          </div>
+          <div class="wf-detail-row">
+            <span class="wf-detail-label">보유 수량</span>
+            <span class="wf-detail-value">1개</span>
+          </div>
+          <div class="wf-detail-row">
+            <span class="wf-detail-label">희망 교환</span>
+            <span class="wf-detail-value highlight">카게야마 아크릴 스탠드</span>
+          </div>
+          <div class="wf-detail-row">
+            <span class="wf-detail-label">차액</span>
+            <span class="wf-detail-value">±3,000원 가능</span>
+          </div>
+          <div class="wf-detail-row">
+            <span class="wf-detail-label">거래 방식</span>
+            <span class="wf-detail-value">택배 / 직거래</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ⑤ 직거래 지도 -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:8px; left:6px;">5</div>
+        <div class="wf-map-area">
+          <div style="text-align:center;">
+            <div class="wf-map-pin">📍</div>
+            <div>카카오맵 (직거래 위치)</div>
+          </div>
+        </div>
+        <div class="wf-map-address">서울특별시 마포구 홍대입구 근처</div>
+      </div>
+
+      <!-- ⑥ 추가 조건 -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:8px; left:6px;">6</div>
+        <div class="wf-extra">
+          <div class="wf-extra-title">📝 추가 조건</div>
+          같은 시리즈 다른 캐릭터도 가능합니다. 상태 좋은 것만 부탁드려요. 직거래 시 홍대역 근처 카페에서 하고 싶습니다.
+        </div>
+      </div>
+
+      <!-- ⑦ 판매자 정보 -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:8px; left:6px;">7</div>
+        <div class="wf-seller-box">
+          <div class="wf-seller-avatar">👤</div>
+          <div class="wf-seller-info">
+            <div class="wf-seller-name">쇼요러버</div>
+            <div class="wf-seller-badge">💎 Lv.3 우수 거래자</div>
+            <div class="wf-seller-stats">★ 4.8 · 거래 12회 · 30분 전 접속</div>
+          </div>
+          <span class="wf-seller-arrow">›</span>
+        </div>
+      </div>
+
+      <div class="wf-section-divider"></div>
+
+      <!-- ⑧ 관련 교환글 -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:4px; left:6px;">8</div>
+        <div class="wf-related">
+          <div class="wf-related-header">같은 작품 다른 교환글</div>
+          <div class="wf-related-scroll">
+            <div class="wf-related-card">
+              <div class="wf-related-img">IMG</div>
+              <div class="wf-related-body">
+                <div class="wf-related-name">카게야마 포토카드</div>
+                <div class="wf-related-meta">★ 4.5 · 거래 8회</div>
+              </div>
+            </div>
+            <div class="wf-related-card">
+              <div class="wf-related-img">IMG</div>
+              <div class="wf-related-body">
+                <div class="wf-related-name">니시노야 캔뱃지</div>
+                <div class="wf-related-meta">★ 4.7 · 거래 16회</div>
+              </div>
+            </div>
+            <div class="wf-related-card">
+              <div class="wf-related-img">IMG</div>
+              <div class="wf-related-body">
+                <div class="wf-related-name">오이카와 아크릴</div>
+                <div class="wf-related-meta">★ 5.0 · 거래 41회</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ⑨ 하단 고정 CTA -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:6px; left:6px;">9</div>
+        <div class="wf-bottom-cta">
+          <div class="wf-cta-wish">
+            <span>🤍</span>
+            <span class="wf-cta-wish-count">24</span>
+          </div>
+          <div class="wf-cta-btn wf-cta-chat">💬 채팅하기</div>
+          <div class="wf-cta-btn wf-cta-exchange">🔄 교환 제안</div>
+        </div>
+      </div>
+
+    </div><!-- /phone-frame -->
+
+    <!-- ===== PHONE FRAME 2: 교환 제안 바텀시트 ===== -->
+    <div class="phone-frame">
+
+      <!-- 배경: 본래 상세 화면 (어두워짐) + 바텀시트 -->
+      <div class="wf-bottom-sheet-overlay">
+
+        <!-- 바텀시트 -->
+        <div class="wf-bottom-sheet">
+
+          <!-- 헤더 -->
+          <div class="wf-sheet-header">
+            <span style="width: 20px;"></span>
+            <div class="wf-sheet-title">교환 제안하기</div>
+            <span class="wf-sheet-close">✕</span>
+          </div>
+
+          <!-- 내 매물 선택 섹션 -->
+          <div class="wf-sheet-section">
+            <div class="wf-sheet-section-title">내 매물 선택</div>
+            <div class="wf-sheet-item-list">
+              <!-- 선택 가능한 매물 1 -->
+              <label class="wf-item-select" style="background: #fff; border-color: #2563EB;">
+                <input type="radio" name="item" checked style="width: 16px; height: 16px;">
+                <div class="wf-item-img">IMG</div>
+                <div class="wf-item-info">
+                  <div class="wf-item-title">초코 포토카드 세트</div>
+                  <div class="wf-item-condition">A급 · 미개봉</div>
+                </div>
+              </label>
+
+              <!-- 선택 가능한 매물 2 -->
+              <label class="wf-item-select">
+                <input type="radio" name="item" style="width: 16px; height: 16px;">
+                <div class="wf-item-img">IMG</div>
+                <div class="wf-item-info">
+                  <div class="wf-item-title">초코 캔뱃지</div>
+                  <div class="wf-item-condition">S급</div>
+                </div>
+              </label>
+
+              <!-- 이미 제안 중인 매물 (비활성) -->
+              <label class="wf-item-select" style="opacity: 0.6;">
+                <input type="radio" name="item" disabled style="width: 16px; height: 16px;">
+                <div class="wf-item-img">IMG</div>
+                <div class="wf-item-info">
+                  <div class="wf-item-title">투바 아크릴 스탠드</div>
+                  <div class="wf-item-condition">B급 · 사용감있음</div>
+                </div>
+                <div class="wf-item-badge">제안 중</div>
+              </label>
+            </div>
+          </div>
+
+          <!-- 메시지 입력 섹션 -->
+          <div class="wf-sheet-section">
+            <div class="wf-sheet-section-title">메시지 (선택)</div>
+            <div class="wf-sheet-input">
+              <input type="text" placeholder="상태나 거래 조건 등 추가 메시지를 남겨주세요">
+            </div>
+          </div>
+
+          <!-- 제안 보내기 CTA -->
+          <div class="wf-sheet-cta">
+            <button class="wf-sheet-cta-btn">교환 제안 보내기</button>
+          </div>
+
+        </div><!-- /wf-bottom-sheet -->
+
+      </div><!-- /wf-bottom-sheet-overlay -->
+
+    </div><!-- /phone-frame -->
+
+    <!-- ===== PHONE FRAME 3: 받은 제안 패널 (본인 글) ===== -->
+    <div class="phone-frame">
+
+      <!-- 상세 정보: 헤더 ~ 판매자 정보 (축약) -->
+      <div class="wf-section">
+        <div class="wf-header">
+          <span class="wf-back">←</span>
+          <div class="wf-header-icons">
+            <div class="wf-icon">↗</div>
+            <div class="wf-icon">⋯</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wf-img-slider" style="aspect-ratio: 1;">
+        <span>상품 이미지 (1/3)</span>
+        <div class="wf-img-count">1/3</div>
+      </div>
+
+      <div class="wf-tags">
+        <span class="wf-tag exchange">교환</span>
+        <span class="wf-tag anime">애니/만화/소설</span>
+      </div>
+
+      <div class="wf-product-info">
+        <div class="wf-product-title">하이큐 히나타 아크릴 스탠드</div>
+        <div class="wf-product-work">하이큐!! · 히나타 쇼요 ›</div>
+        <div class="wf-product-date">2026.03.05 등록</div>
+      </div>
+
+      <div class="wf-detail-box">
+        <div class="wf-detail-row">
+          <span class="wf-detail-label">상태</span>
+          <span class="wf-detail-value">S급 (미개봉)</span>
+        </div>
+        <div class="wf-detail-row">
+          <span class="wf-detail-label">희망 교환</span>
+          <span class="wf-detail-value highlight">카게야마 아크릴 스탠드</span>
+        </div>
+      </div>
+
+      <!-- ===== 받은 제안 패널 ===== -->
+      <div class="wf-proposal-section">
+        <div class="wf-proposal-header">
+          <span>받은 제안</span>
+          <span class="wf-proposal-count">3</span>
+        </div>
+
+        <div class="wf-proposal-list">
+
+          <!-- 제안 1 -->
+          <div class="wf-proposal-card">
+            <div class="wf-proposal-avatar">👤</div>
+            <div class="wf-proposal-body">
+              <div class="wf-proposal-meta">
+                <span class="wf-proposal-nick">올더짱</span>
+                <span class="wf-proposal-level">Lv.2</span>
+                <span class="wf-proposal-time">2시간 전</span>
+              </div>
+              <div class="wf-proposal-goods">
+                <div class="wf-proposal-img">IMG</div>
+                <div style="flex: 1;">
+                  <div class="wf-proposal-item-title">카게야마 포토카드</div>
+                  <div class="wf-proposal-item-condition">A급</div>
+                </div>
+              </div>
+              <div class="wf-proposal-actions">
+                <button class="wf-proposal-btn">수락</button>
+                <button class="wf-proposal-btn">거절</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 제안 2 -->
+          <div class="wf-proposal-card">
+            <div class="wf-proposal-avatar">👤</div>
+            <div class="wf-proposal-body">
+              <div class="wf-proposal-meta">
+                <span class="wf-proposal-nick">하이큐러버</span>
+                <span class="wf-proposal-level">Lv.1</span>
+                <span class="wf-proposal-time">1시간 전</span>
+              </div>
+              <div class="wf-proposal-goods">
+                <div class="wf-proposal-img">IMG</div>
+                <div style="flex: 1;">
+                  <div class="wf-proposal-item-title">히나타 캔뱃지 2개 세트</div>
+                  <div class="wf-proposal-item-condition">S급</div>
+                </div>
+              </div>
+              <div class="wf-proposal-actions">
+                <button class="wf-proposal-btn">수락</button>
+                <button class="wf-proposal-btn">거절</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="wf-proposal-view-all">전체보기 →</div>
+      </div>
+
+      <!-- 본인 글 CTA (수정 / 끌어올리기 / 삭제) -->
+      <div class="wf-owner-cta">
+        <button class="wf-owner-btn">✏️ 수정</button>
+        <button class="wf-owner-btn">📈 끌어올리기</button>
+        <button class="wf-owner-btn">🗑️ 삭제</button>
+      </div>
+
+    </div><!-- /phone-frame -->
+
+  </div><!-- /wireframe-side -->
+
+  <!-- ===== DESCRIPTION SIDE ===== -->
+  <div class="desc-side">
+    <div class="desc-title">EXCH02 교환 상세</div>
+    <div class="desc-subtitle">개별 교환글의 상세 정보 확인 + 찜/채팅/교환 제안 액션</div>
+
+    <!-- ① Header -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">1</div>
+        <span class="desc-comp-type">[Header]</span>
+        <span class="desc-comp-name">상세 헤더</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>좌측: ← 뒤로가기 (이전 페이지)</li>
+          <li>우측: 공유(↗) + 더보기(⋯)
+            <ul class="sub">
+              <li>더보기 메뉴: 신고하기 / 차단하기 / URL 복사</li>
+            </ul>
+          </li>
+          <li>스크롤 시 상단 고정</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- ② 이미지 슬라이더 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">2</div>
+        <span class="desc-comp-type">[ImageSlider]</span>
+        <span class="desc-comp-name">이미지 슬라이더</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>상품 이미지 최대 5장 (1:1 비율)</li>
+          <li>좌우 스와이프로 이동</li>
+          <li>인디케이터: 하단 중앙 ● ○ ○ + 우하단 "1/3" 카운터</li>
+          <li>이미지 탭 시: 전체 화면 뷰어 (핀치 줌 지원)</li>
+          <li>이미지 없는 경우: 회색 플레이스홀더 1장</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- ③ 태그 + 상품 정보 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">3</div>
+        <span class="desc-comp-type">[ProductInfo]</span>
+        <span class="desc-comp-name">태그 + 상품 정보</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>태그: [거래유형] + [카테고리]
+            <ul class="sub">
+              <li>거래유형: 교환 (#FFF7ED) / 교환+차액 (#FFF7ED)</li>
+              <li>카테고리: 애니·만화·소설 / 아이돌·아티스트 / 배우·무대 / 게임</li>
+            </ul>
+          </li>
+          <li>상품명: 16px, Bold</li>
+          <li>작품 · 캐릭터: Blue 텍스트 (탭 시 해당 작품 필터 목록으로 이동)</li>
+          <li>등록일 · 조회수: Gray 텍스트</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- ④ 상세 정보 박스 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">4</div>
+        <span class="desc-comp-type">[DetailBox]</span>
+        <span class="desc-comp-name">상세 정보 박스</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>회색 배경 카드에 레이블-값 쌍으로 표시</li>
+          <li>데이터 필드:
+            <ul class="sub">
+              <li>상태: S급/A급/B급/C급 + 설명 (미개봉/거의새것/사용감있음/하자있음)</li>
+              <li>굿즈 타입: 아크릴/포토카드/캔뱃지/피규어 등</li>
+              <li>보유 수량: N개</li>
+              <li>희망 교환: Blue 하이라이트 텍스트 (핵심 정보)</li>
+              <li>차액: ±금액 또는 "차액 없음"</li>
+              <li>거래 방식: 택배/직거래/둘 다</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- ⑤ 직거래 지도 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">5</div>
+        <span class="desc-comp-type">[Map]</span>
+        <span class="desc-comp-name">직거래 지도 (조건부)</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>거래 방식이 "직거래" 또는 "둘 다"일 때만 표시</li>
+          <li>카카오맵 API 임베드 (120px 높이)</li>
+          <li>거래 희망 위치 핀 마커</li>
+          <li>하단: 주소 텍스트</li>
+          <li>지도 탭 시: 카카오맵 앱으로 열기</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- ⑥ 추가 조건 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">6</div>
+        <span class="desc-comp-type">[TextBox]</span>
+        <span class="desc-comp-name">추가 조건</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>등록자가 작성한 자유 텍스트</li>
+          <li>3줄 초과 시 "더보기" 버튼으로 접기/펼치기</li>
+          <li>작성 안 한 경우 섹션 자체 미표시</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- ⑦ 판매자 정보 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">7</div>
+        <span class="desc-comp-type">[SellerCard]</span>
+        <span class="desc-comp-name">판매자 정보</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>프로필 이미지 (40px 원형) + 닉네임</li>
+          <li>신뢰 등급: TrustBadge (Lv.1~4 + 아이콘)</li>
+          <li>★ 평점 · 거래 횟수 · 최근 접속 시간</li>
+          <li>전체 영역 탭 시: 타인 프로필(USER03) 이동</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- ⑧ 관련 교환글 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">8</div>
+        <span class="desc-comp-type">[HScroll]</span>
+        <span class="desc-comp-name">관련 교환글</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>같은 작품/캐릭터의 다른 교환글</li>
+          <li>가로 스크롤 (110px 미니 카드)</li>
+          <li>카드: 이미지 + 상품명 + 평점/거래수</li>
+          <li>최대 6개 표시</li>
+          <li>카드 탭 시: 해당 교환 상세(EXCH02) 이동</li>
+          <li>관련 교환글 없으면 섹션 미표시</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- ⑨ 하단 CTA -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">9</div>
+        <span class="desc-comp-type">[BottomCTA]</span>
+        <span class="desc-comp-name">하단 고정 CTA</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>하단 고정 (sticky bottom)</li>
+          <li>구성:
+            <ul class="sub">
+              <li>❤️ 찜: 토글 (빈 하트 ↔ 꽉 찬 하트), 찜 수 표시</li>
+              <li>💬 채팅하기: 판매자와 1:1 채팅 (CHAT02)</li>
+              <li>🔄 교환 제안: 내 매물 선택 바텀시트 → 제안 발송</li>
+            </ul>
+          </li>
+          <li>비로그인 시: CTA 탭 → 로그인 유도 바텀시트</li>
+          <li>본인 글일 경우 CTA가 변경됨:
+            <ul class="sub">
+              <li>[수정] — EXCH03(수정 모드) 이동</li>
+              <li>[끌어올리기] — 목록 상단 노출 갱신</li>
+              <li>[삭제] — 삭제 확인 다이얼로그</li>
+            </ul>
+          </li>
+          <li>교환 완료 상태: 전체 CTA 비활성(회색)</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- ⑩ 교환 제안 바텀시트 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">10</div>
+        <span class="desc-comp-type">[BottomSheet]</span>
+        <span class="desc-comp-name">교환 제안 바텀시트</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>CTA 탭 시 오버레이 + 바텀시트 표시</li>
+          <li>구성:
+            <ul class="sub">
+              <li>헤더: "교환 제안하기" 제목 + X 닫기 버튼</li>
+              <li>내 매물 선택: 라디오 버튼 + 사용자 보유 상품 목록</li>
+              <li>각 상품: 이미지(40px) + 상품명 + 상태 뱃지</li>
+              <li>이미 제안한 상품: "제안 중" 회색 뱃지 + 비활성(disabled)</li>
+              <li>메시지 입력: 선택사항, 거래 조건 등 추가 정보</li>
+              <li>CTA: "교환 제안 보내기" (Blue, full-width)</li>
+            </ul>
+          </li>
+          <li>배경: 어두운 오버레이 (rgba(0,0,0,0.4))</li>
+          <li>닫기: X 버튼 또는 오버레이 탭</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- ⑪ 받은 제안 패널 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">11</div>
+        <span class="desc-comp-type">[ProposalPanel]</span>
+        <span class="desc-comp-name">받은 제안 패널 (본인 글)</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>본인이 작성한 교환글에서만 표시</li>
+          <li>헤더:
+            <ul class="sub">
+              <li>"받은 제안" 레이블 + 숫자 뱃지 (Blue background)</li>
+              <li>최대 2건 카드 표시, 초과 시 "전체보기 →" 링크</li>
+            </ul>
+          </li>
+          <li>제안 카드 구성:
+            <ul class="sub">
+              <li>아바타(24px 원형) + 닉네임 + Lv.N + 시간</li>
+              <li>제안 굿즈: 이미지(48px) + 상품명 + 상태 뱃지</li>
+              <li>[수락] [거절] 액션 버튼</li>
+            </ul>
+          </li>
+          <li>"전체보기 →" 탭 시: EXCH05(교환신청함) 이동</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- ⑫ 본인 글 CTA 바 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">12</div>
+        <span class="desc-comp-type">[OwnerCTA]</span>
+        <span class="desc-comp-name">본인 글 CTA 바</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>본인이 작성한 교환글에서만 표시 (받은 제안 패널 대신)</li>
+          <li>구성: 3개 버튼 (flex 1/3 width)
+            <ul class="sub">
+              <li>[수정] — EXCH03(수정 모드) 이동</li>
+              <li>[끌어올리기] — 1일 1회 무료, 추가는 유료</li>
+              <li>[삭제] — 삭제 확인 다이얼로그</li>
+            </ul>
+          </li>
+          <li>하단 고정 (sticky bottom)</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- 연관 화면 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <span class="desc-comp-name" style="font-size:13px;">📎 연관 화면</span>
+      </div>
+      <table class="conn-table">
+        <thead>
+          <tr><th>이동 대상</th><th>조건</th><th>화면코드</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>교환 목록</td><td>← 뒤로가기</td><td class="code">EXCH01</td></tr>
+          <tr><td>교환글 수정</td><td>본인 글 [수정]</td><td class="code">EXCH03</td></tr>
+          <tr><td>채팅방</td><td>💬 채팅하기</td><td class="code">CHAT02</td></tr>
+          <tr><td>받은 제안 전체</td><td>"전체보기 →"</td><td class="code">EXCH05</td></tr>
+          <tr><td>타인 프로필</td><td>판매자 영역 탭</td><td class="code">USER03</td></tr>
+          <tr><td>작품 필터 목록</td><td>작품명 탭</td><td class="code">EXCH01</td></tr>
+          <tr><td>로그인</td><td>비로그인 + CTA</td><td class="code">AUTH01</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 화면 상태 -->
+    <div class="states-section">
+      <div class="states-title">📋 화면 상태 체크리스트</div>
+      <div class="states-item"><strong>기본 상태</strong>: 교환글 전체 정보 표시 + 하단 CTA 활성</div>
+      <div class="states-item"><strong>로딩 상태</strong>: 이미지 영역 스켈레톤 + 정보 영역 스켈레톤</div>
+      <div class="states-item"><strong>교환 완료</strong>: 상단 "교환 완료" 뱃지 + CTA 비활성(회색)</div>
+      <div class="states-item"><strong>본인 글</strong>: CTA → [수정/끌어올리기/삭제]</div>
+      <div class="states-item"><strong>비공개/삭제</strong>: "존재하지 않는 교환글입니다" + [목록으로] 버튼</div>
+      <div class="states-item"><strong>비로그인</strong>: 조회 가능, CTA 탭 시 로그인 유도</div>
+    </div>
+
+  </div><!-- /desc-side -->
+</div><!-- /main-layout -->
+
+<!-- REVISION FOOTER -->
+<div class="revision-bar">
+  <table>
+    <thead><tr><th>날짜</th><th>버전</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td>2026-03-06</td><td>0.2</td><td>Phone Frame 2,3 추가: 교환 제안 바텀시트 + 받은 제안 패널</td></tr>
+      <tr><td>2026-03-06</td><td>0.1</td><td>초안 작성</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

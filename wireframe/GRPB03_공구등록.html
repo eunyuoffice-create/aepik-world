@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GRPB03 — 공구 등록 와이어프레임</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+
+/* ===== META HEADER ===== */
+.meta-bar {
+  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
+}
+.meta-item { font-size: 11px; }
+.meta-label { color: #999; }
+.meta-value { font-weight: 600; color: #333; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+
+/* ===== MAIN LAYOUT ===== */
+.main-layout { display: flex; min-height: calc(100vh - 48px); }
+
+/* ===== WIREFRAME SIDE ===== */
+.wireframe-side {
+  flex: 0 0 55%; background: #EAEAEA; padding: 32px;
+  display: flex; justify-content: center; overflow-y: auto;
+}
+.phone-frame {
+  width: 375px; background: #fff; border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative;
+  overflow: hidden; flex-shrink: 0;
+}
+
+/* ===== DESCRIPTION SIDE ===== */
+.desc-side {
+  flex: 0 0 45%; background: #fff; padding: 24px 28px;
+  overflow-y: auto; border-left: 1px solid #ddd;
+}
+.desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+.desc-item { margin-bottom: 20px; }
+.desc-num-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.desc-num {
+  background: #2563EB; color: #fff; width: 22px; height: 22px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0;
+}
+.desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-name { font-size: 14px; font-weight: 600; }
+.desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
+.desc-body ul { list-style: none; }
+.desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
+.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #888; }
+.desc-body .sub li::before { content: '└'; color: #ccc; }
+.desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
+
+/* ===== Connected Screens Table ===== */
+.conn-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px; }
+.conn-table th { background: #F5F5F5; padding: 6px 8px; text-align: left; font-weight: 600; border-bottom: 1px solid #ddd; }
+.conn-table td { padding: 6px 8px; border-bottom: 1px solid #eee; }
+.conn-table .code { color: #2563EB; font-weight: 600; }
+
+/* States section */
+.states-section { margin-top: 16px; padding: 12px; background: #FAFAFA; border-radius: 8px; border: 1px solid #eee; }
+.states-title { font-size: 12px; font-weight: 600; margin-bottom: 8px; }
+.states-item { font-size: 11px; color: #666; margin-bottom: 4px; padding-left: 14px; position: relative; }
+.states-item::before { content: '▸'; position: absolute; left: 0; color: #2563EB; }
+
+/* ===== WIREFRAME ELEMENTS ===== */
+.wf-section { position: relative; }
+.num-circle {
+  position: absolute; z-index: 10;
+  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+/* Header */
+.wf-header {
+  display: flex; align-items: center; padding: 12px 16px;
+  border-bottom: 1px solid #eee; position: relative;
+}
+.wf-page-title { font-weight: 700; font-size: 16px; color: #1A1A1A; flex: 1; text-align: center; }
+.wf-header-icons { display: flex; gap: 12px; }
+.wf-icon { width: 24px; height: 24px; background: #f0f0f0; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #888; }
+.wf-header-left { margin-right: auto; }
+.wf-header-right { margin-left: auto; }
+
+/* Form scroll container */
+.wf-form-scroll {
+  overflow-y: auto; height: 600px;
+}
+
+/* Form sections */
+.wf-form-section {
+  padding: 16px; border-bottom: 1px solid #f0f0f0;
+}
+.wf-section-label { font-size: 12px; font-weight: 600; color: #333; margin-bottom: 8px; }
+.wf-required { color: #EF4444; }
+
+/* Type selection cards */
+.wf-card-group {
+  display: flex; gap: 8px;
+}
+.wf-card {
+  flex: 1; padding: 12px; border: 2px solid #E5E5E5; border-radius: 8px;
+  background: #fff; text-align: center; cursor: pointer; font-size: 11px;
+}
+.wf-card.selected {
+  border-color: #2563EB; background: #EFF6FF;
+}
+.wf-card-title { font-weight: 600; margin-bottom: 2px; }
+.wf-card-desc { font-size: 10px; color: #999; }
+
+/* Chips */
+.wf-chip-group {
+  display: flex; gap: 6px; flex-wrap: wrap;
+}
+.wf-chip {
+  padding: 6px 10px; border-radius: 16px; font-size: 11px;
+  background: #F5F5F5; color: #555; border: none; cursor: pointer;
+}
+.wf-chip.selected { background: #2563EB; color: #fff; }
+
+/* Input elements */
+.wf-input-group { margin-bottom: 12px; }
+.wf-label { font-size: 11px; font-weight: 600; color: #333; margin-bottom: 4px; display: block; }
+.wf-input {
+  width: 100%; padding: 8px 10px; border: 1px solid #ddd; border-radius: 4px;
+  font-size: 11px; background: #fff; color: #333;
+}
+.wf-input::placeholder { color: #bbb; }
+
+/* Toggle */
+.wf-toggle {
+  display: flex; align-items: center; gap: 8px; font-size: 11px;
+}
+.wf-toggle-switch {
+  width: 36px; height: 20px; background: #ddd; border-radius: 10px;
+  position: relative; cursor: pointer;
+}
+.wf-toggle-switch.on {
+  background: #2563EB;
+}
+.wf-toggle-switch.on::after {
+  left: 18px;
+}
+.wf-toggle-switch::after {
+  content: '';
+  position: absolute;
+  width: 16px; height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  top: 2px; left: 2px;
+  transition: left 0.2s;
+}
+
+/* Image upload */
+.wf-image-upload {
+  border: 2px dashed #ddd; border-radius: 8px; padding: 16px;
+  text-align: center; background: #FAFAFA; font-size: 11px; color: #999;
+  margin-bottom: 8px;
+}
+.wf-image-thumbnails {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+}
+.wf-image-thumb {
+  aspect-ratio: 1; background: #E5E5E5; border-radius: 4px;
+}
+
+/* Character slots */
+.wf-character-list {
+  border: 1px solid #E5E5E5; border-radius: 8px; background: #FAFAFA;
+}
+.wf-character-item {
+  padding: 8px; border-bottom: 1px solid #E5E5E5;
+  display: flex; align-items: center; gap: 8px; font-size: 11px;
+}
+.wf-character-item:last-child {
+  border-bottom: none;
+}
+.wf-character-checkbox {
+  width: 16px; height: 16px; flex-shrink: 0;
+}
+.wf-character-name {
+  flex: 1; font-weight: 500;
+}
+.wf-character-input {
+  width: 50px; padding: 4px; border: 1px solid #ddd; border-radius: 3px; font-size: 10px;
+}
+
+/* Textarea */
+.wf-textarea {
+  width: 100%; padding: 8px 10px; border: 1px solid #ddd; border-radius: 4px;
+  font-size: 11px; background: #fff; color: #333; font-family: inherit;
+  min-height: 60px;
+}
+
+/* Button bar */
+.wf-button-bar {
+  position: sticky; bottom: 0; left: 0; right: 0;
+  display: flex; gap: 8px; padding: 12px 16px;
+  background: #fff; border-top: 1px solid #E5E5E5;
+}
+.wf-button {
+  flex: 1; padding: 10px; border-radius: 6px; font-size: 12px; font-weight: 600;
+  border: none; cursor: pointer;
+}
+.wf-button.outline {
+  background: #fff; color: #333; border: 1px solid #ddd;
+}
+.wf-button.primary {
+  background: #2563EB; color: #fff;
+}
+
+/* Revision footer */
+.revision-bar {
+  background: #FAFAFA; border-top: 1px solid #eee; padding: 12px 24px;
+  font-size: 11px; color: #999;
+}
+.revision-bar table { width: 100%; border-collapse: collapse; }
+.revision-bar th { text-align: left; font-weight: 600; padding: 4px 8px; border-bottom: 1px solid #eee; }
+.revision-bar td { padding: 4px 8px; border-bottom: 1px solid #f0f0f0; }
+</style>
+</head>
+<body>
+
+<!-- META HEADER -->
+<div class="meta-bar">
+  <span class="title">GRPB03 — 공구 등록</span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.1</span></span>
+  <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/groupbuy/new</span></span>
+  <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">PC / Mobile</span></span>
+  <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="main-layout">
+
+  <!-- ===== WIREFRAME SIDE ===== -->
+  <div class="wireframe-side">
+    <div class="phone-frame">
+
+      <!-- ① Header -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:8px; left:6px;">1</div>
+        <div class="wf-header">
+          <div class="wf-header-left">&lt;</div>
+          <span class="wf-page-title">공구 등록</span>
+          <div class="wf-header-right">X</div>
+        </div>
+      </div>
+
+      <!-- Form Scroll Container -->
+      <div class="wf-form-scroll">
+
+        <!-- ② 공구 유형 선택 -->
+        <div class="wf-form-section">
+          <div class="num-circle" style="top:4px; left:6px;">2</div>
+          <div class="wf-section-label">공구 유형 <span class="wf-required">*</span></div>
+          <div class="wf-card-group">
+            <div class="wf-card selected">
+              <div class="wf-card-title">일반 공구</div>
+              <div class="wf-card-desc">단일 상품 공동 구매</div>
+            </div>
+            <div class="wf-card">
+              <div class="wf-card-title">세트 공구</div>
+              <div class="wf-card-desc">캐릭터 선점 분배</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ③ 카테고리 선택 -->
+        <div class="wf-form-section">
+          <div class="num-circle" style="top:4px; left:6px;">3</div>
+          <div class="wf-section-label">카테고리 <span class="wf-required">*</span></div>
+          <div class="wf-chip-group">
+            <div class="wf-chip selected">애니/만화/소설</div>
+            <div class="wf-chip">아이돌/아티스트</div>
+            <div class="wf-chip">배우/무대</div>
+            <div class="wf-chip">게임</div>
+          </div>
+        </div>
+
+        <!-- ④ 기본 정보 -->
+        <div class="wf-form-section">
+          <div class="num-circle" style="top:4px; left:6px;">4</div>
+          <div class="wf-section-label">기본 정보</div>
+
+          <div class="wf-input-group">
+            <label class="wf-label">상품명 <span class="wf-required">*</span></label>
+            <input type="text" class="wf-input" placeholder="원신 카즈하 아크릴 스탠드 공구">
+          </div>
+
+          <div class="wf-input-group">
+            <label class="wf-label">상품 이미지</label>
+            <div class="wf-image-upload">+ 사진 추가</div>
+            <div class="wf-image-thumbnails">
+              <div class="wf-image-thumb"></div>
+              <div class="wf-image-thumb"></div>
+            </div>
+          </div>
+
+          <div class="wf-input-group">
+            <label class="wf-label">작품</label>
+            <input type="text" class="wf-input" placeholder="원신">
+          </div>
+
+          <div class="wf-input-group">
+            <label class="wf-label">굿즈 타입</label>
+            <input type="text" class="wf-input" placeholder="아크릴" disabled>
+          </div>
+        </div>
+
+        <!-- ⑤ 가격 정보 -->
+        <div class="wf-form-section">
+          <div class="num-circle" style="top:4px; left:6px;">5</div>
+          <div class="wf-section-label">가격 정보</div>
+
+          <div class="wf-input-group">
+            <label class="wf-label">1인당 가격 <span class="wf-required">*</span></label>
+            <input type="text" class="wf-input" placeholder="₩ 15,000">
+          </div>
+
+          <div class="wf-toggle">
+            <div class="wf-toggle-switch on"></div>
+            <span>배송비 포함</span>
+          </div>
+        </div>
+
+        <!-- ⑥ 모집 정보 -->
+        <div class="wf-form-section">
+          <div class="num-circle" style="top:4px; left:6px;">6</div>
+          <div class="wf-section-label">모집 정보</div>
+
+          <div class="wf-input-group">
+            <label class="wf-label">목표 인원 <span class="wf-required">*</span></label>
+            <input type="text" class="wf-input" placeholder="30" value="30">
+          </div>
+
+          <div class="wf-input-group">
+            <label class="wf-label">최소 인원</label>
+            <input type="text" class="wf-input" placeholder="20" value="20">
+          </div>
+
+          <div class="wf-input-group">
+            <label class="wf-label">마감일 <span class="wf-required">*</span></label>
+            <input type="text" class="wf-input" placeholder="2026-03-13" value="2026-03-13">
+          </div>
+
+          <div class="wf-input-group">
+            <label class="wf-label">배송 예정일 <span class="wf-required">*</span></label>
+            <input type="text" class="wf-input" placeholder="2026-04-01" value="2026-04-01">
+          </div>
+        </div>
+
+        <!-- ⑦ 상세 설명 -->
+        <div class="wf-form-section">
+          <div class="num-circle" style="top:4px; left:6px;">7</div>
+          <div class="wf-section-label">상세 설명</div>
+          <textarea class="wf-textarea" placeholder="공구 상세 내용을 입력하세요..."></textarea>
+        </div>
+
+        <div style="height: 20px;"></div>
+
+      </div><!-- /wf-form-scroll -->
+
+      <!-- ⑧ 하단 CTA -->
+      <div class="wf-button-bar">
+        <div class="num-circle" style="top:-28px; left:6px;">8</div>
+        <button class="wf-button outline">미리보기</button>
+        <button class="wf-button primary">등록하기</button>
+      </div>
+
+    </div><!-- /phone-frame -->
+  </div><!-- /wireframe-side -->
+
+  <!-- ===== DESCRIPTION SIDE ===== -->
+  <div class="desc-side">
+    <div class="desc-title">GRPB03 공구 등록</div>
+    <div class="desc-subtitle">공동구매를 등록하는 폼 화면</div>
+
+    <!-- ① Header -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">1</div>
+        <span class="desc-comp-type">[Header]</span>
+        <span class="desc-comp-name">페이지 헤더</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>좌측: 뒤로가기 아이콘 (&lt;)</li>
+          <li>중앙: 페이지 제목 "공구 등록" (고정 텍스트)</li>
+          <li>우측: 닫기 아이콘 (X)
+            <ul class="sub">
+              <li>탭 시: 작성 정보 유실 경고 모달 → 공구 목록(GRPB01) 이동</li>
+            </ul>
+          </li>
+          <li>스크롤 시 상단 고정 (sticky)</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- ② 공구 유형 선택 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">2</div>
+        <span class="desc-comp-type">[RadioCard]</span>
+        <span class="desc-comp-name">공구 유형 선택</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>형태: 큰 카드 2개 (2열 또는 모바일 수직 스택)</li>
+          <li>선택: 라디오 버튼 (하나만 선택)</li>
+          <li>옵션:
+            <ul class="sub">
+              <li>일반 공구 (기본 선택) — 단일 상품 공동 구매</li>
+              <li>세트 공구 — 세트 구매 후 캐릭터 분배</li>
+            </ul>
+          </li>
+          <li>선택된 카드: Blue 테두리 + 배경 강조</li>
+          <li>선택 변경 시 폼 필드 동적 갱신 (세트 공구 시 캐릭터 슬롯 섹션 표시)</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- ③ 카테고리 선택 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">3</div>
+        <span class="desc-comp-type">[ChipGroup]</span>
+        <span class="desc-comp-name">카테고리 선택</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>형태: 4개 칩 (라디오 그룹, 단일 선택)</li>
+          <li>옵션: 애니/만화/소설 | 아이돌/아티스트 | 배우/무대 | 게임</li>
+          <li>기본 선택: 애니/만화/소설</li>
+          <li>선택된 칩: Blue 배경 + 흰색 텍스트</li>
+          <li>비선택 칩: Gray 배경 + Dark 텍스트</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- ④ 기본 정보 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">4</div>
+        <span class="desc-comp-type">[Form]</span>
+        <span class="desc-comp-name">기본 정보</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>상품명 (필수)
+            <ul class="sub">
+              <li>Text input, 최대 100자</li>
+              <li>예: "원신 카즈하 아크릴 스탠드 공구"</li>
+            </ul>
+          </li>
+          <li>상품 이미지 (선택)
+            <ul class="sub">
+              <li>최대 10장 (S3 + Sharp 리사이즈 1200×1200px)</li>
+              <li>회색 점선 박스 + "+ 사진 추가" 텍스트</li>
+              <li>업로드 후 썸네일 그리드 (3열) 표시</li>
+              <li>각 이미지: 삭제 버튼(X) 오버레이</li>
+              <li>드래그로 순서 변경 가능</li>
+            </ul>
+          </li>
+          <li>작품 검색/선택 (선택)
+            <ul class="sub">
+              <li>Text input with search icon</li>
+              <li>Autocomplete 드롭다운 (작품 DB)</li>
+              <li>세트 공구 선택 시 필수</li>
+            </ul>
+          </li>
+          <li>굿즈 타입 (선택)
+            <ul class="sub">
+              <li>Dropdown: 포토카드/아크릴/캔뱃지/피규어/인형/엽서/의류/기타</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- ⑤ 가격 정보 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">5</div>
+        <span class="desc-comp-type">[Form]</span>
+        <span class="desc-comp-name">가격 정보</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>일반 공구 (type: regular)
+            <ul class="sub">
+              <li>1인당 가격 (필수) — Number input with ₩</li>
+              <li>배송비 포함 (선택) — Toggle switch (기본: OFF)</li>
+            </ul>
+          </li>
+          <li>세트 공구 (type: set)
+            <ul class="sub">
+              <li>캐릭터당 가격 (필수) — Number input with ₩</li>
+              <li>배송비 포함 (선택) — Toggle switch (기본: OFF)</li>
+            </ul>
+          </li>
+          <li>토글 ON 시: 배송비 이미 포함된 가격으로 처리</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- ⑥ 모집 정보 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">6</div>
+        <span class="desc-comp-type">[Form]</span>
+        <span class="desc-comp-name">모집 정보</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>목표 인원 (필수)
+            <ul class="sub">
+              <li>Number input, 최소 2명 이상</li>
+              <li>예: 30</li>
+            </ul>
+          </li>
+          <li>최소 인원 (선택)
+            <ul class="sub">
+              <li>Number input, 목표 인원 이하</li>
+              <li>예: 20</li>
+            </ul>
+          </li>
+          <li>마감일 (필수)
+            <ul class="sub">
+              <li>Date picker</li>
+              <li>최소: 현재 + 1일 이후</li>
+              <li>예: 2026-03-13</li>
+            </ul>
+          </li>
+          <li>배송 예정일 (필수)
+            <ul class="sub">
+              <li>Date picker</li>
+              <li>마감일 이후 설정 필수</li>
+              <li>예: 2026-04-01</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- ⑦ 상세 설명 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">7</div>
+        <span class="desc-comp-type">[Textarea]</span>
+        <span class="desc-comp-name">상세 설명</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>Textarea, 마크다운 지원</li>
+          <li>Placeholder: "공구 상세 내용을 입력하세요..."</li>
+          <li>최대 3000자</li>
+          <li>배송 방법, 픽링 일정, 추가 금액 등 안내</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- ⑧ 하단 CTA -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">8</div>
+        <span class="desc-comp-type">[ButtonBar]</span>
+        <span class="desc-comp-name">하단 CTA 버튼</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>좌우 배치: 미리보기 | 등록하기</li>
+          <li>[미리보기] — Outline 스타일, 공구 정보 프리뷰 (GRPB02 preview mode)</li>
+          <li>[등록하기] — Blue 배경, 흰색 텍스트, 클릭 시 확인 모달
+            <ul class="sub">
+              <li>모달: "공구를 등록하시겠습니까?" + [취소] [등록하기]</li>
+              <li>등록 중: 버튼 비활성화 + 로딩 스피너</li>
+              <li>성공: GRPB02(공구 상세) 이동</li>
+            </ul>
+          </li>
+          <li>진행자 자격 미달 시: 안내 메시지 + 버튼 비활성화
+            <ul class="sub">
+              <li>"진행자 자격(교환 5회 이상, 긍정 90% 이상)이 없습니다."</li>
+            </ul>
+          </li>
+          <li>Sticky 위치 (폼 스크롤 시에도 항상 표시)</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- 연관 화면 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <span class="desc-comp-name" style="font-size:13px;">📎 연관 화면</span>
+      </div>
+      <table class="conn-table">
+        <thead>
+          <tr><th>이동 대상</th><th>조건</th><th>화면코드</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>공구 목록</td><td>뒤로가기 / 닫기</td><td class="code">GRPB01</td></tr>
+          <tr><td>공구 상세</td><td>등록 완료</td><td class="code">GRPB02</td></tr>
+          <tr><td>로그인</td><td>비로그인 + 진입</td><td class="code">AUTH01</td></tr>
+          <tr><td>본인인증</td><td>미인증 + 진입</td><td class="code">AUTH02</td></tr>
+          <tr><td>홈</td><td>네비게이션</td><td class="code">HOME01</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 화면 상태 -->
+    <div class="states-section">
+      <div class="states-title">📋 화면 상태 체크리스트</div>
+      <div class="states-item"><strong>기본 상태</strong>: 공구 유형 일반 공구 선택, 카테고리 애니/만화/소설 선택, 폼 입력 준비</div>
+      <div class="states-item"><strong>세트 공구 모드</strong>: 캐릭터 슬롯 섹션 표시, 작품 필수, 캐릭터 최소 2개</div>
+      <div class="states-item"><strong>검증 상태</strong>: 필수 필드 미입력 시 버튼 비활성화</div>
+      <div class="states-item"><strong>로딩 상태</strong>: 등록 중 버튼 비활성화 + 스피너</div>
+      <div class="states-item"><strong>진행자 미달</strong>: "진행자 자격이 없습니다" 경고 메시지 표시</div>
+      <div class="states-item"><strong>작성 유실 경고</strong>: 뒤로가기/닫기 탭 시 확인 모달</div>
+    </div>
+
+  </div><!-- /desc-side -->
+</div><!-- /main-layout -->
+
+<!-- REVISION FOOTER -->
+<div class="revision-bar">
+  <table>
+    <thead><tr><th>날짜</th><th>버전</th><th>내용</th></tr></thead>
+    <tbody><tr><td>2026-03-06</td><td>0.1</td><td>초안 작성</td></tr></tbody>
+  </table>
+</div>
+
+</body>
+</html>

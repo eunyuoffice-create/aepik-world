@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXCH01 — 교환 목록 와이어프레임</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+
+/* ===== META HEADER ===== */
+.meta-bar {
+  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
+}
+.meta-item { font-size: 11px; }
+.meta-label { color: #999; }
+.meta-value { font-weight: 600; color: #333; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+
+/* ===== MAIN LAYOUT ===== */
+.main-layout { display: flex; min-height: calc(100vh - 48px); }
+
+/* ===== WIREFRAME SIDE ===== */
+.wireframe-side {
+  flex: 0 0 55%; background: #EAEAEA; padding: 32px;
+  display: flex; justify-content: center; overflow-y: auto;
+}
+.phone-frame {
+  width: 375px; background: #fff; border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative;
+  overflow: hidden; flex-shrink: 0;
+}
+
+/* ===== DESCRIPTION SIDE ===== */
+.desc-side {
+  flex: 0 0 45%; background: #fff; padding: 24px 28px;
+  overflow-y: auto; border-left: 1px solid #ddd;
+}
+.desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+.desc-item { margin-bottom: 20px; }
+.desc-num-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.desc-num {
+  background: #2563EB; color: #fff; width: 22px; height: 22px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0;
+}
+.desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-name { font-size: 14px; font-weight: 600; }
+.desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
+.desc-body ul { list-style: none; }
+.desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
+.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #888; }
+.desc-body .sub li::before { content: '└'; color: #ccc; }
+.desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
+
+/* ===== Connected Screens Table ===== */
+.conn-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px; }
+.conn-table th { background: #F5F5F5; padding: 6px 8px; text-align: left; font-weight: 600; border-bottom: 1px solid #ddd; }
+.conn-table td { padding: 6px 8px; border-bottom: 1px solid #eee; }
+.conn-table .code { color: #2563EB; font-weight: 600; }
+
+/* States section */
+.states-section { margin-top: 16px; padding: 12px; background: #FAFAFA; border-radius: 8px; border: 1px solid #eee; }
+.states-title { font-size: 12px; font-weight: 600; margin-bottom: 8px; }
+.states-item { font-size: 11px; color: #666; margin-bottom: 4px; padding-left: 14px; position: relative; }
+.states-item::before { content: '▸'; position: absolute; left: 0; color: #2563EB; }
+
+/* ===== WIREFRAME ELEMENTS ===== */
+.wf-section { position: relative; }
+.num-circle {
+  position: absolute; z-index: 10;
+  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+/* Header */
+.wf-header {
+  display: flex; align-items: center; padding: 12px 16px;
+  border-bottom: 1px solid #eee; position: relative;
+}
+.wf-page-title { font-weight: 700; font-size: 16px; color: #1A1A1A; }
+.wf-header-icons { margin-left: auto; display: flex; gap: 12px; }
+.wf-icon { width: 24px; height: 24px; background: #f0f0f0; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #888; }
+
+/* Filter chips */
+.wf-filter-bar {
+  display: flex; gap: 6px; padding: 10px 16px; overflow-x: hidden;
+  border-bottom: 1px solid #f0f0f0; position: relative;
+}
+.wf-chip {
+  flex-shrink: 0; padding: 5px 10px; border-radius: 16px;
+  font-size: 11px; background: #F5F5F5; color: #555; border: 1px solid #E5E5E5;
+  white-space: nowrap;
+}
+.wf-chip.selected { background: #2563EB; color: #fff; border-color: #2563EB; }
+.wf-chip-reset { flex-shrink: 0; padding: 5px 8px; font-size: 10px; color: #999; }
+
+/* Sort bar */
+.wf-sort-bar {
+  display: flex; align-items: center; padding: 8px 16px;
+  font-size: 11px; color: #999; position: relative;
+}
+.wf-sort-count { color: #333; font-weight: 600; }
+.wf-sort-option { margin-left: auto; color: #555; font-weight: 500; }
+
+/* Product grid */
+.wf-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  padding: 8px 16px;
+}
+.wf-product-card {
+  background: #fff; border: 1px solid #eee; border-radius: 8px; overflow: hidden;
+}
+.wf-product-card.completed { opacity: 0.5; }
+.wf-product-card.completed .wf-product-img { position: relative; }
+.wf-completed-badge {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.6); color: #fff; font-size: 10px; font-weight: 700;
+  padding: 4px 10px; border-radius: 4px;
+}
+.wf-product-img {
+  width: 100%; aspect-ratio: 1; background: #E5E5E5;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: #bbb; position: relative;
+}
+.wf-product-body { padding: 8px; }
+.wf-product-tags { display: flex; gap: 4px; margin-bottom: 4px; }
+.wf-tag { font-size: 9px; padding: 1px 5px; border-radius: 3px; }
+.wf-tag.exchange { background: #FFF7ED; color: #EA580C; }
+.wf-tag.exchange-cash { background: #FFF7ED; color: #EA580C; }
+.wf-tag.anime { background: #F5F3FF; color: #7C3AED; }
+.wf-tag.idol { background: #FDF2F8; color: #DB2777; }
+.wf-tag.actor { background: #FFFBEB; color: #F59E0B; }
+.wf-tag.game { background: #ECFEFF; color: #0891B2; }
+.wf-product-name { font-size: 11px; font-weight: 500; line-height: 1.3; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.wf-product-meta { font-size: 10px; color: #999; }
+.wf-product-rating { font-size: 10px; color: #888; margin-top: 2px; }
+
+/* Badge styles */
+.wf-badge-container {
+  position: absolute; top: 4px; right: 4px; display: flex; gap: 2px; z-index: 5;
+}
+.wf-badge {
+  font-size: 9px; font-weight: 600; padding: 2px 6px; border-radius: 3px;
+  white-space: nowrap;
+}
+.wf-badge.proposal { background: #3B82F6; color: #fff; }
+.wf-badge.bumped { background: #F97316; color: #fff; }
+
+/* FAB */
+.wf-fab {
+  position: absolute; bottom: 68px; right: 16px; z-index: 20;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: #2563EB; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 400;
+  box-shadow: 0 4px 12px rgba(37,99,235,0.35);
+}
+
+/* Bottom nav */
+.wf-bottom-nav {
+  position: relative; bottom: 0; left: 0; right: 0;
+  display: flex; justify-content: space-around; align-items: center;
+  padding: 10px 0 14px; background: #fff; border-top: 1px solid #eee;
+}
+.wf-nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 9px; color: #bbb; }
+.wf-nav-item.active { color: #2563EB; }
+.wf-nav-icon { font-size: 16px; }
+
+/* Skeleton loading hint */
+.wf-skeleton {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  padding: 8px 16px;
+}
+.wf-skeleton-card { background: #F0F0F0; border-radius: 8px; height: 180px; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+/* Revision footer */
+.revision-bar {
+  background: #FAFAFA; border-top: 1px solid #eee; padding: 12px 24px;
+  font-size: 11px; color: #999;
+}
+.revision-bar table { width: 100%; border-collapse: collapse; }
+.revision-bar th { text-align: left; font-weight: 600; padding: 4px 8px; border-bottom: 1px solid #eee; }
+.revision-bar td { padding: 4px 8px; border-bottom: 1px solid #f0f0f0; }
+</style>
+</head>
+<body>
+
+<!-- META HEADER -->
+<div class="meta-bar">
+  <span class="title">EXCH01 — 교환 목록</span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.2</span></span>
+  <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/exchange</span></span>
+  <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">PC / Mobile</span></span>
+  <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="main-layout">
+
+  <!-- ===== WIREFRAME SIDE ===== -->
+  <div class="wireframe-side">
+    <div class="phone-frame">
+
+      <!-- ① Header -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:8px; left:6px;">1</div>
+        <div class="wf-header">
+          <span class="wf-page-title">교환</span>
+          <div class="wf-header-icons">
+            <div class="wf-icon">🔍</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ② 필터 바 -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:4px; left:6px;">2</div>
+        <div class="wf-filter-bar">
+          <div class="wf-chip selected">하이큐 ✕</div>
+          <div class="wf-chip">캐릭터 ▾</div>
+          <div class="wf-chip">굿즈 타입 ▾</div>
+          <div class="wf-chip">상태 ▾</div>
+          <div class="wf-chip">거래 방법 ▾</div>
+          <div class="wf-chip">차액 ▾</div>
+          <div class="wf-chip-reset">초기화</div>
+        </div>
+      </div>
+
+      <!-- ③ 정렬 + 결과 수 -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:4px; left:6px;">3</div>
+        <div class="wf-sort-bar">
+          <span>전체 <span class="wf-sort-count">124</span>개</span>
+          <span class="wf-sort-option">최신순 ▾</span>
+        </div>
+      </div>
+
+      <!-- ④ 교환글 그리드 -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:4px; left:6px;">4</div>
+        <div class="wf-grid">
+          <!-- Card 1 -->
+          <div class="wf-product-card">
+            <div class="wf-product-img">IMG</div>
+            <div class="wf-product-body">
+              <div class="wf-product-tags">
+                <span class="wf-tag exchange">교환</span>
+                <span class="wf-tag anime">애니/만화/소설</span>
+              </div>
+              <div class="wf-product-name">하이큐 히나타 아크릴 스탠드</div>
+              <div class="wf-product-meta">하이큐 · 히나타 쇼요</div>
+              <div class="wf-product-rating">★ 4.8 · 거래 12회</div>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="wf-product-card">
+            <div class="wf-product-img">IMG
+              <div class="wf-badge-container">
+                <div class="wf-badge proposal">제안 3건</div>
+              </div>
+            </div>
+            <div class="wf-product-body">
+              <div class="wf-product-tags">
+                <span class="wf-tag exchange-cash">교환+차액</span>
+                <span class="wf-tag anime">애니/만화/소설</span>
+              </div>
+              <div class="wf-product-name">하이큐 카게야마 캔뱃지 세트</div>
+              <div class="wf-product-meta">하이큐 · 카게야마 토비오</div>
+              <div class="wf-product-rating">★ 4.5 · 거래 8회</div>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="wf-product-card">
+            <div class="wf-product-img">IMG
+              <div class="wf-badge-container">
+                <div class="wf-badge bumped">🔥 UP</div>
+              </div>
+            </div>
+            <div class="wf-product-body">
+              <div class="wf-product-tags">
+                <span class="wf-tag exchange">교환</span>
+                <span class="wf-tag anime">애니/만화/소설</span>
+              </div>
+              <div class="wf-product-name">하이큐 오이카와 포토카드 Special</div>
+              <div class="wf-product-meta">하이큐 · 오이카와 토오루</div>
+              <div class="wf-product-rating">★ 5.0 · 거래 41회</div>
+            </div>
+          </div>
+          <!-- Card 4 - Completed -->
+          <div class="wf-product-card completed">
+            <div class="wf-product-img">IMG<div class="wf-completed-badge">교환완료</div></div>
+            <div class="wf-product-body">
+              <div class="wf-product-tags">
+                <span class="wf-tag exchange">교환</span>
+                <span class="wf-tag anime">애니/만화/소설</span>
+              </div>
+              <div class="wf-product-name">하이큐 켄마 아크릴 키링</div>
+              <div class="wf-product-meta">하이큐 · 코즈메 켄마</div>
+              <div class="wf-product-rating">★ 4.3 · 거래 5회</div>
+            </div>
+          </div>
+          <!-- Card 5 -->
+          <div class="wf-product-card">
+            <div class="wf-product-img">IMG</div>
+            <div class="wf-product-body">
+              <div class="wf-product-tags">
+                <span class="wf-tag exchange">교환</span>
+                <span class="wf-tag anime">애니/만화/소설</span>
+              </div>
+              <div class="wf-product-name">하이큐 니시노야 피규어</div>
+              <div class="wf-product-meta">하이큐 · 니시노야 유우</div>
+              <div class="wf-product-rating">★ 4.7 · 거래 16회</div>
+            </div>
+          </div>
+          <!-- Card 6 -->
+          <div class="wf-product-card">
+            <div class="wf-product-img">IMG</div>
+            <div class="wf-product-body">
+              <div class="wf-product-tags">
+                <span class="wf-tag exchange-cash">교환+차액</span>
+                <span class="wf-tag anime">애니/만화/소설</span>
+              </div>
+              <div class="wf-product-name">하이큐 츠키시마 아크릴 블럭</div>
+              <div class="wf-product-meta">하이큐 · 츠키시마 케이</div>
+              <div class="wf-product-rating">★ 4.9 · 거래 23회</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ⑤ FAB -->
+      <div class="num-circle" style="bottom:72px; right:6px; z-index:25;">5</div>
+      <div class="wf-fab">+</div>
+
+      <!-- ⑥ 하단 네비게이션 -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:4px; left:6px;">6</div>
+        <div class="wf-bottom-nav">
+          <div class="wf-nav-item"><span class="wf-nav-icon">🏠</span>홈</div>
+          <div class="wf-nav-item active"><span class="wf-nav-icon">🔄</span>교환</div>
+          <div class="wf-nav-item"><span class="wf-nav-icon">📅</span>이벤트</div>
+          <div class="wf-nav-item"><span class="wf-nav-icon">💬</span>채팅</div>
+          <div class="wf-nav-item"><span class="wf-nav-icon">👤</span>마이</div>
+        </div>
+      </div>
+
+    </div><!-- /phone-frame -->
+  </div><!-- /wireframe-side -->
+
+  <!-- ===== DESCRIPTION SIDE ===== -->
+  <div class="desc-side">
+    <div class="desc-title">EXCH01 교환 목록</div>
+    <div class="desc-subtitle">교환글을 탐색하고 필터링하는 메인 목록 화면</div>
+
+    <!-- ① Header -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">1</div>
+        <span class="desc-comp-type">[Header]</span>
+        <span class="desc-comp-name">페이지 헤더</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>좌측: 페이지 제목 "교환" (고정 텍스트)</li>
+          <li>우측: 검색 아이콘 (🔍)
+            <ul class="sub">
+              <li>탭 시: 검색 페이지(SRCH01) 이동</li>
+            </ul>
+          </li>
+          <li>스크롤 시 상단 고정 (sticky)</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- ② 필터 바 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">2</div>
+        <span class="desc-comp-type">[FilterChips]</span>
+        <span class="desc-comp-name">필터 바</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>가로 스크롤 칩 형태 (모바일에서 좌우 스와이프)</li>
+          <li>필터 항목:
+            <ul class="sub">
+              <li>작품 ▾ — 작품 DB 검색 선택</li>
+              <li>캐릭터 ▾ — 작품 선택 시 활성화</li>
+              <li>굿즈 타입 ▾ — 포토카드/아크릴/캔뱃지/피규어/인형/엽서/의류/기타</li>
+              <li>상품 상태 ▾ — S급/A급/B급/C급</li>
+              <li>거래 방법 ▾ — 택배/직거래/둘 다</li>
+              <li>차액 여부 ▾ — 차액 가능/불가</li>
+            </ul>
+          </li>
+          <li>칩 탭 시: 바텀시트 → 옵션 선택 → 칩에 선택값 표시 + ✕</li>
+          <li>선택된 칩: Blue 배경 + 흰색 텍스트</li>
+          <li>초기화 버튼: 선택된 필터가 1개 이상일 때만 표시</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- ③ 정렬 + 결과 수 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">3</div>
+        <span class="desc-comp-type">[SortBar]</span>
+        <span class="desc-comp-name">정렬 + 결과 수</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>좌측: "전체 N개" — 필터 적용 결과 수</li>
+          <li>우측: 정렬 드롭다운
+            <ul class="sub">
+              <li>최신순 (기본) — created_at DESC</li>
+              <li>인기순 — 조회수 + 찜 수 기반</li>
+              <li>가까운순 — 위치 권한 허용 시만 활성화</li>
+            </ul>
+          </li>
+          <li>선택 변경 시 목록 즉시 리로드</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- ④ 교환글 그리드 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">4</div>
+        <span class="desc-comp-type">[Grid]</span>
+        <span class="desc-comp-name">교환글 그리드</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>2열 그리드 (모바일) / 4열 (데스크톱)</li>
+          <li>카드: ProductCard 컴포넌트
+            <ul class="sub">
+              <li>이미지 (1:1 비율, object-fit: cover)</li>
+              <li>이미지 우상단 뱃지 (선택):
+                <ul class="sub">
+                  <li>제안 받은 매물 (본인 글): "제안 N건" 파란색 뱃지</li>
+                  <li>끌어올리기된 매물: "🔥 UP" 주황색 뱃지</li>
+                </ul>
+              </li>
+              <li>태그: [거래유형] + [카테고리]</li>
+              <li>상품명 (최대 2줄, text-overflow: ellipsis)</li>
+              <li>작품명 · 캐릭터명 (Gray 400)</li>
+              <li>★ 평점 · 거래 N회</li>
+            </ul>
+          </li>
+          <li>교환 완료 매물: 이미지 위 "교환완료" 뱃지 + 전체 반투명(opacity 0.5)</li>
+          <li>무한 스크롤 (Intersection Observer)
+            <ul class="sub">
+              <li>하단 도달 시 다음 페이지 자동 로드</li>
+              <li>로딩 중 스켈레톤 카드 2개 표시</li>
+            </ul>
+          </li>
+          <li>카드 탭 시: 교환 상세(EXCH02) 이동</li>
+          <li>카드 호버: shadow-md + translateY(-2px)</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- ⑤ FAB -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">5</div>
+        <span class="desc-comp-type">[FAB]</span>
+        <span class="desc-comp-name">교환글 등록 버튼</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>우하단 고정 (bottom: 80px, right: 16px)</li>
+          <li>56×56px, border-radius: 50%, Blue 배경</li>
+          <li>아이콘: + (또는 ✏️ 편집 아이콘)</li>
+          <li>탭 시: 교환글 등록(EXCH03) 이동
+            <ul class="sub">
+              <li>비로그인: 로그인 유도 바텀시트</li>
+              <li>미인증: 본인인증 유도 바텀시트</li>
+            </ul>
+          </li>
+          <li>스크롤 다운 시: 축소 or 반투명 (선택)</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- ⑥ 하단 네비게이션 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">6</div>
+        <span class="desc-comp-type">[BottomNav]</span>
+        <span class="desc-comp-name">하단 네비게이션</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>5개 탭: 홈 | <strong>교환(활성)</strong> | 이벤트 | 채팅 | 마이</li>
+          <li>활성 탭: Blue (#2563EB), 비활성: Gray 400</li>
+          <li>채팅/마이: 비로그인 시 로그인 유도</li>
+          <li>채팅: 안 읽은 메시지 뱃지 (빨간 dot)</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- 연관 화면 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <span class="desc-comp-name" style="font-size:13px;">📎 연관 화면</span>
+      </div>
+      <table class="conn-table">
+        <thead>
+          <tr><th>이동 대상</th><th>조건</th><th>화면코드</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>교환 상세</td><td>카드 탭</td><td class="code">EXCH02</td></tr>
+          <tr><td>교환글 등록</td><td>FAB 탭</td><td class="code">EXCH03</td></tr>
+          <tr><td>검색</td><td>🔍 아이콘 탭</td><td class="code">SRCH01</td></tr>
+          <tr><td>홈</td><td>홈 탭 / 뒤로가기</td><td class="code">HOME01</td></tr>
+          <tr><td>로그인</td><td>비로그인 + FAB</td><td class="code">AUTH01</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 화면 상태 -->
+    <div class="states-section">
+      <div class="states-title">📋 화면 상태 체크리스트</div>
+      <div class="states-item"><strong>기본 상태</strong>: 필터 적용된 교환글 목록 표시</div>
+      <div class="states-item"><strong>로딩 상태</strong>: 스켈레톤 카드 6개 (2×3) 펄스 애니메이션</div>
+      <div class="states-item"><strong>빈 상태</strong>: "조건에 맞는 교환글이 없어요" + 빈 상자 일러스트 + [교환글 등록하기] CTA</div>
+      <div class="states-item"><strong>에러 상태</strong>: "네트워크 오류" + [다시 시도] 버튼</div>
+      <div class="states-item"><strong>비로그인</strong>: 목록 조회 가능, FAB 탭 시 로그인 유도</div>
+      <div class="states-item"><strong>뱃지 표시</strong>: 끌어올리기된 매물은 상단 정렬 + 🔥UP 뱃지 / 본인 글의 제안 있음 → 제안 N건 뱃지</div>
+    </div>
+
+  </div><!-- /desc-side -->
+</div><!-- /main-layout -->
+
+<!-- REVISION FOOTER -->
+<div class="revision-bar">
+  <table>
+    <thead><tr><th>날짜</th><th>버전</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td>2026-03-06</td><td>0.1</td><td>초안 작성</td></tr>
+      <tr><td>2026-03-06</td><td>0.2</td><td>교환 제안 뱃지, 끌어올리기 뱃지 추가</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

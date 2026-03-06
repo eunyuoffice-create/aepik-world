@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOME01 — 메인 홈 와이어프레임</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+
+/* ===== META HEADER ===== */
+.meta-bar {
+  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
+}
+.meta-item { font-size: 11px; }
+.meta-label { color: #999; }
+.meta-value { font-weight: 600; color: #333; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+
+/* ===== MAIN LAYOUT ===== */
+.main-layout {
+  display: flex; min-height: calc(100vh - 48px);
+}
+
+/* ===== WIREFRAME SIDE ===== */
+.wireframe-side {
+  flex: 0 0 55%; background: #EAEAEA; padding: 32px;
+  display: flex; justify-content: center; overflow-y: auto;
+}
+.phone-frame {
+  width: 375px; background: #fff; border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative;
+  overflow: hidden; flex-shrink: 0;
+}
+
+/* ===== DESCRIPTION SIDE ===== */
+.desc-side {
+  flex: 0 0 45%; background: #fff; padding: 24px 28px;
+  overflow-y: auto; border-left: 1px solid #ddd;
+}
+.desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+
+.desc-item { margin-bottom: 20px; }
+.desc-num-row {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+}
+.desc-num {
+  background: #2563EB; color: #fff; width: 22px; height: 22px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0;
+}
+.desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-name { font-size: 14px; font-weight: 600; }
+
+.desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
+.desc-body ul { list-style: none; }
+.desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
+.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #888; }
+.desc-body .sub li::before { content: '└'; color: #ccc; }
+
+.desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
+
+/* ===== WIREFRAME ELEMENTS ===== */
+.wf-section { position: relative; }
+
+/* Number circle overlay */
+.num-circle {
+  position: absolute; z-index: 10;
+  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+/* Header */
+.wf-header {
+  display: flex; align-items: center; padding: 12px 16px;
+  border-bottom: 1px solid #eee; position: relative;
+}
+.wf-logo { font-weight: 700; font-size: 16px; color: #2563EB; }
+.wf-header-icons { margin-left: auto; display: flex; gap: 12px; }
+.wf-icon { width: 20px; height: 20px; background: #ddd; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #888; }
+
+/* Search bar */
+.wf-search {
+  margin: 10px 16px; padding: 10px 14px; background: #F5F5F5;
+  border-radius: 8px; font-size: 12px; color: #aaa; position: relative;
+  display: flex; align-items: center; gap: 8px;
+}
+.wf-search-icon { color: #ccc; }
+
+/* Banner */
+.wf-banner {
+  margin: 10px 16px; height: 100px; background: #E5E5E5;
+  border-radius: 8px; position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.wf-banner-text { font-size: 11px; color: #999; }
+.wf-indicator {
+  position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 4px;
+}
+.wf-dot { width: 6px; height: 6px; border-radius: 50%; background: #ccc; }
+.wf-dot.active { background: #2563EB; }
+
+/* Section header */
+.wf-sec-header {
+  display: flex; align-items: center; padding: 14px 16px 6px;
+  position: relative;
+}
+.wf-sec-title { font-size: 14px; font-weight: 600; }
+.wf-sec-more { margin-left: auto; font-size: 11px; color: #aaa; }
+
+/* Event scroll */
+.wf-hscroll {
+  display: flex; gap: 10px; padding: 8px 16px; overflow-x: hidden;
+}
+.wf-event-card {
+  min-width: 140px; padding: 10px; background: #FAFAFA;
+  border: 1px solid #eee; border-radius: 8px; flex-shrink: 0;
+}
+.wf-event-date { font-size: 10px; color: #2563EB; font-weight: 600; }
+.wf-event-name { font-size: 12px; font-weight: 500; margin: 4px 0 2px; }
+.wf-event-loc { font-size: 10px; color: #999; }
+.wf-event-tag { display: inline-block; font-size: 9px; padding: 1px 5px; background: #F0E6FF; color: #7C3AED; border-radius: 3px; margin-top: 4px; }
+
+/* Product grid */
+.wf-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  padding: 8px 16px;
+}
+.wf-product-card {
+  background: #fff; border: 1px solid #eee; border-radius: 8px; overflow: hidden;
+}
+.wf-product-img {
+  width: 100%; aspect-ratio: 1; background: #E5E5E5;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: #bbb;
+}
+.wf-product-body { padding: 8px; }
+.wf-product-tags { display: flex; gap: 4px; margin-bottom: 4px; }
+.wf-tag { font-size: 9px; padding: 1px 5px; border-radius: 3px; }
+.wf-tag.exchange { background: #FFF7ED; color: #EA580C; }
+.wf-tag.anime { background: #F5F3FF; color: #7C3AED; } /* 애니/만화/소설 */
+.wf-tag.idol { background: #FDF2F8; color: #DB2777; } /* 아이돌/아티스트 */
+.wf-tag.actor { background: #FFFBEB; color: #F59E0B; } /* 배우/무대 */
+.wf-tag.game { background: #ECFEFF; color: #0891B2; } /* 게임 (프로게이머 포함) */
+.wf-product-name { font-size: 11px; font-weight: 500; line-height: 1.3; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.wf-product-meta { font-size: 10px; color: #999; }
+.wf-product-rating { font-size: 10px; color: #888; margin-top: 2px; }
+
+/* Group buy scroll */
+.wf-groupbuy-card {
+  min-width: 160px; padding: 10px; background: #FAFAFA;
+  border: 1px solid #eee; border-radius: 8px; flex-shrink: 0;
+}
+.wf-gb-img {
+  width: 100%; height: 60px; background: #E5E5E5; border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; color: #bbb; margin-bottom: 6px;
+}
+.wf-gb-tag { font-size: 9px; padding: 1px 5px; background: #EFF6FF; color: #2563EB; border-radius: 3px; }
+.wf-gb-name { font-size: 11px; font-weight: 500; margin: 4px 0 2px; }
+.wf-gb-progress-bar { height: 4px; background: #eee; border-radius: 2px; overflow: hidden; margin-top: 4px; }
+.wf-gb-progress-fill { height: 100%; background: #2563EB; border-radius: 2px; }
+.wf-gb-count { font-size: 10px; color: #999; margin-top: 2px; }
+
+/* Wanted list */
+.wf-wanted-list { padding: 8px 16px; }
+.wf-wanted-item {
+  padding: 10px 0; border-bottom: 1px solid #f0f0f0;
+  display: flex; align-items: center; gap: 8px;
+}
+.wf-wanted-tag { font-size: 9px; padding: 2px 6px; background: #F0FDF4; color: #16A34A; border-radius: 3px; font-weight: 600; flex-shrink: 0; }
+.wf-wanted-title { font-size: 12px; flex: 1; }
+.wf-wanted-meta { font-size: 10px; color: #aaa; flex-shrink: 0; }
+
+/* Bottom Nav */
+.wf-bottom-nav {
+  display: flex; border-top: 1px solid #eee; background: #fff;
+  padding: 8px 0 12px; position: relative;
+}
+.wf-nav-item {
+  flex: 1; text-align: center; font-size: 10px; color: #aaa;
+}
+.wf-nav-item.active { color: #2563EB; }
+.wf-nav-icon { font-size: 16px; margin-bottom: 2px; }
+
+/* FAB */
+.wf-fab {
+  position: absolute; bottom: 72px; right: 16px;
+  width: 48px; height: 48px; background: #2563EB; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 22px; font-weight: 300;
+  box-shadow: 0 3px 10px rgba(37,99,235,0.3); z-index: 5;
+}
+
+/* Revision footer */
+.revision-bar {
+  background: #fff; border-top: 1px solid #eee; padding: 12px 24px;
+  font-size: 11px; color: #999;
+}
+.revision-bar table { width: 100%; border-collapse: collapse; }
+.revision-bar th { text-align: left; font-weight: 600; color: #666; padding: 4px 8px; border-bottom: 1px solid #eee; }
+.revision-bar td { padding: 4px 8px; }
+
+@media (max-width: 900px) {
+  .main-layout { flex-direction: column; }
+  .wireframe-side { flex: none; padding: 16px; }
+  .desc-side { flex: none; border-left: none; border-top: 1px solid #ddd; }
+}
+</style>
+</head>
+<body>
+
+<!-- META HEADER -->
+<div class="meta-bar">
+  <span class="title">HOME01</span>
+  <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">메인 홈</span></span>
+  <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/</span></span>
+  <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.1</span></span>
+  <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
+  <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-06</span></span>
+</div>
+
+<!-- MAIN LAYOUT: Wireframe + Description -->
+<div class="main-layout">
+
+  <!-- ===== WIREFRAME ===== -->
+  <div class="wireframe-side">
+    <div class="phone-frame">
+
+      <!-- ① Header -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:6px; left:6px;">1</div>
+        <div class="wf-header">
+          <span class="wf-logo">애픽 월드</span>
+          <div class="wf-header-icons">
+            <div class="wf-icon">🔔</div>
+            <div class="wf-icon">☰</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ② Search Bar -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:4px; left:6px;">2</div>
+        <div class="wf-search">
+          <span class="wf-search-icon">🔍</span>
+          상품명, 작품, 캐릭터 검색
+        </div>
+      </div>
+
+      <!-- ③ Banner Carousel -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:4px; left:6px;">3</div>
+        <div class="wf-banner">
+          <span class="wf-banner-text">🎂 히나타 쇼요 생일 축하 배너 (1200×300)</span>
+          <div class="wf-indicator">
+            <div class="wf-dot active"></div>
+            <div class="wf-dot"></div>
+            <div class="wf-dot"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ④ 다가오는 이벤트 -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:8px; left:6px;">4</div>
+        <div class="wf-sec-header">
+          <span class="wf-sec-title">📅 다가오는 이벤트</span>
+          <span class="wf-sec-more">더보기 ›</span>
+        </div>
+        <div class="wf-hscroll">
+          <div class="wf-event-card">
+            <div class="wf-event-date">3/15 (토)</div>
+            <div class="wf-event-name">히나타 생일카페</div>
+            <div class="wf-event-loc">📍 홍대 카페거리</div>
+            <div class="wf-event-tag">애니/만화/소설</div>
+          </div>
+          <div class="wf-event-card">
+            <div class="wf-event-date">3/20 (목)</div>
+            <div class="wf-event-name">세븐틴 팬미팅</div>
+            <div class="wf-event-loc">📍 잠실종합운동장</div>
+            <div class="wf-event-tag" style="background:#FDF2F8; color:#DB2777;">아이돌/아티스트</div>
+          </div>
+          <div class="wf-event-card">
+            <div class="wf-event-date">3/22 (토)</div>
+            <div class="wf-event-name">원신 팬이벤트</div>
+            <div class="wf-event-loc">📍 코엑스</div>
+            <div class="wf-event-tag" style="background:#ECFEFF; color:#0891B2;">게임</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ⑤ 인기 교환 -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:8px; left:6px;">5</div>
+        <div class="wf-sec-header">
+          <span class="wf-sec-title">🔥 인기 교환</span>
+          <span class="wf-sec-more">더보기 ›</span>
+        </div>
+        <div class="wf-grid">
+          <div class="wf-product-card">
+            <div class="wf-product-img">IMG</div>
+            <div class="wf-product-body">
+              <div class="wf-product-tags">
+                <span class="wf-tag exchange">교환</span>
+                <span class="wf-tag anime">애니/만화/소설</span>
+              </div>
+              <div class="wf-product-name">하이큐 히나타 아크릴 스탠드</div>
+              <div class="wf-product-meta">하이큐 · 히나타 쇼요</div>
+              <div class="wf-product-rating">★ 4.8 · 거래 12회</div>
+            </div>
+          </div>
+          <div class="wf-product-card">
+            <div class="wf-product-img">IMG</div>
+            <div class="wf-product-body">
+              <div class="wf-product-tags">
+                <span class="wf-tag exchange">교환</span>
+                <span class="wf-tag idol">아이돌/아티스트</span>
+              </div>
+              <div class="wf-product-name">세븐틴 민규 포토카드 FML ver.</div>
+              <div class="wf-product-meta">세븐틴 · 민규</div>
+              <div class="wf-product-rating">★ 4.9 · 거래 28회</div>
+            </div>
+          </div>
+          <div class="wf-product-card">
+            <div class="wf-product-img">IMG</div>
+            <div class="wf-product-body">
+              <div class="wf-product-tags">
+                <span class="wf-tag exchange">교환+차액</span>
+                <span class="wf-tag game">게임</span>
+              </div>
+              <div class="wf-product-name">원신 감우 피규어 1/7 스케일</div>
+              <div class="wf-product-meta">원신 · 감우</div>
+              <div class="wf-product-rating">★ 4.5 · 거래 5회</div>
+            </div>
+          </div>
+          <div class="wf-product-card">
+            <div class="wf-product-img">IMG</div>
+            <div class="wf-product-body">
+              <div class="wf-product-tags">
+                <span class="wf-tag exchange">교환</span>
+                <span class="wf-tag anime">애니/만화/소설</span>
+              </div>
+              <div class="wf-product-name">주술회전 고죠 캔뱃지 세트</div>
+              <div class="wf-product-meta">주술회전 · 고죠 사토루</div>
+              <div class="wf-product-rating">★ 5.0 · 거래 41회</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ⑥ 진행 중 공구 -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:8px; left:6px;">6</div>
+        <div class="wf-sec-header">
+          <span class="wf-sec-title">📦 진행 중 공구</span>
+          <span class="wf-sec-more">더보기 ›</span>
+        </div>
+        <div class="wf-hscroll">
+          <div class="wf-groupbuy-card">
+            <div class="wf-gb-img">IMG</div>
+            <span class="wf-gb-tag">세트공구</span>
+            <div class="wf-gb-name">하이큐 아크릴 스탠드 풀세트</div>
+            <div class="wf-gb-progress-bar"><div class="wf-gb-progress-fill" style="width:62%;"></div></div>
+            <div class="wf-gb-count">5/8명 · 마감 D-5</div>
+          </div>
+          <div class="wf-groupbuy-card">
+            <div class="wf-gb-img">IMG</div>
+            <span class="wf-gb-tag" style="background:#FFF7ED; color:#EA580C;">일반공구</span>
+            <div class="wf-gb-name">세븐틴 FML 앨범 공구</div>
+            <div class="wf-gb-progress-bar"><div class="wf-gb-progress-fill" style="width:85%; background:#16A34A;"></div></div>
+            <div class="wf-gb-count">17/20명 · 마감 D-2</div>
+          </div>
+          <div class="wf-groupbuy-card">
+            <div class="wf-gb-img">IMG</div>
+            <span class="wf-gb-tag">세트공구</span>
+            <div class="wf-gb-name">원신 캔뱃지 전종 세트</div>
+            <div class="wf-gb-progress-bar"><div class="wf-gb-progress-fill" style="width:40%;"></div></div>
+            <div class="wf-gb-count">4/10명 · 마감 D-12</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ⑦ 구함글 -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:8px; left:6px;">7</div>
+        <div class="wf-sec-header">
+          <span class="wf-sec-title">🔍 구함글 모아보기</span>
+          <span class="wf-sec-more">더보기 ›</span>
+        </div>
+        <div class="wf-wanted-list">
+          <div class="wf-wanted-item">
+            <span class="wf-wanted-tag">구함</span>
+            <span class="wf-wanted-title">하이큐 카게야마 포토카드 아무거나</span>
+            <span class="wf-wanted-meta">2분 전</span>
+          </div>
+          <div class="wf-wanted-item">
+            <span class="wf-wanted-tag">구함</span>
+            <span class="wf-wanted-title">뉴진스 민지 앨범 포카 교환 원함</span>
+            <span class="wf-wanted-meta">15분 전</span>
+          </div>
+          <div class="wf-wanted-item">
+            <span class="wf-wanted-tag">구함</span>
+            <span class="wf-wanted-title">블루아카이브 아로나 아크릴 스탠드</span>
+            <span class="wf-wanted-meta">1시간 전</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ⑧ FAB -->
+      <div class="wf-fab">
+        <div class="num-circle" style="top:-8px; left:-8px;">8</div>
+        +
+      </div>
+
+      <!-- ⑨ Bottom Nav -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:2px; left:6px;">9</div>
+        <div class="wf-bottom-nav">
+          <div class="wf-nav-item active">
+            <div class="wf-nav-icon">🏠</div>
+            홈
+          </div>
+          <div class="wf-nav-item">
+            <div class="wf-nav-icon">🔄</div>
+            교환
+          </div>
+          <div class="wf-nav-item">
+            <div class="wf-nav-icon">📅</div>
+            이벤트
+          </div>
+          <div class="wf-nav-item">
+            <div class="wf-nav-icon">💬</div>
+            채팅
+          </div>
+          <div class="wf-nav-item">
+            <div class="wf-nav-icon">👤</div>
+            마이
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end phone-frame -->
+  </div><!-- end wireframe-side -->
+
+  <!-- ===== DESCRIPTION ===== -->
+  <div class="desc-side">
+    <div class="desc-title">HOME01 — 메인 홈</div>
+    <div class="desc-subtitle">라우트: / &nbsp;|&nbsp; 비로그인 접근: 가능 &nbsp;|&nbsp; Phase 1</div>
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">1</div>
+        <span class="desc-comp-type">[Header]</span>
+        <span class="desc-comp-name">앱 헤더</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>좌측: 애픽 월드 로고 (브랜드 컬러 Blue #3B82F6)</li>
+          <li>우측 아이콘:
+            <ul class="sub">
+              <li>🔔 알림 아이콘 → NOTI01 이동, 미읽은 알림 시 뱃지 표시</li>
+              <li>☰ 메뉴 아이콘 → 사이드 메뉴 슬라이드</li>
+            </ul>
+          </li>
+          <li>상단 고정 (스크롤 시 유지)</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">2</div>
+        <span class="desc-comp-type">[SearchBar]</span>
+        <span class="desc-comp-name">검색바</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>플레이스홀더: "상품명, 작품, 캐릭터 검색"</li>
+          <li>좌측 🔍 아이콘</li>
+          <li>홈에서는 입력 폼이 아닌 탭 영역으로 동작</li>
+          <li>탭 시 검색 페이지(SRCH01) 이동</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">3</div>
+        <span class="desc-comp-type">[BannerCarousel]</span>
+        <span class="desc-comp-name">배너 캐러셀</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>배너 이미지 규격: 1200×300px (4:1 비율)</li>
+          <li>자동 슬라이드: 5초 간격, 터치 스와이프 지원</li>
+          <li>하단 인디케이터: ● ○ ○ (활성 = Blue)</li>
+          <li>배너 유형: 생일/데뷔 축하 (사용자 제작), 프로모션</li>
+          <li>탭 시: 배너 주인공 관련 매물 목록 페이지 이동</li>
+          <li>배너 없을 시: 기본 서비스 소개 배너 표시</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">4</div>
+        <span class="desc-comp-type">[Section]</span>
+        <span class="desc-comp-name">다가오는 이벤트</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>섹션 헤더: "📅 다가오는 이벤트" + [더보기] → EVNT01</li>
+          <li>카드: EventMiniCard (가로 스크롤)</li>
+          <li>카드 구성:
+            <ul class="sub">
+              <li>날짜 (M/D 요일)</li>
+              <li>이벤트명</li>
+              <li>📍 장소</li>
+              <li>카테고리 태그 (애니·만화·소설/아이돌·아티스트/배우·무대/게임)</li>
+            </ul>
+          </li>
+          <li>카드 탭 시: 이벤트 상세(EVNT02) 이동</li>
+          <li>최대 6개 표시 (오늘 이후, 날짜순)</li>
+          <li>Phase 1.5 기능 (Phase 1에서는 이 섹션 미노출)</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">5</div>
+        <span class="desc-comp-type">[Grid]</span>
+        <span class="desc-comp-name">인기 교환</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>섹션 헤더: "🔥 인기 교환" + [더보기] → EXCH01</li>
+          <li>2열 그리드, 최대 4개 카드 표시</li>
+          <li>카드: ProductCard 컴포넌트
+            <ul class="sub">
+              <li>이미지 (1:1 비율, object-fit: cover)</li>
+              <li>태그: [거래유형] + [카테고리]</li>
+              <li>상품명 (최대 2줄, text-overflow: ellipsis)</li>
+              <li>작품명 · 캐릭터명 (Gray 400)</li>
+              <li>★ 평점 · 거래 N회</li>
+            </ul>
+          </li>
+          <li>카드 탭 시: 교환 상세(EXCH02) 이동</li>
+          <li>정렬: 최근 7일 조회수 + 찜 수 기준</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">6</div>
+        <span class="desc-comp-type">[HScroll]</span>
+        <span class="desc-comp-name">진행 중 공구</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>섹션 헤더: "📦 진행 중 공구" + [더보기] → GRPB01</li>
+          <li>카드: GroupBuyCard (가로 스크롤)</li>
+          <li>카드 구성:
+            <ul class="sub">
+              <li>이미지 (16:9)</li>
+              <li>태그: [일반공구] 또는 [세트공구]</li>
+              <li>상품명 (1줄)</li>
+              <li>프로그레스 바: (N/M)%</li>
+              <li>참여 현황: N/M명 · 마감 D-N</li>
+            </ul>
+          </li>
+          <li>프로그레스 바 색상: 80% 이상 Green, 미만 Blue</li>
+          <li>카드 탭 시: 공구 상세(GRPB02 또는 GRPB03) 이동</li>
+          <li>최대 6개 표시 (마감 임박순)</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">7</div>
+        <span class="desc-comp-type">[List]</span>
+        <span class="desc-comp-name">구함글 모아보기</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>섹션 헤더: "🔍 구함글 모아보기" + [더보기] → WANT01</li>
+          <li>리스트 형태 (최대 3개 표시)</li>
+          <li>카드 구성:
+            <ul class="sub">
+              <li>[구함] 태그 (Green 배경)</li>
+              <li>구함글 제목 (1줄)</li>
+              <li>작성 시간 (N분 전, N시간 전)</li>
+            </ul>
+          </li>
+          <li>카드 탭 시: 구함글 상세(WANT02) 이동</li>
+          <li>정렬: 최신순</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">8</div>
+        <span class="desc-comp-type">[FAB]</span>
+        <span class="desc-comp-name">플로팅 액션 버튼</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>위치: 우하단 고정 (bottom: 80px, right: 16px)</li>
+          <li>크기: 56×56px, border-radius: 50%</li>
+          <li>색상: Blue 배경 + 흰색 + 아이콘</li>
+          <li>탭 시: 옵션 팝업
+            <ul class="sub">
+              <li>교환글 등록 → EXCH03</li>
+              <li>공구 등록 → GRPB (new)</li>
+              <li>구함글 등록 → WANT (new)</li>
+            </ul>
+          </li>
+          <li>비로그인 시: 로그인 유도 팝업</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">9</div>
+        <span class="desc-comp-type">[BottomNav]</span>
+        <span class="desc-comp-name">하단 네비게이션</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>5개 탭: 홈 | 교환 | 이벤트 | 채팅 | 마이</li>
+          <li>비활성: Gray 400, 활성: Blue (#3B82F6)</li>
+          <li>채팅/마이: 비로그인 시 로그인 유도</li>
+          <li>채팅: 안 읽은 메시지 수 뱃지 표시</li>
+          <li>하단 고정</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- States -->
+    <div style="margin-top:16px;">
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">화면 상태</div>
+      <div class="desc-body" style="padding-left:0;">
+        <ul>
+          <li><strong>로딩 상태</strong>: 각 섹션 스켈레톤 UI 표시 (카드 형태 회색 박스 펄스 애니메이션)</li>
+          <li><strong>빈 상태</strong>: 해당 섹션 미노출 (데이터 없는 섹션은 숨김)</li>
+          <li><strong>에러 상태</strong>: "데이터를 불러올 수 없습니다" + 재시도 버튼</li>
+          <li><strong>비로그인</strong>: 모든 섹션 열람 가능, FAB 탭 시 로그인 유도</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Connected screens -->
+    <div style="margin-top:16px;">
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">연관 화면</div>
+      <div class="desc-body" style="padding-left:0;">
+        <table style="width:100%; font-size:11px; border-collapse:collapse;">
+          <thead>
+            <tr style="border-bottom:1px solid #eee;">
+              <th style="text-align:left; padding:4px 8px; color:#888;">이동 대상</th>
+              <th style="text-align:left; padding:4px 8px; color:#888;">조건</th>
+              <th style="text-align:left; padding:4px 8px; color:#888;">화면코드</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:4px 8px;">검색</td><td style="padding:4px 8px;">검색바 탭</td><td style="padding:4px 8px;">SRCH01</td></tr>
+            <tr><td style="padding:4px 8px;">알림 목록</td><td style="padding:4px 8px;">🔔 아이콘 탭</td><td style="padding:4px 8px;">NOTI01</td></tr>
+            <tr><td style="padding:4px 8px;">이벤트 캘린더</td><td style="padding:4px 8px;">이벤트 더보기</td><td style="padding:4px 8px;">EVNT01</td></tr>
+            <tr><td style="padding:4px 8px;">교환 목록</td><td style="padding:4px 8px;">인기 교환 더보기</td><td style="padding:4px 8px;">EXCH01</td></tr>
+            <tr><td style="padding:4px 8px;">교환 상세</td><td style="padding:4px 8px;">상품 카드 탭</td><td style="padding:4px 8px;">EXCH02</td></tr>
+            <tr><td style="padding:4px 8px;">공구 목록</td><td style="padding:4px 8px;">공구 더보기</td><td style="padding:4px 8px;">GRPB01</td></tr>
+            <tr><td style="padding:4px 8px;">공구 상세</td><td style="padding:4px 8px;">공구 카드 탭</td><td style="padding:4px 8px;">GRPB02/03</td></tr>
+            <tr><td style="padding:4px 8px;">구함 목록</td><td style="padding:4px 8px;">구함글 더보기</td><td style="padding:4px 8px;">WANT01</td></tr>
+            <tr><td style="padding:4px 8px;">교환글 등록</td><td style="padding:4px 8px;">FAB → 교환</td><td style="padding:4px 8px;">EXCH03</td></tr>
+            <tr><td style="padding:4px 8px;">로그인</td><td style="padding:4px 8px;">비로그인 + FAB</td><td style="padding:4px 8px;">AUTH01</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- end desc-side -->
+
+</div><!-- end main-layout -->
+
+<!-- REVISION FOOTER -->
+<div class="revision-bar">
+  <table>
+    <thead>
+      <tr><th>날짜</th><th>버전</th><th>내용</th><th>작성자</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>2026-03-06</td><td>0.1</td><td>초안 작성</td><td>AI (Claude)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

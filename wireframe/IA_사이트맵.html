@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>애픽 월드 (Aepik World) — IA 사이트맵</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F8F9FA; color: #1A1A1A; }
+
+.header-bar {
+  background: #fff; border-bottom: 2px solid #3B82F6; padding: 20px 32px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.header-bar h1 { font-size: 20px; font-weight: 700; }
+.header-bar h1 span { color: #3B82F6; }
+.header-bar .meta { font-size: 12px; color: #888; }
+
+.legend {
+  display: flex; gap: 16px; padding: 12px 32px; background: #fff;
+  border-bottom: 1px solid #eee; flex-wrap: wrap;
+}
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #555; }
+.legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+
+.canvas { padding: 32px; overflow-x: auto; }
+
+.sitemap { display: flex; flex-direction: column; gap: 0; min-width: 1200px; }
+
+/* Root node */
+.root-node {
+  background: linear-gradient(135deg, #3B82F6, #60A5FA);
+  color: #fff; padding: 14px 28px; border-radius: 12px;
+  font-size: 18px; font-weight: 700; text-align: center;
+  width: fit-content; margin: 0 auto 0 auto;
+  box-shadow: 0 4px 12px rgba(59,130,246,0.3);
+}
+
+/* Level connector */
+.level-connector {
+  width: 2px; height: 24px; background: #ccc; margin: 0 auto;
+}
+
+/* Section row */
+.section-row {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: nowrap;
+  margin-bottom: 8px; position: relative;
+}
+.section-row::before {
+  content: ''; position: absolute; top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 160px); height: 2px; background: #ddd;
+}
+
+/* Section card */
+.section-card {
+  background: #fff; border-radius: 10px; border: 2px solid #e0e0e0;
+  min-width: 140px; max-width: 180px; flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: all 0.2s;
+  cursor: pointer;
+  position: relative;
+}
+.section-card:hover {
+  border-color: #3B82F6; box-shadow: 0 4px 16px rgba(59,130,246,0.15);
+  transform: translateY(-2px);
+}
+.section-card.expanded { border-color: #3B82F6; }
+
+.section-head {
+  padding: 10px 14px; display: flex; align-items: center; gap: 8px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.section-icon { font-size: 16px; }
+.section-name { font-size: 13px; font-weight: 600; }
+.section-route { font-size: 10px; color: #999; padding: 4px 14px 8px; font-family: 'SF Mono', monospace; }
+.section-toggle { font-size: 10px; color: #aaa; margin-left: auto; }
+
+/* Children */
+.section-children {
+  display: none; padding: 0 14px 10px;
+  border-top: 1px dashed #eee;
+}
+.section-card.expanded .section-children { display: block; }
+
+.child-item {
+  padding: 5px 0; font-size: 11px; color: #555;
+  border-bottom: 1px dotted #f0f0f0;
+  display: flex; align-items: center; gap: 6px;
+}
+.child-item:last-child { border-bottom: none; }
+.child-route { font-family: 'SF Mono', monospace; font-size: 9px; color: #aaa; }
+.child-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+
+/* Phase colors */
+.phase1 { border-color: #4CAF50; }
+.phase1 .section-head { background: #F0FDF4; }
+.phase15 { border-color: #FF9800; }
+.phase15 .section-head { background: #FFF7ED; }
+.phase2 { border-color: #9C27B0; }
+.phase2 .section-head { background: #FAF5FF; }
+
+.dot-p1 { background: #4CAF50; }
+.dot-p15 { background: #FF9800; }
+.dot-p2 { background: #9C27B0; }
+
+/* Summary box */
+.summary {
+  margin-top: 32px; background: #fff; border-radius: 12px;
+  padding: 24px; display: flex; gap: 24px; flex-wrap: wrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.summary-card {
+  flex: 1; min-width: 150px; text-align: center;
+  padding: 16px; border-radius: 8px; background: #F8F9FA;
+}
+.summary-card .num { font-size: 28px; font-weight: 700; }
+.summary-card .label { font-size: 12px; color: #888; margin-top: 4px; }
+.num-p1 { color: #4CAF50; }
+.num-p15 { color: #FF9800; }
+.num-total { color: #3B82F6; }
+.num-comp { color: #2196F3; }
+
+/* Nav table */
+.nav-section {
+  margin-top: 24px; background: #fff; border-radius: 12px;
+  padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.nav-section h3 { font-size: 15px; font-weight: 600; margin-bottom: 12px; }
+.nav-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.nav-table th { background: #F8F9FA; padding: 8px 12px; text-align: left; font-weight: 600; border-bottom: 2px solid #eee; }
+.nav-table td { padding: 8px 12px; border-bottom: 1px solid #f0f0f0; }
+.nav-table tr:hover { background: #FFFBFB; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600; }
+.badge-yes { background: #E8F5E9; color: #2E7D32; }
+.badge-no { background: #FFEBEE; color: #C62828; }
+
+.footer { text-align: center; padding: 24px; font-size: 11px; color: #aaa; }
+</style>
+</head>
+<body>
+
+<div class="header-bar">
+  <h1><span>애픽 월드</span> Aepik World — IA 사이트맵</h1>
+  <div class="meta">v1.1 · 기반: PRD v5.0, IA v1.0 · 2026-03-06</div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#4CAF50;"></div>Phase 1 (MVP)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#FF9800;"></div>Phase 1.5</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#9C27B0;"></div>Phase 2</div>
+  <div class="legend-item" style="margin-left:auto; font-style:italic; color:#aaa;">카드를 클릭하면 하위 페이지가 펼쳐집니다</div>
+</div>
+
+<div class="canvas">
+  <div class="sitemap">
+
+    <!-- Root -->
+    <div class="root-node">애픽 월드 (Aepik World)</div>
+    <div class="level-connector"></div>
+
+    <!-- Main Sections Row -->
+    <div class="section-row">
+
+      <!-- 홈 -->
+      <div class="section-card phase1" onclick="this.classList.toggle('expanded')">
+        <div class="section-head">
+          <span class="section-icon">🏠</span>
+          <span class="section-name">홈</span>
+          <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-route">/</div>
+        <div class="section-children">
+          <div class="child-item"><div class="child-dot dot-p1"></div>배너 캐러셀</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>다가오는 이벤트</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>인기 교환 (그리드)</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>진행 중 공구</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>구함글 모아보기</div>
+        </div>
+      </div>
+
+      <!-- 교환 -->
+      <div class="section-card phase1" onclick="this.classList.toggle('expanded')">
+        <div class="section-head">
+          <span class="section-icon">🔄</span>
+          <span class="section-name">교환</span>
+          <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-route">/exchange</div>
+        <div class="section-children">
+          <div class="child-item"><div class="child-dot dot-p1"></div>교환 목록 <span class="child-route">/exchange</span></div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>교환 상세 <span class="child-route">/exchange/[id]</span></div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 교환 제안 (보내기/받기)</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>교환글 등록 <span class="child-route">/exchange/new</span></div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ Step 1: 보유 굿즈</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ Step 2: 원하는 굿즈</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ Step 3: 거래 방식</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>교환 제안 신청함 <span class="child-route">/exchange/proposals</span></div>
+        </div>
+      </div>
+
+      <!-- 공구 -->
+      <div class="section-card phase1" onclick="this.classList.toggle('expanded')">
+        <div class="section-head">
+          <span class="section-icon">📦</span>
+          <span class="section-name">공구</span>
+          <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-route">/group-buy</div>
+        <div class="section-children">
+          <div class="child-item"><div class="child-dot dot-p1"></div>공구 목록 <span class="child-route">/group-buy</span></div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>공구 상세 (일반) <span class="child-route">/group-buy/[id]</span></div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>공구 상세 (세트) <span class="child-route">/group-buy/[id]</span></div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>공구 등록 <span class="child-route">/group-buy/new</span></div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 유형 선택 (일반/세트)</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ Step 1: 기본 정보</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ Step 2: 캐릭터 설정 (세트)</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ Step 3: 확인</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>공구 관리 (총대) <span class="child-route">/group-buy/manage/[id]</span></div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 진행 결정 (진행/무산)</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 자동 무산 타이머 (D+5)</div>
+        </div>
+      </div>
+
+      <!-- 구함 -->
+      <div class="section-card phase1" onclick="this.classList.toggle('expanded')">
+        <div class="section-head">
+          <span class="section-icon">🔍</span>
+          <span class="section-name">구함</span>
+          <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-route">/wanted</div>
+        <div class="section-children">
+          <div class="child-item"><div class="child-dot dot-p1"></div>구함글 목록 <span class="child-route">/wanted</span></div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>구함글 상세 <span class="child-route">/wanted/[id]</span></div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>구함글 등록 <span class="child-route">/wanted/new</span></div>
+        </div>
+      </div>
+
+      <!-- 이벤트 -->
+      <div class="section-card phase15" onclick="this.classList.toggle('expanded')">
+        <div class="section-head">
+          <span class="section-icon">📅</span>
+          <span class="section-name">이벤트</span>
+          <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-route">/events</div>
+        <div class="section-children">
+          <div class="child-item"><div class="child-dot dot-p15"></div>이벤트 캘린더 <span class="child-route">/events</span></div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 캘린더 뷰</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 리스트 뷰</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 지도 뷰</div>
+          <div class="child-item"><div class="child-dot dot-p15"></div>이벤트 상세 <span class="child-route">/events/[id]</span></div>
+          <div class="child-item"><div class="child-dot dot-p15"></div>이벤트 등록 <span class="child-route">/events/new</span></div>
+        </div>
+      </div>
+
+      <!-- 채팅 -->
+      <div class="section-card phase1" onclick="this.classList.toggle('expanded')">
+        <div class="section-head">
+          <span class="section-icon">💬</span>
+          <span class="section-name">채팅</span>
+          <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-route">/chat</div>
+        <div class="section-children">
+          <div class="child-item"><div class="child-dot dot-p1"></div>채팅 목록 <span class="child-route">/chat</span></div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>채팅방 <span class="child-route">/chat/[roomId]</span></div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 메시지 영역</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 교환 확정 버튼</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 운송장 입력</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 교환 완료 버튼</div>
+        </div>
+      </div>
+
+    </div><!-- end section-row -->
+
+    <div class="level-connector"></div>
+
+    <!-- Second Row -->
+    <div class="section-row">
+
+      <!-- 검색 -->
+      <div class="section-card phase1" onclick="this.classList.toggle('expanded')">
+        <div class="section-head">
+          <span class="section-icon">🔎</span>
+          <span class="section-name">검색</span>
+          <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-route">/search</div>
+        <div class="section-children">
+          <div class="child-item"><div class="child-dot dot-p1"></div>검색 입력 + 자동완성</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>검색 결과 (필터+정렬)</div>
+        </div>
+      </div>
+
+      <!-- 알림 -->
+      <div class="section-card phase1" onclick="this.classList.toggle('expanded')">
+        <div class="section-head">
+          <span class="section-icon">🔔</span>
+          <span class="section-name">알림</span>
+          <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-route">/notifications</div>
+        <div class="section-children">
+          <div class="child-item"><div class="child-dot dot-p1"></div>알림 목록 (종류별 필터)</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>교환 제안 알림</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>구함 매칭 알림</div>
+        </div>
+      </div>
+
+      <!-- 마이페이지 -->
+      <div class="section-card phase1" onclick="this.classList.toggle('expanded')">
+        <div class="section-head">
+          <span class="section-icon">👤</span>
+          <span class="section-name">마이페이지</span>
+          <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-route">/my</div>
+        <div class="section-children">
+          <div class="child-item"><div class="child-dot dot-p1"></div>프로필 <span class="child-route">/my</span></div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>프로필 편집 <span class="child-route">/my/edit</span></div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>내 교환글 <span class="child-route">/my/exchanges</span></div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>내 공구 <span class="child-route">/my/group-buys</span></div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>내 구함글 <span class="child-route">/my/wanted</span></div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>교환 내역 <span class="child-route">/my/history</span></div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>받은 후기 <span class="child-route">/my/reviews</span></div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>보낸/받은 교환 제안 <span class="child-route">/my/proposals</span></div>
+          <div class="child-item"><div class="child-dot dot-p15"></div>찜 목록 <span class="child-route">/my/wishlist</span></div>
+          <div class="child-item"><div class="child-dot dot-p15"></div>키워드 알림 설정 <span class="child-route">/my/keywords</span></div>
+          <div class="child-item"><div class="child-dot dot-p15"></div>결제 내역 <span class="child-route">/my/payments</span></div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>설정 <span class="child-route">/my/settings</span></div>
+        </div>
+      </div>
+
+      <!-- 이벤트 배너 & 팝업 -->
+      <div class="section-card phase15" onclick="this.classList.toggle('expanded')">
+        <div class="section-head">
+          <span class="section-icon">🎨</span>
+          <span class="section-name">이벤트 배너 & 팝업</span>
+          <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-route">/promotion</div>
+        <div class="section-children">
+          <div class="child-item"><div class="child-dot dot-p15"></div>이벤트 배너 신청 <span class="child-route">/promotion/banner/apply</span></div>
+          <div class="child-item"><div class="child-dot dot-p15"></div>이벤트 팝업 신청 <span class="child-route">/promotion/popup/apply</span></div>
+          <div class="child-item"><div class="child-dot dot-p15"></div>내 배너/팝업 내역 <span class="child-route">/promotion/my</span></div>
+          <div class="child-item"><div class="child-dot dot-p15"></div>배너 슬롯 캘린더 <span class="child-route">/promotion/calendar</span></div>
+        </div>
+      </div>
+
+      <!-- 인증 -->
+      <div class="section-card phase1" onclick="this.classList.toggle('expanded')">
+        <div class="section-head">
+          <span class="section-icon">🔐</span>
+          <span class="section-name">인증</span>
+          <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-route">/login</div>
+        <div class="section-children">
+          <div class="child-item"><div class="child-dot dot-p1"></div>로그인 <span class="child-route">/login</span></div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>회원가입 <span class="child-route">/signup</span></div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 닉네임 설정</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 관심 카테고리</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>본인인증 (모달)</div>
+        </div>
+      </div>
+
+      <!-- 정적 페이지 -->
+      <div class="section-card phase1" onclick="this.classList.toggle('expanded')">
+        <div class="section-head">
+          <span class="section-icon">📄</span>
+          <span class="section-name">정적 페이지</span>
+          <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-route">/terms …</div>
+        <div class="section-children">
+          <div class="child-item"><div class="child-dot dot-p1"></div>이용약관 <span class="child-route">/terms</span></div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>개인정보처리방침 <span class="child-route">/privacy</span></div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>고객센터 <span class="child-route">/support</span></div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>서비스 소개 <span class="child-route">/about</span></div>
+        </div>
+      </div>
+
+    </div><!-- end section-row -->
+
+    <div class="level-connector"></div>
+
+    <!-- 공통 디자인 시스템 Row -->
+    <div class="section-row">
+      <div class="section-card phase1" onclick="this.classList.toggle('expanded')" style="border-color:#3B82F6;">
+        <div class="section-head" style="background:#EFF6FF;">
+          <span class="section-icon">🎨</span>
+          <span class="section-name">공통 디자인 시스템</span>
+          <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-route">COMM</div>
+        <div class="section-children">
+          <div class="child-item"><div class="child-dot dot-p1"></div>디자인 토큰 레퍼런스 <span class="child-route">COMM01</span></div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 컬러 팔레트 / 타이포 / 간격</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 그림자 / 반응형 / 모션</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>공통 UI 컴포넌트 <span class="child-route">COMM02</span></div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 버튼 / 인풋 / 태그·뱃지</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 팝업·오버레이 / 카드 / 네비</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="level-connector"></div>
+
+    <!-- Admin row -->
+    <div class="section-row">
+      <div class="section-card phase2" onclick="this.classList.toggle('expanded')" style="min-width: 600px; max-width: 700px;">
+        <div class="section-head">
+          <span class="section-icon">🛡️</span>
+          <span class="section-name">어드민 (별도 레이아웃)</span>
+          <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-route">/admin</div>
+        <div class="section-children" style="display:flex; flex-wrap:wrap; gap: 4px 16px;">
+          <div class="child-item" style="width:45%;"><div class="child-dot dot-p1"></div>대시보드 <span class="child-route">/admin</span></div>
+          <div class="child-item" style="width:45%;"><div class="child-dot dot-p1"></div>회원 관리 <span class="child-route">/admin/users</span></div>
+          <div class="child-item" style="width:45%;"><div class="child-dot dot-p1"></div>매물 관리 <span class="child-route">/admin/listings</span></div>
+          <div class="child-item" style="width:45%;"><div class="child-dot dot-p1"></div>공구 관리 <span class="child-route">/admin/group-buys</span></div>
+          <div class="child-item" style="width:45%;"><div class="child-dot dot-p1"></div>신고 관리 <span class="child-route">/admin/reports</span></div>
+          <div class="child-item" style="width:45%;"><div class="child-dot dot-p1"></div>작품/캐릭터 관리 <span class="child-route">/admin/works</span></div>
+          <div class="child-item" style="width:45%;"><div class="child-dot dot-p15"></div>이벤트 관리 <span class="child-route">/admin/events</span></div>
+          <div class="child-item" style="width:45%;"><div class="child-dot dot-p1"></div>후기 관리 <span class="child-route">/admin/reviews</span></div>
+          <div class="child-item" style="width:45%;"><div class="child-dot dot-p1"></div>공지 관리 <span class="child-route">/admin/notices</span></div>
+          <div class="child-item" style="width:45%;"><div class="child-dot dot-p15"></div>이벤트 배너 검수 <span class="child-route">/admin/banners</span></div>
+          <div class="child-item" style="width:45%;"><div class="child-dot dot-p15"></div>팝업 검수 <span class="child-route">/admin/popups</span></div>
+          <div class="child-item" style="width:45%;"><div class="child-dot dot-p15"></div>결제 관리 <span class="child-route">/admin/payments</span></div>
+          <div class="child-item" style="width:45%;"><div class="child-dot dot-p15"></div>통계 <span class="child-route">/admin/stats</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end sitemap -->
+
+  <!-- Summary -->
+  <div class="summary">
+    <div class="summary-card">
+      <div class="num num-p1">24</div>
+      <div class="label">Phase 1 페이지</div>
+    </div>
+    <div class="summary-card">
+      <div class="num num-p15">11</div>
+      <div class="label">Phase 1.5 페이지</div>
+    </div>
+    <div class="summary-card">
+      <div class="num num-total">35</div>
+      <div class="label">전체 페이지</div>
+    </div>
+    <div class="summary-card">
+      <div class="num num-comp">24</div>
+      <div class="label">재사용 컴포넌트</div>
+    </div>
+  </div>
+
+  <!-- Bottom Nav structure -->
+  <div class="nav-section">
+    <h3>🧭 Bottom Navigation 구조</h3>
+    <table class="nav-table">
+      <thead>
+        <tr><th>#</th><th>아이콘</th><th>라벨</th><th>라우트</th><th>비로그인 접근</th><th>Phase</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>🏠</td><td>홈</td><td><code>/</code></td><td><span class="badge badge-yes">가능</span></td><td>1</td></tr>
+        <tr><td>2</td><td>🔄</td><td>교환</td><td><code>/exchange</code></td><td><span class="badge badge-yes">열람만</span></td><td>1</td></tr>
+        <tr><td>3</td><td>📅</td><td>이벤트</td><td><code>/events</code></td><td><span class="badge badge-yes">가능</span></td><td>1.5</td></tr>
+        <tr><td>4</td><td>💬</td><td>채팅</td><td><code>/chat</code></td><td><span class="badge badge-no">로그인 필요</span></td><td>1</td></tr>
+        <tr><td>5</td><td>👤</td><td>마이</td><td><code>/my</code></td><td><span class="badge badge-no">로그인 필요</span></td><td>1</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Side menu -->
+  <div class="nav-section">
+    <h3>☰ 사이드 메뉴 구조</h3>
+    <table class="nav-table">
+      <thead>
+        <tr><th>항목</th><th>라우트</th><th>비고</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>📦 공구</td><td><code>/group-buy</code></td><td>Bottom Nav에 없는 메인 섹션</td></tr>
+        <tr><td>🔍 구함</td><td><code>/wanted</code></td><td>Bottom Nav에 없는 메인 섹션</td></tr>
+        <tr><td>🎨 이벤트 배너/팝업 신청</td><td><code>/promotion/banner/apply</code></td><td>Phase 1.5</td></tr>
+        <tr><td>📋 서비스 소개</td><td><code>/about</code></td><td></td></tr>
+        <tr><td>💬 고객센터</td><td><code>/support</code></td><td></td></tr>
+        <tr><td>📄 이용약관</td><td><code>/terms</code></td><td></td></tr>
+        <tr><td>🔒 개인정보처리방침</td><td><code>/privacy</code></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Global FAB -->
+  <div class="nav-section">
+    <h3>➕ 글로벌 FAB (Floating Action Button)</h3>
+    <table class="nav-table">
+      <thead>
+        <tr><th>옵션</th><th>이동</th><th>조건</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>교환글 등록</td><td><code>/exchange/new</code></td><td>로그인 + 본인인증</td></tr>
+        <tr><td>공구 등록</td><td><code>/group-buy/new</code></td><td>로그인 + 본인인증 + 진행자 자격</td></tr>
+        <tr><td>구함글 등록</td><td><code>/wanted/new</code></td><td>로그인</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div><!-- end canvas -->
+
+<div class="footer">
+  애픽 월드 (Aepik World) IA 사이트맵 v1.1 · 기반: PRD v5.0, IA v1.0 · 2026-03-06
+</div>
+
+<script>
+// Auto-expand all on load for overview, then allow toggling
+document.querySelectorAll('.section-card').forEach(card => {
+  card.classList.add('expanded');
+});
+</script>
+
+</body>
+</html>

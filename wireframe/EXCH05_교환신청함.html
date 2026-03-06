@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXCH05 교환 신청함 - Wireframe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 55% 45%;
+            gap: 40px;
+        }
+
+        /* Meta Bar */
+        .meta-bar {
+            grid-column: 1 / -1;
+            background-color: #2563EB;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        /* Wireframe Frame */
+        .wireframe-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .phone-frame {
+            width: 375px;
+            height: 812px;
+            background: white;
+            border: 8px solid #333;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Notch simulation */
+        .phone-frame::before {
+            content: '';
+            display: block;
+            height: 30px;
+            background: #000;
+            border-radius: 0 0 20px 20px;
+            width: 150px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Phone content */
+        .phone-content {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            border-bottom: 1px solid #e0e0e0;
+            flex-shrink: 0;
+            background: white;
+            position: relative;
+        }
+
+        .header-left {
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .header-center {
+            font-size: 16px;
+            font-weight: 600;
+            flex: 1;
+            text-align: center;
+        }
+
+        .header-right {
+            width: 20px;
+        }
+
+        /* Tab Bar */
+        .tab-bar {
+            display: flex;
+            border-bottom: 1px solid #e0e0e0;
+            background: white;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .tab.active {
+            color: #2563EB;
+            border-bottom-color: #2563EB;
+        }
+
+        .tab.inactive {
+            color: #999;
+        }
+
+        /* Content area */
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 16px 16px 28px;
+        }
+
+        /* Group Card (Exchange summary) */
+        .group-card {
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+            display: flex;
+            gap: 12px;
+            position: relative;
+        }
+
+        .group-card-image {
+            width: 60px;
+            height: 60px;
+            background: #ddd;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+
+        .group-card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .group-card-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .group-card-count {
+            font-size: 12px;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        /* Proposal Card */
+        .proposal-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        /* Proposer info */
+        .proposer-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .proposer-avatar {
+            width: 32px;
+            height: 32px;
+            background: #ccc;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .proposer-details {
+            flex: 1;
+        }
+
+        .proposer-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .proposer-meta {
+            font-size: 11px;
+            color: #999;
+            margin-top: 2px;
+        }
+
+        .trust-badge {
+            display: inline-block;
+            background: #f0f0f0;
+            border-radius: 3px;
+            padding: 2px 4px;
+            font-size: 10px;
+            margin-right: 4px;
+        }
+
+        .rating {
+            display: inline-block;
+            color: #ff9800;
+            font-size: 11px;
+        }
+
+        /* Offered goods */
+        .offered-goods {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .goods-image {
+            width: 60px;
+            height: 60px;
+            background: #e8e8e8;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+
+        .goods-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .goods-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #333;
+            line-height: 1.3;
+        }
+
+        .goods-meta {
+            font-size: 11px;
+            color: #999;
+            margin-top: 2px;
+        }
+
+        .condition-badge {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #1976d2;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 1px 4px;
+            border-radius: 2px;
+            margin-right: 4px;
+        }
+
+        /* Message bubble */
+        .message-bubble {
+            background: #f0f0f0;
+            border-radius: 8px;
+            padding: 8px 10px;
+            font-size: 12px;
+            color: #333;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        /* Proposal footer */
+        .proposal-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .proposal-time {
+            display: flex;
+            gap: 8px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 12px;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-accepted {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-rejected {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        /* Action buttons */
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-start;
+            position: relative;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary {
+            background: #2563EB;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-outline {
+            background: white;
+            color: #333;
+            border: 1px solid #d0d0d0;
+        }
+
+        .btn-outline:hover {
+            background: #f9f9f9;
+        }
+
+        .btn-icon {
+            background: none;
+            border: none;
+            font-size: 18px;
+            padding: 4px 8px;
+            cursor: pointer;
+        }
+
+        /* Num Circle Annotations */
+        .num-circle {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            background: #2563EB;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+            box-shadow: 0 1px 4px rgba(37,99,235,0.4);
+        }
+
+        /* Description Panel */
+        .description-section {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            max-height: 900px;
+            overflow-y: auto;
+        }
+
+        .description-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .annotation-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: #2563EB;
+            color: white;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .description-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .description-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .description-text {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .description-detail {
+            font-size: 12px;
+            color: #999;
+            margin-top: 6px;
+        }
+
+        /* Scrollbar styling */
+        .phone-content::-webkit-scrollbar,
+        .description-section::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .phone-content::-webkit-scrollbar-track,
+        .description-section::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .phone-content::-webkit-scrollbar-thumb,
+        .description-section::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 2px;
+        }
+
+        .phone-content::-webkit-scrollbar-thumb:hover,
+        .description-section::-webkit-scrollbar-thumb:hover {
+            background: #999;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 1200px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .phone-frame {
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="meta-bar">
+            EXCH05 교환 신청함 | 받은/보낸 교환 제안 관리
+        </div>
+
+        <!-- Wireframe Section -->
+        <div class="wireframe-section">
+            <div class="phone-frame">
+                <div class="phone-content">
+                    <!-- Header -->
+                    <div class="header">
+                        <div class="num-circle" style="top:50%; left:4px; transform:translateY(-50%);">1</div>
+                        <div class="header-left">←</div>
+                        <div class="header-center">교환 신청함</div>
+                        <div class="header-right"></div>
+                    </div>
+
+                    <!-- Tab Bar -->
+                    <div class="tab-bar">
+                        <div class="num-circle" style="top:50%; left:4px; transform:translateY(-50%);">2</div>
+                        <div class="tab active">받은 제안 (3)</div>
+                        <div class="tab inactive">보낸 제안 (1)</div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="content-area">
+                        <!-- Group 1 -->
+                        <div class="group-card">
+                            <div class="num-circle" style="top:50%; left:2px; transform:translateY(-50%);">3</div>
+                            <div class="group-card-image"></div>
+                            <div class="group-card-content">
+                                <div class="group-card-title">하이큐 히나타 아크릴 스탠드</div>
+                                <div class="group-card-count">받은 제안 2건</div>
+                            </div>
+                        </div>
+
+                        <!-- Proposal 1 -->
+                        <div class="proposal-card">
+                            <div class="num-circle" style="top:12px; left:2px;">4</div>
+                            <div class="proposer-info">
+                                <div class="proposer-avatar" style="background: #3b82f6;">덕</div>
+                                <div class="proposer-details">
+                                    <div class="proposer-name">덕후A</div>
+                                    <div class="proposer-meta">
+                                        <span class="trust-badge">Lv.2</span>
+                                        <span class="rating">★ 4.5</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="offered-goods">
+                                <div class="goods-image"></div>
+                                <div class="goods-info">
+                                    <div class="goods-title">카게야마 포카</div>
+                                    <div class="goods-meta">
+                                        <span class="condition-badge">S급</span>
+                                        <span>하이큐 · 카게야마</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="message-bubble">차액 2천원 가능합니다</div>
+
+                            <div class="proposal-footer">
+                                <div class="proposal-time">2시간 전</div>
+                                <span class="status-badge status-pending">대기중</span>
+                            </div>
+
+                            <div class="action-buttons">
+                                <div class="num-circle" style="top:50%; left:2px; transform:translateY(-50%);">5</div>
+                                <button class="btn btn-primary">수락</button>
+                                <button class="btn btn-outline">거절</button>
+                                <button class="btn btn-icon">💬</button>
+                            </div>
+                        </div>
+
+                        <!-- Proposal 2 -->
+                        <div class="proposal-card">
+                            <div class="proposer-info">
+                                <div class="proposer-avatar" style="background: #8b5cf6;">팬</div>
+                                <div class="proposer-details">
+                                    <div class="proposer-name">팬C</div>
+                                    <div class="proposer-meta">
+                                        <span class="trust-badge">Lv.1</span>
+                                        <span class="rating">★ 3.8</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="offered-goods">
+                                <div class="goods-image"></div>
+                                <div class="goods-info">
+                                    <div class="goods-title">츠키시마 아크릴</div>
+                                    <div class="goods-meta">
+                                        <span class="condition-badge">A급</span>
+                                        <span>하이큐 · 츠키시마</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="proposal-footer">
+                                <div class="proposal-time">1일 전</div>
+                                <span class="status-badge status-pending">대기중</span>
+                            </div>
+
+                            <div class="action-buttons">
+                                <button class="btn btn-primary">수락</button>
+                                <button class="btn btn-outline">거절</button>
+                                <button class="btn btn-icon">💬</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Description Section -->
+        <div class="description-section">
+            <div class="description-title">
+                <span class="annotation-number">①</span>
+                Header
+            </div>
+            <div class="description-item">
+                <div class="description-text">
+                    상단 헤더 영역으로 좌측 뒤로가기 버튼과 중앙 화면명 "교환 신청함"으로 구성됨
+                </div>
+                <div class="description-detail">
+                    ← 뒤로가기 (마이페이지로 이동) | 중앙: 화면명
+                </div>
+            </div>
+
+            <div class="description-title">
+                <span class="annotation-number">②</span>
+                탭 바
+            </div>
+            <div class="description-item">
+                <div class="description-text">
+                    2개 탭으로 구성: "받은 제안 (N)" 활성화 상태 / "보낸 제안 (N)"
+                </div>
+                <div class="description-detail">
+                    각 탭에 대기중인 제안 수가 카운트 뱃지로 표시됨. 탭 전환 시 URL 변경
+                </div>
+            </div>
+
+            <div class="description-title">
+                <span class="annotation-number">③</span>
+                받은 제안 탭 (내 교환글별 그룹핑)
+            </div>
+            <div class="description-item">
+                <div class="description-text">
+                    내 교환글별로 그룹핑된 제안 카드 리스트. 각 그룹 상단에 내 교환글 요약 카드(이미지+상품명+받은 제안 수)가 표시되고, 아래에 해당 글에 대한 제안 목록이 최신순으로 정렬됨
+                </div>
+                <div class="description-detail">
+                    정렬 순서: 대기중 → 수락됨 → 거절됨/만료
+                </div>
+            </div>
+
+            <div class="description-title">
+                <span class="annotation-number">④</span>
+                제안 카드 구조
+            </div>
+            <div class="description-item">
+                <div class="description-text">
+                    각 제안 카드 포함 요소:
+                </div>
+                <div class="description-detail" style="margin-top: 8px;">
+                    • 제안자 프로필 (32px 아바타 + 닉네임 + 신뢰등급 Lv.N + 평점 ★)<br>
+                    • 제안 굿즈 (60px 이미지 + 상품명 + 상태등급 S/A/B/C + 작품·캐릭터)<br>
+                    • 첨부 메시지 (있는 경우만 회색 말풍선으로 표시)<br>
+                    • 제안 시간 ("2시간 전" 형식)<br>
+                    • 상태 뱃지 (대기중=Amber / 수락됨=Green / 거절됨=Gray / 만료=Gray)<br>
+                    • 액션 버튼 (대기중일 때만): [수락] 파란 버튼 + [거절] 회색 아웃라인 + [채팅] 아이콘
+                </div>
+            </div>
+
+            <div class="description-title">
+                <span class="annotation-number">⑤</span>
+                인터랙션 동작
+            </div>
+            <div class="description-item">
+                <div class="description-text">
+                    각 액션의 동작 정의:
+                </div>
+                <div class="description-detail" style="margin-top: 8px;">
+                    • [수락] 탭 → 확인 모달 → 수락 처리 → 채팅방 자동 생성<br>
+                    • [거절] 탭 → 거절 사유 바텀시트 → 거절 처리<br>
+                    • [채팅] 아이콘 → 채팅방(CHAT02)으로 이동<br>
+                    • 제안자 정보/제안 굿즈 이미지 탭 → 교환 상세(EXCH02) 이동
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXCH03 — 교환글 등록 와이어프레임</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+
+/* ===== META HEADER ===== */
+.meta-bar {
+  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
+}
+.meta-item { font-size: 11px; }
+.meta-label { color: #999; }
+.meta-value { font-weight: 600; color: #333; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+
+/* ===== MAIN LAYOUT ===== */
+.main-layout { display: flex; min-height: calc(100vh - 48px); }
+
+/* ===== WIREFRAME SIDE ===== */
+.wireframe-side {
+  flex: 0 0 55%; background: #EAEAEA; padding: 32px;
+  display: flex; flex-wrap: wrap; justify-content: center; align-content: flex-start;
+  gap: 24px; overflow-y: auto;
+}
+.phone-col {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.phone-col-label {
+  font-size: 11px; font-weight: 700; color: #2563EB; background: #fff;
+  padding: 4px 12px; border-radius: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.phone-frame {
+  width: 375px; min-height: 200px; background: #fff; border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative;
+  overflow: hidden; flex-shrink: 0;
+}
+
+/* ===== DESCRIPTION SIDE ===== */
+.desc-side {
+  flex: 0 0 45%; background: #fff; padding: 24px 28px;
+  overflow-y: auto; border-left: 1px solid #ddd;
+}
+.desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+
+/* Tabs */
+.desc-tabs { display: flex; gap: 4px; margin-bottom: 16px; }
+.desc-tab {
+  padding: 6px 14px; font-size: 12px; font-weight: 600; border-radius: 6px;
+  background: #F5F5F5; color: #888; cursor: pointer; border: none;
+}
+.desc-tab.active { background: #2563EB; color: #fff; }
+.desc-panel { display: none; }
+.desc-panel.active { display: block; }
+
+.desc-item { margin-bottom: 20px; }
+.desc-num-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.desc-num {
+  background: #2563EB; color: #fff; width: 22px; height: 22px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0;
+}
+.desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-name { font-size: 14px; font-weight: 600; }
+.desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
+.desc-body ul { list-style: none; }
+.desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
+.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #888; }
+.desc-body .sub li::before { content: '└'; color: #ccc; }
+.desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
+.desc-step-header {
+  font-size: 13px; font-weight: 700; color: #2563EB;
+  padding: 8px 12px; background: #EFF6FF; border-radius: 6px;
+  margin: 16px 0 12px;
+}
+
+.conn-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px; }
+.conn-table th { background: #F5F5F5; padding: 6px 8px; text-align: left; font-weight: 600; border-bottom: 1px solid #ddd; }
+.conn-table td { padding: 6px 8px; border-bottom: 1px solid #eee; }
+.conn-table .code { color: #2563EB; font-weight: 600; }
+.states-section { margin-top: 16px; padding: 12px; background: #FAFAFA; border-radius: 8px; border: 1px solid #eee; }
+.states-title { font-size: 12px; font-weight: 600; margin-bottom: 8px; }
+.states-item { font-size: 11px; color: #666; margin-bottom: 4px; padding-left: 14px; position: relative; }
+.states-item::before { content: '▸'; position: absolute; left: 0; color: #2563EB; }
+
+/* ===== BIZ LOGIC TABLE ===== */
+.biz-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px; }
+.biz-table th { background: #F5F5F5; padding: 6px 8px; text-align: left; font-weight: 600; border-bottom: 1px solid #ddd; }
+.biz-table td { padding: 6px 8px; border-bottom: 1px solid #eee; vertical-align: top; }
+
+/* ===== WIREFRAME ELEMENTS ===== */
+.wf-section { position: relative; }
+.num-circle {
+  position: absolute; z-index: 10;
+  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+/* Header */
+.wf-header {
+  display: flex; align-items: center; padding: 12px 16px;
+  border-bottom: 1px solid #eee; position: relative;
+}
+.wf-back { font-size: 16px; color: #555; cursor: pointer; margin-right: 12px; }
+.wf-header-title { font-size: 15px; font-weight: 600; }
+
+/* Step indicator */
+.wf-steps {
+  display: flex; align-items: center; justify-content: center;
+  padding: 16px 24px; gap: 8px; position: relative;
+}
+.wf-step { display: flex; align-items: center; gap: 6px; }
+.wf-step-num {
+  width: 24px; height: 24px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; border: 2px solid #ddd; color: #bbb;
+}
+.wf-step-num.active { background: #2563EB; border-color: #2563EB; color: #fff; }
+.wf-step-num.done { background: #10B981; border-color: #10B981; color: #fff; }
+.wf-step-label { font-size: 11px; color: #bbb; }
+.wf-step-label.active { color: #2563EB; font-weight: 600; }
+.wf-step-label.done { color: #10B981; }
+.wf-step-line { width: 24px; height: 2px; background: #ddd; }
+.wf-step-line.done { background: #10B981; }
+
+/* Form elements */
+.wf-form { padding: 16px 16px 16px 32px; }
+.wf-form-group { margin-bottom: 16px; position: relative; }
+.wf-form-label {
+  font-size: 12px; font-weight: 600; color: #333; margin-bottom: 6px;
+  display: flex; align-items: center; gap: 4px;
+}
+.wf-required { color: #EF4444; font-size: 10px; }
+.wf-form-input {
+  width: 100%; padding: 10px 12px; border: 1px solid #ddd;
+  border-radius: 8px; font-size: 12px; color: #333; background: #fff;
+}
+.wf-form-input.placeholder { color: #bbb; }
+.wf-form-select {
+  width: 100%; padding: 10px 12px; border: 1px solid #ddd;
+  border-radius: 8px; font-size: 12px; color: #888; background: #fff;
+  display: flex; justify-content: space-between;
+}
+.wf-form-textarea {
+  width: 100%; padding: 10px 12px; border: 1px solid #ddd;
+  border-radius: 8px; font-size: 12px; color: #bbb; background: #fff;
+  min-height: 80px; line-height: 1.5;
+}
+
+/* Photo upload */
+.wf-photo-row { display: flex; gap: 8px; overflow-x: hidden; }
+.wf-photo-add {
+  width: 72px; height: 72px; border: 2px dashed #ddd; border-radius: 8px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-size: 18px; color: #bbb; flex-shrink: 0;
+}
+.wf-photo-add-text { font-size: 9px; color: #bbb; margin-top: 2px; }
+.wf-photo-thumb {
+  width: 72px; height: 72px; background: #E5E5E5; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; color: #bbb; flex-shrink: 0; position: relative;
+}
+.wf-photo-badge {
+  position: absolute; top: -4px; left: -4px; background: #2563EB;
+  color: #fff; font-size: 8px; padding: 1px 4px; border-radius: 3px;
+}
+.wf-photo-del {
+  position: absolute; top: -4px; right: -4px; background: #EF4444;
+  color: #fff; width: 14px; height: 14px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 8px;
+}
+
+/* Radio group */
+.wf-radio-group { display: flex; gap: 8px; flex-wrap: wrap; }
+.wf-radio {
+  padding: 8px 14px; border: 1px solid #ddd; border-radius: 8px;
+  font-size: 11px; color: #555;
+}
+.wf-radio.selected { border-color: #2563EB; background: #EFF6FF; color: #2563EB; font-weight: 600; }
+.wf-radio-desc { font-size: 9px; color: #aaa; margin-top: 1px; }
+
+/* Checkbox */
+.wf-check-row {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; color: #555; margin-bottom: 8px;
+}
+.wf-checkbox {
+  width: 16px; height: 16px; border: 1.5px solid #ddd;
+  border-radius: 3px; flex-shrink: 0;
+}
+.wf-checkbox.checked { background: #2563EB; border-color: #2563EB; }
+
+/* Cash diff */
+.wf-cash-row { display: flex; gap: 8px; align-items: center; margin-top: 8px; }
+.wf-cash-toggle {
+  padding: 6px 12px; border: 1px solid #ddd; border-radius: 6px;
+  font-size: 11px; color: #555;
+}
+.wf-cash-toggle.selected { background: #2563EB; color: #fff; border-color: #2563EB; }
+.wf-cash-input {
+  flex: 1; padding: 8px 10px; border: 1px solid #ddd;
+  border-radius: 6px; font-size: 12px; color: #bbb;
+}
+
+/* Stepper */
+.wf-stepper { display: flex; align-items: center; gap: 8px; }
+.wf-stepper-btn {
+  width: 28px; height: 28px; border: 1px solid #ddd; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: #555;
+}
+.wf-stepper-val { font-size: 14px; font-weight: 600; min-width: 24px; text-align: center; }
+
+/* Map area in form */
+.wf-form-map {
+  height: 100px; background: #E0E0E0; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: #999; margin-top: 8px;
+}
+
+/* Submit / Next button */
+.wf-submit-btn {
+  margin: 8px 16px 20px; padding: 14px; background: #2563EB;
+  color: #fff; font-size: 14px; font-weight: 700; text-align: center;
+  border-radius: 10px;
+}
+.wf-submit-btn.disabled { background: #ddd; color: #999; }
+.wf-next-btn {
+  margin: 8px 16px 20px; padding: 12px; background: #2563EB;
+  color: #fff; font-size: 13px; font-weight: 600; text-align: center;
+  border-radius: 10px;
+}
+
+/* Revision footer */
+.revision-bar {
+  background: #FAFAFA; border-top: 1px solid #eee; padding: 12px 24px;
+  font-size: 11px; color: #999;
+}
+.revision-bar table { width: 100%; border-collapse: collapse; }
+.revision-bar th { text-align: left; font-weight: 600; padding: 4px 8px; border-bottom: 1px solid #eee; }
+.revision-bar td { padding: 4px 8px; border-bottom: 1px solid #f0f0f0; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .main-layout { flex-direction: column; }
+  .wireframe-side { flex: none; width: 100%; padding: 20px; }
+  .desc-side { flex: none; width: 100%; border-left: none; border-top: 1px solid #ddd; }
+}
+</style>
+</head>
+<body>
+
+<!-- META HEADER -->
+<div class="meta-bar">
+  <span class="title">EXCH03 — 교환글 등록</span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.2</span></span>
+  <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/exchange/new</span></span>
+  <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">PC / Mobile</span></span>
+  <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">확정</span></span>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="main-layout">
+
+  <!-- ===== WIREFRAME SIDE ===== -->
+  <div class="wireframe-side">
+
+    <!-- ===== Phone Frame 1: Step 1 — 보유 굿즈 ===== -->
+    <div class="phone-col">
+      <span class="phone-col-label">Step 1 — 보유 굿즈</span>
+      <div class="phone-frame">
+
+        <!-- ① Header -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">1</div>
+          <div class="wf-header">
+            <span class="wf-back">←</span>
+            <span class="wf-header-title">교환글 등록</span>
+          </div>
+        </div>
+
+        <!-- ② 스텝 인디케이터 -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:10px; left:6px;">2</div>
+          <div class="wf-steps">
+            <div class="wf-step">
+              <div class="wf-step-num active">1</div>
+              <span class="wf-step-label active">보유 굿즈</span>
+            </div>
+            <div class="wf-step-line"></div>
+            <div class="wf-step">
+              <div class="wf-step-num">2</div>
+              <span class="wf-step-label">원하는 굿즈</span>
+            </div>
+            <div class="wf-step-line"></div>
+            <div class="wf-step">
+              <div class="wf-step-num">3</div>
+              <span class="wf-step-label">거래 방식</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ③ 사진 업로드 -->
+        <div class="wf-form">
+          <div class="wf-form-group">
+            <div class="num-circle" style="top:0; left:2px;">3</div>
+            <div class="wf-form-label">사진</div>
+            <div class="wf-photo-row">
+              <div class="wf-photo-thumb"><div class="wf-photo-badge">대표</div><div class="wf-photo-del">✕</div>IMG</div>
+              <div class="wf-photo-thumb"><div class="wf-photo-del">✕</div>IMG</div>
+              <div class="wf-photo-add">
+                <span>+</span>
+                <span class="wf-photo-add-text">2/5</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ④ 작품 선택 -->
+          <div class="wf-form-group">
+            <div class="num-circle" style="top:0; left:2px;">4</div>
+            <div class="wf-form-label">작품 <span class="wf-required">*</span></div>
+            <div class="wf-form-input" style="color:#333;">하이큐!!</div>
+          </div>
+
+          <!-- ⑤ 캐릭터 선택 -->
+          <div class="wf-form-group">
+            <div class="num-circle" style="top:0; left:2px;">5</div>
+            <div class="wf-form-label">캐릭터 <span class="wf-required">*</span></div>
+            <div class="wf-form-select">히나타 쇼요 <span>▾</span></div>
+          </div>
+
+          <!-- ⑥ 굿즈 타입 -->
+          <div class="wf-form-group">
+            <div class="num-circle" style="top:0; left:2px;">6</div>
+            <div class="wf-form-label">굿즈 타입 <span class="wf-required">*</span></div>
+            <div class="wf-form-select">아크릴 스탠드 <span>▾</span></div>
+          </div>
+
+          <!-- ⑦ 상품 상태 + 수량 -->
+          <div class="wf-form-group">
+            <div class="num-circle" style="top:0; left:2px;">7</div>
+            <div class="wf-form-label">상품 상태 <span class="wf-required">*</span></div>
+            <div class="wf-radio-group">
+              <div class="wf-radio selected">S급<div class="wf-radio-desc">미개봉</div></div>
+              <div class="wf-radio">A급<div class="wf-radio-desc">거의 새 것</div></div>
+              <div class="wf-radio">B급<div class="wf-radio-desc">사용감</div></div>
+              <div class="wf-radio">C급<div class="wf-radio-desc">하자</div></div>
+            </div>
+            <div style="margin-top:10px;">
+              <div class="wf-form-label">수량</div>
+              <div class="wf-stepper">
+                <div class="wf-stepper-btn">−</div>
+                <div class="wf-stepper-val">1</div>
+                <div class="wf-stepper-btn">+</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ⑧ 상품명 -->
+          <div class="wf-form-group">
+            <div class="num-circle" style="top:0; left:2px;">8</div>
+            <div class="wf-form-label">상품명 <span class="wf-required">*</span></div>
+            <div class="wf-form-input placeholder">예: 하이큐 히나타 아크릴 스탠드</div>
+          </div>
+        </div>
+
+        <div class="wf-next-btn">다음 →</div>
+
+      </div><!-- /phone-frame 1 -->
+    </div><!-- /phone-col -->
+
+    <!-- ===== Phone Frame 2: Step 2 — 원하는 굿즈 ===== -->
+    <div class="phone-col">
+      <span class="phone-col-label">Step 2 — 원하는 굿즈</span>
+      <div class="phone-frame">
+
+        <!-- Header (Step 2) -->
+        <div class="wf-header">
+          <span class="wf-back">←</span>
+          <span class="wf-header-title">교환글 등록</span>
+        </div>
+
+        <!-- 스텝 인디케이터 (Step 2 active) -->
+        <div class="wf-steps">
+          <div class="wf-step">
+            <div class="wf-step-num done">✓</div>
+            <span class="wf-step-label done">보유 굿즈</span>
+          </div>
+          <div class="wf-step-line done"></div>
+          <div class="wf-step">
+            <div class="wf-step-num active">2</div>
+            <span class="wf-step-label active">원하는 굿즈</span>
+          </div>
+          <div class="wf-step-line"></div>
+          <div class="wf-step">
+            <div class="wf-step-num">3</div>
+            <span class="wf-step-label">거래 방식</span>
+          </div>
+        </div>
+
+        <div class="wf-form">
+          <!-- ⑨ 원하는 작품/캐릭터 -->
+          <div class="wf-form-group">
+            <div class="num-circle" style="top:0; left:2px;">9</div>
+            <div class="wf-check-row">
+              <div class="wf-checkbox"></div>
+              <span>아무거나 괜찮아요</span>
+            </div>
+            <div class="wf-form-label">원하는 작품</div>
+            <div class="wf-form-input placeholder">작품 검색...</div>
+            <div style="margin-top:8px;">
+              <div class="wf-form-label">원하는 캐릭터</div>
+              <div class="wf-form-select">캐릭터 선택 <span>▾</span></div>
+            </div>
+          </div>
+
+          <!-- ⑩ 원하는 굿즈 타입 -->
+          <div class="wf-form-group">
+            <div class="num-circle" style="top:0; left:2px;">10</div>
+            <div class="wf-form-label">원하는 굿즈 타입</div>
+            <div class="wf-form-select">선택해 주세요 <span>▾</span></div>
+          </div>
+
+          <!-- ⑪ 차액 설정 -->
+          <div class="wf-form-group">
+            <div class="num-circle" style="top:0; left:2px;">11</div>
+            <div class="wf-check-row">
+              <div class="wf-checkbox checked"></div>
+              <span>차액 협의 가능</span>
+            </div>
+            <div class="wf-cash-row">
+              <div class="wf-cash-toggle selected">+ 받을게요</div>
+              <div class="wf-cash-toggle">− 줄게요</div>
+              <div class="wf-cash-input">3,000원</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="wf-next-btn">다음 →</div>
+
+      </div><!-- /phone-frame 2 -->
+    </div><!-- /phone-col -->
+
+    <!-- ===== Phone Frame 3: Step 3 — 거래 방식 ===== -->
+    <div class="phone-col">
+      <span class="phone-col-label">Step 3 — 거래 방식</span>
+      <div class="phone-frame">
+
+        <!-- Header (Step 3) -->
+        <div class="wf-header">
+          <span class="wf-back">←</span>
+          <span class="wf-header-title">교환글 등록</span>
+        </div>
+
+        <!-- 스텝 인디케이터 (Step 3 active) -->
+        <div class="wf-steps">
+          <div class="wf-step">
+            <div class="wf-step-num done">✓</div>
+            <span class="wf-step-label done">보유 굿즈</span>
+          </div>
+          <div class="wf-step-line done"></div>
+          <div class="wf-step">
+            <div class="wf-step-num done">✓</div>
+            <span class="wf-step-label done">원하는 굿즈</span>
+          </div>
+          <div class="wf-step-line done"></div>
+          <div class="wf-step">
+            <div class="wf-step-num active">3</div>
+            <span class="wf-step-label active">거래 방식</span>
+          </div>
+        </div>
+
+        <div class="wf-form">
+          <!-- ⑫ 거래 방법 -->
+          <div class="wf-form-group">
+            <div class="num-circle" style="top:0; left:2px;">12</div>
+            <div class="wf-form-label">거래 방법 <span class="wf-required">*</span></div>
+            <div class="wf-radio-group">
+              <div class="wf-radio">택배</div>
+              <div class="wf-radio">직거래</div>
+              <div class="wf-radio selected">둘 다 가능</div>
+            </div>
+          </div>
+
+          <!-- ⑬ 직거래 위치 -->
+          <div class="wf-form-group">
+            <div class="num-circle" style="top:0; left:2px;">13</div>
+            <div class="wf-form-label">직거래 위치</div>
+            <div class="wf-form-input" style="color:#333;">서울 마포구 홍대입구역 근처</div>
+            <div class="wf-form-map">📍 카카오맵 (위치 선택)</div>
+          </div>
+
+          <!-- ⑭ 추가 조건 -->
+          <div class="wf-form-group">
+            <div class="num-circle" style="top:0; left:2px;">14</div>
+            <div class="wf-form-label">추가 조건</div>
+            <div class="wf-form-textarea">추가 교환 조건이나 참고사항을 적어주세요</div>
+          </div>
+        </div>
+
+        <!-- ⑮ 등록하기 -->
+        <div class="wf-section" style="position:relative;">
+          <div class="num-circle" style="top:12px; left:6px;">15</div>
+          <div class="wf-submit-btn">교환글 등록하기</div>
+        </div>
+
+      </div><!-- /phone-frame 3 -->
+    </div><!-- /phone-col -->
+
+  </div><!-- /wireframe-side -->
+
+  <!-- ===== DESCRIPTION SIDE ===== -->
+  <div class="desc-side">
+    <div class="desc-title">EXCH03 교환글 등록</div>
+    <div class="desc-subtitle">3단계 폼으로 보유 굿즈 + 희망 교환 + 거래 방식을 등록</div>
+
+    <!-- 탭 -->
+    <div class="desc-tabs">
+      <button class="desc-tab active" onclick="switchTab('components')">구성요소</button>
+      <button class="desc-tab" onclick="switchTab('interaction')">인터랙션</button>
+      <button class="desc-tab" onclick="switchTab('bizlogic')">비즈니스 로직</button>
+    </div>
+
+    <!-- ===== TAB 1: 구성요소 ===== -->
+    <div id="tab-components" class="desc-panel active">
+
+      <!-- ① Header -->
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">1</div>
+          <span class="desc-comp-type">[Header]</span>
+          <span class="desc-comp-name">등록 헤더</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>좌측: ← 뒤로가기
+              <ul class="sub"><li>작성 중 이탈 시: "작성 중인 내용이 있습니다. 나가시겠습니까?" 확인 다이얼로그</li></ul>
+            </li>
+            <li>중앙: "교환글 등록" (수정 모드: "교환글 수정")</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <!-- ② 스텝 인디케이터 -->
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">2</div>
+          <span class="desc-comp-type">[StepIndicator]</span>
+          <span class="desc-comp-name">스텝 인디케이터</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>3단계: ① 보유 굿즈 → ② 원하는 굿즈 → ③ 거래 방식</li>
+            <li>현재 스텝: Blue 원 + Bold 텍스트</li>
+            <li>완료 스텝: Green 체크(✓), 탭으로 되돌아가기 가능</li>
+            <li>미진행 스텝: Gray (탭 불가)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="desc-step-header">Step 1: 보유 굿즈</div>
+
+      <!-- ③ 사진 업로드 -->
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">3</div>
+          <span class="desc-comp-type">[PhotoUpload]</span>
+          <span class="desc-comp-name">사진 업로드</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>최대 5장 (JPG/PNG, 10MB 이하)</li>
+            <li>첫 번째 이미지 = 대표 이미지 (뱃지 표시)</li>
+            <li>드래그로 순서 변경 가능</li>
+            <li>+ 버튼: 카메라/앨범 선택 시트</li>
+            <li>✕ 버튼: 이미지 삭제</li>
+            <li>업로드 시 Sharp로 max 1200px 리사이즈</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <!-- ④ 작품 선택 -->
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">4</div>
+          <span class="desc-comp-type">[SearchInput]</span>
+          <span class="desc-comp-name">작품 선택 *</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>검색 인풋 + 자동완성 드롭다운 (디바운스 300ms)</li>
+            <li>작품 DB에서 검색 (이름 + alias 매칭)</li>
+            <li>검색 결과 없을 시: "직접 추가" → 관리자 승인 후 등록</li>
+            <li>필수 항목</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <!-- ⑤ 캐릭터 선택 -->
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">5</div>
+          <span class="desc-comp-type">[Dropdown]</span>
+          <span class="desc-comp-name">캐릭터 선택 *</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>작품 선택 후 활성화 (작품 미선택 시 비활성)</li>
+            <li>해당 작품의 등록된 캐릭터 목록</li>
+            <li>"직접 추가" 가능 → 관리자 승인 후 등록</li>
+            <li>필수 항목</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <!-- ⑥ 굿즈 타입 -->
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">6</div>
+          <span class="desc-comp-type">[Dropdown]</span>
+          <span class="desc-comp-name">굿즈 타입 *</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>포토카드 / 아크릴 / 캔뱃지 / 피규어 / 인형 / 엽서·포스터 / 의류 / 기타</li>
+            <li>필수 항목</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <!-- ⑦ 상품 상태 + 수량 -->
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">7</div>
+          <span class="desc-comp-type">[RadioGroup + Stepper]</span>
+          <span class="desc-comp-name">상품 상태 + 수량 *</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>상태 라디오: S급(미개봉) / A급(거의 새 것) / B급(사용감) / C급(하자)
+              <ul class="sub"><li>C급 선택 시: 하자 설명 텍스트 필드 추가 (필수)</li></ul>
+            </li>
+            <li>수량: 숫자 스테퍼 (−/+ 버튼, 기본 1, 최대 99)</li>
+            <li>둘 다 필수 항목</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <!-- ⑧ 상품명 -->
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">8</div>
+          <span class="desc-comp-type">[TextInput]</span>
+          <span class="desc-comp-name">상품명 *</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>최대 50자 (글자 수 카운터 표시)</li>
+            <li>플레이스홀더: "예: 하이큐 히나타 아크릴 스탠드"</li>
+            <li>[다음] 탭 시 필수 항목 검증 → 미입력 시 빨간 테두리 + 에러 텍스트</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="desc-step-header">Step 2: 원하는 굿즈</div>
+
+      <!-- ⑨ 원하는 작품/캐릭터 -->
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">9</div>
+          <span class="desc-comp-type">[SearchInput + Dropdown]</span>
+          <span class="desc-comp-name">원하는 작품/캐릭터</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>"아무거나 괜찮아요" 체크 시: 작품/캐릭터 필드 비활성</li>
+            <li>작품: Step 1과 동일 검색 UI</li>
+            <li>캐릭터: 작품 선택 후 드롭다운</li>
+            <li>선택 항목 (미입력 시 "희망 교환 미지정" 표시)</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <!-- ⑩ 원하는 굿즈 타입 -->
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">10</div>
+          <span class="desc-comp-type">[Dropdown]</span>
+          <span class="desc-comp-name">원하는 굿즈 타입</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>Step 1과 동일 옵션</li>
+            <li>"아무 타입 괜찮아요" 체크 가능</li>
+            <li>선택 항목</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <!-- ⑪ 차액 설정 -->
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">11</div>
+          <span class="desc-comp-type">[Checkbox + Toggle + Input]</span>
+          <span class="desc-comp-name">차액 설정</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>체크박스: "차액 협의 가능"</li>
+            <li>체크 시 활성화:
+              <ul class="sub">
+                <li>방향 토글: "+받을게요" / "−줄게요"</li>
+                <li>금액 인풋: 숫자만, 1,000원 단위 포맷</li>
+              </ul>
+            </li>
+            <li>선택 항목</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="desc-step-header">Step 3: 거래 방식</div>
+
+      <!-- ⑫ 거래 방법 -->
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">12</div>
+          <span class="desc-comp-type">[RadioGroup]</span>
+          <span class="desc-comp-name">거래 방법 *</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>택배 / 직거래 / 둘 다 가능</li>
+            <li>필수 항목</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <!-- ⑬ 직거래 위치 -->
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">13</div>
+          <span class="desc-comp-type">[MapPicker]</span>
+          <span class="desc-comp-name">직거래 위치 (조건부)</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>"직거래" 또는 "둘 다" 선택 시에만 표시</li>
+            <li>주소 검색 인풋 + 카카오맵 핀 선택</li>
+            <li>선택 시 주소 텍스트 표시</li>
+            <li>직거래 선택 시 필수 항목</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <!-- ⑭ 추가 조건 -->
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">14</div>
+          <span class="desc-comp-type">[Textarea]</span>
+          <span class="desc-comp-name">추가 조건</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>최대 500자 (글자 수 카운터)</li>
+            <li>플레이스홀더: "추가 교환 조건이나 참고사항을 적어주세요"</li>
+            <li>선택 항목</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <!-- ⑮ 등록하기 -->
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">15</div>
+          <span class="desc-comp-type">[Button]</span>
+          <span class="desc-comp-name">등록하기 버튼</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>Step 3의 필수 항목 모두 입력 시 활성화 (Blue)</li>
+            <li>미입력 시: 비활성(Gray) + 미입력 필드 스크롤 이동</li>
+            <li>탭 시: API 호출 → 로딩 스피너 → 성공 → 교환 상세(EXCH02) 이동</li>
+            <li>수정 모드: "수정하기" 텍스트</li>
+            <li>에러 시: 토스트 메시지 "등록에 실패했습니다. 다시 시도해주세요."</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <!-- 연관 화면 -->
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <span class="desc-comp-name" style="font-size:13px;">📎 연관 화면</span>
+        </div>
+        <table class="conn-table">
+          <thead><tr><th>이동 대상</th><th>조건</th><th>화면코드</th></tr></thead>
+          <tbody>
+            <tr><td>교환 목록</td><td>← 뒤로가기</td><td class="code">EXCH01</td></tr>
+            <tr><td>교환 상세</td><td>등록 완료</td><td class="code">EXCH02</td></tr>
+            <tr><td>본인인증</td><td>미인증 상태</td><td class="code">모달</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div><!-- /tab-components -->
+
+    <!-- ===== TAB 2: 인터랙션 ===== -->
+    <div id="tab-interaction" class="desc-panel">
+      <div class="desc-step-header">스텝 간 이동</div>
+      <div class="desc-item">
+        <div class="desc-body">
+          <ul>
+            <li>[다음 →] 탭: 현재 스텝 필수 항목 검증 → 통과 시 다음 스텝 슬라이드</li>
+            <li>완료 스텝(Green ✓) 탭: 해당 스텝으로 되돌아가기</li>
+            <li>미진행 스텝은 탭 불가</li>
+            <li>← 뒤로가기: 이전 스텝으로 이동 (Step 1에서는 이탈 확인 다이얼로그)</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-step-header">필드 검증</div>
+      <div class="desc-item">
+        <div class="desc-body">
+          <ul>
+            <li>필수(*) 항목 미입력 시: 빨간 테두리 + 하단 에러 텍스트</li>
+            <li>첫 번째 에러 필드로 자동 스크롤</li>
+            <li>실시간 검증: 입력 중에도 포맷 검사 (글자 수, 금액 등)</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-step-header">사진 업로드</div>
+      <div class="desc-item">
+        <div class="desc-body">
+          <ul>
+            <li>+ 탭 → 카메라/앨범 선택 액션 시트</li>
+            <li>업로드 중: 썸네일 위 프로그레스 오버레이</li>
+            <li>드래그 앤 드롭으로 순서 변경</li>
+            <li>✕ 탭: "삭제하시겠습니까?" 확인 후 제거</li>
+            <li>대표 이미지 변경: 길게 눌러 "대표 설정"</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-step-header">작품/캐릭터 검색</div>
+      <div class="desc-item">
+        <div class="desc-body">
+          <ul>
+            <li>2자 이상 입력 시 자동완성 드롭다운 (디바운스 300ms)</li>
+            <li>결과: 작품명 + 카테고리 뱃지</li>
+            <li>선택 시 인풋 채워짐 + 캐릭터 드롭다운 활성화</li>
+            <li>"직접 추가" → 이름 입력 → 관리자 검수 큐 등록</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-step-header">임시 저장</div>
+      <div class="desc-item">
+        <div class="desc-body">
+          <ul>
+            <li>각 스텝 완료 시 localStorage 자동 저장</li>
+            <li>재진입 시: "이전에 작성 중인 내용이 있습니다. 이어서 작성하시겠습니까?" 안내</li>
+            <li>"이어서 작성" → 데이터 복원, "새로 작성" → localStorage 클리어</li>
+            <li>등록 완료 시 자동 삭제</li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- /tab-interaction -->
+
+    <!-- ===== TAB 3: 비즈니스 로직 ===== -->
+    <div id="tab-bizlogic" class="desc-panel">
+      <div class="desc-step-header">등록 API</div>
+      <div class="desc-item">
+        <div class="desc-body">
+          <ul>
+            <li><strong>POST</strong> /api/exchange</li>
+            <li><strong>PUT</strong> /api/exchange/:id (수정 모드)</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-step-header">비즈니스 규칙</div>
+      <table class="biz-table">
+        <thead><tr><th>#</th><th>규칙</th><th>상세</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>본인인증 필수</td><td>미인증 시 등록 버튼 비활성 + "본인인증이 필요합니다" 안내 모달</td></tr>
+          <tr><td>2</td><td>이미지 처리</td><td>Sharp로 max 1200px 리사이즈, WebP 변환, S3 업로드, CloudFront CDN 제공</td></tr>
+          <tr><td>3</td><td>사진 최소 1장</td><td>사진 0장인 경우 Step 1 → 2 이동 불가</td></tr>
+          <tr><td>4</td><td>중복 등록 방지</td><td>동일 사용자 5분 내 동일 제목 등록 시 토스트 경고</td></tr>
+          <tr><td>5</td><td>등록 제한</td><td>1인 최대 30개 활성 교환글 (초과 시 안내)</td></tr>
+          <tr><td>6</td><td>수정 제한</td><td>수락된 제안(accepted)이 있는 경우 수정 불가</td></tr>
+          <tr><td>7</td><td>카테고리 자동 매핑</td><td>작품 선택 시 4대 카테고리(애니/아이돌/배우/게임) 자동 배정</td></tr>
+          <tr><td>8</td><td>구함 매칭 트리거</td><td>등록 완료 시 구함(WANT) DB 대조 → 매칭 알림 발송</td></tr>
+        </tbody>
+      </table>
+      <hr class="desc-divider">
+
+      <!-- 화면 상태 -->
+      <div class="states-section">
+        <div class="states-title">📋 화면 상태 체크리스트</div>
+        <div class="states-item"><strong>기본 상태</strong>: 빈 폼 (Step 1부터 시작)</div>
+        <div class="states-item"><strong>수정 모드</strong>: 기존 데이터 프리필, 제목 "교환글 수정"</div>
+        <div class="states-item"><strong>필드 에러</strong>: 빨간 테두리 + 하단 에러 텍스트</div>
+        <div class="states-item"><strong>제출 중</strong>: 버튼 로딩 스피너 + 폼 비활성</div>
+        <div class="states-item"><strong>이미지 업로드 중</strong>: 썸네일 위 프로그레스 오버레이</div>
+        <div class="states-item"><strong>이탈 시도</strong>: "작성 중인 내용이 있습니다" 확인 다이얼로그</div>
+        <div class="states-item"><strong>임시 저장</strong>: 각 스텝 완료 시 localStorage 자동 저장, 재진입 시 복원 안내</div>
+      </div>
+    </div><!-- /tab-bizlogic -->
+
+  </div><!-- /desc-side -->
+</div><!-- /main-layout -->
+
+<!-- REVISION FOOTER -->
+<div class="revision-bar">
+  <table>
+    <thead><tr><th>날짜</th><th>버전</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td>2026-03-06</td><td>0.1</td><td>초안 작성</td></tr>
+      <tr><td>2026-03-06</td><td>0.2</td><td>레이아웃 개선: 3개 스텝 → 개별 phone frame 분리, 탭 구조 우측 패널, 반응형 CSS 추가</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+function switchTab(tabId) {
+  document.querySelectorAll('.desc-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.desc-panel').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('tab-' + tabId).classList.add('active');
+}
+</script>
+
+</body>
+</html>
