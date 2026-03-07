@@ -1,1977 +1,960 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EVNT01 이벤트 캘린더</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-      background: #f5f5f5;
-    }
-
-    .meta-bar {
-      background: #fff;
-      border-bottom: 2px solid #2563EB;
-      padding: 12px 24px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      font-size: 13px;
-      color: #666;
-    }
-
-    .meta-bar .title {
-      font-weight: 700;
-      color: #000;
-      font-size: 14px;
-      min-width: 60px;
-    }
-
-    .meta-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .meta-label {
-      color: #999;
-    }
-
-    .meta-value {
-      color: #333;
-      font-weight: 500;
-    }
-
-    .main-layout {
-      display: flex;
-      min-height: calc(100vh - 48px);
-    }
-
-    .wireframe-side {
-      flex: 0 0 55%;
-      background: #EAEAEA;
-      padding: 32px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-    }
-
-    .desc-side {
-      flex: 0 0 45%;
-      background: #fff;
-      padding: 24px 28px;
-      border-left: 1px solid #ddd;
-      overflow-y: auto;
-      max-height: calc(100vh - 48px);
-    }
-
-    .phone-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    .frame-label {
-      font-size: 11px;
-      color: #999;
-      text-align: center;
-      margin-bottom: 6px;
-      font-weight: 500;
-    }
-
-    .phone-frame {
-      width: 375px;
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
-      overflow: hidden;
-      position: relative;
-      margin: 0 auto;
-    }
-
-    .phone-frame-content {
-      width: 100%;
-      background: #fff;
-      position: relative;
-    }
-
-    .wf-section {
-      position: relative;
-      padding: 0;
-    }
-
-    .num-circle {
-      position: absolute;
-      z-index: 10;
-      background: #2563EB;
-      color: #fff;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      font-weight: 700;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-      top: 8px;
-      left: 8px;
-    }
-
-    /* Frame 1: Calendar View */
-    .frame1 {
-      min-height: 812px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .app-header {
-      padding: 12px 16px;
-      border-bottom: 1px solid #f0f0f0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-    }
-
-    .app-header .title {
-      font-size: 18px;
-      font-weight: 700;
-      color: #000;
-    }
-
-    .app-header .icon-btn {
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-
-    .icon-btn svg {
-      width: 20px;
-      height: 20px;
-      stroke: #333;
-    }
-
-    .view-toggle {
-      display: flex;
-      border-bottom: 1px solid #f0f0f0;
-      position: relative;
-    }
-
-    .toggle-tab {
-      flex: 1;
-      padding: 12px 0;
-      text-align: center;
-      font-size: 13px;
-      font-weight: 500;
-      color: #999;
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      position: relative;
-    }
-
-    .toggle-tab.active {
-      color: #2563EB;
-      border-bottom-color: #2563EB;
-    }
-
-    .filter-chips {
-      padding: 12px 16px;
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      border-bottom: 1px solid #f0f0f0;
-      white-space: nowrap;
-    }
-
-    .filter-chips::-webkit-scrollbar {
-      display: none;
-    }
-
-    .chip {
-      padding: 6px 12px;
-      border: 1px solid #ddd;
-      border-radius: 20px;
-      font-size: 12px;
-      color: #666;
-      background: #fff;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-shrink: 0;
-    }
-
-    .chip.selected {
-      background: #2563EB;
-      color: #fff;
-      border-color: #2563EB;
-    }
-
-    .chip-icon {
-      width: 14px;
-      height: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .chip-close {
-      margin-left: 4px;
-      cursor: pointer;
-    }
-
-    .calendar-nav {
-      padding: 12px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-weight: 600;
-      color: #000;
-    }
-
-    .nav-arrow {
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-
-    .nav-arrow svg {
-      width: 18px;
-      height: 18px;
-    }
-
-    .today-btn {
-      padding: 4px 10px;
-      background: #f5f5f5;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      font-size: 11px;
-      cursor: pointer;
-      color: #666;
-    }
-
-    .calendar-grid {
-      padding: 8px 16px;
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 2px;
-    }
-
-    .day-header {
-      text-align: center;
-      font-size: 11px;
-      color: #999;
-      padding: 8px 0;
-      font-weight: 600;
-    }
-
-    .date-cell {
-      aspect-ratio: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      color: #333;
-      position: relative;
-      cursor: pointer;
-      border-radius: 8px;
-    }
-
-    .date-cell.past {
-      color: #ccc;
-    }
-
-    .date-cell.today {
-      background: #2563EB;
-      color: #fff;
-      font-weight: 600;
-    }
-
-    .date-cell.selected {
-      border: 2px solid #2563EB;
-      font-weight: 600;
-    }
-
-    .date-dots {
-      display: flex;
-      gap: 2px;
-      margin-top: 2px;
-    }
-
-    .dot {
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-    }
-
-    .dot.purple {
-      background: #8B5CF6;
-    }
-
-    .dot.pink {
-      background: #EC4899;
-    }
-
-    .dot.amber {
-      background: #F59E0B;
-    }
-
-    .dot.cyan {
-      background: #06B6D4;
-    }
-
-    .date-event-list {
-      padding: 16px;
-      flex: 1;
-      overflow-y: auto;
-    }
-
-    .date-event-header {
-      font-size: 13px;
-      font-weight: 700;
-      color: #000;
-      margin-bottom: 12px;
-    }
-
-    .event-card {
-      padding: 10px;
-      border: 1px solid #f0f0f0;
-      border-radius: 8px;
-      margin-bottom: 10px;
-      background: #fafafa;
-    }
-
-    .event-tag {
-      display: inline-block;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 6px;
-    }
-
-    .event-tag.cafe {
-      background: #EC4899;
-    }
-
-    .event-tag.billboard {
-      background: #8B5CF6;
-    }
-
-    .event-name {
-      font-size: 13px;
-      font-weight: 600;
-      color: #000;
-      margin-bottom: 6px;
-    }
-
-    .event-info {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      color: #999;
-      margin-bottom: 4px;
-    }
-
-    .event-info svg {
-      width: 14px;
-      height: 14px;
-      stroke: #999;
-    }
-
-    .fab {
-      position: absolute;
-      bottom: 72px;
-      right: 16px;
-      width: 56px;
-      height: 56px;
-      background: #2563EB;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-      cursor: pointer;
-      z-index: 5;
-    }
-
-    .fab svg {
-      width: 24px;
-      height: 24px;
-      stroke: #fff;
-    }
-
-    .bottom-nav {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 56px;
-      background: #fff;
-      border-top: 1px solid #f0f0f0;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-    }
-
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 60px;
-      height: 56px;
-      cursor: pointer;
-      color: #999;
-      text-decoration: none;
-    }
-
-    .nav-item.active {
-      color: #2563EB;
-    }
-
-    .nav-icon {
-      width: 20px;
-      height: 20px;
-      margin-bottom: 2px;
-    }
-
-    .nav-label {
-      font-size: 10px;
-      font-weight: 500;
-    }
-
-    /* Frame 2: List View */
-    .list-view-content {
-      flex: 1;
-      overflow-y: auto;
-      padding: 16px;
-    }
-
-    .date-group-header {
-      font-size: 13px;
-      font-weight: 700;
-      color: #000;
-      margin-top: 12px;
-      margin-bottom: 10px;
-    }
-
-    .date-group-header:first-child {
-      margin-top: 0;
-    }
-
-    .list-event-card {
-      display: flex;
-      gap: 12px;
-      padding: 12px;
-      border: 1px solid #f0f0f0;
-      border-radius: 8px;
-      margin-bottom: 10px;
-      background: #fafafa;
-      cursor: pointer;
-    }
-
-    .list-event-image {
-      width: 80px;
-      height: 80px;
-      background: #e5e5e5;
-      border-radius: 8px;
-      flex-shrink: 0;
-    }
-
-    .list-event-info {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .list-event-header {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-    }
-
-    .list-event-tag {
-      padding: 3px 8px;
-      border-radius: 3px;
-      font-size: 10px;
-      font-weight: 600;
-      color: #fff;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    .list-event-tag.cafe {
-      background: #EC4899;
-    }
-
-    .list-event-tag.billboard {
-      background: #8B5CF6;
-    }
-
-    .list-event-name {
-      font-size: 13px;
-      font-weight: 600;
-      color: #000;
-      flex: 1;
-    }
-
-    .list-event-details {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .list-event-detail {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      color: #666;
-    }
-
-    .list-event-detail svg {
-      width: 14px;
-      height: 14px;
-      stroke: #666;
-    }
-
-    .list-event-heart {
-      width: 24px;
-      height: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ddd;
-      cursor: pointer;
-    }
-
-    .list-event-heart svg {
-      width: 18px;
-      height: 18px;
-    }
-
-    /* Frame 3: Map View */
-    .map-view-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .map-area {
-      flex: 1;
-      background: #E5E5E5;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #999;
-      font-size: 14px;
-      overflow: hidden;
-    }
-
-    .map-pin {
-      position: absolute;
-      width: 36px;
-      height: 44px;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      cursor: pointer;
-    }
-
-    .map-pin-icon {
-      width: 32px;
-      height: 40px;
-      border-radius: 50% 50% 50% 0;
-      transform: rotate(-45deg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .map-pin.purple .map-pin-icon {
-      background: #8B5CF6;
-    }
-
-    .map-pin.pink .map-pin-icon {
-      background: #EC4899;
-    }
-
-    .map-pin.amber .map-pin-icon {
-      background: #F59E0B;
-    }
-
-    .map-cluster {
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      background: #333;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .current-location-fab {
-      position: absolute;
-      bottom: 16px;
-      right: 16px;
-      width: 44px;
-      height: 44px;
-      background: #fff;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-      cursor: pointer;
-      z-index: 3;
-    }
-
-    .current-location-fab svg {
-      width: 18px;
-      height: 18px;
-      stroke: #2563EB;
-    }
-
-    .search-region-btn {
-      padding: 12px;
-      margin: 12px 16px;
-      background: #f5f5f5;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      text-align: center;
-      font-size: 13px;
-      font-weight: 600;
-      color: #333;
-      cursor: pointer;
-    }
-
-    .map-bottom-sheet {
-      padding: 16px;
-      background: #fff;
-      border-top: 1px solid #f0f0f0;
-      max-height: 200px;
-      overflow-y: auto;
-    }
-
-    .map-sheet-content {
-      display: flex;
-      gap: 12px;
-    }
-
-    .map-sheet-image {
-      width: 80px;
-      height: 80px;
-      background: #e5e5e5;
-      border-radius: 8px;
-      flex-shrink: 0;
-    }
-
-    .map-sheet-info {
-      flex: 1;
-    }
-
-    .map-sheet-name {
-      font-size: 13px;
-      font-weight: 600;
-      color: #000;
-      margin-bottom: 6px;
-    }
-
-    .map-sheet-detail {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      color: #666;
-      margin-bottom: 4px;
-    }
-
-    .map-sheet-detail svg {
-      width: 14px;
-      height: 14px;
-      stroke: #666;
-    }
-
-    .map-sheet-distance {
-      font-size: 12px;
-      color: #999;
-      margin-bottom: 8px;
-    }
-
-    .map-sheet-btn {
-      padding: 8px 12px;
-      background: #2563EB;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    /* Frame 4: Event Registration Form */
-    .form-content {
-      flex: 1;
-      overflow-y: auto;
-      padding: 16px;
-    }
-
-    .form-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-      padding: 12px 0;
-      border-bottom: 1px solid #f0f0f0;
-    }
-
-    .form-back-btn {
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-
-    .form-back-btn svg {
-      width: 20px;
-      height: 20px;
-      stroke: #333;
-    }
-
-    .form-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: #000;
-    }
-
-    .form-group {
-      margin-bottom: 16px;
-    }
-
-    .form-label {
-      font-size: 13px;
-      font-weight: 600;
-      color: #000;
-      margin-bottom: 6px;
-      display: block;
-    }
-
-    .form-label .required {
-      color: #EC4899;
-    }
-
-    .form-input, .form-select, .form-textarea {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      font-size: 13px;
-      color: #333;
-      font-family: inherit;
-    }
-
-    .form-input::placeholder, .form-textarea::placeholder {
-      color: #ccc;
-    }
-
-    .form-textarea {
-      resize: none;
-      height: 80px;
-    }
-
-    .form-date-row {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .form-date-row input {
-      flex: 1;
-    }
-
-    .form-date-separator {
-      color: #ccc;
-      font-size: 13px;
-    }
-
-    .form-image-upload {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding-bottom: 4px;
-    }
-
-    .form-image-upload::-webkit-scrollbar {
-      display: none;
-    }
-
-    .image-box {
-      width: 80px;
-      height: 80px;
-      background: #f5f5f5;
-      border: 1px dashed #ddd;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      flex-shrink: 0;
-      color: #999;
-      font-size: 20px;
-    }
-
-    .form-submit-btn {
-      width: 100%;
-      padding: 14px;
-      background: #2563EB;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 20px;
-      margin-bottom: 20px;
-    }
-
-    /* Description Panel */
-    .desc-item {
-      margin-bottom: 24px;
-    }
-
-    .desc-num-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-
-    .desc-num {
-      width: 22px;
-      height: 22px;
-      background: #2563EB;
-      color: #fff;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-
-    .desc-comp-type {
-      display: inline-block;
-      padding: 3px 6px;
-      background: #f0f0f0;
-      color: #666;
-      font-size: 10px;
-      border-radius: 3px;
-      font-weight: 600;
-    }
-
-    .desc-comp-name {
-      font-size: 13px;
-      font-weight: 600;
-      color: #000;
-    }
-
-    .desc-body {
-      padding-left: 30px;
-      font-size: 12px;
-      color: #555;
-      line-height: 1.7;
-    }
-
-    .desc-body ul {
-      list-style: none;
-    }
-
-    .desc-body li {
-      margin-bottom: 4px;
-    }
-
-    .desc-body li:before {
-      content: '•';
-      color: #2563EB;
-      font-weight: bold;
-      margin-right: 6px;
-    }
-
-    .desc-body ul.sub li:before {
-      content: '└';
-      color: #ccc;
-    }
-
-    .desc-divider {
-      border: none;
-      border-top: 1px dashed #eee;
-      margin: 0;
-    }
-
-    .desc-section-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: #000;
-      margin-top: 28px;
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid #2563EB;
-    }
-
-    .desc-state-item {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 10px;
-      font-size: 12px;
-      color: #555;
-    }
-
-    .desc-state-label {
-      min-width: 80px;
-      font-weight: 600;
-      color: #333;
-    }
-
-    .desc-state-desc {
-      color: #999;
-    }
-
-    .desc-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12px;
-      margin-top: 8px;
-    }
-
-    .desc-table th, .desc-table td {
-      border: 1px solid #eee;
-      padding: 8px 10px;
-      text-align: left;
-    }
-
-    .desc-table th {
-      background: #f5f5f5;
-      font-weight: 700;
-      color: #333;
-    }
-
-    .desc-table td {
-      color: #666;
-    }
-
-    .revision-bar {
-      border-top: 1px solid #eee;
-      padding: 20px 0;
-      margin-top: 40px;
-    }
-
-    .revision-bar table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12px;
-    }
-
-    .revision-bar thead {
-      background: #f5f5f5;
-    }
-
-    .revision-bar th, .revision-bar td {
-      padding: 10px 12px;
-      border: 1px solid #eee;
-      text-align: left;
-    }
-
-    .revision-bar th {
-      font-weight: 700;
-      color: #333;
-    }
-
-    .revision-bar td {
-      color: #666;
-    }
-
-    @media (max-width: 900px) {
-      .main-layout {
-        flex-direction: column;
-      }
-
-      .wireframe-side {
-        flex: none;
-        padding: 20px;
-        border-bottom: 1px solid #ddd;
-      }
-
-      .desc-side {
-        flex: none;
-        border-left: none;
-        border-top: 1px solid #ddd;
-        max-height: none;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EVNT01 — 이벤트 캘린더 와이어프레임</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+
+/* ===== META HEADER ===== */
+.meta-bar {
+  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
+}
+.meta-item { font-size: 11px; }
+.meta-label { color: #999; }
+.meta-value { font-weight: 600; color: #333; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+
+/* ===== MAIN LAYOUT ===== */
+.main-layout { overflow-x: hidden;
+  display: flex; min-height: calc(100vh - 48px);
+}
+
+/* ===== WIREFRAME SIDE ===== */
+.wireframe-side {
+  flex: 1 1 55%; min-width: 0; background: #EAEAEA; padding: 32px;
+  display: flex; justify-content: center; overflow-y: auto;
+}
+.phone-frame {
+  max-width: 375px; width: 100%; background: #fff; border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative;
+  overflow: hidden; }
+
+.phone-stack {
+  display: flex; flex-direction: column; gap: 24px; width: 100%; align-items: center;
+}
+.frame-label {
+  font-size: 11px; color: #999; text-align: center; margin-bottom: 6px; font-weight: 500;
+}
+
+/* ===== DESCRIPTION SIDE ===== */
+.desc-side {
+  flex: 1 1 45%; min-width: 0; background: #fff; padding: 24px 28px;
+  overflow-y: auto; border-left: 1px solid #ddd;
+}
+.desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+
+.desc-item { margin-bottom: 20px; }
+.desc-num-row {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+}
+.desc-num {
+  background: #2563EB; color: #fff; width: 22px; height: 22px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0;
+}
+.desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-name { font-size: 14px; font-weight: 600; }
+
+.desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
+.desc-body ul { list-style: none; }
+.desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
+.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #888; }
+.desc-body .sub li::before { content: '└'; color: #ccc; }
+
+.desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
+
+/* ===== WIREFRAME ELEMENTS ===== */
+.wf-section { position: relative; }
+
+/* Number circle overlay */
+.num-circle {
+  position: absolute; z-index: 10;
+  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+/* ===== PHONE FRAME ELEMENTS ===== */
+.wf-header {
+  display: flex; align-items: center; padding: 12px 16px;
+  border-bottom: 1px solid #eee; position: relative;
+}
+.wf-logo { font-weight: 700; font-size: 16px; color: #2563EB; }
+.wf-header-icons { margin-left: auto; display: flex; gap: 12px; }
+.wf-icon { width: 20px; height: 20px; background: #ddd; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #888; }
+
+/* Banner carousel */
+.wf-banner {
+  margin: 0 16px 12px; height: 140px; background: linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 100%), #E5E5E5;
+  border-radius: 8px; position: relative; overflow: hidden;
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; padding: 12px;
+}
+.wf-banner-content {
+  display: flex; flex-direction: column; gap: 4px; z-index: 2;
+}
+.wf-banner-ddday {
+  font-size: 10px; font-weight: 700; color: #fff; background: rgba(239,68,68,0.9);
+  padding: 2px 6px; border-radius: 4px; width: fit-content;
+}
+.wf-banner-title {
+  font-size: 14px; font-weight: 700; color: #fff;
+}
+.wf-banner-location {
+  font-size: 11px; color: rgba(255,255,255,0.8);
+}
+.wf-indicator {
+  position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 4px;
+}
+.wf-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5); }
+.wf-dot.active { background: #fff; }
+
+/* View toggle tabs */
+.wf-tabs {
+  display: flex; border-bottom: 1px solid #eee; padding: 0 16px;
+}
+.wf-tab {
+  flex: 1; padding: 12px 0; text-align: center; font-size: 13px; font-weight: 500;
+  color: #999; border-bottom: 2px solid transparent; position: relative;
+}
+.wf-tab.active { color: #2563EB; border-bottom-color: #2563EB; }
+
+/* Filter chips */
+.wf-filter-chips {
+  display: flex; gap: 8px; padding: 10px 16px; overflow-x: auto; border-bottom: 1px solid #eee;
+}
+.wf-filter-chips::-webkit-scrollbar { display: none; }
+.wf-chip {
+  padding: 6px 12px; background: #F5F5F5; border: 1px solid #eee; border-radius: 16px;
+  font-size: 12px; color: #555; white-space: nowrap; flex-shrink: 0;
+}
+.wf-chip.active { background: #2563EB; color: #fff; border-color: #2563EB; }
+
+/* Month header */
+.wf-month-header {
+  display: flex; align-items: center; justify-content: space-between; padding: 10px 16px;
+  font-size: 13px; font-weight: 600;
+}
+.wf-month-nav { display: flex; gap: 4px; align-items: center; }
+.wf-nav-arrow { font-size: 14px; color: #2563EB; cursor: pointer; width: 20px; text-align: center; }
+.wf-today-btn {
+  padding: 2px 8px; background: #EFF6FF; color: #2563EB; border: 1px solid #BFDBFE;
+  border-radius: 4px; font-size: 10px; font-weight: 600;
+}
+
+/* Date scroller */
+.wf-date-scroller {
+  display: flex; gap: 6px; padding: 10px 16px; overflow-x: auto; border-bottom: 1px solid #eee;
+}
+.wf-date-scroller::-webkit-scrollbar { display: none; }
+.wf-date-cell {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  width: 48px; flex-shrink: 0; padding: 6px 0;
+}
+.wf-date-cell-day { font-size: 10px; color: #999; font-weight: 500; }
+.wf-date-cell-num {
+  width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; font-size: 12px; font-weight: 600; color: #333; border: 1px solid transparent;
+}
+.wf-date-cell-num.today { background: #3B82F6; color: #fff; }
+.wf-date-cell-num.selected { border-color: #3B82F6; }
+.wf-date-dots {
+  display: flex; gap: 2px; height: 4px;
+}
+.wf-date-dot {
+  width: 4px; height: 4px; border-radius: 50%; background: #ccc;
+}
+.wf-date-dot.purple { background: #8B5CF6; }
+.wf-date-dot.pink { background: #EC4899; }
+.wf-date-dot.amber { background: #F59E0B; }
+.wf-date-dot.cyan { background: #06B6D4; }
+
+/* Selected date header */
+.wf-selected-date {
+  display: flex; align-items: center; justify-content: space-between; padding: 12px 16px;
+  background: #F9FAFB; border-bottom: 1px solid #eee;
+}
+.wf-selected-date-text { font-size: 13px; font-weight: 600; }
+.wf-event-count { font-size: 10px; background: #2563EB; color: #fff; padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+
+/* Event cards in list */
+.wf-event-list { padding: 8px 16px; }
+.wf-event-card-rich {
+  display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f0f0f0;
+  align-items: flex-start;
+}
+.wf-event-card-rich:last-child { border-bottom: none; }
+.wf-event-img {
+  width: 72px; height: 72px; background: #E5E5E5; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  font-size: 10px; color: #bbb;
+}
+.wf-event-body { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.wf-event-tags { display: flex; gap: 4px; }
+.wf-event-tag { font-size: 9px; padding: 2px 6px; border-radius: 3px; font-weight: 600; }
+.wf-event-tag.anime { background: #F5F3FF; color: #7C3AED; }
+.wf-event-tag.idol { background: #FDF2F8; color: #DB2777; }
+.wf-event-tag.actor { background: #FFFBEB; color: #F59E0B; }
+.wf-event-tag.game { background: #ECFEFF; color: #0891B2; }
+.wf-event-dday { font-size: 9px; padding: 2px 6px; border-radius: 3px; background: rgba(239,68,68,0.1); color: #DC2626; font-weight: 700; }
+.wf-event-title { font-size: 13px; font-weight: 600; color: #1A1A1A; }
+.wf-event-meta { display: flex; flex-direction: column; gap: 2px; }
+.wf-event-location { font-size: 11px; color: #6B7280; display: flex; align-items: center; gap: 4px; }
+.wf-event-time { font-size: 11px; color: #6B7280; display: flex; align-items: center; gap: 4px; }
+.wf-event-heart { margin-left: auto; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
+
+/* Bottom Nav */
+.wf-bottom-nav {
+  display: flex; border-top: 1px solid #eee; background: #fff;
+  padding: 8px 0 12px; position: relative;
+}
+.wf-nav-item {
+  flex: 1; text-align: center; font-size: 10px; color: #aaa;
+}
+.wf-nav-item.active { color: #2563EB; }
+.wf-nav-icon { font-size: 16px; margin-bottom: 2px; }
+
+/* FAB */
+.wf-fab {
+  position: absolute; bottom: 72px; right: 16px;
+  width: 48px; height: 48px; background: #2563EB; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 22px; font-weight: 300;
+  box-shadow: 0 3px 10px rgba(37,99,235,0.3); z-index: 5;
+}
+
+/* Revision footer */
+.revision-bar {
+  background: #fff; border-top: 1px solid #eee; padding: 12px 24px;
+  font-size: 11px; color: #999;
+}
+.revision-bar table { width: 100%; border-collapse: collapse; }
+.revision-bar th { text-align: left; font-weight: 600; color: #666; padding: 4px 8px; border-bottom: 1px solid #eee; }
+.revision-bar td { padding: 4px 8px; }
+
+@media (max-width: 900px) {
+  .main-layout { flex-direction: column; }
+  .wireframe-side { flex: none; padding: 16px; }
+  .desc-side { flex: none; border-left: none; border-top: 1px solid #ddd; }
+}
+@media (max-width: 1200px) {
+  .main-layout { gap: 0; }
+  .wireframe-side { flex: 0 0 50%; padding: 20px; }
+  .desc-side { flex: 0 0 50%; padding: 20px; }
+}
+@media (max-width: 700px) {
+  .wireframe-side { padding: 12px; justify-content: center; }
+  .desc-side { padding: 12px 16px; }
+  .phone-frame { max-width: 100%; }
+  .meta-bar { padding: 8px 12px; }
+  .meta-item { font-size: 11px; }
+}
+</style>
 </head>
 <body>
-  <div class="meta-bar">
-    <span class="title">EVNT01</span>
-    <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">이벤트 캘린더</span></span>
-    <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/events</span></span>
-    <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
-    <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.1</span></span>
-    <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
-    <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-07</span></span>
-  </div>
 
-  <div class="main-layout">
-    <div class="wireframe-side">
-      <div class="phone-stack">
-        <!-- Frame 1: Calendar View -->
-        <div>
-          <div class="frame-label">캘린더 뷰 (기본)</div>
-          <div class="phone-frame">
-            <div class="phone-frame-content frame1">
-              <div class="wf-section" style="padding: 0;">
-                <div class="num-circle">1</div>
-                <div class="app-header">
-                  <div class="title">이벤트</div>
-                  <div class="icon-btn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="11" cy="11" r="8"></circle>
-                      <path d="m21 21-4.35-4.35"></path>
-                    </svg>
-                  </div>
-                </div>
+<!-- META HEADER -->
+<div class="meta-bar">
+  <span class="title">EVNT01</span>
+  <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">이벤트 캘린더</span></span>
+  <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/events</span></span>
+  <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">PC / Mobile</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.2</span></span>
+  <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">개선</span></span>
+  <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-07</span></span>
+</div>
+
+<!-- MAIN LAYOUT: Wireframe + Description -->
+<div class="main-layout">
+
+  <!-- ===== WIREFRAME ===== -->
+  <div class="wireframe-side">
+    <div class="phone-stack">
+
+      <!-- FRAME 1: Calendar View (Main) -->
+      <div>
+        <div class="frame-label">Frame 1: 캘린더 뷰</div>
+        <div class="phone-frame">
+
+          <!-- ① Header -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:6px; left:6px;">1</div>
+            <div class="wf-header">
+              <span class="wf-logo">이벤트</span>
+              <div class="wf-header-icons">
+                <div class="wf-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
               </div>
+            </div>
+          </div>
 
-              <div class="wf-section">
-                <div class="num-circle" style="top: 12px; left: 8px;">2</div>
-                <div class="view-toggle">
-                  <div class="toggle-tab active">캘린더</div>
-                  <div class="toggle-tab">리스트</div>
-                  <div class="toggle-tab">지도</div>
-                </div>
+          <!-- ② 곧 다가올 이벤트 배너 -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:8px; left:6px;">2</div>
+            <div class="wf-banner">
+              <div class="wf-banner-content">
+                <div class="wf-banner-ddday">D-3</div>
+                <div class="wf-banner-title">하이큐 히나타 생일카페</div>
+                <div class="wf-banner-location">홍대 카페거리</div>
               </div>
-
-              <div class="wf-section">
-                <div class="num-circle" style="top: 12px; left: 8px;">3</div>
-                <div class="filter-chips">
-                  <div class="chip">작품 <span style="font-size: 10px;">▾</span></div>
-                  <div class="chip">캐릭터 <span style="font-size: 10px;">▾</span></div>
-                  <div class="chip">이벤트 유형 <span style="font-size: 10px;">▾</span></div>
-                  <div class="chip">지역 <span style="font-size: 10px;">▾</span></div>
-                  <div class="chip">날짜 <span style="font-size: 10px;">▾</span></div>
-                  <div class="chip selected">
-                    하이큐
-                    <span class="chip-close" style="font-size: 11px;">✕</span>
-                  </div>
-                </div>
+              <div class="wf-indicator">
+                <div class="wf-dot active"></div>
+                <div class="wf-dot"></div>
+                <div class="wf-dot"></div>
               </div>
+            </div>
+          </div>
 
-              <div class="wf-section">
-                <div class="num-circle" style="top: 12px; left: 8px;">4</div>
-                <div class="calendar-nav">
-                  <div class="nav-arrow">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <polyline points="15 18 9 12 15 6"></polyline>
-                    </svg>
+          <!-- ③ View toggle tabs -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:6px; left:6px;">3</div>
+            <div class="wf-tabs">
+              <div class="wf-tab active">캘린더</div>
+              <div class="wf-tab">리스트</div>
+              <div class="wf-tab">지도</div>
+            </div>
+          </div>
+
+          <!-- ④ Filter chips -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:6px; left:6px;">4</div>
+            <div class="wf-filter-chips">
+              <div class="wf-chip">작품 ▾</div>
+              <div class="wf-chip">이벤트 유형 ▾</div>
+              <div class="wf-chip">지역 ▾</div>
+            </div>
+          </div>
+
+          <!-- ⑤ Month header -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:6px; left:6px;">5</div>
+            <div class="wf-month-header">
+              <div class="wf-month-nav">
+                <span class="wf-nav-arrow">‹</span>
+                <span>2026년 3월</span>
+                <span class="wf-nav-arrow">›</span>
+              </div>
+              <div class="wf-today-btn">오늘</div>
+            </div>
+          </div>
+
+          <!-- ⑥ Date scroller -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:6px; left:6px;">6</div>
+            <div class="wf-date-scroller">
+              <div class="wf-date-cell">
+                <div class="wf-date-cell-day">월</div>
+                <div class="wf-date-cell-num">8</div>
+                <div class="wf-date-dots"></div>
+              </div>
+              <div class="wf-date-cell">
+                <div class="wf-date-cell-day">화</div>
+                <div class="wf-date-cell-num">9</div>
+                <div class="wf-date-dots"><div class="wf-date-dot purple"></div></div>
+              </div>
+              <div class="wf-date-cell">
+                <div class="wf-date-cell-day">수</div>
+                <div class="wf-date-cell-num">10</div>
+                <div class="wf-date-dots"></div>
+              </div>
+              <div class="wf-date-cell">
+                <div class="wf-date-cell-day">목</div>
+                <div class="wf-date-cell-num today">11</div>
+                <div class="wf-date-dots"><div class="wf-date-dot pink"></div></div>
+              </div>
+              <div class="wf-date-cell">
+                <div class="wf-date-cell-day">금</div>
+                <div class="wf-date-cell-num">12</div>
+                <div class="wf-date-dots"></div>
+              </div>
+              <div class="wf-date-cell">
+                <div class="wf-date-cell-day">토</div>
+                <div class="wf-date-cell-num selected">13</div>
+                <div class="wf-date-dots"><div class="wf-date-dot amber"></div><div class="wf-date-dot cyan"></div></div>
+              </div>
+              <div class="wf-date-cell">
+                <div class="wf-date-cell-day">일</div>
+                <div class="wf-date-cell-num">14</div>
+                <div class="wf-date-dots"><div class="wf-date-dot purple"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ⑦ Selected date header -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:6px; left:6px;">7</div>
+            <div class="wf-selected-date">
+              <div class="wf-selected-date-text">3월 13일 (토)</div>
+              <div class="wf-event-count">2건</div>
+            </div>
+          </div>
+
+          <!-- ⑧ Event cards -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:8px; left:6px;">8</div>
+            <div class="wf-event-list">
+              <div class="wf-event-card-rich">
+                <div class="wf-event-img">IMG</div>
+                <div class="wf-event-body">
+                  <div class="wf-event-tags">
+                    <div class="wf-event-tag anime">생일카페</div>
+                    <div class="wf-event-dday">D-3</div>
                   </div>
-                  <span>2026년 3월</span>
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <div class="nav-arrow">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                      </svg>
+                  <div class="wf-event-title">하이큐 히나타 생일카페</div>
+                  <div class="wf-event-meta">
+                    <div class="wf-event-location">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                      홍대 카페거리
                     </div>
-                    <button class="today-btn">오늘</button>
-                  </div>
-                </div>
-
-                <div class="calendar-grid">
-                  <div class="day-header">일</div>
-                  <div class="day-header">월</div>
-                  <div class="day-header">화</div>
-                  <div class="day-header">수</div>
-                  <div class="day-header">목</div>
-                  <div class="day-header">금</div>
-                  <div class="day-header">토</div>
-
-                  <div class="date-cell past" style="color: #ccc;">1</div>
-                  <div class="date-cell past" style="color: #ccc;">2</div>
-                  <div class="date-cell past" style="color: #ccc;">3</div>
-                  <div class="date-cell past" style="color: #ccc;">4</div>
-                  <div class="date-cell past" style="color: #ccc;">5</div>
-                  <div class="date-cell past" style="color: #ccc;">6</div>
-                  <div class="date-cell today">
-                    7
-                    <div class="date-dots">
-                      <div class="dot purple"></div>
-                      <div class="dot pink"></div>
+                    <div class="wf-event-time">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                      11:00 ~ 19:00
                     </div>
                   </div>
-
-                  <div class="date-cell">8<div class="date-dots"><div class="dot purple"></div></div></div>
-                  <div class="date-cell">9</div>
-                  <div class="date-cell">10</div>
-                  <div class="date-cell">11</div>
-                  <div class="date-cell">12<div class="date-dots"><div class="dot amber"></div></div></div>
-                  <div class="date-cell">13</div>
-                  <div class="date-cell">14</div>
-
-                  <div class="date-cell selected">
-                    15
-                    <div class="date-dots">
-                      <div class="dot purple"></div>
-                      <div class="dot pink"></div>
-                      <div class="dot amber"></div>
+                </div>
+                <div class="wf-event-heart">
+                  <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="color:#EC4899;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </div>
+              </div>
+              <div class="wf-event-card-rich">
+                <div class="wf-event-img">IMG</div>
+                <div class="wf-event-body">
+                  <div class="wf-event-tags">
+                    <div class="wf-event-tag idol">LED 트럭</div>
+                    <div class="wf-event-dday">D-5</div>
+                  </div>
+                  <div class="wf-event-title">세븐틴 우지 생일 광고</div>
+                  <div class="wf-event-meta">
+                    <div class="wf-event-location">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                      강남역
+                    </div>
+                    <div class="wf-event-time">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                      10:00 ~ 22:00
                     </div>
                   </div>
-                  <div class="date-cell">16</div>
-                  <div class="date-cell">17</div>
-                  <div class="date-cell">18</div>
-                  <div class="date-cell">19</div>
-                  <div class="date-cell">20<div class="date-dots"><div class="dot cyan"></div></div></div>
-                  <div class="date-cell">21</div>
-
-                  <div class="date-cell">22<div class="date-dots"><div class="dot pink"></div></div></div>
-                  <div class="date-cell">23</div>
-                  <div class="date-cell">24</div>
-                  <div class="date-cell">25<div class="date-dots"><div class="dot purple"></div></div></div>
-                  <div class="date-cell">26</div>
-                  <div class="date-cell">27</div>
-                  <div class="date-cell">28</div>
-
-                  <div class="date-cell">29</div>
-                  <div class="date-cell">30</div>
-                  <div class="date-cell">31</div>
                 </div>
-              </div>
-
-              <div class="date-event-list" style="position: relative; min-height: 140px;">
-                <div class="num-circle" style="top: 8px; left: 8px;">5</div>
-                <div class="date-event-header">3월 15일 (토)</div>
-                <div class="event-card">
-                  <div class="event-tag cafe">생일카페</div>
-                  <div class="event-name">하이큐 히나타 생일카페</div>
-                  <div class="event-info">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                      <circle cx="12" cy="10" r="3"></circle>
-                    </svg>
-                    서울 마포구
-                  </div>
-                  <div class="event-info">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <polyline points="12 6 12 12 16 14"></polyline>
-                    </svg>
-                    10:00~20:00
-                  </div>
-                </div>
-                <div class="event-card">
-                  <div class="event-tag billboard">전광판</div>
-                  <div class="event-name">하이큐 카게야마 생일 전광판</div>
-                  <div class="event-info">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                      <circle cx="12" cy="10" r="3"></circle>
-                    </svg>
-                    서울 강남구
-                  </div>
-                </div>
-              </div>
-
-              <div class="fab">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="12" y1="5" x2="12" y2="19"></line>
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
-              </div>
-
-              <div class="bottom-nav">
-                <div class="nav-item">
-                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                  </svg>
-                  <div class="nav-label">홈</div>
-                </div>
-                <div class="nav-item">
-                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="12 5 19 12 12 19 5 12 12 5"></polyline>
-                  </svg>
-                  <div class="nav-label">교환</div>
-                </div>
-                <div class="nav-item active">
-                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                    <line x1="8" y1="2" x2="8" y2="6"></line>
-                    <line x1="3" y1="10" x2="21" y2="10"></line>
-                  </svg>
-                  <div class="nav-label">이벤트</div>
-                </div>
-                <div class="nav-item">
-                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                  </svg>
-                  <div class="nav-label">채팅</div>
-                </div>
-                <div class="nav-item">
-                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                  </svg>
-                  <div class="nav-label">마이</div>
+                <div class="wf-event-heart">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="color:#999;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Frame 2: List View -->
-        <div>
-          <div class="frame-label">리스트 뷰</div>
-          <div class="phone-frame">
-            <div class="phone-frame-content" style="display: flex; flex-direction: column; min-height: 812px;">
-              <div class="wf-section" style="padding: 0;">
-                <div class="app-header">
-                  <div class="title">이벤트</div>
-                  <div class="icon-btn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="11" cy="11" r="8"></circle>
-                      <path d="m21 21-4.35-4.35"></path>
-                    </svg>
-                  </div>
-                </div>
+          <!-- ⑨ Bottom Nav -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:2px; left:6px;">9</div>
+            <div class="wf-bottom-nav">
+              <div class="wf-nav-item">
+                <div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+                홈
               </div>
-
-              <div class="view-toggle">
-                <div class="toggle-tab">캘린더</div>
-                <div class="toggle-tab active">리스트</div>
-                <div class="toggle-tab">지도</div>
+              <div class="wf-nav-item">
+                <div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+                교환
               </div>
-
-              <div class="filter-chips">
-                <div class="chip">작품 <span style="font-size: 10px;">▾</span></div>
-                <div class="chip">캐릭터 <span style="font-size: 10px;">▾</span></div>
-                <div class="chip">이벤트 유형 <span style="font-size: 10px;">▾</span></div>
-                <div class="chip">지역 <span style="font-size: 10px;">▾</span></div>
-                <div class="chip">날짜 <span style="font-size: 10px;">▾</span></div>
+              <div class="wf-nav-item active">
+                <div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+                이벤트
               </div>
-
-              <div class="list-view-content" style="position: relative;">
-                <div class="num-circle" style="top: 0; left: 8px;">2</div>
-
-                <div class="date-group-header">3월 7일 (금) — 오늘</div>
-                <div class="list-event-card">
-                  <div class="list-event-image"></div>
-                  <div class="list-event-info">
-                    <div class="list-event-header">
-                      <div class="list-event-tag cafe">생일카페</div>
-                      <div class="list-event-name">하이큐 히나타 생일카페</div>
-                    </div>
-                    <div class="list-event-details">
-                      <div class="list-event-detail">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <circle cx="12" cy="12" r="10"></circle>
-                          <polyline points="12 6 12 12 16 14"></polyline>
-                        </svg>
-                        10:00~20:00
-                      </div>
-                      <div class="list-event-detail">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                          <circle cx="12" cy="10" r="3"></circle>
-                        </svg>
-                        서울 마포구
-                      </div>
-                    </div>
-                  </div>
-                  <div class="list-event-heart">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                    </svg>
-                  </div>
-                </div>
-
-                <div class="date-group-header">3월 8일 (토) — 내일</div>
-                <div class="list-event-card">
-                  <div class="list-event-image"></div>
-                  <div class="list-event-info">
-                    <div class="list-event-header">
-                      <div class="list-event-tag billboard">전광판</div>
-                      <div class="list-event-name">하이큐 카게야마 생일</div>
-                    </div>
-                    <div class="list-event-details">
-                      <div class="list-event-detail">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <circle cx="12" cy="12" r="10"></circle>
-                          <polyline points="12 6 12 12 16 14"></polyline>
-                        </svg>
-                        09:00~22:00
-                      </div>
-                      <div class="list-event-detail">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                          <circle cx="12" cy="10" r="3"></circle>
-                        </svg>
-                        서울 강남역
-                      </div>
-                    </div>
-                  </div>
-                  <div class="list-event-heart">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                    </svg>
-                  </div>
-                </div>
-
-                <div class="date-group-header">3월 15일 (토)</div>
-                <div class="list-event-card">
-                  <div class="list-event-image"></div>
-                  <div class="list-event-info">
-                    <div class="list-event-header">
-                      <div class="list-event-tag cafe">생일카페</div>
-                      <div class="list-event-name">하이큐 이시키 생일카페</div>
-                    </div>
-                    <div class="list-event-details">
-                      <div class="list-event-detail">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <circle cx="12" cy="12" r="10"></circle>
-                          <polyline points="12 6 12 12 16 14"></polyline>
-                        </svg>
-                        11:00~19:00
-                      </div>
-                      <div class="list-event-detail">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                          <circle cx="12" cy="10" r="3"></circle>
-                        </svg>
-                        서울 신촌
-                      </div>
-                    </div>
-                  </div>
-                  <div class="list-event-heart">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                    </svg>
-                  </div>
-                </div>
+              <div class="wf-nav-item">
+                <div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+                채팅
               </div>
-
-              <div class="fab">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="12" y1="5" x2="12" y2="19"></line>
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
-              </div>
-
-              <div class="bottom-nav">
-                <div class="nav-item">
-                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                  </svg>
-                  <div class="nav-label">홈</div>
-                </div>
-                <div class="nav-item">
-                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="12 5 19 12 12 19 5 12 12 5"></polyline>
-                  </svg>
-                  <div class="nav-label">교환</div>
-                </div>
-                <div class="nav-item active">
-                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                    <line x1="8" y1="2" x2="8" y2="6"></line>
-                    <line x1="3" y1="10" x2="21" y2="10"></line>
-                  </svg>
-                  <div class="nav-label">이벤트</div>
-                </div>
-                <div class="nav-item">
-                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                  </svg>
-                  <div class="nav-label">채팅</div>
-                </div>
-                <div class="nav-item">
-                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                  </svg>
-                  <div class="nav-label">마이</div>
-                </div>
+              <div class="wf-nav-item">
+                <div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                마이
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Frame 3: Map View -->
-        <div>
-          <div class="frame-label">지도 뷰</div>
-          <div class="phone-frame">
-            <div class="phone-frame-content" style="display: flex; flex-direction: column; min-height: 812px;">
-              <div class="wf-section" style="padding: 0;">
-                <div class="app-header">
-                  <div class="title">이벤트</div>
-                  <div class="icon-btn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="11" cy="11" r="8"></circle>
-                      <path d="m21 21-4.35-4.35"></path>
-                    </svg>
-                  </div>
-                </div>
-              </div>
+          <!-- FAB -->
+          <div class="wf-fab">
+            <div class="num-circle" style="top:-8px; left:-8px;">10</div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
 
-              <div class="view-toggle">
-                <div class="toggle-tab">캘린더</div>
-                <div class="toggle-tab">리스트</div>
-                <div class="toggle-tab active">지도</div>
-              </div>
+        </div><!-- end phone-frame -->
+      </div>
 
-              <div class="filter-chips">
-                <div class="chip">작품 <span style="font-size: 10px;">▾</span></div>
-                <div class="chip">캐릭터 <span style="font-size: 10px;">▾</span></div>
-                <div class="chip">이벤트 유형 <span style="font-size: 10px;">▾</span></div>
-                <div class="chip">지역 <span style="font-size: 10px;">▾</span></div>
-                <div class="chip">날짜 <span style="font-size: 10px;">▾</span></div>
-              </div>
+      <!-- FRAME 2: List View -->
+      <div>
+        <div class="frame-label">Frame 2: 리스트 뷰</div>
+        <div class="phone-frame">
 
-              <div class="map-view-content" style="position: relative;">
-                <div class="num-circle" style="top: 8px; left: 8px; z-index: 11;">3</div>
-                <div class="map-area">
-                  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #999; font-size: 14px;">카카오맵</div>
-
-                  <div class="map-pin purple" style="top: 20%; left: 30%;">
-                    <div class="map-pin-icon"></div>
-                  </div>
-                  <div class="map-pin pink" style="top: 40%; left: 60%;">
-                    <div class="map-pin-icon"></div>
-                  </div>
-                  <div class="map-pin amber" style="top: 55%; left: 25%;">
-                    <div class="map-pin-icon"></div>
-                  </div>
-                  <div class="map-cluster" style="top: 35%; right: 20%;">3</div>
-
-                  <div class="current-location-fab">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                      <circle cx="12" cy="10" r="3"></circle>
-                    </svg>
-                  </div>
-                </div>
-
-                <button class="search-region-btn">이 지역 검색</button>
-
-                <div class="map-bottom-sheet">
-                  <div class="num-circle" style="top: 8px; left: 8px;">4</div>
-                  <div class="map-sheet-content">
-                    <div class="map-sheet-image"></div>
-                    <div class="map-sheet-info">
-                      <div class="map-sheet-name">하이큐 히나타 생일카페</div>
-                      <div class="map-sheet-detail">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <circle cx="12" cy="12" r="10"></circle>
-                          <polyline points="12 6 12 12 16 14"></polyline>
-                        </svg>
-                        3월 15일 10:00~20:00
-                      </div>
-                      <div class="map-sheet-distance">1.2km</div>
-                      <button class="map-sheet-btn">상세 보기</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="bottom-nav">
-                <div class="nav-item">
-                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                  </svg>
-                  <div class="nav-label">홈</div>
-                </div>
-                <div class="nav-item">
-                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="12 5 19 12 12 19 5 12 12 5"></polyline>
-                  </svg>
-                  <div class="nav-label">교환</div>
-                </div>
-                <div class="nav-item active">
-                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                    <line x1="8" y1="2" x2="8" y2="6"></line>
-                    <line x1="3" y1="10" x2="21" y2="10"></line>
-                  </svg>
-                  <div class="nav-label">이벤트</div>
-                </div>
-                <div class="nav-item">
-                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                  </svg>
-                  <div class="nav-label">채팅</div>
-                </div>
-                <div class="nav-item">
-                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                  </svg>
-                  <div class="nav-label">마이</div>
-                </div>
+          <!-- Header -->
+          <div class="wf-section">
+            <div class="wf-header">
+              <span class="wf-logo">이벤트</span>
+              <div class="wf-header-icons">
+                <div class="wf-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Frame 4: Event Registration Form -->
-        <div>
-          <div class="frame-label">이벤트 등록 폼</div>
-          <div class="phone-frame">
-            <div class="phone-frame-content" style="display: flex; flex-direction: column; min-height: 812px;">
-              <div class="wf-section" style="padding: 0;">
-                <div class="num-circle" style="top: 12px; left: 8px;">5</div>
-                <div class="form-header">
-                  <div class="form-back-btn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <polyline points="15 18 9 12 15 6"></polyline>
-                    </svg>
+          <!-- Banner -->
+          <div class="wf-banner" style="margin-top: 12px;">
+            <div class="wf-banner-content">
+              <div class="wf-banner-ddday">D-3</div>
+              <div class="wf-banner-title">하이큐 히나타 생일카페</div>
+              <div class="wf-banner-location">홍대 카페거리</div>
+            </div>
+            <div class="wf-indicator">
+              <div class="wf-dot active"></div>
+              <div class="wf-dot"></div>
+              <div class="wf-dot"></div>
+            </div>
+          </div>
+
+          <!-- View toggle -->
+          <div class="wf-tabs">
+            <div class="wf-tab">캘린더</div>
+            <div class="wf-tab active">리스트</div>
+            <div class="wf-tab">지도</div>
+          </div>
+
+          <!-- Filter chips -->
+          <div class="wf-filter-chips">
+            <div class="wf-chip">작품 ▾</div>
+            <div class="wf-chip">이벤트 유형 ▾</div>
+            <div class="wf-chip">지역 ▾</div>
+          </div>
+
+          <!-- Date header -->
+          <div class="wf-selected-date">
+            <div class="wf-selected-date-text">3월 13일 (토)</div>
+            <div class="wf-event-count">2건</div>
+          </div>
+
+          <!-- Event cards -->
+          <div class="wf-event-list">
+            <div class="wf-event-card-rich">
+              <div class="wf-event-img">IMG</div>
+              <div class="wf-event-body">
+                <div class="wf-event-tags">
+                  <div class="wf-event-tag anime">생일카페</div>
+                  <div class="wf-event-dday">D-3</div>
+                </div>
+                <div class="wf-event-title">하이큐 히나타 생일카페</div>
+                <div class="wf-event-meta">
+                  <div class="wf-event-location">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    홍대 카페거리
                   </div>
-                  <div class="form-title">이벤트 등록</div>
+                  <div class="wf-event-time">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    11:00 ~ 19:00
+                  </div>
                 </div>
               </div>
-
-              <div class="form-content">
-                <div class="form-group">
-                  <label class="form-label">이벤트 유형 <span class="required">*</span></label>
-                  <select class="form-select">
-                    <option>생일카페</option>
-                    <option>전광판</option>
-                    <option>팬사인회</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">작품/아이돌/배우 <span class="required">*</span></label>
-                  <div class="form-input" style="display: flex; align-items: center; padding: 10px 12px; background: #fff; border: 1px solid #ddd; border-radius: 6px;">
-                    <svg style="width: 16px; height: 16px; stroke: #999; margin-right: 8px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="11" cy="11" r="8"></circle>
-                      <path d="m21 21-4.35-4.35"></path>
-                    </svg>
-                    <input type="text" placeholder="검색" style="flex: 1; border: none; font-size: 13px; outline: none; background: none;">
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">캐릭터/멤버 <span class="required">*</span></label>
-                  <div class="form-input" style="display: flex; align-items: center; padding: 10px 12px; background: #fff; border: 1px solid #ddd; border-radius: 6px;">
-                    <svg style="width: 16px; height: 16px; stroke: #999; margin-right: 8px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="11" cy="11" r="8"></circle>
-                      <path d="m21 21-4.35-4.35"></path>
-                    </svg>
-                    <input type="text" placeholder="검색" style="flex: 1; border: none; font-size: 13px; outline: none; background: none;">
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">이벤트명 <span class="required">*</span></label>
-                  <input type="text" class="form-input" value="하이큐 히나타 생일카페">
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">시작일~종료일 <span class="required">*</span></label>
-                  <div class="form-date-row">
-                    <input type="date" class="form-input" value="2026-03-15">
-                    <span class="form-date-separator">~</span>
-                    <input type="date" class="form-input" value="2026-03-15">
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">장소 <span class="required">*</span></label>
-                  <div style="display: flex; gap: 8px;">
-                    <input type="text" class="form-input" style="flex: 1;" placeholder="주소 검색">
-                    <div style="width: 60px; height: 40px; background: #e5e5e5; border-radius: 6px; flex-shrink: 0;"></div>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">운영 시간</label>
-                  <div class="form-date-row">
-                    <input type="time" class="form-input" value="10:00">
-                    <span class="form-date-separator">~</span>
-                    <input type="time" class="form-input" value="20:00">
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">상세 설명</label>
-                  <textarea class="form-textarea" placeholder="이벤트 정보를 입력하세요"></textarea>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">대표 이미지</label>
-                  <div class="form-image-upload">
-                    <div class="image-box">+</div>
-                    <div class="image-box">+</div>
-                    <div class="image-box">+</div>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">외부 링크</label>
-                  <input type="url" class="form-input" placeholder="https://example.com">
-                </div>
-
-                <button class="form-submit-btn">등록하기</button>
+              <div class="wf-event-heart">
+                <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="color:#EC4899;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
               </div>
-
-              <div class="bottom-nav">
-                <div class="nav-item">
-                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                  </svg>
-                  <div class="nav-label">홈</div>
+            </div>
+            <div class="wf-event-card-rich">
+              <div class="wf-event-img">IMG</div>
+              <div class="wf-event-body">
+                <div class="wf-event-tags">
+                  <div class="wf-event-tag idol">LED 트럭</div>
+                  <div class="wf-event-dday">D-5</div>
                 </div>
-                <div class="nav-item">
-                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="12 5 19 12 12 19 5 12 12 5"></polyline>
-                  </svg>
-                  <div class="nav-label">교환</div>
+                <div class="wf-event-title">세븐틴 우지 생일 광고</div>
+                <div class="wf-event-meta">
+                  <div class="wf-event-location">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    강남역
+                  </div>
+                  <div class="wf-event-time">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    10:00 ~ 22:00
+                  </div>
                 </div>
-                <div class="nav-item active">
-                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                    <line x1="8" y1="2" x2="8" y2="6"></line>
-                    <line x1="3" y1="10" x2="21" y2="10"></line>
-                  </svg>
-                  <div class="nav-label">이벤트</div>
-                </div>
-                <div class="nav-item">
-                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                  </svg>
-                  <div class="nav-label">채팅</div>
-                </div>
-                <div class="nav-item">
-                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                  </svg>
-                  <div class="nav-label">마이</div>
-                </div>
+              </div>
+              <div class="wf-event-heart">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="color:#999;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
               </div>
             </div>
           </div>
-        </div>
+
+          <!-- Bottom Nav -->
+          <div class="wf-bottom-nav">
+            <div class="wf-nav-item">
+              <div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+              홈
+            </div>
+            <div class="wf-nav-item">
+              <div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+              교환
+            </div>
+            <div class="wf-nav-item active">
+              <div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+              이벤트
+            </div>
+            <div class="wf-nav-item">
+              <div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+              채팅
+            </div>
+            <div class="wf-nav-item">
+              <div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              마이
+            </div>
+          </div>
+
+          <!-- FAB -->
+          <div class="wf-fab">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+
+        </div><!-- end phone-frame -->
+      </div>
+
+      <!-- FRAME 3: Map View -->
+      <div>
+        <div class="frame-label">Frame 3: 지도 뷰</div>
+        <div class="phone-frame">
+
+          <!-- Header -->
+          <div class="wf-section">
+            <div class="wf-header">
+              <span class="wf-logo">이벤트</span>
+              <div class="wf-header-icons">
+                <div class="wf-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- View toggle -->
+          <div class="wf-tabs">
+            <div class="wf-tab">캘린더</div>
+            <div class="wf-tab">리스트</div>
+            <div class="wf-tab active">지도</div>
+          </div>
+
+          <!-- Map area -->
+          <div style="flex: 1; background: #E5E5E5; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #bbb;">
+            카카오맵 (카테고리 컬러 마커, 클러스터)
+          </div>
+
+          <!-- Location FAB -->
+          <div style="position: absolute; bottom: 100px; right: 16px; width: 40px; height: 40px; background: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); z-index: 4;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" style="color:#2563EB;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+
+          <!-- Bottom sheet (event info) -->
+          <div style="position: absolute; bottom: 60px; left: 0; right: 0; background: #fff; border-radius: 12px 12px 0 0; padding: 12px 16px; box-shadow: 0 -2px 8px rgba(0,0,0,0.1); z-index: 3;">
+            <div style="display: flex; gap: 8px;">
+              <div style="width: 48px; height: 48px; background: #E5E5E5; border-radius: 6px;"></div>
+              <div style="flex: 1; font-size: 12px;">
+                <div style="font-weight: 600; margin-bottom: 2px;">하이큐 히나타 생일카페</div>
+                <div style="font-size: 11px; color: #6B7280;">홍대 카페거리</div>
+                <div style="font-size: 11px; color: #2563EB; margin-top: 4px;">상세보기 →</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Nav -->
+          <div class="wf-bottom-nav">
+            <div class="wf-nav-item">
+              <div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+              홈
+            </div>
+            <div class="wf-nav-item">
+              <div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+              교환
+            </div>
+            <div class="wf-nav-item active">
+              <div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+              이벤트
+            </div>
+            <div class="wf-nav-item">
+              <div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+              채팅
+            </div>
+            <div class="wf-nav-item">
+              <div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              마이
+            </div>
+          </div>
+
+          <!-- FAB -->
+          <div class="wf-fab">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+
+        </div><!-- end phone-frame -->
+      </div>
+
+    </div><!-- end phone-stack -->
+  </div><!-- end wireframe-side -->
+
+  <!-- ===== DESCRIPTION ===== -->
+  <div class="desc-side">
+    <div class="desc-title">EVNT01 — 이벤트 캘린더</div>
+    <div class="desc-subtitle">라우트: /events &nbsp;|&nbsp; 비로그인 접근: 가능 &nbsp;|&nbsp; Phase 1.5</div>
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">1</div>
+        <span class="desc-comp-type">[Header]</span>
+        <span class="desc-comp-name">앱 헤더</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>"이벤트" 제목 좌측 표시</li>
+          <li>우측 아이콘: Search (SRCH01 이동)</li>
+          <li>상단 고정 (스크롤 시 유지)</li>
+        </ul>
       </div>
     </div>
 
-    <div class="desc-side">
-      <div class="desc-item">
-        <div class="desc-num-row">
-          <div class="desc-num">1</div>
-          <span class="desc-comp-type">[Header]</span>
-          <span class="desc-comp-name">페이지 헤더</span>
-        </div>
-        <div class="desc-body">
-          <ul>
-            <li>"이벤트" 타이틀</li>
-            <li>우측 검색 아이콘 → SRCH01 진입</li>
-            <li>상단 고정, padding 12px 16px</li>
-          </ul>
-        </div>
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">2</div>
+        <span class="desc-comp-type">[Banner]</span>
+        <span class="desc-comp-name">곧 다가올 이벤트 배너</span>
       </div>
-      <hr class="desc-divider">
-
-      <div class="desc-item">
-        <div class="desc-num-row">
-          <div class="desc-num">2</div>
-          <span class="desc-comp-type">[ViewToggle]</span>
-          <span class="desc-comp-name">뷰 전환 탭</span>
-        </div>
-        <div class="desc-body">
-          <ul>
-            <li>3 탭: 캘린더(기본 active) / 리스트 / 지도</li>
-            <li>각 탭 동일 너비, flex 사용</li>
-            <li>Active tab: 2px 파란색 언더라인 (#2563EB), 파란색 텍스트</li>
-            <li>필터 상태(chips) 유지 (탭 전환 후에도 이전 필터 남음)</li>
-          </ul>
-        </div>
+      <div class="desc-body">
+        <ul>
+          <li>D-7 이내 시작 이벤트 중 찜 수 상위 5건 노출</li>
+          <li>배너 높이: 140px, 그래디언트 오버레이 + 배경 이미지</li>
+          <li>구성: D-day 뱃지 (빨강/주황, 작은 pill) + 이벤트명 + 장소 (흰색 텍스트)</li>
+          <li>자동 슬라이드: 5초 간격, 터치 스와이프 지원</li>
+          <li>하단 인디케이터: ● ○ ○ (활성 = White)</li>
+          <li>탭 시: EVNT02 (이벤트 상세) 이동</li>
+          <li>데이터 없을 시: 배너 숨김</li>
+        </ul>
       </div>
-      <hr class="desc-divider">
+    </div>
 
-      <div class="desc-item">
-        <div class="desc-num-row">
-          <div class="desc-num">3</div>
-          <span class="desc-comp-type">[FilterBar]</span>
-          <span class="desc-comp-name">필터 바</span>
-        </div>
-        <div class="desc-body">
-          <ul>
-            <li>가로 스크롤 가능한 chip 리스트</li>
-            <li>5개 기본 필터: 작품 / 캐릭터 / 이벤트 유형 / 지역 / 날짜</li>
-            <li>각 chip에 드롭다운 아이콘 (▾)</li>
-            <li>선택된 chip (하이큐): 파란 배경(#2563EB) + 흰 텍스트 + ✕ 제거 버튼</li>
-            <li>Tap chip → 각 필터별 bottom sheet 오픈 (3번 기획서 참고)</li>
-          </ul>
-        </div>
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">3</div>
+        <span class="desc-comp-type">[Tabs]</span>
+        <span class="desc-comp-name">뷰 토글 탭</span>
       </div>
-      <hr class="desc-divider">
-
-      <div class="desc-item">
-        <div class="desc-num-row">
-          <div class="desc-num">4</div>
-          <span class="desc-comp-type">[CalendarView]</span>
-          <span class="desc-comp-name">캘린더 뷰</span>
-        </div>
-        <div class="desc-body">
-          <ul>
-            <li>월 네비게이션: < 2026년 3월 > + "오늘" 버튼</li>
-            <li>7컬럼 요일 그리드 (일~토)</li>
-            <li>Date cells 스타일:
-              <ul class="sub">
-                <li>└ 현재일(7): 파란 원형 배경 (#2563EB) + 흰 텍스트</li>
-                <li>└ 선택일(15): 2px 파란 테두리 + 굵은 텍스트</li>
-                <li>└ 지난날: 회색 텍스트 (#ccc)</li>
-              </ul>
-            </li>
-            <li>이벤트 표시: 날짜 아래 작은 원 (4px, 카테고리별 컬러 - Purple/Pink/Amber/Cyan) 최대 4개</li>
-            <li>Tap date → 아래 "날짜별 이벤트 목록" 슬라이드 업, 해당 날짜의 이벤트 표시</li>
-          </ul>
-        </div>
+      <div class="desc-body">
+        <ul>
+          <li>3가지 뷰: 캘린더 | 리스트 | 지도</li>
+          <li>활성 탭: Blue (#2563EB) 밑줄 (2px)</li>
+          <li>비활성: Gray (#999)</li>
+          <li>탭 전환 시 필터 상태 유지</li>
+        </ul>
       </div>
-      <hr class="desc-divider">
+    </div>
 
-      <div class="desc-item">
-        <div class="desc-num-row">
-          <div class="desc-num">5</div>
-          <span class="desc-comp-type">[EventList]</span>
-          <span class="desc-comp-name">이벤트 목록</span>
-        </div>
-        <div class="desc-body">
-          <ul>
-            <li>캘린더 뷰: 선택 날짜 헤더 + 이벤트 카드 2개 (생일카페/전광판)</li>
-            <li>리스트 뷰: 날짜별 그룹 헤더 (3월 7일 (금) — 오늘) + 카드 3~4개</li>
-            <li>각 카드 구성:
-              <ul class="sub">
-                <li>└ 이벤트 타입 태그 (작은 배경, 흰 텍스트: 생일카페 Pink #EC4899 / 전광판 Purple #8B5CF6)</li>
-                <li>└ 이벤트명 (굵은 텍스트)</li>
-                <li>└ 시간 (시계 아이콘 + "10:00~20:00")</li>
-                <li>└ 위치 (위치 아이콘 + "서울 마포구")</li>
-                <li>└ 리스트 뷰: 좌측 이미지 placeholder (80x80), 우측 하트 아이콘</li>
-              </ul>
-            </li>
-            <li>Tap card → EVNT02 (이벤트 상세) 진입</li>
-          </ul>
-        </div>
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">4</div>
+        <span class="desc-comp-type">[FilterChips]</span>
+        <span class="desc-comp-name">필터 바</span>
       </div>
-      <hr class="desc-divider">
-
-      <div class="desc-item">
-        <div class="desc-num-row">
-          <div class="desc-num">6</div>
-          <span class="desc-comp-type">[MapView]</span>
-          <span class="desc-comp-name">지도 뷰</span>
-        </div>
-        <div class="desc-body">
-          <ul>
-            <li>카카오맵 Fullscreen (375px 내 ~300px 높이)</li>
-            <li>카테고리별 컬러 지도 핀: Purple / Pink / Amber</li>
-            <li>클러스터 마커: "3" 표시 (검은 원형, 흰 텍스트)</li>
-            <li>"이 지역 검색" 버튼 (중앙 상단, gray bg)</li>
-            <li>Bottom sheet: 선택된 이벤트 카드 (이미지 + 이름 + 시간 + 거리 "1.2km" + [상세 보기] 버튼)</li>
-            <li>현재 위치 FAB: 지도 우하단, 흰 원형 + 위치 아이콘</li>
-            <li>Tap pin / bottom sheet [상세보기] → EVNT02 진입</li>
-          </ul>
-        </div>
+      <div class="desc-body">
+        <ul>
+          <li>필터 칩: 작품 | 이벤트 유형 | 지역 (모두 드롭다운 ▾)</li>
+          <li>비활성: Gray 배경, 활성: Blue 배경 + 흰색 텍스트</li>
+          <li>가로 스크롤 가능</li>
+          <li>필터 선택 → 목록 실시간 갱신</li>
+          <li>초기화 버튼 추가 가능 (필터 활성화 시)</li>
+        </ul>
       </div>
-      <hr class="desc-divider">
+    </div>
 
-      <div class="desc-item">
-        <div class="desc-num-row">
-          <div class="desc-num">7</div>
-          <span class="desc-comp-type">[FAB]</span>
-          <span class="desc-comp-name">이벤트 등록 FAB</span>
-        </div>
-        <div class="desc-body">
-          <ul>
-            <li>파란 원형 (+아이콘), 우측 하단 고정 (bottom 72px, right 16px)</li>
-            <li>Map view에서는 bottom 위치 조정 필요</li>
-            <li>로그인 필수: 비로그인 시 tap → 로그인 모달 또는 AUTH01로 진입</li>
-            <li>Tap → EVNT01 Frame 4 (이벤트 등록 폼) 또는 새 화면(모달) 오픈</li>
-          </ul>
-        </div>
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">5</div>
+        <span class="desc-comp-type">[MonthNav]</span>
+        <span class="desc-comp-name">월 네비게이션</span>
       </div>
-      <hr class="desc-divider">
-
-      <div class="desc-item">
-        <div class="desc-num-row">
-          <div class="desc-num">8</div>
-          <span class="desc-comp-type">[EventForm]</span>
-          <span class="desc-comp-name">이벤트 등록 폼</span>
-        </div>
-        <div class="desc-body">
-          <ul>
-            <li>백 버튼 + "이벤트 등록" 제목</li>
-            <li>필수(*) 필드: 이벤트 유형 / 작품/아이돌 / 캐릭터/멤버 / 이벤트명 / 시작~종료일 / 장소</li>
-            <li>선택 필드: 운영 시간 / 상세 설명 / 대표 이미지(max 3) / 외부 링크</li>
-            <li>이벤트 유형: dropdown (생일카페, 전광판, 팬사인회 등)</li>
-            <li>작품/캐릭터: 검색 input (search icon + placeholder)</li>
-            <li>날짜: date picker row (시작일 ~ 종료일)</li>
-            <li>장소: 주소 input + 미니 지도 플레이스홀더</li>
-            <li>대표 이미지: 3개 upload boxes (+)</li>
-            <li>Bottom: [등록하기] 풀너비 파란 버튼 → 바로 publish (승인 과정 없음, Phase 1)</li>
-          </ul>
-        </div>
+      <div class="desc-body">
+        <ul>
+          <li>형식: ‹ YYYY년 M월 › (좌우 화살표로 전후월 전환)</li>
+          <li>[오늘] 버튼: Blue 배경, EFF6FF border, Blue text</li>
+          <li>클릭 시 현재 날짜로 이동</li>
+          <li>모바일: 월 네비게이션만 노출</li>
+          <li>PC: 풀 월간 그리드 캘린더 표시 (반응형 분기)</li>
+        </ul>
       </div>
-      <hr class="desc-divider">
+    </div>
 
-      <div class="desc-item">
-        <div class="desc-num-row">
-          <div class="desc-num">9</div>
-          <span class="desc-comp-type">[BottomNav]</span>
-          <span class="desc-comp-name">하단 네비게이션</span>
-        </div>
-        <div class="desc-body">
-          <ul>
-            <li>5 탭: 홈 / 교환 / 이벤트(active, 파란색) / 채팅 / 마이</li>
-            <li>각 탭: Lucide SVG 아이콘(20x20) + 라벨(10px)</li>
-            <li>높이 56px, 상단 1px 구분선</li>
-            <li>Active 탭: 텍스트 + 아이콘 모두 파란색(#2563EB)</li>
-          </ul>
-        </div>
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">6</div>
+        <span class="desc-comp-type">[DateScroller]</span>
+        <span class="desc-comp-name">날짜 스크롤러 (모바일)</span>
       </div>
-      <hr class="desc-divider">
-
-      <div class="desc-section-title">화면 상태</div>
-
-      <div class="desc-state-item">
-        <div class="desc-state-label">로딩</div>
-        <div class="desc-state-desc">캘린더 skeleton + 리스트 skeleton 4줄</div>
+      <div class="desc-body">
+        <ul>
+          <li>가로 스크롤 가능한 날짜 바</li>
+          <li>각 날짜 셀 구성:
+            <ul class="sub">
+              <li>요일 라벨 (월,화,수,...): 10px Gray #999</li>
+              <li>날짜 숫자: 32×32px 원형, 12px Bold</li>
+              <li>오늘 날짜: Blue 배경 (#3B82F6) + 흰색 텍스트</li>
+              <li>선택된 날짜: Blue 테두리 (1px)</li>
+              <li>아래 카테고리 도트 (최대 4개): Purple/Pink/Amber/Cyan 4px</li>
+            </ul>
+          </li>
+          <li>클릭 → 선택 날짜로 이벤트 목록 갱신</li>
+          <li>약 7개 날짜 한번에 노출, 좌우 스크롤</li>
+        </ul>
       </div>
+    </div>
 
-      <div class="desc-state-item">
-        <div class="desc-state-label">빈 상태 (필터)</div>
-        <div class="desc-state-desc">"조건에 맞는 이벤트가 없어요" + 필터 초기화 CTA</div>
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">7</div>
+        <span class="desc-comp-type">[DateHeader]</span>
+        <span class="desc-comp-name">선택 날짜 헤더</span>
       </div>
-
-      <div class="desc-state-item">
-        <div class="desc-state-label">빈 상태 (전체)</div>
-        <div class="desc-state-desc">"아직 등록된 이벤트가 없어요" + [이벤트 등록] CTA</div>
+      <div class="desc-body">
+        <ul>
+          <li>형식: "M월 D일 (요일)" (예: 3월 15일 (토))</li>
+          <li>우측: 이벤트 수 뱃지 "N건" (Blue 배경, 10px White)</li>
+          <li>배경: Light Gray #F9FAFB</li>
+        </ul>
       </div>
+    </div>
 
-      <div class="desc-state-item">
-        <div class="desc-state-label">빈 상태 (날짜)</div>
-        <div class="desc-state-desc">"이 날짜에는 이벤트가 없어요"</div>
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">8</div>
+        <span class="desc-comp-type">[EventCards]</span>
+        <span class="desc-comp-name">이벤트 카드 (리치 포맷)</span>
       </div>
-
-      <div class="desc-state-item">
-        <div class="desc-state-label">에러</div>
-        <div class="desc-state-desc">"이벤트를 불러오지 못했어요" + [재시도] 버튼</div>
+      <div class="desc-body">
+        <ul>
+          <li>카드 레이아웃: 가로 (이미지 좌측 + 정보 우측)</li>
+          <li>이미지: 72×72px, border-radius: 8px, Gray 배경</li>
+          <li>정보 섹션:
+            <ul class="sub">
+              <li>태그행: 이벤트 유형 태그 (생일카페/팬미팅/LED트럭 등) + D-day 뱃지</li>
+              <li>유형 태그: 카테고리별 소프트 배경색 + 텍스트 (10px)</li>
+              <li>D-day: Red 배경 + White 텍스트 (9px Bold)</li>
+              <li>제목: 13px Semibold, 1줄</li>
+              <li>위치: MapPin 아이콘 + 텍스트 (11px Gray)</li>
+              <li>시간: Clock 아이콘 + 텍스트 (11px Gray, HH:MM ~ HH:MM)</li>
+            </ul>
+          </li>
+          <li>우측 부동: 하트 아이콘 (찜 상태 변경)</li>
+          <li>카드 탭 시: EVNT02 (이벤트 상세) 이동</li>
+          <li>선택 날짜 기준 최대 10건 노출</li>
+        </ul>
       </div>
+    </div>
 
-      <div class="desc-state-item">
-        <div class="desc-state-label">비로그인</div>
-        <div class="desc-state-desc">열람 가능, FAB 클릭 시 로그인 유도 모달</div>
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">9</div>
+        <span class="desc-comp-type">[BottomNav]</span>
+        <span class="desc-comp-name">하단 네비게이션</span>
       </div>
-
-      <div class="desc-state-item">
-        <div class="desc-state-label">지도 위치 권한</div>
-        <div class="desc-state-desc">거부 시 서울 중심 기본 위치 표시 + 안내 팝업</div>
+      <div class="desc-body">
+        <ul>
+          <li>5개 탭: 홈 | 교환 | 이벤트(활성) | 채팅 | 마이</li>
+          <li>비활성: Gray #999, 활성: Blue #2563EB</li>
+          <li>채팅/마이: 비로그인 시 로그인 유도</li>
+          <li>하단 고정</li>
+        </ul>
       </div>
+    </div>
 
-      <div class="desc-section-title">연관 화면</div>
+    <hr class="desc-divider">
 
-      <table class="desc-table">
-        <thead>
-          <tr>
-            <th>이동 대상</th>
-            <th>조건</th>
-            <th>화면코드</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>이벤트 상세</td>
-            <td>카드 또는 bottom sheet [상세 보기] 탭</td>
-            <td>EVNT02</td>
-          </tr>
-          <tr>
-            <td>검색</td>
-            <td>헤더 검색 아이콘 탭</td>
-            <td>SRCH01</td>
-          </tr>
-          <tr>
-            <td>로그인</td>
-            <td>비로그인 + FAB 탭</td>
-            <td>AUTH01</td>
-          </tr>
-          <tr>
-            <td>홈</td>
-            <td>하단 네비 홈 탭</td>
-            <td>HOME01</td>
-          </tr>
-          <tr>
-            <td>배너/팝업 신청</td>
-            <td>별도 메뉴 진입 (향후)</td>
-            <td>BANR01</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">10</div>
+        <span class="desc-comp-type">[FAB]</span>
+        <span class="desc-comp-name">이벤트 등록 버튼</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>위치: 우하단 고정 (bottom: 80px, right: 16px)</li>
+          <li>크기: 48×48px, Blue 배경, + 아이콘</li>
+          <li>탭 시: 이벤트 등록 화면 이동 (신규 기능)</li>
+          <li>비로그인 시: 로그인 유도 팝업</li>
+        </ul>
+      </div>
+    </div>
 
-      <div class="revision-bar">
-        <table>
+    <hr class="desc-divider">
+
+    <!-- States -->
+    <div style="margin-top:16px;">
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">화면 상태</div>
+      <div class="desc-body" style="padding-left:0;">
+        <ul>
+          <li><strong>기본 상태</strong>: 이벤트 데이터 있음, 배너 노출, 필터 가능</li>
+          <li><strong>다가올 이벤트 없음</strong>: 배너 숨김, 하단 텍스트 "다가올 이벤트가 없습니다"</li>
+          <li><strong>선택 날짜 이벤트 없음</strong>: 날짜 헤더만 표시, "이 날짜에 이벤트가 없습니다" 메시지</li>
+          <li><strong>필터 결과 없음</strong>: "검색 결과가 없습니다" 메시지 + 필터 초기화 버튼</li>
+          <li><strong>에러 상태</strong>: "데이터를 불러올 수 없습니다" + 재시도 버튼</li>
+          <li><strong>비로그인</strong>: 열람 가능, 이벤트 등록 시 로그인 유도</li>
+          <li><strong>지도 위치 권한 거부</strong>: "위치 권한을 허용해주세요" 메시지 + 설정 열기 버튼</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Connected screens -->
+    <div style="margin-top:16px;">
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">연관 화면</div>
+      <div class="desc-body" style="padding-left:0;">
+        <table style="width:100%; font-size:11px; border-collapse:collapse;">
           <thead>
-            <tr>
-              <th>날짜</th>
-              <th>버전</th>
-              <th>내용</th>
-              <th>작성자</th>
+            <tr style="border-bottom:1px solid #eee;">
+              <th style="text-align:left; padding:4px 8px; color:#888;">이동 대상</th>
+              <th style="text-align:left; padding:4px 8px; color:#888;">조건</th>
+              <th style="text-align:left; padding:4px 8px; color:#888;">화면코드</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>2026-03-07</td>
-              <td>0.1</td>
-              <td>초안 작성</td>
-              <td>-</td>
-            </tr>
+            <tr><td style="padding:4px 8px;">이벤트 상세</td><td style="padding:4px 8px;">이벤트 카드 탭 / 배너 탭</td><td style="padding:4px 8px;">EVNT02</td></tr>
+            <tr><td style="padding:4px 8px;">검색</td><td style="padding:4px 8px;">Search 아이콘 탭</td><td style="padding:4px 8px;">SRCH01</td></tr>
+            <tr><td style="padding:4px 8px;">로그인</td><td style="padding:4px 8px;">비로그인 + 이벤트 등록 시도</td><td style="padding:4px 8px;">AUTH01</td></tr>
+            <tr><td style="padding:4px 8px;">홈</td><td style="padding:4px 8px;">하단 네비 홈 탭</td><td style="padding:4px 8px;">HOME01</td></tr>
+            <tr><td style="padding:4px 8px;">배너/팝업 신청</td><td style="padding:4px 8px;">메뉴에서 진입</td><td style="padding:4px 8px;">BANR01</td></tr>
           </tbody>
         </table>
       </div>
     </div>
-  </div>
+
+  </div><!-- end desc-side -->
+
+</div><!-- end main-layout -->
+
+<!-- REVISION FOOTER -->
+<div class="revision-bar">
+  <table>
+    <thead>
+      <tr><th>날짜</th><th>버전</th><th>내용</th><th>작성자</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>2026-03-07</td><td>0.1</td><td>초안 작성</td><td>-</td></tr>
+      <tr><td>2026-03-07</td><td>0.2</td><td>곧 다가올 이벤트 배너 추가, 모바일 날짜 스크롤러로 변경, 이벤트 카드 리치 포맷 개선</td><td>-</td></tr>
+    </tbody>
+  </table>
+</div>
+
 </body>
 </html>
