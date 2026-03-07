@@ -1,0 +1,1666 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WANT01 - 구함 게시판 | 애픽 월드</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+      background: #F5F5F5;
+      color: #1A1A1A;
+      line-height: 1.6;
+    }
+
+    .meta-bar {
+      background: #fff;
+      border-bottom: 2px solid #2563EB;
+      padding: 12px 24px;
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .meta-bar .title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1A1A1A;
+      min-width: 60px;
+    }
+
+    .meta-item {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .meta-label {
+      color: #999;
+      font-weight: 600;
+    }
+
+    .meta-value {
+      color: #1A1A1A;
+      font-weight: 500;
+    }
+
+    .main-layout {
+      display: flex;
+      min-height: calc(100vh - 48px);
+      gap: 0;
+    }
+
+    .wireframe-side {
+      flex: 0 0 55%;
+      background: #EAEAEA;
+      padding: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      overflow-y: auto;
+    }
+
+    .desc-side {
+      flex: 0 0 45%;
+      background: #fff;
+      padding: 24px 28px;
+      border-left: 1px solid #ddd;
+      overflow-y: auto;
+    }
+
+    /* Phone Frame */
+    .phone-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .phone-frame-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .frame-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #666;
+      text-align: center;
+      max-width: 375px;
+    }
+
+    .phone-frame {
+      width: 375px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      overflow: hidden;
+      position: relative;
+      min-height: 667px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Phone Header */
+    .phone-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: #1A1A1A;
+    }
+
+    .phone-header-right {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .icon-btn {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .icon-btn svg {
+      width: 20px;
+      height: 20px;
+      color: #1A1A1A;
+    }
+
+    /* Tab Bar */
+    .tab-bar {
+      display: flex;
+      border-bottom: 1px solid #e5e5e5;
+      padding: 0 16px;
+      gap: 32px;
+    }
+
+    .tab-item {
+      padding: 12px 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: #999;
+      position: relative;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    .tab-item.active {
+      color: #1A1A1A;
+    }
+
+    .tab-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #2563EB;
+    }
+
+    /* Filter Bar */
+    .filter-bar {
+      padding: 12px 16px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      border-bottom: 1px solid #e5e5e5;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .filter-bar::-webkit-scrollbar {
+      height: 2px;
+    }
+
+    .filter-chip {
+      flex-shrink: 0;
+      padding: 6px 12px;
+      border: 1px solid #ddd;
+      border-radius: 16px;
+      font-size: 12px;
+      color: #666;
+      background: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    /* Sort Bar */
+    .sort-bar {
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: #666;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .sort-bar-left {
+      font-weight: 600;
+    }
+
+    .sort-dropdown {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      color: #666;
+      padding: 0;
+    }
+
+    .sort-dropdown svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Content Area */
+    .phone-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 0;
+    }
+
+    /* Card List */
+    .card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 12px 16px;
+    }
+
+    .want-card {
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #e5e5e5;
+      background: #fff;
+      position: relative;
+    }
+
+    .card-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      background: #e5e5e5;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .card-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .card-header {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .status-badge {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    .status-looking {
+      background: #22C55E;
+    }
+
+    .status-matched {
+      background: #3B82F6;
+    }
+
+    .status-expired {
+      background: #9CA3AF;
+    }
+
+    .category-tag {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .category-anime {
+      background: #8B5CF6;
+    }
+
+    .category-idol {
+      background: #EC4899;
+    }
+
+    .category-actor {
+      background: #F59E0B;
+    }
+
+    .category-game {
+      background: #06B6D4;
+    }
+
+    .up-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #F59E0B;
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1A1A1A;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-meta {
+      font-size: 12px;
+      color: #999;
+      display: flex;
+      gap: 8px;
+    }
+
+    .card-type {
+      font-size: 12px;
+      color: #999;
+    }
+
+    .card-date {
+      font-size: 12px;
+      color: #999;
+    }
+
+    .card-matches {
+      font-size: 12px;
+      font-weight: 600;
+      color: #2563EB;
+    }
+
+    /* Bottom Sheet */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 100;
+    }
+
+    .phone-frame.with-overlay::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 10;
+    }
+
+    .bottom-sheet {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-radius: 16px 16px 0 0;
+      z-index: 110;
+      max-height: 70%;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.1);
+    }
+
+    .sheet-handle {
+      width: 40px;
+      height: 4px;
+      background: #ddd;
+      border-radius: 2px;
+      margin: 8px auto;
+    }
+
+    .sheet-header {
+      padding: 16px;
+      border-bottom: 1px solid #e5e5e5;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .sheet-close {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .sheet-close svg {
+      width: 20px;
+      height: 20px;
+      color: #1A1A1A;
+    }
+
+    .sheet-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+    }
+
+    .sheet-section {
+      margin-bottom: 16px;
+    }
+
+    .sheet-section-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #999;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .sheet-text {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* Detail Sheet Content */
+    .detail-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1A1A1A;
+      margin-bottom: 8px;
+    }
+
+    .detail-meta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .ref-image-box {
+      width: 100%;
+      height: 120px;
+      background: #e5e5e5;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 12px;
+    }
+
+    .exchange-preview {
+      padding: 8px;
+      background: #f5f5f5;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      font-size: 12px;
+      color: #666;
+    }
+
+    /* Form Fields */
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #1A1A1A;
+      margin-bottom: 8px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+      color: #1A1A1A;
+    }
+
+    .form-input::placeholder {
+      color: #ccc;
+    }
+
+    .form-textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+      color: #1A1A1A;
+      min-height: 100px;
+      resize: none;
+    }
+
+    .form-textarea::placeholder {
+      color: #ccc;
+    }
+
+    .chip-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 16px;
+      font-size: 13px;
+      color: #666;
+      background: #fff;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .chip.selected {
+      background: #2563EB;
+      color: #fff;
+      border-color: #2563EB;
+    }
+
+    .upload-area {
+      width: 100%;
+      padding: 20px;
+      border: 2px dashed #ddd;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      color: #999;
+      font-size: 12px;
+    }
+
+    .upload-area svg {
+      width: 24px;
+      height: 24px;
+      margin-bottom: 4px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .sheet-actions {
+      padding: 12px 16px;
+      display: flex;
+      gap: 8px;
+      border-top: 1px solid #e5e5e5;
+    }
+
+    .btn {
+      padding: 12px 16px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      flex: 1;
+      background: #2563EB;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-secondary {
+      flex: 1;
+      background: #f5f5f5;
+      color: #1A1A1A;
+      border: 1px solid #ddd;
+    }
+
+    .btn-secondary:hover {
+      background: #ebebeb;
+    }
+
+    /* Bottom Navigation */
+    .phone-bottom-nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 8px 0;
+      border-top: 1px solid #e5e5e5;
+      background: #fff;
+      margin-top: auto;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 8px;
+      font-size: 10px;
+      color: #999;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .nav-item.active {
+      color: #2563EB;
+    }
+
+    .nav-item svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* FAB Button */
+    .fab {
+      position: absolute;
+      bottom: 80px;
+      right: 16px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #2563EB;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+      z-index: 20;
+    }
+
+    .fab svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* Number Circle */
+    .num-circle {
+      position: absolute;
+      z-index: 10;
+      background: #2563EB;
+      color: #fff;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+
+    .wf-section {
+      position: relative;
+    }
+
+    /* Description Panel */
+    .desc-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1A1A1A;
+      margin-bottom: 24px;
+    }
+
+    .desc-item {
+      margin-bottom: 16px;
+    }
+
+    .desc-num-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .desc-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #2563EB;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .desc-comp-type {
+      padding: 2px 6px;
+      background: #f0f0f0;
+      border-radius: 3px;
+      font-size: 10px;
+      font-weight: 600;
+      color: #666;
+      text-transform: uppercase;
+    }
+
+    .desc-comp-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1A1A1A;
+    }
+
+    .desc-body {
+      padding-left: 30px;
+      font-size: 12px;
+      color: #555;
+      line-height: 1.7;
+    }
+
+    .desc-body ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .desc-body li {
+      position: relative;
+      margin-bottom: 6px;
+      padding-left: 16px;
+    }
+
+    .desc-body li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: #2563EB;
+      font-weight: 700;
+    }
+
+    .desc-body li.sub::before {
+      content: '└';
+      color: #ccc;
+    }
+
+    .desc-body .sub {
+      padding-left: 24px;
+    }
+
+    .desc-divider {
+      border: none;
+      border-top: 1px dashed #eee;
+      margin: 16px 0;
+    }
+
+    .desc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-top: 12px;
+    }
+
+    .desc-table th,
+    .desc-table td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .desc-table th {
+      background: #f5f5f5;
+      font-weight: 600;
+      color: #666;
+    }
+
+    .desc-table td {
+      color: #555;
+    }
+
+    /* Revision Bar */
+    .revision-bar {
+      margin-top: 32px;
+      border-top: 1px solid #eee;
+      padding-top: 24px;
+    }
+
+    .revision-bar table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .revision-bar th,
+    .revision-bar td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .revision-bar th {
+      background: #f5f5f5;
+      font-weight: 600;
+      color: #666;
+    }
+
+    .revision-bar td {
+      color: #555;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .main-layout {
+        flex-direction: column;
+      }
+
+      .wireframe-side {
+        flex: none;
+        padding: 16px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .desc-side {
+        flex: none;
+        border-left: none;
+        border-top: 1px solid #ddd;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="meta-bar">
+    <span class="title">WANT01</span>
+    <span class="meta-item">
+      <span class="meta-label">화면명</span>
+      <span class="meta-value">구함 게시판</span>
+    </span>
+    <span class="meta-item">
+      <span class="meta-label">라우트</span>
+      <span class="meta-value">/wanted</span>
+    </span>
+    <span class="meta-item">
+      <span class="meta-label">이용자</span>
+      <span class="meta-value">Mobile / PC</span>
+    </span>
+    <span class="meta-item">
+      <span class="meta-label">버전</span>
+      <span class="meta-value">0.1</span>
+    </span>
+    <span class="meta-item">
+      <span class="meta-label">상태</span>
+      <span class="meta-value">초안</span>
+    </span>
+    <span class="meta-item">
+      <span class="meta-label">작성일</span>
+      <span class="meta-value">2026-03-07</span>
+    </span>
+  </div>
+
+  <div class="main-layout">
+    <div class="wireframe-side">
+      <div class="phone-stack">
+        <!-- Frame 1: 전체 구함 목록 -->
+        <div class="phone-frame-wrapper">
+          <div class="frame-label">Frame 1: 전체 구함 목록</div>
+          <div class="phone-frame wf-section">
+            <div class="num-circle" style="top: 12px; left: 12px;">1</div>
+            <div class="phone-header">
+              <span>구함</span>
+              <div class="phone-header-right">
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="tab-bar">
+              <button class="tab-item active">전체</button>
+              <button class="tab-item">내 구함</button>
+            </div>
+
+            <div class="filter-bar">
+              <button class="filter-chip">작품 ▾</button>
+              <button class="filter-chip">캐릭터 ▾</button>
+              <button class="filter-chip">굿즈 타입 ▾</button>
+              <button class="filter-chip">상태 ▾</button>
+            </div>
+
+            <div class="sort-bar">
+              <span class="sort-bar-left">전체 24개</span>
+              <button class="sort-dropdown">
+                최신순 ▾
+              </button>
+            </div>
+
+            <div class="phone-content">
+              <div class="card-list">
+                <!-- Card 1 -->
+                <div class="want-card">
+                  <div class="card-image"></div>
+                  <div class="card-info">
+                    <div class="card-header">
+                      <span class="status-badge status-looking">구함중</span>
+                      <span class="category-tag category-anime">애니</span>
+                    </div>
+                    <div class="card-title">캐릭터 생일 포토카드 찾아요</div>
+                    <div class="card-meta">
+                      <span>진격의 거인 · 에렌</span>
+                    </div>
+                    <div class="card-type">포토카드</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <div class="card-date">3일 전 · D-15</div>
+                      <div class="card-matches">매칭 3건</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="want-card" style="position: relative;">
+                  <div class="up-badge">UP</div>
+                  <div class="card-image"></div>
+                  <div class="card-info">
+                    <div class="card-header">
+                      <span class="status-badge status-matched">매칭됨</span>
+                      <span class="category-tag category-idol">아이돌</span>
+                    </div>
+                    <div class="card-title">앨범 동봉 포토카드 세트</div>
+                    <div class="card-meta">
+                      <span>뉴진스 · 민지</span>
+                    </div>
+                    <div class="card-type">포토카드</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <div class="card-date">1일 전 · D-29</div>
+                      <div class="card-matches">매칭 7건</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="want-card">
+                  <div class="card-image"></div>
+                  <div class="card-info">
+                    <div class="card-header">
+                      <span class="status-badge status-looking">구함중</span>
+                      <span class="category-tag category-game">게임</span>
+                    </div>
+                    <div class="card-title">스타듀 밸리 공식 굿즈 구합니다</div>
+                    <div class="card-meta">
+                      <span>Stardew Valley · 엘리옷</span>
+                    </div>
+                    <div class="card-type">아크릴 스탠드, 포스터</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <div class="card-date">5일 전 · D-25</div>
+                      <div class="card-matches">매칭 1건</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="want-card">
+                  <div class="card-image"></div>
+                  <div class="card-info">
+                    <div class="card-header">
+                      <span class="status-badge status-expired">만료</span>
+                      <span class="category-tag category-actor">배우</span>
+                    </div>
+                    <div class="card-title">영화 스틸컷 사인 포스터</div>
+                    <div class="card-meta">
+                      <span>기생충 · 송강호</span>
+                    </div>
+                    <div class="card-type">포스터</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <div class="card-date">60일 전 · D-0</div>
+                      <div class="card-matches">매칭 2건</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button class="fab">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 5v14m-7-7h14"></path>
+              </svg>
+            </button>
+
+            <div class="phone-bottom-nav">
+              <button class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span>홈</span>
+              </button>
+              <button class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 11l3 3L22 4"></path>
+                  <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"></path>
+                </svg>
+                <span>교환</span>
+              </button>
+              <button class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 20 7 20 17 12 22 4 17 4 7 12 2"></polygon>
+                </svg>
+                <span>이벤트</span>
+              </button>
+              <button class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>채팅</span>
+              </button>
+              <button class="nav-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>마이</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Frame 2: 구함 상세 바텀시트 -->
+        <div class="phone-frame-wrapper">
+          <div class="frame-label">Frame 2: 구함 상세 바텀시트</div>
+          <div class="phone-frame wf-section with-overlay">
+            <div class="num-circle" style="top: 12px; left: 12px;">2</div>
+            <div class="phone-header">
+              <span>구함</span>
+              <div class="phone-header-right">
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="tab-bar">
+              <button class="tab-item active">전체</button>
+              <button class="tab-item">내 구함</button>
+            </div>
+
+            <div class="filter-bar">
+              <button class="filter-chip">작품 ▾</button>
+              <button class="filter-chip">캐릭터 ▾</button>
+              <button class="filter-chip">굿즈 타입 ▾</button>
+              <button class="filter-chip">상태 ▾</button>
+            </div>
+
+            <div class="sort-bar">
+              <span class="sort-bar-left">전체 24개</span>
+              <button class="sort-dropdown">최신순 ▾</button>
+            </div>
+
+            <div class="phone-content">
+              <div class="card-list">
+                <div class="want-card">
+                  <div class="card-image"></div>
+                  <div class="card-info">
+                    <div class="card-header">
+                      <span class="status-badge status-looking">구함중</span>
+                      <span class="category-tag category-anime">애니</span>
+                    </div>
+                    <div class="card-title">캐릭터 생일 포토카드 찾아요</div>
+                    <div class="card-meta"><span>진격의 거인 · 에렌</span></div>
+                    <div class="card-type">포토카드</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <div class="card-date">3일 전 · D-15</div>
+                      <div class="card-matches">매칭 3건</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-sheet" style="max-height: 400px;">
+              <div class="sheet-handle"></div>
+              <div class="sheet-header">
+                <div class="detail-title">포토카드 찾아요</div>
+                <button class="sheet-close">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
+
+              <div class="sheet-content">
+                <div class="detail-meta">
+                  <span class="status-badge status-looking">구함중</span>
+                  <span class="category-tag category-anime">애니</span>
+                </div>
+
+                <div class="sheet-section">
+                  <div class="sheet-section-title">작품 & 캐릭터</div>
+                  <div class="sheet-text">진격의 거인 · 에렌 · 포토카드</div>
+                </div>
+
+                <div class="ref-image-box">레퍼런스 이미지</div>
+
+                <div class="sheet-section">
+                  <div class="sheet-section-title">상세 설명</div>
+                  <div class="sheet-text">캐릭터의 생일을 기념해서 예쁜 포토카드를 찾고 있어요. 상태가 좋은 미개봉 제품이면 좋겠습니다.</div>
+                </div>
+
+                <div class="sheet-section">
+                  <div class="sheet-section-title">등록일 · 만료일</div>
+                  <div class="sheet-text">2026-03-04 · D-15 (2026-03-19 만료)</div>
+                </div>
+
+                <div class="sheet-section">
+                  <div class="sheet-section-title">교환 조건</div>
+                  <div class="sheet-text">
+                    • 미개봉 상태 필수<br>
+                    • 배송비 협의 가능
+                  </div>
+                </div>
+
+                <div class="sheet-section">
+                  <div class="sheet-section-title">매칭된 교환글</div>
+                  <div class="exchange-preview">진격의 거인 포토카드 여러 장 팝니다</div>
+                  <div class="exchange-preview">애니메이션 굿즈 모음</div>
+                </div>
+              </div>
+
+              <div class="sheet-actions">
+                <button class="btn btn-secondary">채팅 문의</button>
+                <button class="btn btn-primary">교환 제안하기</button>
+              </div>
+            </div>
+
+            <div class="phone-bottom-nav">
+              <button class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span>홈</span>
+              </button>
+              <button class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 11l3 3L22 4"></path>
+                  <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"></path>
+                </svg>
+                <span>교환</span>
+              </button>
+              <button class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 20 7 20 17 12 22 4 17 4 7 12 2"></polygon>
+                </svg>
+                <span>이벤트</span>
+              </button>
+              <button class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>채팅</span>
+              </button>
+              <button class="nav-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>마이</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Frame 3: 구함글 등록 바텀시트 -->
+        <div class="phone-frame-wrapper">
+          <div class="frame-label">Frame 3: 구함글 등록 바텀시트</div>
+          <div class="phone-frame wf-section with-overlay">
+            <div class="num-circle" style="top: 12px; left: 12px;">3</div>
+            <div class="phone-header">
+              <span>구함</span>
+              <div class="phone-header-right">
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="tab-bar">
+              <button class="tab-item active">전체</button>
+              <button class="tab-item">내 구함</button>
+            </div>
+
+            <div class="filter-bar">
+              <button class="filter-chip">작품 ▾</button>
+              <button class="filter-chip">캐릭터 ▾</button>
+              <button class="filter-chip">굿즈 타입 ▾</button>
+              <button class="filter-chip">상태 ▾</button>
+            </div>
+
+            <div class="sort-bar">
+              <span class="sort-bar-left">전체 24개</span>
+              <button class="sort-dropdown">최신순 ▾</button>
+            </div>
+
+            <div class="phone-content" style="background: rgba(0,0,0,0.4);">
+            </div>
+
+            <div class="bottom-sheet" style="max-height: 80%;">
+              <div class="sheet-handle"></div>
+              <div class="sheet-header">
+                <div class="detail-title">구함글 등록</div>
+                <button class="sheet-close">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
+
+              <div class="sheet-content">
+                <div class="form-group">
+                  <label class="form-label">구함 제목</label>
+                  <input type="text" class="form-input" placeholder="찾는 굿즈를 한 줄로 설명해주세요">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">작품 선택</label>
+                  <input type="text" class="form-input" placeholder="작품명 검색">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">캐릭터 선택</label>
+                  <input type="text" class="form-input" placeholder="캐릭터명 검색">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">굿즈 타입</label>
+                  <div class="chip-group">
+                    <button class="chip">포토카드</button>
+                    <button class="chip">아크릴 스탠드</button>
+                    <button class="chip">피규어</button>
+                    <button class="chip">봉제인형</button>
+                    <button class="chip">포스터</button>
+                    <button class="chip">기타</button>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">상세 설명</label>
+                  <textarea class="form-textarea" placeholder="상세한 설명을 입력해주세요"></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">레퍼런스 이미지 (최대 3장)</label>
+                  <div class="upload-area">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                      <circle cx="12" cy="13" r="4"></circle>
+                    </svg>
+                    이미지를 클릭하여 업로드
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">교환 조건</label>
+                  <div class="form-input" style="padding: 12px; background: #f5f5f5; border: 1px solid #ddd; display: flex; align-items: center; gap: 8px;">
+                    <input type="checkbox" id="ex-cond" style="width: 16px; height: 16px; cursor: pointer;">
+                    <label for="ex-cond" style="cursor: pointer; font-size: 13px; margin: 0;">미개봉 상태 필수</label>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">만료 기간</label>
+                  <div class="chip-group">
+                    <button class="chip">7일</button>
+                    <button class="chip">14일</button>
+                    <button class="chip selected">30일</button>
+                    <button class="chip">60일</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sheet-actions">
+                <button class="btn btn-primary">구함글 등록</button>
+              </div>
+            </div>
+
+            <div class="phone-bottom-nav">
+              <button class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span>홈</span>
+              </button>
+              <button class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 11l3 3L22 4"></path>
+                  <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"></path>
+                </svg>
+                <span>교환</span>
+              </button>
+              <button class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 20 7 20 17 12 22 4 17 4 7 12 2"></polygon>
+                </svg>
+                <span>이벤트</span>
+              </button>
+              <button class="nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>채팅</span>
+              </button>
+              <button class="nav-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>마이</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="desc-side">
+      <div class="desc-title">화면 기능 설명</div>
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">1</div>
+          <span class="desc-comp-type">[Header]</span>
+          <span class="desc-comp-name">앱 헤더</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>"구함" 타이틀</li>
+            <li>검색 아이콘 (SRCH01으로 이동)</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">2</div>
+          <span class="desc-comp-type">[Tab]</span>
+          <span class="desc-comp-name">탭 바</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>전체 (기본값, 모든 사용자 구함글 표시)</li>
+            <li>내 구함 (로그인 사용자의 구함글만, 비로그인 시 로그인 유도)</li>
+            <li>2px 파란 인디케이터 표시</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">3</div>
+          <span class="desc-comp-type">[Filter]</span>
+          <span class="desc-comp-name">필터 바</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>작품 / 캐릭터 / 굿즈 타입 / 상태 필터</li>
+            <li>각 필터는 바텀시트 형식으로 다중 선택 가능</li>
+            <li>적용된 필터에는 bold 또는 하이라이트 표시</li>
+            <li class="sub">초기화 버튼으로 모든 필터 리셋</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">4</div>
+          <span class="desc-comp-type">[Sort]</span>
+          <span class="desc-comp-name">정렬 바</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>전체 구함글 N개 표시</li>
+            <li>정렬 옵션: 최신순, 만료임박순</li>
+            <li>기본값: 최신순</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">5</div>
+          <span class="desc-comp-type">[List]</span>
+          <span class="desc-comp-name">구함 카드 리스트</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>좌측: 레퍼런스 이미지 (80x80, 둥근모서리 8px, 회색 플레이스홀더)</li>
+            <li>우측: 구함 정보
+              <ul class="sub">
+                <li>상태 뱃지: 구함중(green #22C55E) / 매칭됨(blue #3B82F6) / 만료(gray #9CA3AF)</li>
+                <li>카테고리 태그: 애니 Purple / 아이돌 Pink / 배우 Amber / 게임 Cyan</li>
+                <li>제목 (14px, bold, 2줄 max)</li>
+                <li>작품명 · 캐릭터명 (회색)</li>
+                <li>굿즈 타입 (소형 회색)</li>
+                <li>등록일 · D-day (소형 회색)</li>
+                <li>우측 하단: "매칭 N건" (파란색, bold)</li>
+              </ul>
+            </li>
+            <li>끌어올리기 상태면 우상단에 "UP" 뱃지 (Amber bg, 소형)</li>
+            <li>무한 스크롤로 추가 로딩</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">6</div>
+          <span class="desc-comp-type">[BottomSheet]</span>
+          <span class="desc-comp-name">구함 상세 바텀시트</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>구함글 선택 시 하단에서 위로 슬라이드 (60-70% 높이)</li>
+            <li>핸들 바 (4px, 회색)</li>
+            <li>닫기 버튼 (우상단 X)</li>
+            <li>구함 제목 (18px, bold)</li>
+            <li>작품명 · 캐릭터명 · 굿즈 타입 태그들</li>
+            <li>레퍼런스 이미지 영역 (플레이스홀더)</li>
+            <li>상세 설명 텍스트</li>
+            <li>등록일 / 만료일 (D-day 뱃지 포함)</li>
+            <li>교환 조건 섹션</li>
+            <li>매칭된 교환글 섹션 (최대 5건 미리보기, 교환글 카드)</li>
+            <li>액션 버튼:
+              <ul class="sub">
+                <li>타인의 구함: "교환 제안하기"(primary) + "채팅 문의"(secondary)</li>
+                <li>본인의 구함: "수정"(secondary) + "끌어올리기"(secondary) + "삭제"(secondary)</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">7</div>
+          <span class="desc-comp-type">[BottomSheet]</span>
+          <span class="desc-comp-name">구함글 등록 바텀시트</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>FAB 버튼(+) 또는 화면 상단 CTA로 진입 (75-80% 높이)</li>
+            <li>비로그인 시 로그인 유도 팝업</li>
+            <li>핸들 바 + 닫기 버튼</li>
+            <li>입력 필드:
+              <ul class="sub">
+                <li>구함 제목 (input, placeholder 안내)</li>
+                <li>작품 선택 (dropdown + 검색)</li>
+                <li>캐릭터 선택 (dropdown + 검색)</li>
+                <li>굿즈 타입 (chip selector: 포토카드/아크릴스탠드/피규어/봉제인형/포스터/기타, 단일 선택)</li>
+                <li>상세 설명 (textarea)</li>
+                <li>레퍼런스 이미지 (최대 3장, 업로드 영역)</li>
+                <li>교환 조건 (toggle/checkbox)</li>
+                <li>만료 기간 (chip selector: 7일/14일/30일/60일, 30일 기본값)</li>
+              </ul>
+            </li>
+            <li>"구함글 등록" 풀-너비 파란 버튼</li>
+            <li>등록 즉시 매칭 알림 발송 (매칭된 교환글이 있으면)</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">8</div>
+          <span class="desc-comp-type">[FAB]</span>
+          <span class="desc-comp-name">플로팅 액션 버튼</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>우하단 56px 파란 원형 버튼</li>
+            <li>+ 아이콘</li>
+            <li>클릭 시 구함글 등록 바텀시트 오픈 (Frame 3)</li>
+            <li>비로그인 시 로그인 유도 팝업</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">9</div>
+          <span class="desc-comp-type">[Navigation]</span>
+          <span class="desc-comp-name">하단 네비게이션</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>5탭: 홈 / 교환 / 이벤트 / 채팅 / 마이</li>
+            <li>각 아이콘 20x20px (Lucide SVG)</li>
+            <li>구함은 하단탭에 미포함 (진입 경로: 마이 → 내활동 또는 검색에서)</li>
+            <li>활성 탭: 아이콘 + 텍스트 파란색</li>
+            <li>비활성 탭: 아이콘 + 텍스트 회색</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">10</div>
+          <span class="desc-comp-type">[State]</span>
+          <span class="desc-comp-name">화면 상태</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>정상: 구함글 목록 표시</li>
+            <li>빈 상태 (전체 탭): "등록된 구함글이 없습니다" + 아이콘</li>
+            <li>빈 상태 (내 구함 탭): "작성한 구함글이 없습니다" + FAB 유도</li>
+            <li>로딩: 스켈레톤 카드 3-4개</li>
+            <li>에러: "데이터를 불러올 수 없습니다" + 재시도 버튼</li>
+            <li>비로그인 (내 구함 탭): "로그인 후 내 구함글을 확인하세요" + 로그인 버튼</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">11</div>
+          <span class="desc-comp-type">[Navigation]</span>
+          <span class="desc-comp-name">연관 화면</span>
+        </div>
+        <div class="desc-body">
+          <table class="desc-table">
+            <thead>
+              <tr>
+                <th>이동 대상</th>
+                <th>조건</th>
+                <th>화면코드</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>검색</td>
+                <td>헤더 검색 아이콘 클릭</td>
+                <td>SRCH01</td>
+              </tr>
+              <tr>
+                <td>교환글 상세 (매칭 교환글)</td>
+                <td>상세시트 "매칭된 교환글" 클릭</td>
+                <td>EXCH02</td>
+              </tr>
+              <tr>
+                <td>채팅</td>
+                <td>구함 상세 "채팅 문의" 클릭</td>
+                <td>CHAT01</td>
+              </tr>
+              <tr>
+                <td>로그인</td>
+                <td>비로그인 상태에서 FAB/내구함 탭 진입</td>
+                <td>AUTH01</td>
+              </tr>
+              <tr>
+                <td>마이페이지</td>
+                <td>하단탭 마이 클릭</td>
+                <td>USER01</td>
+              </tr>
+              <tr>
+                <td>홈</td>
+                <td>하단탭 홈 클릭</td>
+                <td>HOME01</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="revision-bar">
+        <table>
+          <thead>
+            <tr>
+              <th>날짜</th>
+              <th>버전</th>
+              <th>내용</th>
+              <th>작성자</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2026-03-07</td>
+              <td>0.1</td>
+              <td>초안 작성</td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

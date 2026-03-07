@@ -239,9 +239,9 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         </div>
         <div class="section-route">/wanted</div>
         <div class="section-children">
-          <div class="child-item"><div class="child-dot dot-p1"></div>구함글 목록 <span class="child-route">/wanted</span></div>
-          <div class="child-item"><div class="child-dot dot-p1"></div>구함글 상세 <span class="child-route">/wanted/[id]</span></div>
-          <div class="child-item"><div class="child-dot dot-p1"></div>구함글 등록 <span class="child-route">/wanted/new</span></div>
+          <div class="child-item"><div class="child-dot dot-p1"></div><strong>WANT01</strong> 구함 게시판 <span class="child-route">/wanted</span> — 전체/내 구함 탭, 필터, 카드 리스트</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>구함 상세 바텀시트 — 매칭 교환글 노출 + 교환 제안/채팅 문의</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>구함글 등록 바텀시트 — 인라인 폼 (별도 페이지 이동 없음)</div>
         </div>
       </div>
 
@@ -254,12 +254,13 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         </div>
         <div class="section-route">/events</div>
         <div class="section-children">
-          <div class="child-item"><div class="child-dot dot-p15"></div>이벤트 캘린더 <span class="child-route">/events</span></div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 캘린더 뷰</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 리스트 뷰</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 지도 뷰</div>
-          <div class="child-item"><div class="child-dot dot-p15"></div>이벤트 상세 <span class="child-route">/events/[id]</span></div>
-          <div class="child-item"><div class="child-dot dot-p15"></div>이벤트 등록 <span class="child-route">/events/new</span></div>
+          <div class="child-item"><div class="child-dot dot-p15"></div><strong>EVNT01</strong> 이벤트 캘린더 <span class="child-route">/events</span></div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 캘린더 뷰 (기본) — 카테고리 컬러 도트</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 리스트 뷰 — 날짜별 그룹핑</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 지도 뷰 — 카카오맵 + 클러스터</div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 이벤트 등록 폼 (인라인)</div>
+          <div class="child-item"><div class="child-dot dot-p15"></div><strong>EVNT02</strong> 이벤트 상세 <span class="child-route">/events/[id]</span></div>
+          <div class="child-item" style="padding-left:16px; color:#999;">└ 관련 교환/공구 섹션</div>
         </div>
       </div>
 
@@ -373,10 +374,9 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         </div>
         <div class="section-route">/promotion</div>
         <div class="section-children">
-          <div class="child-item"><div class="child-dot dot-p15"></div>이벤트 배너 신청 <span class="child-route">/promotion/banner/apply</span></div>
-          <div class="child-item"><div class="child-dot dot-p15"></div>이벤트 팝업 신청 <span class="child-route">/promotion/popup/apply</span></div>
-          <div class="child-item"><div class="child-dot dot-p15"></div>내 배너/팝업 내역 <span class="child-route">/promotion/my</span></div>
-          <div class="child-item"><div class="child-dot dot-p15"></div>배너 슬롯 캘린더 <span class="child-route">/promotion/calendar</span></div>
+          <div class="child-item"><div class="child-dot dot-p15"></div><strong>BANR01</strong> 배너/팝업 신청 <span class="child-route">/banner/apply</span> — 유형 선택 + 슬롯 달력 + 이미지 업로드</div>
+          <div class="child-item"><div class="child-dot dot-p15"></div>슬롯 달력 (날짜별 잔여 슬롯 도트: 초록/노랑/빨강/매진)</div>
+          <div class="child-item"><div class="child-dot dot-p15"></div>내 배너/팝업 관리 (마이페이지 연계, 6종 상태별 액션)</div>
         </div>
       </div>
 
@@ -522,7 +522,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       <tbody>
         <tr><td>공구</td><td><code>/group-buy</code></td><td>Bottom Nav에 없는 메인 섹션</td></tr>
         <tr><td>구함</td><td><code>/wanted</code></td><td>Bottom Nav에 없는 메인 섹션</td></tr>
-        <tr><td>이벤트 배너/팝업 신청</td><td><code>/promotion/banner/apply</code></td><td>Phase 1.5</td></tr>
+        <tr><td><strong>BANR01</strong> 배너/팝업 신청</td><td><code>/banner/apply</code></td><td>Phase 1.5</td></tr>
         <tr><td>서비스 소개</td><td><code>/about</code></td><td></td></tr>
         <tr><td>고객센터</td><td><code>/support</code></td><td></td></tr>
         <tr><td>이용약관</td><td><code>/terms</code></td><td></td></tr>

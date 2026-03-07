@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EVNT02 이벤트 상세</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #f5f5f5;
+    }
+
+    .meta-bar {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      background: white;
+      border-bottom: 2px solid #2563EB;
+      padding: 12px 24px;
+      font-size: 13px;
+    }
+
+    .meta-bar .title {
+      font-weight: 700;
+      font-size: 16px;
+      color: #1f2937;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .meta-label {
+      color: #9ca3af;
+      font-weight: 500;
+    }
+
+    .meta-value {
+      color: #374151;
+      font-weight: 600;
+    }
+
+    .main-layout {
+      display: flex;
+      min-height: calc(100vh - 48px);
+    }
+
+    .wireframe-side {
+      flex: 0 0 55%;
+      background: #EAEAEA;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      overflow-y: auto;
+    }
+
+    .desc-side {
+      flex: 0 0 45%;
+      background: white;
+      padding: 24px 28px;
+      border-left: 1px solid #ddd;
+      overflow-y: auto;
+    }
+
+    .phone-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+    }
+
+    .frame-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #666;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .phone-frame {
+      max-width: 375px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+      overflow: hidden;
+      margin: 0 auto;
+    }
+
+    /* Phone Frame Content */
+    .pf-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 52px;
+      padding: 0 16px;
+      border-bottom: 1px solid #eee;
+      background: white;
+      z-index: 10;
+    }
+
+    .pf-header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pf-header-center {
+      flex: 1;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+      color: transparent;
+    }
+
+    .pf-header.scrolled .pf-header-center {
+      color: #1f2937;
+      transition: color 0.3s ease;
+    }
+
+    .pf-header-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: #374151;
+    }
+
+    .icon-btn svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #e5e5e5 0%, #d1d5db 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #9ca3af;
+      font-size: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .carousel-dots {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background: white;
+    }
+
+    .pf-content {
+      padding: 20px 16px;
+    }
+
+    .event-type-tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .event-type-tag.pink {
+      background: #FDF2F8;
+      color: #DB2777;
+    }
+
+    .event-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .event-target {
+      font-size: 13px;
+      color: #2563EB;
+      text-decoration: underline;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+
+    .event-category {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      background: #F5F3FF;
+      color: #7C3AED;
+      margin-bottom: 16px;
+    }
+
+    .author-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 0;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #d1d5db;
+      flex-shrink: 0;
+    }
+
+    .author-details {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .author-name {
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .author-date {
+      color: #9ca3af;
+      font-size: 11px;
+    }
+
+    .favorites {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: #666;
+      margin-top: 12px;
+    }
+
+    .favorites svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .divider {
+      height: 8px;
+      background: #f9fafb;
+      margin: 16px -16px 0;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+    }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1f2937;
+      margin: 16px 0 12px;
+      text-transform: capitalize;
+    }
+
+    .info-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      color: #374151;
+    }
+
+    .info-row svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      color: #2563EB;
+      margin-top: 2px;
+    }
+
+    .info-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .date-time {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .badge.green {
+      background: #DCFCE7;
+      color: #16A34A;
+    }
+
+    .badge.blue {
+      background: #DBEAFE;
+      color: #2563EB;
+    }
+
+    .badge.gray {
+      background: #F3F4F6;
+      color: #6B7280;
+    }
+
+    .add-calendar-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      font-size: 12px;
+      color: #374151;
+      background: white;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    .address-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .address-text {
+      flex: 1;
+    }
+
+    .copy-btn {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f3f4f6;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .copy-btn svg {
+      width: 14px;
+      height: 14px;
+      color: #666;
+    }
+
+    .map-placeholder {
+      width: 100%;
+      height: 160px;
+      background: #E5E5E5;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 12px 0;
+      font-size: 13px;
+      color: #9ca3af;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .map-pin {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .map-pin svg {
+      width: 32px;
+      height: 32px;
+      color: #2563EB;
+    }
+
+    .description-text {
+      font-size: 13px;
+      color: #374151;
+      line-height: 1.6;
+      margin: 12px 0;
+    }
+
+    .read-more {
+      font-size: 12px;
+      color: #2563EB;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .external-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #2563EB;
+      text-decoration: underline;
+      word-break: break-all;
+      margin-top: 8px;
+    }
+
+    .external-link svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    .related-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .view-more-link {
+      font-size: 12px;
+      color: #2563EB;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .related-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin: 0 -16px 0 -16px;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    .related-scroll::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .related-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .related-scroll::-webkit-scrollbar-thumb {
+      background: #d1d5db;
+      border-radius: 2px;
+    }
+
+    .card {
+      flex-shrink: 0;
+      width: 120px;
+    }
+
+    .card-image {
+      width: 120px;
+      height: 120px;
+      background: #e5e5e5;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #9ca3af;
+      font-size: 11px;
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-size: 11px;
+      font-weight: 500;
+      color: #374151;
+      line-height: 1.4;
+      margin-bottom: 6px;
+    }
+
+    .card-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      background: #F5F3FF;
+      color: #7C3AED;
+    }
+
+    .action-bar {
+      position: sticky;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-top: 1px solid #eee;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .action-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: #374151;
+      cursor: pointer;
+    }
+
+    .action-left svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .action-right {
+      flex: 1;
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 8px 16px;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: #2563EB;
+      color: white;
+      border-color: #2563EB;
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #374151;
+      border-color: #e5e7eb;
+    }
+
+    .btn-secondary:hover {
+      background: #f9fafb;
+    }
+
+    .ended {
+      filter: grayscale(50%);
+      opacity: 0.7;
+    }
+
+    .ended-banner {
+      background: #f3f4f6;
+      color: #6b7280;
+      padding: 12px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      text-align: center;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .revision-bar {
+      background: white;
+      border-top: 1px solid #eee;
+      padding: 24px;
+      margin-top: 32px;
+    }
+
+    .revision-bar table {
+      width: 100%;
+      font-size: 12px;
+      border-collapse: collapse;
+    }
+
+    .revision-bar th {
+      background: #f9fafb;
+      padding: 10px;
+      text-align: left;
+      font-weight: 600;
+      color: #374151;
+      border: 1px solid #e5e7eb;
+    }
+
+    .revision-bar td {
+      padding: 10px;
+      border: 1px solid #e5e7eb;
+      color: #666;
+    }
+
+    .desc-item {
+      margin-bottom: 20px;
+    }
+
+    .desc-num-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .desc-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #2563EB;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .desc-comp-type {
+      display: inline-block;
+      background: #f3f4f6;
+      color: #666;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .desc-comp-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1f2937;
+    }
+
+    .desc-body {
+      padding-left: 30px;
+      font-size: 12px;
+      color: #555;
+      line-height: 1.7;
+    }
+
+    .desc-body ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .desc-body li {
+      margin-bottom: 4px;
+      position: relative;
+    }
+
+    .desc-body li::before {
+      content: "•";
+      color: #2563EB;
+      position: absolute;
+      left: -12px;
+    }
+
+    .desc-body .sub li::before {
+      content: "└";
+      color: #ccc;
+    }
+
+    .desc-body .sub {
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+
+    .desc-divider {
+      border: none;
+      border-top: 1px dashed #eee;
+      margin: 16px 0;
+    }
+
+    .desc-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1f2937;
+      margin-top: 24px;
+      margin-bottom: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #eee;
+    }
+
+    .state-table {
+      width: 100%;
+      font-size: 12px;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    .state-table th {
+      background: #f9fafb;
+      padding: 8px;
+      text-align: left;
+      font-weight: 600;
+      color: #374151;
+      border: 1px solid #e5e7eb;
+    }
+
+    .state-table td {
+      padding: 8px;
+      border: 1px solid #e5e7eb;
+      color: #555;
+    }
+
+    .related-table {
+      width: 100%;
+      font-size: 12px;
+      border-collapse: collapse;
+    }
+
+    .related-table th {
+      background: #f9fafb;
+      padding: 8px;
+      text-align: left;
+      font-weight: 600;
+      color: #374151;
+      border: 1px solid #e5e7eb;
+    }
+
+    .related-table td {
+      padding: 8px;
+      border: 1px solid #e5e7eb;
+      color: #555;
+    }
+
+    @media (max-width: 900px) {
+      .main-layout {
+        flex-direction: column;
+      }
+
+      .wireframe-side {
+        flex: none;
+        padding: 16px;
+        min-height: auto;
+      }
+
+      .desc-side {
+        flex: none;
+        border-left: none;
+        border-top: 1px solid #ddd;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="meta-bar">
+    <span class="title">EVNT02</span>
+    <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">이벤트 상세</span></span>
+    <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/events/[eventId]</span></span>
+    <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
+    <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.1</span></span>
+    <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
+    <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-07</span></span>
+  </div>
+
+  <div class="main-layout">
+    <div class="wireframe-side">
+      <div class="phone-stack">
+        <!-- Frame 1: 이벤트 상세 — 상단 -->
+        <div>
+          <div class="frame-label">이벤트 상세 — 상단</div>
+          <div class="phone-frame">
+            <div class="pf-header">
+              <div class="pf-header-left">
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                </button>
+              </div>
+              <div class="pf-header-center">이벤트 상세</div>
+              <div class="pf-header-right">
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="18" cy="5" r="3"></circle>
+                    <circle cx="6" cy="12" r="3"></circle>
+                    <circle cx="18" cy="19" r="3"></circle>
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                  </svg>
+                </button>
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="1"></circle>
+                    <circle cx="19" cy="12" r="1"></circle>
+                    <circle cx="5" cy="12" r="1"></circle>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="hero-image">
+              이벤트 이미지
+              <div class="carousel-dots">
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+            </div>
+
+            <div class="pf-content">
+              <div class="event-type-tag pink">생일카페</div>
+              <div class="event-name">하이큐 히나타 생일카페</div>
+              <div class="event-target">하이큐 > 히나타 쇼요</div>
+              <div class="event-category">애니/만화/소설</div>
+
+              <div class="author-info">
+                <div class="avatar"></div>
+                <div class="author-details">
+                  <div class="author-name">스프링12</div>
+                  <div class="author-date">2026.03.01</div>
+                </div>
+              </div>
+              <div class="favorites">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+                <span>24</span>
+              </div>
+
+              <div class="divider"></div>
+
+              <div class="section-title">일정 정보</div>
+              <div class="info-row">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <div class="info-content">
+                  <div class="date-time">
+                    <span>2026.03.15 ~ 2026.03.22</span>
+                    <span class="badge green">진행 중</span>
+                  </div>
+                  <button class="add-calendar-btn">[캘린더 추가]</button>
+                </div>
+              </div>
+
+              <div class="info-row">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <div class="info-content">
+                  <div>10:00 ~ 20:00</div>
+                </div>
+              </div>
+
+              <div class="divider"></div>
+
+              <div class="section-title">장소 정보</div>
+              <div class="info-row">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <div class="info-content">
+                  <div class="address-row">
+                    <div class="address-text">서울 마포구 서교동 123-45</div>
+                    <button class="copy-btn">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                        <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="map-placeholder">
+                카카오맵
+                <div class="map-pin">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="action-bar">
+              <div class="action-left">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+                <span>찜</span>
+              </div>
+              <div class="action-right">
+                <button class="btn btn-primary">공유하기</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Frame 2: 이벤트 상세 — 하단 -->
+        <div>
+          <div class="frame-label">이벤트 상세 — 하단</div>
+          <div class="phone-frame">
+            <div class="pf-header">
+              <div class="pf-header-left">
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                </button>
+              </div>
+              <div class="pf-header-center">이벤트 상세</div>
+              <div class="pf-header-right">
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="18" cy="5" r="3"></circle>
+                    <circle cx="6" cy="12" r="3"></circle>
+                    <circle cx="18" cy="19" r="3"></circle>
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                  </svg>
+                </button>
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="1"></circle>
+                    <circle cx="19" cy="12" r="1"></circle>
+                    <circle cx="5" cy="12" r="1"></circle>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="pf-content" style="padding-bottom: 52px;">
+              <div class="divider"></div>
+
+              <div class="section-title">상세 정보</div>
+              <div class="description-text">
+                이벤트 상세 설명이 여기에 표시됩니다. 이 카페는 매주 토요일 오전 10시부터 저녁 8시까지 운영됩니다.
+              </div>
+              <div class="description-text">
+                다양한 굿즈와 포토카드를 판매하고 있으며, 방문 시 특별한 이벤트 참여가 가능합니다.
+              </div>
+              <div class="read-more">더보기</div>
+
+              <a class="external-link" href="#">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="13 3 23 3 23 13"></polyline>
+                  <line x1="23" y1="3" x2="13" y2="13"></line>
+                </svg>
+                https://example.com/event
+              </a>
+
+              <div class="divider"></div>
+
+              <div class="related-header">
+                <span class="section-title" style="margin: 0;">이 이벤트 관련 교환/공구</span>
+                <span class="view-more-link">더보기 ></span>
+              </div>
+
+              <div class="related-scroll">
+                <div class="card">
+                  <div class="card-image">이미지</div>
+                  <div class="card-title">하이큐 히나타 아크릴 스탠드</div>
+                  <div class="card-tag">교환</div>
+                </div>
+                <div class="card">
+                  <div class="card-image">이미지</div>
+                  <div class="card-title">하이큐 히나타 캔뱃지 세트</div>
+                  <div class="card-tag">공구</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="action-bar">
+              <div class="action-left">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+                <span>찜</span>
+              </div>
+              <div class="action-right">
+                <button class="btn btn-primary">공유하기</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Frame 3: 종료된 이벤트 -->
+        <div>
+          <div class="frame-label">종료된 이벤트</div>
+          <div class="phone-frame">
+            <div class="ended-banner">
+              이 이벤트는 종료되었어요
+            </div>
+
+            <div class="pf-header">
+              <div class="pf-header-left">
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                </button>
+              </div>
+              <div class="pf-header-center">이벤트 상세</div>
+              <div class="pf-header-right">
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="18" cy="5" r="3"></circle>
+                    <circle cx="6" cy="12" r="3"></circle>
+                    <circle cx="18" cy="19" r="3"></circle>
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                  </svg>
+                </button>
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="1"></circle>
+                    <circle cx="19" cy="12" r="1"></circle>
+                    <circle cx="5" cy="12" r="1"></circle>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="hero-image ended">
+              이벤트 이미지
+              <div class="carousel-dots">
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+            </div>
+
+            <div class="pf-content ended">
+              <div class="event-type-tag pink">생일카페</div>
+              <div class="event-name">하이큐 히나타 생일카페</div>
+              <div class="event-target">하이큐 > 히나타 쇼요</div>
+              <div class="event-category">애니/만화/소설</div>
+
+              <div class="author-info">
+                <div class="avatar"></div>
+                <div class="author-details">
+                  <div class="author-name">스프링12</div>
+                  <div class="author-date">2026.03.01</div>
+                </div>
+              </div>
+              <div class="favorites">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+                <span>24</span>
+              </div>
+
+              <div class="divider"></div>
+
+              <div class="section-title">일정 정보</div>
+              <div class="info-row">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <div class="info-content">
+                  <div class="date-time">
+                    <span>2026.03.15 ~ 2026.03.22</span>
+                    <span class="badge gray">종료</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="info-row">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <div class="info-content">
+                  <div>10:00 ~ 20:00</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="action-bar">
+              <div class="action-left">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+                <span>찜</span>
+              </div>
+              <div class="action-right">
+                <button class="btn btn-secondary">공유하기</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="desc-side">
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">1</div>
+          <span class="desc-comp-type">[Header]</span>
+          <span class="desc-comp-name">헤더</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>좌측: 뒤로가기 버튼 (ChevronLeft SVG) → EVNT01</li>
+            <li>중앙: 스크롤 시 제목 표시 (처음엔 투명)</li>
+            <li>우측: 공유 (Share2 SVG) + 더보기 (MoreVertical SVG)
+              <ul class="sub">
+                <li>더보기 옵션: 신고/수정(본인만)/삭제(본인만)</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">2</div>
+          <span class="desc-comp-type">[HeroImage]</span>
+          <span class="desc-comp-name">대표 이미지</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>전체 너비, 높이 200px, 회색 플레이스홀더</li>
+            <li>캐러셀 형태 (다중 이미지 지원)</li>
+            <li>하단 페이지 지시 점 (첫 번째 활성)</li>
+            <li>이미지 없을 시: 카테고리 그라데이션 + 타입 아이콘</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">3</div>
+          <span class="desc-comp-type">[BasicInfo]</span>
+          <span class="desc-comp-name">기본 정보</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>타입 태그: 범주 컬러 배경 (예: "생일카페" pink bg #FDF2F8, text #DB2777)</li>
+            <li>이벤트명: 20px bold, 검은색</li>
+            <li>대상: 작품 > 캐릭터 형식, 파란색, 탭 가능</li>
+            <li>카테고리 뱃지: Purple pill (예: "애니/만화/소설")</li>
+            <li>등록자: 아바타(24px 원) + 닉네임 + 작성일</li>
+            <li>찜 수: Heart icon + 숫자</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">4</div>
+          <span class="desc-comp-type">[ScheduleInfo]</span>
+          <span class="desc-comp-name">일정 정보</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>Calendar icon + 날짜 범위 (예: "2026.03.15 ~ 2026.03.22")</li>
+            <li>상태 뱃지:
+              <ul class="sub">
+                <li>진행 중: 초록 배경 #DCFCE7, 텍스트 #16A34A</li>
+                <li>D-N (대기 중): 파란 배경 #DBEAFE, 텍스트 #2563EB (예: D-8)</li>
+                <li>종료: 회색 배경 #F3F4F6, 텍스트 #6B7280</li>
+              </ul>
+            </li>
+            <li>Clock icon + 운영 시간 (예: "10:00 ~ 20:00")</li>
+            <li>[캘린더 추가] 버튼: .ics 다운로드 또는 Google/Apple Calendar 연동</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">5</div>
+          <span class="desc-comp-type">[LocationInfo]</span>
+          <span class="desc-comp-name">장소 정보</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>MapPin icon + 주소</li>
+            <li>주소 우측 Copy 버튼</li>
+            <li>카카오맵 미니맵: 160px 높이, 반경 12px, 중앙에 핀 마커</li>
+            <li>탭 시: 카카오맵 앱/웹으로 길찾기 연결</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">6</div>
+          <span class="desc-comp-type">[Description]</span>
+          <span class="desc-comp-name">상세 설명</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>자유 텍스트, 3줄에서 expand/collapse 가능</li>
+            <li>"더보기" 텍스트 링크 (파란색)</li>
+            <li>외부 링크: ExternalLink icon + URL (파란색, 밑줄)</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">7</div>
+          <span class="desc-comp-type">[RelatedItems]</span>
+          <span class="desc-comp-name">관련 교환/공구</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>헤더: "이 이벤트 관련 교환/공구" + "더보기 >" 링크</li>
+            <li>수평 스크롤 카드 (max 4개)</li>
+            <li>각 카드: 이미지 플레이스홀더(120x120) + 제목 + 타입 태그(교환/공구)</li>
+            <li>관련 항목 없을 시: 숨김</li>
+            <li>"더보기" 탭: EXCH01/GRPB01로 필터링된 목록</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="desc-divider">
+
+      <div class="desc-item">
+        <div class="desc-num-row">
+          <div class="desc-num">8</div>
+          <span class="desc-comp-type">[ActionBar]</span>
+          <span class="desc-comp-name">액션 바</span>
+        </div>
+        <div class="desc-body">
+          <ul>
+            <li>고정 하단, 흰 배경, 상단 경계선 1px solid #eee, padding 12px 16px</li>
+            <li>좌측: Heart icon + "찜" 텍스트 (탭 가능)</li>
+            <li>우측: [공유하기] 파란 버튼 (KakaoTalk/Twitter/링크복사)</li>
+            <li>본인 이벤트일 시: [수정]/[삭제] 버튼으로 변경</li>
+            <li>종료된 이벤트: share 버튼 비활성(회색)</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="desc-divider">
+
+      <div class="desc-section-title">화면 상태</div>
+      <table class="state-table">
+        <thead>
+          <tr>
+            <th>상태</th>
+            <th>설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>로딩</td>
+            <td>이미지 플레이스홀더 + 텍스트 스켈레톤</td>
+          </tr>
+          <tr>
+            <td>정상</td>
+            <td>모든 정보 표시</td>
+          </tr>
+          <tr>
+            <td>종료 이벤트</td>
+            <td>상단 회색 배너 "이 이벤트는 종료되었어요" + 콘텐츠 회색조 필터</td>
+          </tr>
+          <tr>
+            <td>삭제된 이벤트</td>
+            <td>"삭제된 이벤트입니다" 메시지 + EVNT01 이동 CTA</td>
+          </tr>
+          <tr>
+            <td>에러</td>
+            <td>"이벤트 정보를 불러오지 못했어요" + 재시도 버튼</td>
+          </tr>
+          <tr>
+            <td>비로그인</td>
+            <td>열람 가능, 찜/신고 → 로그인 유도</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="desc-section-title">연관 화면</div>
+      <table class="related-table">
+        <thead>
+          <tr>
+            <th>이동 대상</th>
+            <th>조건</th>
+            <th>화면코드</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>이벤트 목록 (캘린더)</td>
+            <td>헤더 뒤로가기</td>
+            <td>EVNT01</td>
+          </tr>
+          <tr>
+            <td>교환 목록</td>
+            <td>관련 교환 "더보기" 클릭</td>
+            <td>EXCH01</td>
+          </tr>
+          <tr>
+            <td>공구 목록</td>
+            <td>관련 공구 "더보기" 클릭</td>
+            <td>GRPB01</td>
+          </tr>
+          <tr>
+            <td>교환 상세</td>
+            <td>관련 교환 카드 탭</td>
+            <td>EXCH02</td>
+          </tr>
+          <tr>
+            <td>공구 상세</td>
+            <td>관련 공구 카드 탭</td>
+            <td>GRPB02</td>
+          </tr>
+          <tr>
+            <td>검색</td>
+            <td>작품/캐릭터 탭</td>
+            <td>SRCH01</td>
+          </tr>
+          <tr>
+            <td>프로필</td>
+            <td>등록자 닉네임 탭</td>
+            <td>USER01</td>
+          </tr>
+          <tr>
+            <td>로그인</td>
+            <td>비로그인 시 찜/신고</td>
+            <td>AUTH01</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="revision-bar">
+    <table>
+      <thead>
+        <tr>
+          <th>날짜</th>
+          <th>버전</th>
+          <th>내용</th>
+          <th>작성자</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2026-03-07</td>
+          <td>0.1</td>
+          <td>초안 작성</td>
+          <td>-</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

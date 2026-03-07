@@ -324,7 +324,8 @@
 
 - **CSS 기반**: HOME01의 CSS 블록을 그대로 복사한 뒤, 화면별 와이어프레임 요소 스타일만 추가
 - **카테고리 컬러**: Purple(#8B5CF6)/Pink(#EC4899)/Amber(#F59E0B)/Cyan(#06B6D4)
-- **WBS 링크**: 새 와이어프레임 생성 시 WBS의 산출물 열에 `<a class="wire-link" href="파일명.html">` 추가
+- **WBS 링크**: 새 와이어프레임 생성 시 WBS의 산출물 열에 `<a class="wire-link" target="_blank" href="파일명.html">` 추가. **반드시 `target="_blank"`를 포함하여 새 창(탭)에서 열리도록 할 것.**
+- **WBS 진척률 컬러**: 진척률 100% 항목의 `.fill` div에는 반드시 `style="width:100%;background:var(--green)"` 형식으로 초록색 배경을 적용할 것. `background:var(--green)` 누락 금지.
 - **이모지 사용 원칙**: 모든 산출물에서 이모지(emoji) 대신 Lucide 스타일 인라인 SVG 아이콘을 사용한다.
   - **HTML 파일** (와이어프레임, 디자인시안, IA, FLOW, WBS 등): 반드시 인라인 SVG 사용 (`viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"`). HOME01_디자인시안.html의 아이콘 패턴 참고
   - **Markdown 파일** (기획서, PRD, 디자인가이드 등): 백틱 감싼 Lucide 아이콘명 사용 (예: `Home`, `Search`, `ArrowRight`). 체크/비체크는 O / X 텍스트 사용

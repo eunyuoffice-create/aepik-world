@@ -745,34 +745,69 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       <span class="flow-toggle">▼</span>
     </div>
     <div class="flow-body">
-      <h4 style="font-size: 13px; color: #3B82F6; margin-bottom: 12px;">6-0. 구함글 등록</h4>
+      <h4 style="font-size: 13px; color: #3B82F6; margin-bottom: 12px;">7-1. 구함 게시판 목록 (WANT01)</h4>
       <div class="flow-diagram">
-        <div class="hflow">
-          <div class="flow-node start" style="min-width:110px;">구함 선택</div>
-          <span class="hflow-arrow">→</span>
-          <div class="flow-node page" style="min-width:140px;">구함글 등록 폼<br>(작품, 캐릭터, 설명)</div>
-          <span class="hflow-arrow">→</span>
-          <div class="flow-node end" style="min-width:110px;">등록 완료</div>
+        <div class="flow-node start" style="min-width:160px;">진입: 홈 구함 바로가기 / 마이페이지 / 알림 / 검색</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-node page" style="min-width:160px;">구함 게시판 (WANT01)</div>
+        <div class="flow-arrow"></div>
+        <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center;">
+          <div class="flow-node process" style="min-width:110px; font-size:11px;">탭 바<br>전체 / 내 구함</div>
+          <div class="flow-node process" style="min-width:130px; font-size:11px;">필터 바<br>작품/캐릭터/굿즈/상태</div>
+          <div class="flow-node process" style="min-width:100px; font-size:11px;">정렬<br>최신/만료임박</div>
         </div>
+        <div class="flow-arrow"></div>
+        <div class="flow-node process" style="min-width:180px;">구함 카드 리스트<br>(상태뱃지 + D-day + 매칭 N건)</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-node action">카드 탭 → 구함 상세 바텀시트</div>
       </div>
 
-      <h4 style="font-size: 13px; color: #3B82F6; margin: 20px 0 12px;">6-1. 구함글 상세 열람 (WANT01)</h4>
+      <h4 style="font-size: 13px; color: #3B82F6; margin: 20px 0 12px;">7-2. 구함 상세 바텀시트 (WANT01 내)</h4>
       <div class="flow-diagram">
-        <div class="flow-node page">구함글 상세 (WANT01)</div>
+        <div class="flow-node page" style="min-width:160px;">구함 상세 바텀시트</div>
         <div class="flow-arrow"></div>
         <div style="display:flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
-          <div class="flow-node process" style="min-width:130px; font-size:11px;">구함 정보<br>(작품, 캐릭터, 조건)</div>
-          <div class="flow-node process" style="min-width:130px; font-size:11px;">작성자 프로필<br>(닉네임, 신뢰도)</div>
-          <div class="flow-node process" style="min-width:130px; font-size:11px;">관련 교환글<br>추천 노출</div>
+          <div class="flow-node process" style="min-width:130px; font-size:11px;">구함 정보<br>(제목, 작품, 캐릭터, 설명)</div>
+          <div class="flow-node process" style="min-width:130px; font-size:11px;">레퍼런스 이미지<br>교환 조건</div>
+          <div class="flow-node process" style="min-width:130px; font-size:11px;">매칭 교환글<br>(최대 5건) → EXCH02</div>
         </div>
         <div class="flow-arrow"></div>
-        <div class="hflow">
-          <div class="flow-node action" style="min-width:120px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> 채팅하기<br>→ CHAT02</div>
-          <div class="flow-node action" style="min-width:120px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 찜</div>
+        <div class="flow-branch">
+          <div class="flow-branch-path">
+            <div class="branch-label">타인 글</div>
+            <div class="flow-node action" style="font-size:11px;">교환 제안하기<br>→ EXCH02</div>
+            <div class="flow-node action" style="font-size:11px;">채팅 문의<br>→ CHAT01</div>
+          </div>
+          <div class="flow-branch-path">
+            <div class="branch-label">본인 글</div>
+            <div class="flow-node action" style="font-size:11px;">수정 / 끌어올리기<br>/ 삭제</div>
+          </div>
         </div>
       </div>
 
-      <h4 style="font-size: 13px; color: #3B82F6; margin: 20px 0 12px;">6-2. 구함 기반 매칭 알림</h4>
+      <h4 style="font-size: 13px; color: #3B82F6; margin: 20px 0 12px;">7-3. 구함글 등록 (바텀시트)</h4>
+      <div class="flow-diagram">
+        <div class="flow-node start">FAB 탭</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-branch">
+          <div class="flow-branch-path">
+            <div class="branch-label">비로그인</div>
+            <div class="flow-node action" style="font-size:11px;">로그인 유도<br>→ AUTH01</div>
+          </div>
+          <div class="flow-branch-path">
+            <div class="branch-label">로그인 상태</div>
+            <div class="flow-node page" style="min-width:150px; font-size:11px;">구함글 등록 바텀시트<br>(제목/작품/캐릭터/굿즈타입<br>/설명/이미지/교환조건/만료일)</div>
+            <div class="flow-arrow"></div>
+            <div class="flow-node end" style="font-size:11px;">등록 완료<br>→ 목록 즉시 반영</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-note" style="margin-top: 12px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> <strong>바텀시트 UI</strong>: 구함 상세와 등록 모두 별도 페이지 이동 없이 바텀시트로 처리 (WANT01 내 인라인)
+      </div>
+
+      <h4 style="font-size: 13px; color: #3B82F6; margin: 20px 0 12px;">7-4. 구함 기반 매칭 알림</h4>
       <div class="flow-diagram">
         <div class="flow-node page">교환글 등록 (EXCH03)</div>
         <div class="flow-arrow"></div>
@@ -803,51 +838,84 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
     <div class="flow-header" onclick="this.parentElement.classList.toggle('expanded')">
       <div class="flow-num">8</div>
       <span class="flow-title">이벤트 캘린더 플로우</span>
-      <span class="flow-desc">열람 (캘린더/리스트/지도 뷰) + 등록</span>
+      <span class="flow-desc">캘린더 열람 (3뷰) + 상세 + 등록</span>
       <span class="phase-tag p15">Phase 1.5</span>
       <span class="flow-toggle">▼</span>
     </div>
     <div class="flow-body">
-      <h4 style="font-size: 13px; color: #3B82F6; margin-bottom: 12px;">7-1. 이벤트 열람</h4>
+      <h4 style="font-size: 13px; color: #3B82F6; margin-bottom: 12px;">7-1. 이벤트 캘린더 열람 [EVNT01]</h4>
       <div class="flow-diagram">
         <div class="flow-node page">이벤트 캘린더 (EVNT01)</div>
         <div class="flow-arrow"></div>
+        <div class="flow-node process" style="font-size:11px;">필터 칩: 작품 / 캐릭터 / 이벤트 유형 / 지역 / 날짜<br>선택된 칩 파란 배경 + 초기화</div>
+        <div class="flow-arrow"></div>
         <div class="flow-branch">
           <div class="flow-branch-path">
-            <div class="branch-label">캘린더 뷰</div>
-            <div class="flow-node process">월별 달력<br>이벤트 도트 표시</div>
+            <div class="branch-label">캘린더 뷰 (기본)</div>
+            <div class="flow-node process" style="font-size:11px;">월 네비 + "오늘" 버튼<br>카테고리 컬러 도트 (최대 4색)<br>오늘=파란 원, 선택=파란 링</div>
+            <div style="text-align:center; color:#999; font-size:11px; margin:4px 0;">↓ 날짜 탭</div>
+            <div class="flow-node process" style="font-size:11px;">하단 이벤트 목록<br>컴팩트 카드 슬라이드업</div>
           </div>
           <div class="flow-branch-path">
             <div class="branch-label">리스트 뷰</div>
-            <div class="flow-node process">날짜순<br>이벤트 목록</div>
+            <div class="flow-node process" style="font-size:11px;">날짜별 그룹핑<br>(오늘~30일 후)</div>
+            <div style="text-align:center; color:#999; font-size:11px; margin:4px 0;">↓</div>
+            <div class="flow-node process" style="font-size:11px;">이미지(80x80) + 유형 태그<br>이름 + 날짜 + 장소 + 찜</div>
           </div>
           <div class="flow-branch-path">
             <div class="branch-label">지도 뷰</div>
-            <div class="flow-node process">카카오맵<br>이벤트 핀 마커</div>
+            <div class="flow-node process" style="font-size:11px;">카카오맵 전체 화면<br>카테고리 컬러 핀 + 클러스터</div>
+            <div style="text-align:center; color:#999; font-size:11px; margin:4px 0;">↓ 핀 탭</div>
+            <div class="flow-node process" style="font-size:11px;">하단 시트 카드<br>이미지+이름+거리+[상세 보기]</div>
           </div>
         </div>
         <div class="flow-arrow" style="margin-top: 16px;"></div>
         <div class="flow-node action">이벤트 카드 탭</div>
         <div class="flow-arrow"></div>
         <div class="flow-node page">이벤트 상세 (EVNT02)</div>
-        <div class="flow-arrow"></div>
-        <div class="hflow">
-          <div class="flow-node action" style="min-width:100px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 찜<br>(리마인더)</div>
-          <div class="flow-node action" style="min-width:100px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> 공유</div>
-        </div>
+      </div>
+      <div class="flow-note" style="margin-top:12px;">
+        <strong>지도 뷰 추가 기능</strong>: 현재 위치 FAB + "이 지역 검색" 버튼. 위치 권한 거부 시 서울 중심 기본 표시
       </div>
 
-      <h4 style="font-size: 13px; color: #3B82F6; margin: 20px 0 12px;">7-2. 이벤트 등록</h4>
+      <h4 style="font-size: 13px; color: #3B82F6; margin: 20px 0 12px;">7-2. 이벤트 상세 [EVNT02]</h4>
       <div class="flow-diagram">
+        <div class="flow-node page">이벤트 상세 (EVNT02)</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-node process" style="font-size:11px;">대표 이미지 캐러셀 (스와이프 + 도트)<br>유형 태그 + 이벤트명 + 대상(작품>캐릭터)<br>카테고리 뱃지 + 등록자 + 찜 수</div>
+        <div class="flow-arrow"></div>
+        <div class="hflow" style="flex-wrap:wrap; gap:8px;">
+          <div class="flow-node process" style="min-width:120px; font-size:11px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 일정 정보<br>D-day 뱃지<br>[캘린더 추가]</div>
+          <div class="flow-node process" style="min-width:120px; font-size:11px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> 장소 정보<br>주소 복사<br>카카오맵 미니맵</div>
+          <div class="flow-node process" style="min-width:120px; font-size:11px;">상세 설명<br>(3줄 초과 → 더보기)<br>외부 링크</div>
+          <div class="flow-node process" style="min-width:140px; font-size:11px;">관련 교환/공구<br>같은 작품+캐릭터 최대 4개<br>[더보기] → EXCH01/GRPB01</div>
+        </div>
+        <div class="flow-arrow"></div>
         <div class="hflow">
+          <div class="flow-node action" style="min-width:110px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 찜<br>D-3/D-1 리마인더</div>
+          <div class="flow-node action" style="min-width:110px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> 공유<br>카카오/트위터/링크</div>
+        </div>
+      </div>
+      <div class="flow-note" style="margin-top:12px;">
+        <strong>종료 이벤트</strong>: 전체 회색 톤 + "이 이벤트는 종료되었어요" 배너. <strong>본인 글</strong>: 액션 바에 [수정]/[삭제] 표시
+      </div>
+
+      <h4 style="font-size: 13px; color: #3B82F6; margin: 20px 0 12px;">7-3. 이벤트 등록</h4>
+      <div class="flow-diagram">
+        <div class="hflow" style="flex-wrap:wrap; gap:8px;">
           <div class="flow-node action" style="min-width:100px;">FAB(+) 탭</div>
           <span class="hflow-arrow">→</span>
-          <div class="flow-node page" style="min-width:160px;">이벤트 등록 폼<br>(유형, 작품, 기간, 장소)</div>
+          <div class="flow-node decision" style="min-width:100px; font-size:11px;">로그인<br>여부</div>
           <span class="hflow-arrow">→</span>
-          <div class="flow-node end" style="min-width:100px;">등록 완료</div>
+          <div class="flow-node page" style="min-width:180px; font-size:11px;">이벤트 등록 폼 (인라인)<br>유형* / 작품* / 캐릭터*<br>이름* / 기간* / 장소*<br>시간·설명·이미지·링크(선택)</div>
           <span class="hflow-arrow">→</span>
-          <div class="flow-node system" style="min-width:130px;">관심 유저에게<br>알림 발송</div>
+          <div class="flow-node end" style="min-width:100px;">등록 완료<br>(즉시 반영)</div>
+          <span class="hflow-arrow">→</span>
+          <div class="flow-node system" style="min-width:130px;">관심 유저에게<br>FCM 푸시 + 인앱 알림</div>
         </div>
+      </div>
+      <div class="flow-note" style="margin-top:8px;">
+        <strong>비로그인</strong>: 로그인 유도 토스트 → AUTH01. <strong>관리자 검수 없음</strong>: 사용자 직접 등록 즉시 노출
       </div>
     </div>
   </div>
@@ -862,56 +930,86 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       <span class="flow-toggle">▼</span>
     </div>
     <div class="flow-body">
-      <h4 style="font-size: 13px; color: #3B82F6; margin-bottom: 12px;">8-1. 이벤트 배너 신청</h4>
+      <h4 style="font-size: 13px; color: #3B82F6; margin-bottom: 12px;">9-1. 배너/팝업 신청 진입 [BANR01]</h4>
       <div class="flow-diagram">
-        <div class="flow-node page">이벤트 배너 신청 (BANR01)</div>
+        <div class="flow-node page">진입 경로<br>(EVNT01/EVNT02/USER01/홈)</div>
         <div class="flow-arrow"></div>
-        <div class="flow-node process">배너 유형 선택<br>(메인 캐러셀 / 피드 삽입)</div>
+        <div class="flow-node decision">로그인 확인</div>
         <div class="flow-arrow"></div>
-        <div class="flow-node action">슬롯 캘린더에서 날짜 선택<br>(메인 max 8 / 피드 max 4)</div>
-        <div class="flow-arrow"></div>
-        <div class="flow-node process">이미지 업로드 + 저작권 가이드 동의<br>(1080×540 or 1080×200)</div>
-        <div class="flow-arrow"></div>
-        <div class="flow-node action">결제 (Phase 1.5~, 초기 무료)</div>
-        <div class="flow-arrow"></div>
-        <div class="flow-node system">관리자 검수 대기 (24h)</div>
-        <div class="flow-arrow"></div>
-
         <div class="flow-branch">
           <div class="flow-branch-path">
-            <div class="branch-label">승인</div>
-            <div class="flow-node end" style="background:#E8F5E9; border-color:#4CAF50; color:#2E7D32;">예약 게시</div>
+            <div class="branch-label">비로그인</div>
+            <div class="flow-node action">로그인 유도 팝업 → AUTH01</div>
           </div>
           <div class="flow-branch-path">
-            <div class="branch-label">수정 요청</div>
-            <div class="flow-node action">수정 안내 → 재업로드</div>
-          </div>
-          <div class="flow-branch-path">
-            <div class="branch-label">반려</div>
-            <div class="flow-node end" style="background:#FFEBEE; border-color:#E91E63; color:#C62828;">사유 안내 + 환불</div>
+            <div class="branch-label">로그인</div>
+            <div class="flow-node page">BANR01 배너/팝업 신청</div>
           </div>
         </div>
       </div>
 
-      <h4 style="font-size: 13px; color: #3B82F6; margin: 20px 0 12px;">8-2. 이벤트 팝업 신청</h4>
+      <h4 style="font-size: 13px; color: #3B82F6; margin: 20px 0 12px;">9-2. 신청 폼 작성</h4>
       <div class="flow-diagram">
-        <div class="flow-node page">이벤트 팝업 신청</div>
+        <div class="flow-node process">유형 선택 (복수 가능)<br>메인 배너 / 피드 배너 / 팝업</div>
         <div class="flow-arrow"></div>
-        <div class="flow-node action">팝업 날짜 선택<br>(1일 max 3건)</div>
+        <div class="flow-node process">대상 정보 입력<br>작품+캐릭터 + 이벤트 종류</div>
         <div class="flow-arrow"></div>
-        <div class="flow-node process">팝업 이미지 업로드<br>(720×960, 3:4 비율)</div>
+        <div class="flow-node action">슬롯 달력에서 날짜 선택<br>(잔여 슬롯 도트 확인)</div>
         <div class="flow-arrow"></div>
-        <div class="flow-node action">결제 (Phase 1.5~, 초기 무료)</div>
+        <div class="flow-node process">이미지 업로드 + 저작권 동의<br>(유형별 사이즈 가이드)</div>
         <div class="flow-arrow"></div>
-        <div class="flow-node system">관리자 검수 (24h)</div>
+        <div class="flow-node process">추가 정보 + 비용 확인<br>(Phase 1 무료 / 1.5~ 유료)</div>
         <div class="flow-arrow"></div>
-        <div class="flow-node end" style="background:#E8F5E9; border-color:#4CAF50; color:#2E7D32;">예약 게시</div>
+        <div class="flow-node action">"신청하기" 버튼</div>
+      </div>
+
+      <h4 style="font-size: 13px; color: #3B82F6; margin: 20px 0 12px;">9-3. 검수 및 게시</h4>
+      <div class="flow-diagram">
+        <div class="flow-node system">관리자 검수 대기 (24h)</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-branch">
+          <div class="flow-branch-path">
+            <div class="branch-label">승인</div>
+            <div class="flow-node end" style="background:#E8F5E9; border-color:#4CAF50; color:#2E7D32;">FCM 알림 → 예약 게시<br>→ 게시일 자동 노출</div>
+          </div>
+          <div class="flow-branch-path">
+            <div class="branch-label">수정 요청</div>
+            <div class="flow-node action">FCM 수정 안내<br>→ 이미지 재업로드 → 재검수</div>
+          </div>
+          <div class="flow-branch-path">
+            <div class="branch-label">반려</div>
+            <div class="flow-node end" style="background:#FFEBEE; border-color:#E91E63; color:#C62828;">FCM 사유 안내<br>+ (1.5~) 환불 처리</div>
+          </div>
+        </div>
+      </div>
+
+      <h4 style="font-size: 13px; color: #3B82F6; margin: 20px 0 12px;">9-4. 내 배너/팝업 관리</h4>
+      <div class="flow-diagram">
+        <div class="flow-node page">USER01 마이페이지<br>> 내 배너/팝업 관리</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-node process">내 배너 목록<br>(상태별 필터 6종)</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-branch">
+          <div class="flow-branch-path">
+            <div class="branch-label">검수 대기</div>
+            <div class="flow-node action">[취소]</div>
+          </div>
+          <div class="flow-branch-path">
+            <div class="branch-label">수정 요청</div>
+            <div class="flow-node action">[수정하기]<br>→ 재업로드</div>
+          </div>
+          <div class="flow-branch-path">
+            <div class="branch-label">반려/종료</div>
+            <div class="flow-node action">[재신청]</div>
+          </div>
+        </div>
       </div>
 
       <div class="flow-note">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg> <strong>배너 vs 팝업</strong>: 별도 신청 (둘 다 / 하나만 선택 가능)<br>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg> <strong>배너 + 팝업</strong>: 복수 선택 가능 (둘 다 / 하나만 가능), 카드 형태 UI<br>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="3" y="4" width="14" height="14" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> <strong>슬롯 시스템</strong>: 메인 배너 8슬롯/일, 피드 배너 4슬롯/일, 팝업 3슬롯/일 — 매진 시 다른 날짜 선택<br>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>️ <strong>팝업 노출</strong>: 1일 1회/팝업, "오늘 하루 안 보기" 지원, 순차 노출
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> <strong>팝업 노출</strong>: 1일 1회/팝업, "오늘 하루 안 보기" 지원, 순차 노출<br>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> <strong>저작권</strong>: 팬아트/2차 창작 허용, 공식 사진/굿즈 이미지 비허용
       </div>
     </div>
   </div>
