@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHAT01 — 채팅 목록 와이어프레임</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+
+/* ===== META HEADER ===== */
+.meta-bar {
+  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
+}
+.meta-item { font-size: 11px; }
+.meta-label { color: #999; }
+.meta-value { font-weight: 600; color: #333; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+
+/* ===== MAIN LAYOUT ===== */
+.main-layout { overflow-x: hidden;
+  display: flex; min-height: calc(100vh - 48px);
+}
+
+/* ===== WIREFRAME SIDE ===== */
+.wireframe-side {
+  flex: 1 1 55%; min-width: 0; background: #EAEAEA; padding: 32px;
+  display: flex; justify-content: center; overflow-y: auto;
+}
+.phone-stack { display: flex; flex-direction: column; gap: 24px; align-items: center; }
+.frame-label { font-size: 13px; font-weight: 600; color: #555; margin-bottom: 6px; text-align: center; }
+.phone-frame {
+  max-width: 375px; width: 100%; background: #fff; border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative;
+  overflow: hidden;
+}
+
+/* ===== DESCRIPTION SIDE ===== */
+.desc-side {
+  flex: 1 1 45%; min-width: 0; background: #fff; padding: 24px 28px;
+  overflow-y: auto; border-left: 1px solid #ddd;
+}
+.desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+
+.desc-item { margin-bottom: 20px; }
+.desc-num-row {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+}
+.desc-num {
+  background: #2563EB; color: #fff; width: 22px; height: 22px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0;
+}
+.desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-name { font-size: 14px; font-weight: 600; }
+
+.desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
+.desc-body ul { list-style: none; }
+.desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
+.desc-body li::before { content: '\2022'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #888; }
+.desc-body .sub li::before { content: '\2514'; color: #ccc; }
+
+.desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
+
+/* ===== State / Related tables ===== */
+.state-table, .related-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 8px; }
+.state-table th, .related-table th { background: #F9FAFB; text-align: left; padding: 6px 8px; font-weight: 600; border-bottom: 1px solid #E5E7EB; }
+.state-table td, .related-table td { padding: 6px 8px; border-bottom: 1px solid #F3F4F6; }
+
+/* ===== WIREFRAME ELEMENTS ===== */
+.wf-section { position: relative; }
+
+.num-circle {
+  position: absolute; z-index: 10;
+  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+/* Header */
+.wf-header {
+  display: flex; align-items: center; padding: 12px 16px;
+  border-bottom: 1px solid #eee; position: relative;
+}
+.wf-page-title { font-weight: 700; font-size: 16px; color: #111827; }
+.wf-header-icons { margin-left: auto; display: flex; gap: 12px; }
+.wf-icon-btn { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; color: #6B7280; }
+.wf-icon-btn svg { width: 20px; height: 20px; }
+
+/* Filter Tabs */
+.wf-filter-tabs {
+  display: flex; border-bottom: 1px solid #F3F4F6; position: relative;
+}
+.wf-filter-tab {
+  flex: 1; text-align: center; padding: 12px 0; font-size: 13px; font-weight: 500;
+  color: #9CA3AF; position: relative; cursor: pointer;
+}
+.wf-filter-tab.active { color: #2563EB; font-weight: 600; }
+.wf-filter-tab.active::after {
+  content: ''; position: absolute; bottom: 0; left: 20%; right: 20%;
+  height: 2px; background: #2563EB; border-radius: 1px;
+}
+.wf-filter-badge {
+  display: inline-block; background: #EF4444; color: #fff; font-size: 9px; font-weight: 700;
+  padding: 1px 5px; border-radius: 999px; margin-left: 4px; vertical-align: top;
+}
+
+/* Chat Room Item */
+.wf-chat-item {
+  display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px;
+  border-bottom: 1px solid #F3F4F6; position: relative;
+}
+.wf-chat-item.unread { background: #F8FAFF; }
+
+.wf-avatar-wrap { position: relative; flex-shrink: 0; }
+.wf-avatar {
+  width: 48px; height: 48px; border-radius: 50%; background: #E5E7EB;
+  display: flex; align-items: center; justify-content: center; color: #9CA3AF; overflow: hidden;
+}
+.wf-avatar svg { width: 24px; height: 24px; }
+.wf-online-dot {
+  position: absolute; bottom: 1px; right: 1px; width: 10px; height: 10px;
+  border-radius: 50%; background: #10B981; border: 2px solid #fff;
+}
+
+.wf-chat-body { flex: 1; min-width: 0; }
+.wf-chat-top { display: flex; align-items: center; gap: 6px; margin-bottom: 2px; }
+.wf-chat-nick { font-size: 14px; font-weight: 600; color: #111827; }
+.wf-trade-tag {
+  font-size: 9px; padding: 1px 6px; border-radius: 999px; font-weight: 600;
+}
+.wf-trade-tag.exchange { background: #FFF7ED; color: #EA580C; }
+.wf-trade-tag.groupbuy { background: #EFF6FF; color: #2563EB; }
+.wf-chat-product { font-size: 11px; color: #9CA3AF; margin-bottom: 2px; display: flex; align-items: center; gap: 4px; }
+.wf-status-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.wf-status-dot.active { background: #10B981; }
+.wf-status-dot.pending { background: #F59E0B; }
+.wf-status-dot.done { background: #9CA3AF; }
+.wf-chat-msg { font-size: 12px; color: #6B7280; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.wf-chat-right { flex-shrink: 0; text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.wf-chat-time { font-size: 10px; color: #9CA3AF; }
+.wf-unread-badge {
+  min-width: 18px; height: 18px; border-radius: 999px; background: #EF4444;
+  color: #fff; font-size: 10px; font-weight: 700; display: flex; align-items: center;
+  justify-content: center; padding: 0 5px;
+}
+
+/* Empty State */
+.wf-empty {
+  padding: 60px 20px; text-align: center;
+}
+.wf-empty-icon { color: #D1D5DB; margin-bottom: 16px; }
+.wf-empty-icon svg { width: 48px; height: 48px; opacity: 0.4; }
+.wf-empty-msg { font-size: 14px; color: #9CA3AF; margin-bottom: 6px; }
+.wf-empty-sub { font-size: 12px; color: #D1D5DB; margin-bottom: 16px; line-height: 1.5; }
+.wf-empty-btn {
+  display: inline-block; padding: 10px 24px; border: 1px solid #3B82F6;
+  color: #3B82F6; border-radius: 8px; font-size: 13px; font-weight: 600;
+}
+
+/* Bottom Nav */
+.wf-bottom-nav {
+  display: flex; border-top: 1px solid #eee; background: #fff;
+  padding: 8px 0 12px; position: relative;
+}
+.wf-nav-item {
+  flex: 1; text-align: center; font-size: 10px; color: #aaa;
+}
+.wf-nav-item.active { color: #2563EB; }
+.wf-nav-icon { font-size: 16px; margin-bottom: 2px; }
+.wf-nav-item svg { display: block; margin: 0 auto 2px; }
+.wf-nav-badge-wrap { position: relative; display: inline-block; }
+.wf-nav-badge {
+  position: absolute; top: -4px; right: -8px; min-width: 14px; height: 14px;
+  background: #EF4444; color: #fff; font-size: 8px; font-weight: 700;
+  border-radius: 999px; display: flex; align-items: center; justify-content: center;
+  padding: 0 3px;
+}
+
+/* Revision footer */
+.revision-bar {
+  background: #fff; border-top: 1px solid #eee; padding: 12px 24px;
+  font-size: 11px; color: #999;
+}
+.revision-bar table { width: 100%; border-collapse: collapse; }
+.revision-bar th { text-align: left; font-weight: 600; color: #666; padding: 4px 8px; border-bottom: 1px solid #eee; }
+.revision-bar td { padding: 4px 8px; }
+
+@media (max-width: 900px) {
+  .main-layout { flex-direction: column; }
+  .wireframe-side { flex: none; padding: 16px; }
+  .desc-side { flex: none; border-left: none; border-top: 1px solid #ddd; }
+}
+@media (max-width: 1200px) {
+  .main-layout { gap: 0; }
+  .wireframe-side { flex: 0 0 50%; padding: 20px; }
+  .desc-side { flex: 0 0 50%; padding: 20px; }
+}
+@media (max-width: 700px) {
+  .wireframe-side { padding: 12px; justify-content: center; }
+  .desc-side { padding: 12px 16px; }
+  .phone-frame { max-width: 100%; }
+  .meta-bar { padding: 8px 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- META HEADER -->
+<div class="meta-bar">
+  <span class="title">CHAT01</span>
+  <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">채팅 목록</span></span>
+  <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/chat</span></span>
+  <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.1</span></span>
+  <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
+  <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-06</span></span>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="main-layout">
+
+  <!-- ===== WIREFRAME ===== -->
+  <div class="wireframe-side">
+    <div class="phone-stack">
+
+      <!-- Frame A: 채팅 목록 (데이터 있음) -->
+      <div>
+        <div class="frame-label">A. 채팅 목록 (데이터 있음)</div>
+        <div class="phone-frame">
+
+          <!-- 1: Header -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:6px; left:6px;">1</div>
+            <div class="wf-header">
+              <span class="wf-page-title">채팅</span>
+              <div class="wf-header-icons">
+                <div class="wf-icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2: Filter Tabs -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:4px; left:6px;">2</div>
+            <div class="wf-filter-tabs">
+              <div class="wf-filter-tab active">전체 <span class="wf-filter-badge">5</span></div>
+              <div class="wf-filter-tab">교환 <span class="wf-filter-badge" style="background:#EA580C;">3</span></div>
+              <div class="wf-filter-tab">공구</div>
+            </div>
+          </div>
+
+          <!-- 3: Chat Room List -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:8px; left:6px;">3</div>
+
+            <!-- Chat item 1: unread, exchange, active -->
+            <div class="wf-chat-item unread">
+              <div class="wf-avatar-wrap">
+                <div class="wf-avatar">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+                <div class="wf-online-dot"></div>
+              </div>
+              <div class="wf-chat-body">
+                <div class="wf-chat-top">
+                  <span class="wf-chat-nick">하이큐덕후</span>
+                  <span class="wf-trade-tag exchange">교환</span>
+                </div>
+                <div class="wf-chat-product">
+                  <span class="wf-status-dot active"></span>
+                  카게야마 포토카드 (36권 부록)
+                </div>
+                <div class="wf-chat-msg">운송장 번호 보내드릴게요! CJ대한...</div>
+              </div>
+              <div class="wf-chat-right">
+                <span class="wf-chat-time">오후 3:42</span>
+                <div class="wf-unread-badge">3</div>
+              </div>
+            </div>
+
+            <!-- Chat item 2: unread, exchange, pending -->
+            <div class="wf-chat-item unread">
+              <div class="wf-avatar-wrap">
+                <div class="wf-avatar">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+              </div>
+              <div class="wf-chat-body">
+                <div class="wf-chat-top">
+                  <span class="wf-chat-nick">세븐틴마스터</span>
+                  <span class="wf-trade-tag exchange">교환</span>
+                </div>
+                <div class="wf-chat-product">
+                  <span class="wf-status-dot pending"></span>
+                  민규 시즌그리팅 포카
+                </div>
+                <div class="wf-chat-msg">교환 확정을 기다리고 있어요</div>
+              </div>
+              <div class="wf-chat-right">
+                <span class="wf-chat-time">오후 1:15</span>
+                <div class="wf-unread-badge">2</div>
+              </div>
+            </div>
+
+            <!-- Chat item 3: read, groupbuy -->
+            <div class="wf-chat-item">
+              <div class="wf-avatar-wrap">
+                <div class="wf-avatar">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+              </div>
+              <div class="wf-chat-body">
+                <div class="wf-chat-top">
+                  <span class="wf-chat-nick">원신공구장</span>
+                  <span class="wf-trade-tag groupbuy">공구</span>
+                </div>
+                <div class="wf-chat-product">
+                  <span class="wf-status-dot active"></span>
+                  나히다 아크릴 공구 (3/5명)
+                </div>
+                <div class="wf-chat-msg">참여해주셔서 감사합니다! 입금 안...</div>
+              </div>
+              <div class="wf-chat-right">
+                <span class="wf-chat-time">오전 10:30</span>
+              </div>
+            </div>
+
+            <!-- Chat item 4: read, exchange, done -->
+            <div class="wf-chat-item">
+              <div class="wf-avatar-wrap">
+                <div class="wf-avatar">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+              </div>
+              <div class="wf-chat-body">
+                <div class="wf-chat-top">
+                  <span class="wf-chat-nick">피규어콜렉터</span>
+                  <span class="wf-trade-tag exchange">교환</span>
+                </div>
+                <div class="wf-chat-product">
+                  <span class="wf-status-dot done"></span>
+                  에렌 넨도로이드
+                </div>
+                <div class="wf-chat-msg">교환이 완료되었어요! 후기를 남겨...</div>
+              </div>
+              <div class="wf-chat-right">
+                <span class="wf-chat-time">3/5</span>
+              </div>
+            </div>
+
+            <!-- Chat item 5: read, exchange -->
+            <div class="wf-chat-item">
+              <div class="wf-avatar-wrap">
+                <div class="wf-avatar">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+              </div>
+              <div class="wf-chat-body">
+                <div class="wf-chat-top">
+                  <span class="wf-chat-nick">뮤지컬러버</span>
+                  <span class="wf-trade-tag exchange">교환</span>
+                </div>
+                <div class="wf-chat-product">
+                  <span class="wf-status-dot done"></span>
+                  데스노트 뮤지컬 굿즈
+                </div>
+                <div class="wf-chat-msg">네 잘 받았습니다~ 감사해요!</div>
+              </div>
+              <div class="wf-chat-right">
+                <span class="wf-chat-time">3/3</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4: Bottom Nav -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:2px; left:6px;">4</div>
+            <div class="wf-bottom-nav">
+              <!-- 홈 -->
+              <div class="wf-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                홈
+              </div>
+              <!-- 교환 -->
+              <div class="wf-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+                교환
+              </div>
+              <!-- 이벤트 -->
+              <div class="wf-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                이벤트
+              </div>
+              <!-- 채팅 (active) -->
+              <div class="wf-nav-item active">
+                <span class="wf-nav-badge-wrap">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                  <span class="wf-nav-badge">5</span>
+                </span>
+                채팅
+              </div>
+              <!-- 마이 -->
+              <div class="wf-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                마이
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Frame B: 빈 상태 -->
+      <div>
+        <div class="frame-label">B. 빈 상태 (Empty State)</div>
+        <div class="phone-frame">
+
+          <!-- Header -->
+          <div class="wf-header">
+            <span class="wf-page-title">채팅</span>
+            <div class="wf-header-icons">
+              <div class="wf-icon-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filter Tabs -->
+          <div class="wf-filter-tabs">
+            <div class="wf-filter-tab active">전체</div>
+            <div class="wf-filter-tab">교환</div>
+            <div class="wf-filter-tab">공구</div>
+          </div>
+
+          <!-- 5: Empty State -->
+          <div class="wf-section">
+            <div class="num-circle" style="top:30px; left:6px;">5</div>
+            <div class="wf-empty">
+              <div class="wf-empty-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              </div>
+              <div class="wf-empty-msg">아직 채팅이 없어요</div>
+              <div class="wf-empty-sub">교환 제안이 수락되거나 공구에 참여하면<br>여기에서 대화를 시작할 수 있어요</div>
+              <div class="wf-empty-btn">교환 둘러보기</div>
+            </div>
+          </div>
+
+          <!-- Bottom Nav -->
+          <div class="wf-bottom-nav">
+            <div class="wf-nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              홈
+            </div>
+            <div class="wf-nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+              교환
+            </div>
+            <div class="wf-nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              이벤트
+            </div>
+            <div class="wf-nav-item active">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              채팅
+            </div>
+            <div class="wf-nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              마이
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== DESCRIPTION ===== -->
+  <div class="desc-side">
+    <div class="desc-title">CHAT01 채팅 목록</div>
+    <div class="desc-subtitle">진행 중인 교환/공구 채팅방을 시간순으로 확인하고 빠르게 대화에 진입하는 화면</div>
+
+    <!-- 1 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">1</div>
+        <span class="desc-comp-type">[Header]</span>
+        <span class="desc-comp-name">채팅 헤더</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>좌측: 페이지 제목 "채팅" (16px Bold)</li>
+          <li>우측: 검색 아이콘 (`Search`)
+            <ul class="sub">
+              <li>탭 시 검색 바 확장 > 닉네임/상품명으로 채팅방 필터링</li>
+            </ul>
+          </li>
+          <li>높이: 48px, 하단 보더 1px `#F3F4F6`</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- 2 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">2</div>
+        <span class="desc-comp-type">[FilterTabs]</span>
+        <span class="desc-comp-name">필터 탭</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>3개 탭: 전체 | 교환 | 공구</li>
+          <li>활성 탭: Blue 텍스트 + 하단 Blue 보더 2px</li>
+          <li>각 탭 우측에 안 읽은 채팅방 수 뱃지 (빨간 배경, 숫자)
+            <ul class="sub">
+              <li>전체: 총 합산 / 교환: 교환 채팅방만 / 공구: 공구 채팅방만</li>
+            </ul>
+          </li>
+          <li>탭 전환 시 해당 유형 채팅방만 필터링</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- 3 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">3</div>
+        <span class="desc-comp-type">[ChatList]</span>
+        <span class="desc-comp-name">채팅방 리스트</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>각 아이템 구성:
+            <ul class="sub">
+              <li>아바타 (48px, 온라인 닷 10px Green)</li>
+              <li>닉네임 + 거래유형 태그 (교환: Orange, 공구: Blue)</li>
+              <li>상품명 (12px Gray) + 거래 상태 도트 (Green=진행중, Amber=확정대기, Gray=완료)</li>
+              <li>최신 메시지 미리보기 (1줄 ellipsis)</li>
+              <li>타임스탬프 (오늘: 시간, 올해: 월/일, 이전: YYYY.MM.DD)</li>
+              <li>안 읽은 수 뱃지 (빨간 원, 99+)</li>
+            </ul>
+          </li>
+          <li>안 읽은 채팅방: 배경 `#F8FAFF` (연한 블루)</li>
+          <li>정렬: 최신 메시지 시간순 (최신이 위)</li>
+          <li>탭 시: CHAT02 채팅 대화방으로 이동</li>
+          <li>좌 스와이프: 알림 끄기 / 나가기 액션 메뉴</li>
+          <li>당겨서 새로고침: 채팅 목록 갱신</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- 4 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">4</div>
+        <span class="desc-comp-type">[BottomNav]</span>
+        <span class="desc-comp-name">하단 네비게이션</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>5탭: 홈 | 교환 | 이벤트 | 채팅(활성) | 마이</li>
+          <li>채팅 탭: Blue 활성 상태 + 안 읽은 수 뱃지</li>
+          <li>아이콘: Lucide SVG 20x20px, 비활성 `#9CA3AF`, 활성 `#2563EB`</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- 5 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">5</div>
+        <span class="desc-comp-type">[EmptyState]</span>
+        <span class="desc-comp-name">빈 상태</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>조건: 채팅방이 하나도 없는 경우</li>
+          <li>아이콘: `MessageCircle` 48px, opacity 0.4</li>
+          <li>메시지: "아직 채팅이 없어요"</li>
+          <li>부가 텍스트: "교환 제안이 수락되거나 공구에 참여하면 여기에서 대화를 시작할 수 있어요"</li>
+          <li>CTA: "교환 둘러보기" (Secondary 버튼) > EXCH01 이동</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- 화면 상태 -->
+    <div style="margin-top: 24px;">
+      <div style="font-size: 14px; font-weight: 700; margin-bottom: 8px;">화면 상태</div>
+      <table class="state-table">
+        <thead><tr><th>상태</th><th>표시</th></tr></thead>
+        <tbody>
+          <tr><td>로딩</td><td>스켈레톤 UI (아바타 원형 + 텍스트 라인 3개) x 5</td></tr>
+          <tr><td>빈 상태</td><td>Frame B 참조</td></tr>
+          <tr><td>에러</td><td>"채팅 목록을 불러올 수 없어요" + "다시 시도" 버튼</td></tr>
+          <tr><td>비로그인</td><td>AUTH01-D 로그인 유도 바텀시트</td></tr>
+          <tr><td>데이터 있음</td><td>Frame A 참조</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 연관 화면 -->
+    <div style="margin-top: 24px;">
+      <div style="font-size: 14px; font-weight: 700; margin-bottom: 8px;">연관 화면</div>
+      <table class="related-table">
+        <thead><tr><th>이동 대상</th><th>조건</th><th>화면코드</th></tr></thead>
+        <tbody>
+          <tr><td>채팅 대화방</td><td>채팅방 탭</td><td>CHAT02</td></tr>
+          <tr><td>교환 목록</td><td>빈 상태 CTA 탭</td><td>EXCH01</td></tr>
+          <tr><td>로그인</td><td>비로그인 상태</td><td>AUTH01</td></tr>
+          <tr><td>교환 상세</td><td>채팅방 내 상품 탭</td><td>EXCH02</td></tr>
+          <tr><td>공구 상세</td><td>채팅방 내 상품 탭</td><td>GRPB02</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- REVISION FOOTER -->
+<div class="revision-bar">
+  <table>
+    <thead><tr><th>날짜</th><th>버전</th><th>내용</th><th>작성자</th></tr></thead>
+    <tbody><tr><td>2026-03-06</td><td>0.1</td><td>초안 작성</td><td>-</td></tr></tbody>
+  </table>
+</div>
+
+</body>
+</html>

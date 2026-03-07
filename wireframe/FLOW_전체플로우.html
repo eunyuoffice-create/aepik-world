@@ -160,7 +160,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
 <div class="header-bar">
   <h1><span>애픽 월드</span> Aepik World — 유저 플로우 개요</h1>
-  <div class="meta">v1.4 · 기반: PRD v5.0 · 2026-03-06</div>
+  <div class="meta">v1.5 · 기반: PRD v5.0 · 2026-03-06</div>
 </div>
 
 <div class="flow-nav">
@@ -921,26 +921,86 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
     <div class="flow-header" onclick="this.parentElement.classList.toggle('expanded')">
       <div class="flow-num">10</div>
       <span class="flow-title">채팅 플로우</span>
-      <span class="flow-desc">채팅 + 거래 상태 관리</span>
+      <span class="flow-desc">채팅 목록 + 교환/공구 채팅 대화방 + 거래 상태 관리</span>
       <span class="flow-toggle">▼</span>
     </div>
     <div class="flow-body">
+
+      <h4 style="font-size: 13px; color: #3B82F6; margin-bottom: 12px;">10-1. 채팅 목록 [CHAT01]</h4>
       <div class="flow-diagram">
+        <div class="flow-node page">채팅 탭 (하단 네비)</div>
+        <div class="flow-arrow"></div>
         <div class="flow-node page">채팅 목록 (CHAT01)</div>
         <div class="flow-arrow"></div>
-        <div class="flow-node page">채팅방 (CHAT02)</div>
-        <div class="flow-arrow"></div>
         <div class="hflow">
-          <div class="flow-node action" style="min-width:100px;">메시지<br>입력/전송</div>
-          <div class="flow-node action" style="min-width:100px;">이미지<br>전송 (S3)</div>
-          <div class="flow-node action" style="min-width:100px;">교환 확정<br>(양쪽 클릭)</div>
-          <div class="flow-node action" style="min-width:100px;">운송장<br>입력</div>
-          <div class="flow-node action" style="min-width:100px;">교환 완료<br>(수취 확인)</div>
-          <div class="flow-node action" style="min-width:100px; background:#FFEBEE; border-color:#E91E63;">신고</div>
+          <div class="flow-node process" style="min-width:100px; font-size:11px;">필터 탭<br>전체/교환/공구</div>
+          <div class="flow-node process" style="min-width:140px; font-size:11px;">채팅방 아이템<br>(아바타+메시지+시간+뱃지)</div>
+          <div class="flow-node process" style="min-width:100px; font-size:11px;">거래 상태 점<br>(색상별 표시)</div>
+        </div>
+        <div class="flow-arrow"></div>
+        <div class="flow-branch">
+          <div class="flow-branch-path">
+            <div class="branch-label">채팅방 탭</div>
+            <div class="flow-node action">CHAT02<br>채팅 대화방</div>
+          </div>
+          <div class="flow-branch-path">
+            <div class="branch-label">좌 스와이프</div>
+            <div class="flow-node action" style="background:#FFEBEE; border-color:#E91E63; font-size:11px;">나가기 확인<br>팝업 → 퇴장</div>
+          </div>
         </div>
       </div>
+
+      <h4 style="font-size: 13px; color: #3B82F6; margin: 20px 0 12px;">10-2. 교환 채팅 대화방 [CHAT02]</h4>
+      <div class="flow-diagram">
+        <div class="flow-node page">교환 채팅방 (CHAT02)</div>
+        <div class="flow-arrow"></div>
+        <div class="hflow">
+          <div class="flow-node process" style="min-width:130px; font-size:11px;">채팅 헤더<br>(상대 아바타+상품정보)</div>
+          <div class="flow-node process" style="min-width:130px; font-size:11px;">거래 상태 배너<br>(6단계 색상)</div>
+        </div>
+        <div class="flow-arrow"></div>
+        <div class="hflow">
+          <div class="flow-node action" style="min-width:100px;">텍스트<br>메시지</div>
+          <div class="flow-node action" style="min-width:100px;">이미지<br>전송 (S3)</div>
+        </div>
+        <div class="flow-arrow-label">협의 중 → 교환 확정 카드 표시</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-node action" style="min-width:200px;">교환 확정 카드<br>(내 상품 ↔ 상대 상품 + [확정] / [거절])</div>
+        <div class="flow-arrow-label">양쪽 모두 확정 클릭</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-node action" style="min-width:200px;">운송장 입력 카드<br>(택배사 선택 + 운송장 번호 + [발송 완료])</div>
+        <div class="flow-arrow-label">양쪽 발송 완료</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-node action" style="min-width:200px;">수취 확인 카드<br>("상품을 받으셨나요?" + [수취 확인] / 5일 자동)</div>
+        <div class="flow-arrow-label">양쪽 수취 확인</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-node end" style="min-width:200px; background:#E8F5E9; border-color:#4CAF50; color:#2E7D32;">교환 완료<br>(입력 비활성 + 후기 CTA → 후기 바텀시트)</div>
+      </div>
+
+      <h4 style="font-size: 13px; color: #3B82F6; margin: 20px 0 12px;">10-3. 공구 채팅 대화방 [CHAT02]</h4>
+      <div class="flow-diagram">
+        <div class="flow-node page">공구 채팅방 (CHAT02)</div>
+        <div class="flow-arrow"></div>
+        <div class="hflow">
+          <div class="flow-node process" style="min-width:130px; font-size:11px;">단체 아이콘<br>(`Users` 파란 배경)</div>
+          <div class="flow-node process" style="min-width:130px; font-size:11px;">거래 상태 배너<br>(모집 중/진행 확정)</div>
+        </div>
+        <div class="flow-arrow"></div>
+        <div class="hflow">
+          <div class="flow-node action" style="min-width:120px; font-size:11px;">주최자 메시지<br>(오렌지 하이라이트)</div>
+          <div class="flow-node action" style="min-width:120px; font-size:11px;">참여자 메시지<br>(일반 아바타)</div>
+          <div class="flow-node system" style="min-width:120px; font-size:11px;">시스템 메시지<br>("참여자 입장")</div>
+        </div>
+      </div>
+
       <div class="flow-note" style="margin-top:12px;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> <strong>거래 상태 바</strong>: 채팅방 상단에 고정 → 협의 중 → 교환 확정 → 발송 완료 → 교환 완료
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> <strong>거래 상태 배너 6단계</strong>: 협의 중(Blue) → 확정 대기(Amber) → 확정(Green) → 발송(Blue) → 양쪽 발송(Green) → 완료(Gray)
+      </div>
+      <div class="flow-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> <strong>실시간 통신</strong>: Firebase Realtime DB (onChildAdded) + FCM 푸시 알림 (백그라운드)
+      </div>
+      <div class="flow-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> <strong>메시지 삭제</strong>: 5분 이내 본인 메시지만 삭제 가능 (삭제 후 "삭제된 메시지입니다" 표시)
       </div>
     </div>
   </div>
@@ -1383,7 +1443,8 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 </div><!-- end canvas -->
 
 <div class="footer">
-  애픽 월드 (Aepik World) 유저 플로우 개요 v1.4 · 기반: PRD v5.0, 유저 플로우 v1.4 · 2026-03-06<br>
+  애픽 월드 (Aepik World) 유저 플로우 개요 v1.5 · 기반: PRD v5.0, 유저 플로우 v1.5 · 2026-03-07<br>
+  <strong>v1.5 업데이트 (2026-03-07)</strong>: CHAT01 채팅 목록 + CHAT02 교환/공구 채팅 대화방 상세 플로우 추가 (거래 상태 배너 6단계, 확정/운송장/수취 카드 흐름)<br>
   <strong>v1.4 업데이트 (2026-03-06)</strong>: EXCH05 교환 제안 관리 / 공구 자동 무산 타이머 / 구함글 상세 & 매칭 알림 / 신고 결과 처리 / 후기&이의제기 플로우 추가
 </div>
 
