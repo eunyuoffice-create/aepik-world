@@ -25,7 +25,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
 .canvas { padding: 32px; overflow-x: auto; }
 
-.sitemap { display: flex; flex-direction: column; gap: 0; min-width: 1200px; }
+.sitemap { display: flex; flex-direction: column; gap: 0; min-width: 1400px; }
 
 /* Root node */
 .root-node {
@@ -51,6 +51,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   transform: translateX(-50%);
   width: calc(100% - 160px); height: 2px; background: #ddd;
 }
+.section-row.no-line::before { display: none; }
 
 /* Section card */
 .section-card {
@@ -84,13 +85,15 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 .section-card.expanded .section-children { display: block; }
 
 .child-item {
-  padding: 5px 0; font-size: 11px; color: #555;
+  position:relative;
+  padding: 5px 0 5px 16px; font-size: 11px; color: #555;
   border-bottom: 1px dotted #f0f0f0;
-  display: flex; align-items: center; gap: 6px;
+  display: flex; gap: 6px;
+  flex-direction: column;
 }
 .child-item:last-child { border-bottom: none; }
 .child-route { font-family: 'SF Mono', monospace; font-size: 9px; color: #aaa; }
-.child-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.child-dot { position: absolute; left: 0; top: 10px;  width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
 
 /* Phase colors */
 .phase1 { border-color: #4CAF50; }
@@ -429,7 +432,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
     <div class="level-connector"></div>
 
     <!-- 공통 디자인 시스템 Row -->
-    <div class="section-row">
+    <div class="section-row no-line">
       <div class="section-card phase1" onclick="this.classList.toggle('expanded')" style="border-color:#3B82F6;">
         <div class="section-head" style="background:#EFF6FF;">
           <span class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="0.5" fill="currentColor"/><circle cx="17.5" cy="10.5" r="0.5" fill="currentColor"/><circle cx="8.5" cy="7.5" r="0.5" fill="currentColor"/><circle cx="6.5" cy="12" r="0.5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></span>
@@ -451,7 +454,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
     <div class="level-connector"></div>
 
     <!-- Admin row -->
-    <div class="section-row">
+    <div class="section-row no-line">
       <div class="section-card phase2" onclick="this.classList.toggle('expanded')" style="min-width: 600px; max-width: 700px;">
         <div class="section-head">
           <span class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>

@@ -29,7 +29,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   display: flex; justify-content: center; overflow-y: auto;
 }
 .phone-frame {
-  max-width: 375px; width: 100%; background: #fff; border-radius: 16px;
+  width: 375px; background: #fff; border-radius: 16px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative;
   overflow: hidden; }
 
@@ -248,7 +248,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 }
 /* Responsive improvements for laptop/small screens */
 .meta-bar { flex-wrap: wrap; gap: 8px; }
-.phone-frame { max-width: 375px; width: 100%; }
+.phone-frame { width: 375px; }
 @media (max-width: 1200px) {
   .main-layout { gap: 0; }
   .wireframe-side { flex: 0 0 50%; padding: 20px; }
@@ -257,7 +257,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 @media (max-width: 700px) {
   .wireframe-side { padding: 12px; justify-content: center; }
   .desc-side { padding: 12px 16px; }
-  .phone-frame { max-width: 100%; }
+  .phone-frame { width: 100%; min-width: 0; }
   .meta-bar { padding: 8px 12px; }
   .meta-item { font-size: 11px; }
 }
