@@ -49,6 +49,7 @@
 │   │       ├── WANT01_구함.md
 │   │       ├── EVNT01_이벤트캘린더.md
 │   │       ├── EVNT02_이벤트상세.md
+│   │       ├── EVNT03_이벤트등록.md
 │   │       ├── BANR01_배너팝업신청.md
 │   │       ├── NOTI01_알림센터.md
 │   │       └── STAT01_정적페이지.md
@@ -77,6 +78,7 @@
 │   ├── WANT01_구함.html
 │   ├── EVNT01_이벤트캘린더.html
 │   ├── EVNT02_이벤트상세.html
+│   ├── EVNT03_이벤트등록.html
 │   ├── BANR01_배너팝업신청.html
 │   ├── NOTI01_알림센터.html
 │   └── STAT01_정적페이지.html
@@ -213,7 +215,7 @@
 | CHAT | 채팅 | CHAT01~02 |
 | SRCH | 검색 | SRCH01 |
 | NOTI | 알림 | NOTI01 |
-| EVNT | 이벤트 | EVNT01~02 |
+| EVNT | 이벤트 | EVNT01~03 |
 | BANR | 배너/팝업 | BANR01 |
 | STAT | 정적 페이지 | STAT01 |
 | COMM | 공통 디자인 시스템 | COMM01~02 |
@@ -409,8 +411,8 @@
 ### 완료된 항목
 - PRD v5 (교환 제안, 매칭 알림, 이벤트 배너&팝업, 결제 시스템 포함)
 - 디자인 컨셉가이드 (반응형 브레이크포인트 정책 포함)
-- 화면 기획서: AUTH01~02, EXCH01~03, EXCH05, GRPB01~04, COMM01~02, SRCH01, USER01~03, CHAT01~02, WANT01, EVNT01~02, BANR01, NOTI01, STAT01
-- 와이어프레임: HOME01, AUTH01~02, EXCH01~03, EXCH05, GRPB01~04, COMM01~02, SRCH01, USER01~03, CHAT01~02, WANT01, EVNT01~02, BANR01, NOTI01, STAT01
+- 화면 기획서: AUTH01~02, EXCH01~03, EXCH05, GRPB01~04, COMM01~02, SRCH01, USER01~03, CHAT01~02, WANT01, EVNT01~03, BANR01, NOTI01, STAT01
+- 와이어프레임: HOME01, AUTH01~02, EXCH01~03, EXCH05, GRPB01~04, COMM01~02, SRCH01, USER01~03, CHAT01~02, WANT01, EVNT01~03, BANR01, NOTI01, STAT01
 - IA 사이트맵 v1.4, 유저 플로우 v1.4
 - WBS (전 화면 기획/와이어프레임 완료, 와이어프레임 링크 연결 완료)
 - 공통 디자인 시스템: COMM01(디자인 토큰 레퍼런스), COMM02(공통 UI 컴포넌트 가이드)

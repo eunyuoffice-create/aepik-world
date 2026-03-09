@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EVNT03 — 이벤트 등록 와이어프레임</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+
+/* ===== META HEADER ===== */
+.meta-bar {
+  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
+}
+.meta-item { font-size: 11px; }
+.meta-label { color: #999; }
+.meta-value { font-weight: 600; color: #333; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+
+/* ===== MAIN LAYOUT ===== */
+.main-layout { overflow-x: hidden;
+  display: flex; min-height: calc(100vh - 48px);
+}
+
+/* ===== WIREFRAME SIDE ===== */
+.wireframe-side {
+  flex: 1 1 55%; min-width: 0; background: #EAEAEA; padding: 32px;
+  display: flex; flex-direction: column; align-items: center; gap: 40px;
+  overflow-y: auto;
+}
+.phone-col {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.phone-col-label {
+  font-size: 11px; font-weight: 700; color: #2563EB; background: #fff;
+  padding: 4px 12px; border-radius: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.phone-frame {
+  max-width: 375px; width: 100%; min-height: 200px; background: #fff; border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative;
+  overflow: hidden; }
+
+/* ===== DESCRIPTION SIDE ===== */
+.desc-side {
+  flex: 1 1 45%; min-width: 0; background: #fff; padding: 24px 28px;
+  overflow-y: auto; border-left: 1px solid #ddd;
+}
+.desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+
+.desc-item { margin-bottom: 20px; }
+.desc-num-row {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+}
+.desc-num {
+  background: #2563EB; color: #fff; width: 22px; height: 22px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0;
+}
+.desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-name { font-size: 14px; font-weight: 600; }
+
+.desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
+.desc-body ul { list-style: none; }
+.desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
+.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #888; }
+.desc-body .sub li::before { content: '└'; color: #ccc; }
+
+.desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
+
+.conn-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px; }
+.conn-table th { background: #F5F5F5; padding: 6px 8px; text-align: left; font-weight: 600; border-bottom: 1px solid #ddd; }
+.conn-table td { padding: 6px 8px; border-bottom: 1px solid #eee; }
+.conn-table .code { color: #2563EB; font-weight: 600; }
+
+.states-section { margin-top: 16px; padding: 12px; background: #FAFAFA; border-radius: 8px; border: 1px solid #eee; }
+.states-title { font-size: 12px; font-weight: 600; margin-bottom: 8px; }
+.states-item { font-size: 11px; color: #666; margin-bottom: 4px; padding-left: 14px; position: relative; }
+.states-item::before { content: '▸'; position: absolute; left: 0; color: #2563EB; }
+
+/* ===== WIREFRAME ELEMENTS ===== */
+.wf-section { position: relative; }
+.num-circle {
+  position: absolute; z-index: 10;
+  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+/* Header */
+.wf-header {
+  display: flex; align-items: center; padding: 12px 16px;
+  border-bottom: 1px solid #eee; position: relative;
+}
+.wf-back { font-size: 16px; color: #555; cursor: pointer; margin-right: 12px; }
+.wf-header-title { font-size: 15px; font-weight: 600; }
+
+/* Form elements */
+.wf-form { padding: 16px; }
+.wf-form-group { margin-bottom: 16px; position: relative; }
+.wf-form-label {
+  font-size: 12px; font-weight: 600; color: #333; margin-bottom: 6px;
+  display: flex; align-items: center; gap: 4px;
+}
+.wf-required { color: #EF4444; font-size: 10px; }
+.wf-form-input {
+  width: 100%; padding: 10px 12px; border: 1px solid #ddd;
+  border-radius: 8px; font-size: 13px; color: #333; background: #fff; height: 40px;
+}
+.wf-form-input.placeholder { color: #bbb; }
+.wf-form-select {
+  width: 100%; padding: 10px 12px; border: 1px solid #ddd;
+  border-radius: 8px; font-size: 13px; color: #333; background: #fff; height: 40px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.wf-form-textarea {
+  width: 100%; padding: 10px 12px; border: 1px solid #ddd;
+  border-radius: 8px; font-size: 13px; color: #bbb; background: #fff;
+  min-height: 80px; line-height: 1.5; resize: none;
+}
+
+/* Category chips */
+.wf-category-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.wf-chip {
+  padding: 8px 14px; border: 2px solid #ddd; border-radius: 20px;
+  font-size: 12px; color: #666; background: #fff; cursor: pointer;
+}
+.wf-chip.anime { border-color: #8B5CF6; color: #8B5CF6; }
+.wf-chip.idol { border-color: #EC4899; color: #EC4899; }
+.wf-chip.actor { border-color: #F59E0B; color: #F59E0B; }
+.wf-chip.game { border-color: #06B6D4; color: #06B6D4; }
+.wf-chip.selected { background: #EFF6FF; border-color: #2563EB; color: #2563EB; font-weight: 600; }
+
+/* Map area */
+.wf-form-map {
+  height: 120px; background: #E0E0E0; border: 1px solid #ddd; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color: #999; margin-top: 8px; flex-direction: column; gap: 4px;
+}
+
+/* Date/Time inline */
+.wf-date-range { display: flex; gap: 8px; align-items: center; }
+.wf-date-input { flex: 1; padding: 10px 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 13px; height: 40px; }
+.wf-separator { color: #999; font-weight: 600; }
+
+.wf-time-fields { display: flex; gap: 8px; }
+.wf-time-field { flex: 1; padding: 10px 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 13px; height: 40px; }
+
+/* Image upload */
+.wf-image-upload {
+  border: 2px dashed #ddd; border-radius: 8px; padding: 20px;
+  text-align: center; background: #FAFAFA; margin-top: 8px;
+}
+.wf-image-upload-icon { font-size: 24px; color: #999; margin-bottom: 4px; }
+.wf-image-upload-text { font-size: 12px; color: #999; }
+
+/* Input with counter */
+.wf-input-counter { position: relative; }
+.wf-counter { position: absolute; bottom: 8px; right: 12px; font-size: 11px; color: #999; }
+
+/* Submit button */
+.wf-submit-btn {
+  margin: 8px 16px 20px; padding: 14px; background: #2563EB;
+  color: #fff; font-size: 14px; font-weight: 700; text-align: center;
+  border-radius: 10px; width: calc(100% - 32px);
+}
+.wf-submit-btn.disabled { background: #ddd; color: #999; }
+
+/* Revision footer */
+.revision-bar {
+  background: #FAFAFA; border-top: 1px solid #eee; padding: 12px 24px;
+  font-size: 11px; color: #999;
+}
+.revision-bar table { width: 100%; border-collapse: collapse; }
+.revision-bar th { text-align: left; font-weight: 600; padding: 4px 8px; border-bottom: 1px solid #eee; }
+.revision-bar td { padding: 4px 8px; border-bottom: 1px solid #f0f0f0; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .main-layout { flex-direction: column; }
+  .wireframe-side { flex: none; width: 100%; padding: 20px; }
+  .desc-side { flex: none; width: 100%; border-left: none; border-top: 1px solid #ddd; }
+}
+.meta-bar { flex-wrap: wrap; gap: 8px; }
+.phone-frame { max-width: 375px; width: 100%; }
+@media (max-width: 1200px) {
+  .main-layout { gap: 0; }
+  .wireframe-side { flex: 0 0 50%; padding: 20px; }
+  .desc-side { flex: 0 0 50%; padding: 20px; }
+}
+@media (max-width: 700px) {
+  .wireframe-side { padding: 12px; }
+  .desc-side { padding: 12px 16px; }
+  .phone-frame { max-width: 100%; }
+  .meta-bar { padding: 8px 12px; }
+  .meta-item { font-size: 11px; }
+}
+</style>
+</head>
+<body>
+
+<!-- META HEADER -->
+<div class="meta-bar">
+  <span class="title">EVNT03</span>
+  <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">이벤트 등록</span></span>
+  <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/events/new</span></span>
+  <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.1</span></span>
+  <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
+  <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-07</span></span>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="main-layout">
+
+  <!-- ===== WIREFRAME SIDE ===== -->
+  <div class="wireframe-side">
+
+    <!-- ===== Phone Frame 1: 이벤트 등록 (상단) ===== -->
+    <div class="phone-col">
+      <span class="phone-col-label">이벤트 등록 (상단)</span>
+      <div class="phone-frame">
+
+        <!-- ① Header -->
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">1</div>
+          <div class="wf-header">
+            <span class="wf-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></span>
+            <span class="wf-header-title">이벤트 등록</span>
+          </div>
+        </div>
+
+        <!-- ② Category Selection -->
+        <div class="wf-form">
+          <div class="wf-form-group">
+            <div class="num-circle" style="top:-2px; left:0;">2</div>
+            <div class="wf-category-chips">
+              <div class="wf-chip anime selected">애니/만화/소설</div>
+              <div class="wf-chip idol">아이돌/아티스트</div>
+              <div class="wf-chip actor">배우/무대</div>
+              <div class="wf-chip game">게임</div>
+            </div>
+          </div>
+
+          <!-- ③ Event Type -->
+          <div class="wf-form-group">
+            <div class="num-circle" style="top:0; left:0;">3</div>
+            <div class="wf-form-label">이벤트 유형 <span class="wf-required">*</span></div>
+            <div class="wf-form-select">생일카페 <span>▾</span></div>
+          </div>
+
+          <!-- ④ Work Search -->
+          <div class="wf-form-group">
+            <div class="num-circle" style="top:0; left:0;">4</div>
+            <div class="wf-form-label">작품/아이돌 <span class="wf-required">*</span></div>
+            <div class="wf-form-input placeholder">
+              <span style="color:#bbb;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="display:inline; margin-right:4px; vertical-align:middle;">작품 검색...</svg></span>
+            </div>
+          </div>
+
+          <!-- ⑤ Character/Member Search -->
+          <div class="wf-form-group">
+            <div class="num-circle" style="top:0; left:0;">5</div>
+            <div class="wf-form-label">캐릭터/멤버 <span class="wf-required">*</span></div>
+            <div class="wf-form-input placeholder">
+              <span style="color:#bbb;">캐릭터/멤버 검색...</span>
+            </div>
+          </div>
+
+          <!-- ⑥ Event Name -->
+          <div class="wf-form-group">
+            <div class="num-circle" style="top:0; left:0;">6</div>
+            <div class="wf-form-label">이벤트명 <span class="wf-required">*</span></div>
+            <div class="wf-form-input placeholder">이벤트명을 입력해주세요</div>
+          </div>
+
+          <!-- ⑦ Event Date Range -->
+          <div class="wf-form-group">
+            <div class="num-circle" style="top:0; left:0;">7</div>
+            <div class="wf-form-label">이벤트 기간 <span class="wf-required">*</span></div>
+            <div class="wf-date-range">
+              <div class="wf-date-input" style="display:flex; align-items:center;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="margin-right:6px; color:#999;">시작일</svg>
+                <span style="color:#bbb;">2026-03-15</span>
+              </div>
+              <span class="wf-separator">~</span>
+              <div class="wf-date-input" style="display:flex; align-items:center;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="margin-right:6px; color:#999;">종료일</svg>
+                <span style="color:#bbb;">2026-03-20</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /phone-frame 1 -->
+    </div><!-- /phone-col -->
+
+    <!-- ===== Phone Frame 2: 이벤트 등록 (하단) ===== -->
+    <div class="phone-col">
+      <span class="phone-col-label">이벤트 등록 (하단)</span>
+      <div class="phone-frame">
+
+        <!-- ⑧ Location -->
+        <div class="wf-form">
+          <div class="wf-form-group">
+            <div class="num-circle" style="top:0; left:0;">8</div>
+            <div class="wf-form-label">장소 <span class="wf-required">*</span></div>
+            <div class="wf-form-input" style="color:#999; display:flex; align-items:center;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="margin-right:6px;">서울 마포구 홍대입구역</svg>
+            </div>
+            <div class="wf-form-map">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">카카오맵 핀 지정</svg>
+            </div>
+          </div>
+
+          <!-- ⑨ Optional Section Header -->
+          <div style="margin-top:20px; margin-bottom:12px; font-size:12px; font-weight:600; color:#666;">선택 입력</div>
+
+          <!-- ⑨-1 Operating Hours -->
+          <div class="wf-form-group">
+            <div class="num-circle" style="top:0; left:0;">9</div>
+            <div class="wf-form-label">운영 시간</div>
+            <div class="wf-time-fields">
+              <div class="wf-time-field" style="display:flex; align-items:center;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="margin-right:4px; color:#999;">시작</svg>
+                <span style="color:#bbb;">10:00</span>
+              </div>
+              <div class="wf-time-field" style="display:flex; align-items:center;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="margin-right:4px; color:#999;">종료</svg>
+                <span style="color:#bbb;">18:00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ⑨-2 Description -->
+          <div class="wf-form-group">
+            <div class="num-circle" style="top:0; left:0;">9</div>
+            <div class="wf-form-label">상세 설명</div>
+            <div class="wf-input-counter">
+              <div class="wf-form-textarea">이벤트에 대해 자세히 알려주세요</div>
+              <div class="wf-counter">0/1000</div>
+            </div>
+          </div>
+
+          <!-- ⑨-3 Images -->
+          <div class="wf-form-group">
+            <div class="num-circle" style="top:0; left:0;">9</div>
+            <div class="wf-form-label">대표 이미지</div>
+            <div class="wf-image-upload">
+              <div class="wf-image-upload-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">+</svg></div>
+              <div class="wf-image-upload-text">최대 3장</div>
+            </div>
+          </div>
+
+          <!-- ⑨-4 External Link -->
+          <div class="wf-form-group">
+            <div class="num-circle" style="top:0; left:0;">9</div>
+            <div class="wf-form-label">외부 링크</div>
+            <div class="wf-form-input placeholder">
+              <span style="color:#bbb;">URL을 입력해주세요</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ⑩ Submit Button -->
+        <div class="wf-section" style="position:relative; padding:0 16px 20px;">
+          <div class="num-circle" style="top:2px; left:2px;">10</div>
+          <div class="wf-submit-btn">등록하기</div>
+        </div>
+
+      </div><!-- /phone-frame 2 -->
+    </div><!-- /phone-col -->
+
+  </div><!-- /wireframe-side -->
+
+  <!-- ===== DESCRIPTION SIDE ===== -->
+  <div class="desc-side">
+    <div class="desc-title">EVNT03 이벤트 등록</div>
+    <div class="desc-subtitle">이벤트 생성 폼: 카테고리, 유형, 작품, 캐릭터, 기본/선택 정보 입력</div>
+
+    <!-- ① Header -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">1</div>
+        <span class="desc-comp-type">[Header]</span>
+        <span class="desc-comp-name">상단 헤더</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>좌측: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="display:inline; vertical-align:middle;">뒤로</svg> 뒤로가기 (작성 중 이탈 시 "작성 중인 내용이 있습니다" 확인)</li>
+          <li>중앙: "이벤트 등록" 제목 (수정 모드: "이벤트 수정")</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- ② Category Chips -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">2</div>
+        <span class="desc-comp-type">[Chips]</span>
+        <span class="desc-comp-name">카테고리 선택</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>4대 카테고리: 애니/만화/소설(Purple #8B5CF6) | 아이돌/아티스트(Pink #EC4899) | 배우/무대(Amber #F59E0B) | 게임(Cyan #06B6D4)</li>
+          <li>필수 단일 선택 (처음 진입 시 첫 번째 선택됨)</li>
+          <li>선택: Blue 배경 + Bold 텍스트, 미선택: Gray 테두리</li>
+          <li>선택 후 작품 DB 필터링 (카테고리별로 작품 검색)</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- ③ Event Type -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">3</div>
+        <span class="desc-comp-type">[Dropdown]</span>
+        <span class="desc-comp-name">이벤트 유형</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>7가지 옵션: 생일카페 / 데뷔 기념 / 팬미팅 / 팬이벤트 / 출판 기념 / 콘서트/공연 / 기타</li>
+          <li>필수 선택</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- ④ Work Search -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">4</div>
+        <span class="desc-comp-type">[SearchInput]</span>
+        <span class="desc-comp-name">작품/아이돌 검색</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>작품 DB에서 키워드 검색 (디바운스 300ms)</li>
+          <li>선택한 카테고리 내에서만 검색 결과 표시</li>
+          <li>자동완성 드롭다운 (최대 10개)</li>
+          <li>필수 선택</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- ⑤ Character/Member Search -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">5</div>
+        <span class="desc-comp-type">[SearchInput]</span>
+        <span class="desc-comp-name">캐릭터/멤버 검색</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>작품 선택 후 해당 작품의 캐릭터/멤버 목록 검색</li>
+          <li>자동완성 드롭다운</li>
+          <li>필수 선택</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- ⑥ Event Name -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">6</div>
+        <span class="desc-comp-type">[TextInput]</span>
+        <span class="desc-comp-name">이벤트명</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>최대 50자 제한</li>
+          <li>플레이스홀더: "이벤트명을 입력해주세요"</li>
+          <li>필수 선택</li>
+          <li>예: "히나타 쇼요 생일 축하 생카", "세븐틴 민규 팬미팅"</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- ⑦ Event Date Range -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">7</div>
+        <span class="desc-comp-type">[DatePicker]</span>
+        <span class="desc-comp-name">이벤트 기간</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>시작일 ~ 종료일 두 개 DatePicker 필드</li>
+          <li>캘린더 아이콘 + 날짜 선택</li>
+          <li>필수 선택</li>
+          <li>유효성: 종료일 >= 시작일</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- ⑧ Location -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">8</div>
+        <span class="desc-comp-type">[MapPicker]</span>
+        <span class="desc-comp-name">장소</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>주소 검색 인풋 + 카카오맵 통합</li>
+          <li>지도 내 핀 드래그로 미세 조정 가능</li>
+          <li>선택 시 주소 텍스트 표시</li>
+          <li>필수 선택</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- ⑨ Optional Section -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">9</div>
+        <span class="desc-comp-type">[OptionalSection]</span>
+        <span class="desc-comp-name">선택 입력</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li><strong>운영 시간</strong>: 시작 시간 ~ 종료 시간 (두 개 시간 필드, HH:mm)</li>
+          <li><strong>상세 설명</strong>: Textarea (최대 1000자, 글자 수 카운터)</li>
+          <li><strong>대표 이미지</strong>: 이미지 업로드 (최대 3장, JPG/PNG, 10MB 이하)
+            <ul class="sub">
+              <li>첫 번째 이미지 = 썸네일</li>
+              <li>Sharp로 max 800px 리사이즈</li>
+            </ul>
+          </li>
+          <li><strong>외부 링크</strong>: URL 인풋 필드 (예: 티켓팅 페이지, 상세 페이지)</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- ⑩ Submit Button -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">10</div>
+        <span class="desc-comp-type">[CTA]</span>
+        <span class="desc-comp-name">등록 버튼</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>필수 항목 모두 완료 시: Blue 배경, "등록하기" 텍스트</li>
+          <li>미완료 시: Gray 배경 + 비활성 (필수 필드 빨간 테두리 + 에러 텍스트)</li>
+          <li>탭 시: API 호출 → 로딩 스피너 → 성공 → EVNT01(이벤트 캘린더) 이동 또는 이벤트 상세 페이지(EVNT02)</li>
+          <li>수정 모드: "수정하기" 텍스트</li>
+          <li>에러: 토스트 메시지 "등록에 실패했습니다. 다시 시도해주세요."</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- States -->
+    <div class="states-section">
+      <div class="states-title">화면 상태</div>
+      <div class="states-item"><strong>기본 상태</strong>: 빈 폼, 첫 카테고리 선택됨</div>
+      <div class="states-item"><strong>입력 완료</strong>: 모든 필수 필드 작성 → 버튼 활성(Blue)</div>
+      <div class="states-item"><strong>수정 모드</strong>: 기존 이벤트 데이터 프리필, 제목 "이벤트 수정"</div>
+      <div class="states-item"><strong>로딩</strong>: 제출 중 스피너, 폼 비활성</div>
+      <div class="states-item"><strong>필드 에러</strong>: 빨간 테두리 + 하단 에러 텍스트 (예: "필수 항목입니다")</div>
+      <div class="states-item"><strong>이탈 확인</strong>: 작성 중 뒤로가기 시 다이얼로그</div>
+    </div>
+
+    <!-- Connected screens -->
+    <div style="margin-top:20px;">
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">연관 화면</div>
+      <table class="conn-table">
+        <thead>
+          <tr><th>이동 대상</th><th>조건</th><th>화면코드</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>이벤트 캘린더</td><td>← 뒤로가기 또는 등록 성공</td><td class="code">EVNT01</td></tr>
+          <tr><td>이벤트 상세</td><td>등록 완료 (선택)</td><td class="code">EVNT02</td></tr>
+          <tr><td>로그인</td><td>비로그인 상태</td><td class="code">AUTH01</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div><!-- /desc-side -->
+
+</div><!-- /main-layout -->
+
+<!-- REVISION FOOTER -->
+<div class="revision-bar">
+  <table>
+    <thead><tr><th>날짜</th><th>버전</th><th>내용</th><th>작성자</th></tr></thead>
+    <tbody>
+      <tr><td>2026-03-07</td><td>0.1</td><td>초안 작성 (EVNT01에서 분리)</td><td>-</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
