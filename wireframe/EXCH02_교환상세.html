@@ -496,6 +496,52 @@ body {
 .wf-owner-btn.disabled { color: var(--gray-400); background: var(--gray-100); border-color: var(--gray-200); }
 .wf-owner-lock-note { border-color: #D8EAFE; background: #F3F8FF; color: var(--primary-dark); }
 
+/* Closed state */
+.wf-closed-banner {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 16px; background: #F1F5F9; border-bottom: 1px solid #E2E8F0;
+  font-size: 12px; font-weight: 600; color: #45617E;
+}
+.wf-closed-badge {
+  display: inline-flex; align-items: center; gap: 3px;
+  background: #45617E; color: #fff; font-size: 10px; font-weight: 700;
+  padding: 3px 8px; border-radius: 4px;
+}
+.wf-cta-disabled {
+  opacity: 0.45; pointer-events: none;
+}
+.wf-close-confirm-overlay {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;
+  z-index: 200;
+}
+.wf-close-confirm {
+  background: #fff; border-radius: 12px; width: 300px; padding: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2); text-align: center;
+}
+.wf-close-confirm-title {
+  font-size: 15px; font-weight: 700; color: var(--gray-900); margin-bottom: 8px;
+}
+.wf-close-confirm-body {
+  font-size: 12px; color: var(--gray-600); line-height: 1.6; margin-bottom: 6px;
+}
+.wf-close-confirm-meta {
+  font-size: 11px; color: #E88A2A; font-weight: 600; margin-bottom: 16px;
+}
+.wf-close-confirm-actions {
+  display: flex; gap: 8px;
+}
+.wf-close-confirm-btn {
+  flex: 1; height: 40px; border-radius: 8px; border: none; cursor: pointer;
+  font-size: 13px; font-weight: 600;
+}
+.wf-close-confirm-btn.cancel {
+  background: var(--gray-100); color: var(--gray-600);
+}
+.wf-close-confirm-btn.confirm {
+  background: #F59E0B; color: #fff;
+}
+
 .revision-bar { background: #fff; border-top-color: var(--gray-200); color: var(--gray-400); }
 .revision-bar th { color: var(--gray-600); border-bottom-color: var(--gray-200); }
 .revision-bar td { border-bottom-color: var(--gray-100); color: var(--gray-600); }
@@ -539,7 +585,7 @@ body {
   <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">교환 상세</span></span>
   <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/exchange/:id</span></span>
   <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">PC / Mobile</span></span>
-  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.9</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">1.0</span></span>
   <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">확정</span></span>
   <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-06</span></span>
 </div>
@@ -999,6 +1045,125 @@ body {
 
     </div><!-- /phone-frame 4 -->
 
+    <!-- ===== PHONE FRAME 5: 마감 상태 상세 (타인 뷰 + 본인 뷰) ===== -->
+    <div style="font-size:12px; font-weight:600; color:#666; margin-bottom:-16px; text-align:center;">Frame 5: 마감 상태 상세 — 타인 뷰</div>
+    <div class="phone-frame">
+
+      <div class="wf-section">
+        <div class="wf-header">
+          <span class="wf-back">&larr;</span>
+          <div class="wf-header-icons">
+            <div class="wf-icon">&nearr;</div>
+            <div class="wf-icon">&ctdot;</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 마감 뱃지 배너 -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:4px; left:6px;">13</div>
+        <div class="wf-closed-banner">
+          <span class="wf-closed-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            마감
+          </span>
+          <span style="color:#8EA2B7; font-weight:400;">이 교환글은 모집이 마감되었습니다</span>
+        </div>
+      </div>
+
+      <div class="wf-img-slider" style="aspect-ratio: 1; opacity: 0.6;">
+        <span>상품 이미지 (1/3)</span>
+        <div class="wf-img-count">1/3</div>
+      </div>
+
+      <div class="wf-tags">
+        <span class="wf-tag exchange">교환</span>
+        <span class="wf-tag anime">애니/만화/소설</span>
+      </div>
+
+      <div class="wf-product-info">
+        <div class="wf-product-title">하이큐 히나타 아크릴 스탠드</div>
+        <div class="wf-product-work">하이큐!! &middot; 히나타 쇼요 &rsaquo;</div>
+        <div class="wf-product-date">2026.03.05 등록</div>
+      </div>
+
+      <div class="wf-detail-box" style="opacity:0.6;">
+        <div class="wf-detail-row">
+          <span class="wf-detail-label">상태</span>
+          <span class="wf-detail-value">S급 (미개봉)</span>
+        </div>
+        <div class="wf-detail-row">
+          <span class="wf-detail-label">희망 교환</span>
+          <span class="wf-detail-value highlight">카게야마 아크릴 스탠드</span>
+        </div>
+      </div>
+
+      <!-- 하단 CTA 비활성 -->
+      <div class="wf-bottom-cta wf-cta-disabled">
+        <div class="wf-cta-wish">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span class="wf-cta-wish-count">12</span>
+        </div>
+        <div class="wf-cta-btn wf-cta-chat">채팅하기</div>
+        <div class="wf-cta-btn wf-cta-exchange">교환 제안</div>
+      </div>
+      <div style="padding:6px 16px 10px; font-size:10px; color:#8EA2B7; text-align:center;">마감된 교환글에는 새 제안을 보낼 수 없어요</div>
+
+    </div><!-- /phone-frame 5 -->
+
+    <!-- ===== PHONE FRAME 6: 본인 글 마감 CTA + 마감 확인 팝업 ===== -->
+    <div style="font-size:12px; font-weight:600; color:#666; margin-bottom:-16px; text-align:center;">Frame 6: 본인 글 — 마감 CTA + 확인 팝업</div>
+    <div class="phone-frame" style="min-height: 480px;">
+
+      <div class="wf-header">
+        <span class="wf-back">&larr;</span>
+        <div class="wf-header-icons">
+          <div class="wf-icon">&nearr;</div>
+          <div class="wf-icon">&ctdot;</div>
+        </div>
+      </div>
+
+      <div class="wf-img-slider" style="aspect-ratio: 1; height: 140px;">
+        <span>상품 이미지</span>
+      </div>
+
+      <div class="wf-product-info">
+        <div class="wf-product-title">하이큐 히나타 아크릴 스탠드</div>
+        <div class="wf-product-date">2026.03.05 등록 &middot; 내 글</div>
+      </div>
+
+      <!-- 본인 글 CTA: 수정 불가 + 끌어올리기 + 마감 -->
+      <div class="wf-section">
+        <div class="num-circle" style="top:6px; left:6px;">14</div>
+        <div class="wf-owner-cta">
+          <button class="wf-owner-btn disabled">수정 불가</button>
+          <button class="wf-owner-btn">끌어올리기</button>
+          <button class="wf-owner-btn" style="color:#F59E0B; border-color:#F59E0B; font-weight:700;">마감</button>
+        </div>
+      </div>
+      <div class="wf-owner-lock-note">받은 제안 이력이 있어 수정할 수 없어요. 삭제 대신 [마감]으로 교환 모집을 종료할 수 있어요.</div>
+
+      <!-- 마감 확인 팝업 오버레이 -->
+      <div class="wf-close-confirm-overlay">
+        <div class="wf-section" style="position:relative;">
+          <div class="num-circle" style="top:-6px; left:-6px;">15</div>
+          <div class="wf-close-confirm">
+            <div class="wf-close-confirm-title">교환글을 마감하시겠습니까?</div>
+            <div class="wf-close-confirm-body">마감하면 대기중 제안이 모두 만료되며,<br>다시 활성화할 수 없어요.</div>
+            <div class="wf-close-confirm-meta">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12" style="vertical-align:middle;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              대기중 제안 2건이 만료 처리됩니다
+            </div>
+            <div class="wf-close-confirm-actions">
+              <button class="wf-close-confirm-btn cancel">취소</button>
+              <button class="wf-close-confirm-btn confirm">마감하기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /phone-frame 6 -->
+
   </div><!-- /wireframe-side -->
 
   <!-- ===== DESCRIPTION SIDE ===== -->
@@ -1304,6 +1469,98 @@ body {
 
     <hr class="desc-divider">
 
+    <!-- ⑬ 마감 상태 표시 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">13</div>
+        <span class="desc-comp-type">[ClosedState]</span>
+        <span class="desc-comp-name">마감 상태 표시</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>교환글 상태가 `closed`일 때 상단에 마감 배너 표시
+            <ul class="sub">
+              <li>마감 뱃지(#45617E) + "이 교환글은 모집이 마감되었습니다" 안내</li>
+            </ul>
+          </li>
+          <li>하단 CTA 전체 비활성(opacity 0.45) + 안내 문구:
+            <ul class="sub">
+              <li>"마감된 교환글에는 새 제안을 보낼 수 없어요"</li>
+              <li>찜/공유만 가능, 채팅/교환 제안 버튼 비활성</li>
+            </ul>
+          </li>
+          <li>이미지/상세정보 영역 반투명(opacity 0.6) 처리</li>
+          <li>마감 vs 교환완료 구분:
+            <ul class="sub">
+              <li>마감(closed): 등록자가 수동 종료, 회색 뱃지(#45617E)</li>
+              <li>교환완료(completed): 거래 완료, Green 뱃지</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- ⑭ 마감 CTA (본인 글) -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">14</div>
+        <span class="desc-comp-type">[CloseCTA]</span>
+        <span class="desc-comp-name">마감 CTA (본인 글)</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>받은 제안 이력 1건 이상이면 [삭제] 대신 [마감] 버튼 표시
+            <ul class="sub">
+              <li>[마감] 버튼: Amber 텍스트(#F59E0B) + Amber 보더</li>
+              <li>안내 문구: "삭제 대신 [마감]으로 교환 모집을 종료할 수 있어요"</li>
+            </ul>
+          </li>
+          <li>CTA 구성: [수정 불가] + [끌어올리기] + [마감]</li>
+          <li>마감 완료 후: 본인도 수정/끌어올리기/삭제 불가, [비공개] 전환만 가능</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
+    <!-- ⑮ 마감 확인 팝업 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">15</div>
+        <span class="desc-comp-type">[CloseConfirm]</span>
+        <span class="desc-comp-name">마감 확인 팝업</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>[마감] 버튼 탭 시 확인 팝업 표시
+            <ul class="sub">
+              <li>제목: "교환글을 마감하시겠습니까?"</li>
+              <li>본문: "마감하면 대기중 제안이 모두 만료되며, 다시 활성화할 수 없어요."</li>
+              <li>경고 메타: "대기중 제안 N건이 만료 처리됩니다" (Amber)</li>
+            </ul>
+          </li>
+          <li>CTA:
+            <ul class="sub">
+              <li>[취소] Gray 버튼</li>
+              <li>[마감하기] Amber(#F59E0B) 버튼</li>
+            </ul>
+          </li>
+          <li>마감 실행 시:
+            <ul class="sub">
+              <li>교환글 status → `closed`</li>
+              <li>대기중(pending) 제안 일괄 만료(expired) 처리</li>
+              <li>제안자에게 "교환글이 마감되었습니다" 알림 발송</li>
+              <li>재오픈 불가 (새 교환글 재등록 유도)</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
     <!-- 연관 화면 -->
     <div class="desc-item">
       <div class="desc-num-row">
@@ -1338,6 +1595,8 @@ body {
       <div class="states-item"><strong>교환 제안 진입 상태</strong>: CTA 탭 시 EXCH04로 이동, EXCH04에서 방식 선택/조건 입력 진행</div>
       <div class="states-item"><strong>오늘 직교환 상태</strong>: 당일에만 활성, 시간/대략 위치 입력 폼 확장</div>
       <div class="states-item"><strong>수정 잠금 상태</strong>: 받은 제안 이력 1건 이상(상태 무관) 시 [수정] 비활성 + 정책 안내 문구 노출</div>
+      <div class="states-item"><strong>마감 상태 (타인 뷰)</strong>: 상단 "마감" 배너 + CTA 비활성 + 이미지/상세 반투명 + "새 제안 불가" 안내</div>
+      <div class="states-item"><strong>마감 상태 (본인 뷰)</strong>: [삭제] → [마감] 버튼 대체 + 마감 확인 팝업 + 마감 후 모든 액션 비활성</div>
       <div class="states-item"><strong>비공개/삭제</strong>: "존재하지 않는 교환글입니다" + [목록으로] 버튼</div>
       <div class="states-item"><strong>비로그인</strong>: 조회 가능, CTA 탭 시 로그인 유도</div>
     </div>
@@ -1350,6 +1609,7 @@ body {
   <table>
     <thead><tr><th>날짜</th><th>버전</th><th>내용</th></tr></thead>
     <tbody>
+      <tr><td>2026-03-11</td><td>1.0</td><td>마감(closed) 상태 프레임 추가: 타인 뷰(배너+CTA 비활성) + 본인 뷰(삭제→마감 대체) + 마감 확인 팝업</td></tr>
       <tr><td>2026-03-11</td><td>0.9</td><td>교환 제안 상태 전이/권한 정합화: 대기중에서만 액션 허용, 거절/취소/만료 상태 이력 표시 반영</td></tr>
       <tr><td>2026-03-11</td><td>0.8</td><td>교환 제안 전용 페이지(EXCH04) 진입 구조 반영: EXCH02는 CTA 진입 중심으로 정합화</td></tr>
       <tr><td>2026-03-10</td><td>0.7</td><td>교환 제안 상세화: 제안 방식 선택(매칭/빠른등록), 다수거래(1:1/1:N/N:1), 차액(+/-), 오늘 직교환(이벤트 근처) 입력 화면 추가</td></tr>

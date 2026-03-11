@@ -160,7 +160,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
 <div class="header-bar">
   <h1><span>애픽 월드</span> Aepik World — 유저 플로우 개요</h1>
-  <div class="meta">v1.17 · 기반: PRD v5.0 · 2026-03-11</div>
+  <div class="meta">v1.18 · 기반: PRD v5.0 · 2026-03-11</div>
 </div>
 
 <div class="flow-nav">
@@ -562,7 +562,9 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg> <strong>제안 정책</strong>: 동시 pending 최대 3건 / 재시도 제한(24시간 3회·7일 6회) / 수락 시 나머지 자동 거절 / 7일 미응답 자동 만료<br>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M3 5h18"/><path d="M3 12h18"/><path d="M3 19h18"/></svg> <strong>거래 조건</strong>: 제안 단위에서 1:1·1:N·N:1, 수량, 차액(+/-), 오늘 직교환(이벤트 근처) 입력 지원<br>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg> <strong>수정/삭제 잠금 정책</strong>: 본인 글에 받은 제안 이력이 1건 이상(상태 무관)이면 수정/삭제 불가<br>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M12 20h9"/><path d="M12 4h9"/><path d="M3 10h18"/><path d="M3 14h18"/><path d="M7 4v16"/></svg> <strong>상태 전이/권한</strong>: owner만 수락·거절, proposer만 취소, 변경은 pending에서만 허용
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M12 20h9"/><path d="M12 4h9"/><path d="M3 10h18"/><path d="M3 14h18"/><path d="M7 4v16"/></svg> <strong>상태 전이/권한</strong>: owner만 수락·거절, proposer만 취소, 변경은 pending에서만 허용<br>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg> <strong>재제안(다시 제안하기)</strong>: 거절/만료 + 상대글 active + pending 3건 미만 → EXCH04 프리필 재진입 / 상대글 마감 시 버튼 숨김 + 안내<br>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> <strong>교환글 마감 시 자동 처리</strong>: 교환글 closed/completed 전환 시 남은 pending 제안 일괄 expired + 각 제안자에게 마감 알림
       </div>
 
       <h4 style="font-size: 13px; color: #69BFEA; margin: 20px 0 12px;">4-3a. 교환 목록 내 글 액션 (EXCH01)</h4>
@@ -1502,6 +1504,8 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <div class="flow-node action" style="min-width:130px; font-size:11px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="2" y="4" width="14" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> 교환 제안 알림<br>→ EXCH05</div>
           <div class="flow-node action" style="min-width:130px; font-size:11px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> 동행 매칭 알림<br>→ 해당 교환글</div>
           <div class="flow-node action" style="min-width:130px; font-size:11px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="m3 11 18-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg> 시스템 알림<br>→ 공지사항</div>
+          <div class="flow-node action" style="min-width:130px; font-size:11px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> 교환글 마감<br>→ EXCH05 보낸 제안</div>
+          <div class="flow-node action" style="min-width:130px; font-size:11px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 직교환 시간 만료<br>→ CHAT02</div>
         </div>
       </div>
     </div>
@@ -1707,7 +1711,8 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 </div><!-- end canvas -->
 
 <div class="footer">
-  애픽 월드 (Aepik World) 유저 플로우 개요 v1.17 · 기반: PRD v5.0, 유저 플로우 v1.17 · 2026-03-11<br>
+  애픽 월드 (Aepik World) 유저 플로우 개요 v1.18 · 기반: PRD v5.0, 유저 플로우 v1.18 · 2026-03-11<br>
+  <strong>v1.18 업데이트 (2026-03-11)</strong>: 재제안(다시 제안하기) 플로우 추가, 교환글 마감 시 pending 제안 일괄 만료 자동 처리, 알림 딥링크에 교환글 마감 + 직교환 시간 만료 2건 추가<br>
   <strong>v1.17 업데이트 (2026-03-11)</strong>: 교환 제안 정책 보강(동시 pending 3건 + 재시도 제한 24시간 3회/7일 6회), EXCH05 상태 이력(cancelled) 표시, 상태 전이/권한(owner accept·reject / proposer cancel) 명시<br>
   <strong>v1.16 업데이트 (2026-03-11)</strong>: 끌어올리기 유료 금액 고정(500원/회) 반영, HOME01의 서비스 소개 · 운영정책 → STAT01(/about) 진입 플로우 추가<br>
   <strong>v1.15 업데이트 (2026-03-11)</strong>: EXCH01 삭제 잠금 정책 반영 (받은 제안 이력 1건 이상이면 삭제 불가, 삭제 확인은 이력 0건 케이스만 허용)<br>

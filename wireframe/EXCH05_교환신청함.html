@@ -238,6 +238,19 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   background: #fff; color: #2F8EC1; cursor: pointer;
 }
 
+/* Reproposal states */
+.wf-repropose-btn {
+  margin-top: 8px; width: 100%; font-size: 10px; padding: 6px;
+  border-radius: 4px; border: 1px solid #2F8EC1;
+  background: #EAF7FF; color: #2F8EC1; cursor: pointer; font-weight: 600;
+}
+.wf-closed-notice {
+  margin-top: 6px; font-size: 10px; color: #8EA2B7;
+  display: flex; align-items: center; gap: 4px;
+}
+.wf-sent-status-badge.rejected { background: #F3F4F6; color: #6B7280; }
+.wf-sent-status-badge.expired { background: #F3F4F6; color: #6B7280; }
+
 /* Empty state */
 .wf-empty-state {
   display: flex; flex-direction: column; align-items: center;
@@ -296,7 +309,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">교환 신청함</span></span>
   <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/exchange/proposals · /exchange/my-proposals</span></span>
   <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">PC / Mobile</span></span>
-  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.5</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.6</span></span>
   <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
   <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-06</span></span>
 </div>
@@ -523,6 +536,122 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       </div><!-- end sent section -->
 
     </div><!-- end phone-frame -->
+
+    <!-- ===== Frame 2: 보낸 제안 — 재제안/마감 상태 ===== -->
+    <div class="frame-label">보낸 제안 — 재제안/마감 상태</div>
+    <div class="phone-frame" style="width:375px; background:#fff; border-radius:16px; box-shadow:0 4px 24px rgba(0,0,0,0.12); overflow:hidden; position:relative;">
+
+      <!-- Header -->
+      <div class="wf-header">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#45617E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="15 18 9 12 15 6"/></svg>
+        <span class="wf-header-title">교환 신청함</span>
+        <div style="width:20px;"></div>
+      </div>
+
+      <!-- Tab bar — 보낸 제안 활성 -->
+      <div class="wf-tab-bar">
+        <div class="wf-tab">받은 제안 (3)</div>
+        <div class="wf-tab active">보낸 제안 (4)</div>
+      </div>
+
+      <!-- Sent proposals with reproposal states -->
+      <div class="wf-sent-section">
+
+        <!-- Sent 1: 거절됨 + active 교환글 → 재제안 가능 -->
+        <div class="wf-section" style="position:relative;">
+          <div class="num-circle" style="top:12px; left:6px;">7</div>
+          <div class="wf-sent-item">
+            <div class="wf-sent-item-left">
+              <div class="wf-sent-label">상대방 교환글</div>
+              <div class="wf-sent-card">
+                <div class="wf-sent-card-img">IMG</div>
+                <div class="wf-sent-card-name">주술회전 고죠 캔뱃지</div>
+              </div>
+            </div>
+            <div class="wf-sent-item-right">
+              <div class="wf-sent-label">내 제안 굿즈</div>
+              <div class="wf-sent-card">
+                <div class="wf-sent-card-img">IMG</div>
+                <div class="wf-sent-card-name">원신 바르바토스 아크릴</div>
+              </div>
+              <div class="wf-sent-meta">
+                <div class="wf-sent-meta-line"><span class="wf-proposal-pill listing">내 교환글 매칭</span><span>거래 구조: 1:1</span></div>
+                <div class="wf-sent-meta-line"><span>수량: 제공 1개 / 희망 1개</span><span>차액: +3,000원</span></div>
+              </div>
+              <div class="wf-sent-status">
+                <span class="wf-sent-status-badge rejected">거절됨</span>
+                <span style="font-size:10px; color:#8EA2B7;">2일 전</span>
+              </div>
+              <div style="font-size:9px; color:#8EA2B7; margin-top:4px;">사유: 다른 분과 교환이 성사되었어요</div>
+              <button class="wf-repropose-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12" style="vertical-align:middle; margin-right:3px;"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                다시 제안하기
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sent 2: 만료됨 + 마감된 교환글 → 재제안 불가 -->
+        <div class="wf-section" style="position:relative;">
+          <div class="num-circle" style="top:12px; left:6px;">7</div>
+          <div class="wf-sent-item">
+            <div class="wf-sent-item-left">
+              <div class="wf-sent-label">상대방 교환글</div>
+              <div class="wf-sent-card" style="opacity:0.5;">
+                <div class="wf-sent-card-img">IMG</div>
+                <div class="wf-sent-card-name">뉴진스 해인 포토북</div>
+              </div>
+            </div>
+            <div class="wf-sent-item-right">
+              <div class="wf-sent-label">내 제안 굿즈</div>
+              <div class="wf-sent-card">
+                <div class="wf-sent-card-img">IMG</div>
+                <div class="wf-sent-card-name">아이즈원 미주 포토카드</div>
+              </div>
+              <div class="wf-sent-status">
+                <span class="wf-sent-status-badge expired">만료</span>
+                <span style="font-size:10px; color:#8EA2B7;">5일 전</span>
+              </div>
+              <div class="wf-closed-notice">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#8EA2B7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                교환글이 마감되었습니다
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sent 3: 만료됨 + active 교환글 → 재제안 가능 -->
+        <div class="wf-section" style="position:relative;">
+          <div class="wf-sent-item">
+            <div class="wf-sent-item-left">
+              <div class="wf-sent-label">상대방 교환글</div>
+              <div class="wf-sent-card">
+                <div class="wf-sent-card-img">IMG</div>
+                <div class="wf-sent-card-name">블루아카 미소리 피규어</div>
+              </div>
+            </div>
+            <div class="wf-sent-item-right">
+              <div class="wf-sent-label">내 제안 굿즈</div>
+              <div class="wf-sent-card">
+                <div class="wf-sent-card-img">IMG</div>
+                <div class="wf-sent-card-name">우마무스메 스즈카 아크릴</div>
+              </div>
+              <div class="wf-sent-status">
+                <span class="wf-sent-status-badge expired">만료</span>
+                <span style="font-size:10px; color:#8EA2B7;">7일 전</span>
+              </div>
+              <button class="wf-repropose-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12" style="vertical-align:middle; margin-right:3px;"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                다시 제안하기
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end sent section -->
+
+    </div><!-- end phone-frame 2 -->
+
   </div><!-- end wireframe-side -->
 
   <!-- ===== DESCRIPTION ===== -->
@@ -686,6 +815,31 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
     <hr class="desc-divider">
 
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">7</div>
+        <span class="desc-comp-type">[ReproposeCTA]</span>
+        <span class="desc-comp-name">재제안 (다시 제안하기)</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>보낸 제안이 <code>rejected</code> / <code>expired</code> 상태일 때 표시</li>
+          <li>조건: 상대 교환글이 <code>active</code> + 해당 글에 본인 <code>pending</code> 제안 3건 미만</li>
+          <li>[다시 제안하기] 버튼: Blue 아웃라인 + `RotateCcw` 아이콘, 탭 시 EXCH04로 이전 제안 데이터 프리필 이동</li>
+          <li>상대 교환글이 <code>closed</code>/<code>completed</code>/<code>hidden</code>이면:
+            <ul class="sub">
+              <li>[다시 제안하기] 숨김</li>
+              <li>"교환글이 마감되었습니다" 회색 안내 텍스트 + `XCircle` 아이콘 표시</li>
+              <li>상대 교환글 이미지 반투명(opacity 0.5) 처리</li>
+            </ul>
+          </li>
+          <li>거절 사유 표시: 거절됨일 때 사유 텍스트 표시 (있는 경우)</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="desc-divider">
+
     <!-- States -->
     <div style="margin-top:16px;">
       <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2F8EC1;">화면 상태</div>
@@ -698,6 +852,8 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <li><strong>제안 메타 표시 상태</strong>: 제안 방식/거래 구조/수량/차액이 카드 요약으로 노출</li>
           <li><strong>오늘 직교환 상태</strong>: 이벤트명·시간대·대략 위치 요약 노출, 시간 만료 시 일반 직거래 제안으로 전환</li>
           <li><strong>수정 잠금 연동 상태</strong>: 받은 제안이 1건 이상인 내 글은 EXCH02에서 [수정] 비활성 + 안내 문구 노출</li>
+          <li><strong>재제안 가능 상태</strong>: 거절/만료 제안 + 상대글 active → [다시 제안하기] 버튼 표시</li>
+          <li><strong>재제안 불가 (마감)</strong>: 거절/만료 제안 + 상대글 closed/completed/hidden → "교환글이 마감되었습니다" 안내</li>
           <li><strong>에러 상태</strong>: "데이터를 불러올 수 없습니다" + 재시도 버튼</li>
         </ul>
       </div>
@@ -741,6 +897,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       <tr><th>날짜</th><th>버전</th><th>내용</th><th>작성자</th></tr>
     </thead>
     <tbody>
+      <tr><td>2026-03-11</td><td>0.6</td><td>보낸 제안 재제안(다시 제안하기) 프레임 추가: 거절/만료 CTA + 마감 교환글 안내 상태</td><td>AI (Claude)</td></tr>
       <tr><td>2026-03-11</td><td>0.5</td><td>받은 제안 상태 모델 보정: cancelled 상태 배지/이력 표시 정책 추가, 정렬 문구 정합화</td><td>AI (Codex)</td></tr>
       <tr><td>2026-03-11</td><td>0.4</td><td>EXCH04(교환 제안 전용 페이지) 연계 반영: 발송 결과 확인/재제안 연관 화면 추가</td><td>AI (Codex)</td></tr>
       <tr><td>2026-03-10</td><td>0.3</td><td>교환 제안 확장 메타 반영: 제안 방식(매칭/빠른등록), 다수거래(1:1/1:N/N:1), 차액(+/-), 오늘 직교환 정보 카드 표기 추가</td><td>AI (Codex)</td></tr>

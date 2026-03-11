@@ -8,7 +8,7 @@
 | **화면명** | 알림 센터 |
 | **라우트** | /notifications |
 | **이용자** | Mobile / PC |
-| **버전** | 0.2 |
+| **버전** | 0.3 |
 | **작성일** | 2026-03-07 |
 | **상태** | 초안 |
 
@@ -123,6 +123,8 @@
 | 12 | 배너 검수 결과 | `Palette` | Pink #EC4899 | 배너 신청 승인/수정/반려 | 즉시 | "배너 검수 결과가 나왔습니다" | "[배너 상태]: [상태 설명]" | BANR01 (마이 배너 관리) |
 | 13 | 신고 결과 | `Shield` | Red #EF4444 | 제재/반려 처리 완료 | 즉시 | "신고 처리 결과 안내" | "귀하의 신고가 [승인/반려]되었습니다" | USER02 (신고 내역) |
 | 14 | 시스템 알림 | `Info` | Gray #6B7280 | 공지사항, 서버 점검, 이용 제한 | FCM | "시스템 알림입니다" | "공지사항: [내용 미리보기]" | STAT01 또는 인앱 공지 |
+| 15 | 교환글 마감 (제안자) | `XCircle` | Blue #2563EB | 제안한 교환글이 마감됨 | 즉시 | "교환글이 마감되었습니다" | "[사용자명]님의 [상품명] 교환글이 마감되었습니다. 대기중 제안이 만료되었어요." | EXCH05 (보낸 제안, proposal_id 딥링크) |
+| 16 | 직교환 시간 만료 | `Clock` | Amber #F59E0B | 오늘 직교환 시간대 종료 | FCM (만료 시점) | "오늘 직교환 시간이 종료되었습니다" | "[이벤트명] 직교환 시간이 만료되어 일반 직거래 제안으로 전환되었어요" | CHAT02 (해당 채팅방) |
 
 ---
 
@@ -153,7 +155,7 @@
 | items[].thumbnail_url | string | 관련 이미지 URL (nullable) |
 | items[].related_id | string | 관련 컨텐츠 ID (exchange_id, user_id 등) |
 | items[].related_type | string | 관련 컨텐츠 타입 (exchange, groupbuy, event 등) |
-| items[].target_url | string | 이동 대상 URL (/exchange/[id] 등) |
+| items[].target_url | string | 이동 대상 URL (/exchange/[id] 등). 제안 관련 알림은 `/exchange/my-proposals?highlight=[proposal_id]` 형태로 딥링크 |
 | items[].is_read | boolean | 읽음 여부 |
 | items[].created_at | string | 생성일시 (ISO 8601) |
 | unread_count | number | 미읽음 알림 개수 |
@@ -272,4 +274,5 @@
 | 날짜 | 버전 | 내용 | 작성자 |
 |------|------|------|--------|
 | 2026-03-07 | 0.1 | 초안 작성 — 14가지 알림 유형 스펙, 필터 탭, 읽음 관리, 그룹핑, 무한 스크롤 | - |
+| 2026-03-11 | 0.3 | 교환글 마감(#15) + 직교환 시간 만료(#16) 알림 유형 추가, 제안 딥링크(proposal_id highlight) 스펙 보강 | - |
 | 2026-03-10 | 0.2 | 동행 알림 딥링크 WANT02로 통일, 진입 경로/상태 문구 정비 | - |

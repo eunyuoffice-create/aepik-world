@@ -132,6 +132,23 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   display: inline-block; background: #EEF3F8; color: #45617E;
   font-size: 11px; padding: 4px 14px; border-radius: 999px;
 }
+/* Amber System Message (직교환 만료) */
+.wf-system-msg-amber {
+  margin: 8px 12px; padding: 12px 16px; background: #FEF3C7;
+  border-radius: 12px; display: flex; gap: 8px; align-items: flex-start;
+}
+.wf-system-msg-amber .wf-amber-icon {
+  flex-shrink: 0; width: 16px; height: 16px; color: #F59E0B; margin-top: 1px;
+}
+.wf-system-msg-amber .wf-amber-text {
+  font-size: 11px; color: #92400E; line-height: 1.5;
+}
+.wf-system-msg-amber .wf-amber-text strong {
+  font-weight: 600; display: block; margin-bottom: 2px; font-size: 11px; color: #78350F;
+}
+.wf-system-msg-amber .wf-amber-sub {
+  font-size: 10px; color: #B45309; margin-top: 4px;
+}
 
 /* Received Message (left) */
 .wf-msg-received {
@@ -295,7 +312,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">채팅 대화방</span></span>
   <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/chat/[roomId]</span></span>
   <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
-  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.1</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.2</span></span>
   <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
   <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-06</span></span>
 </div>
@@ -738,6 +755,93 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         </div>
       </div>
 
+      <!-- ===== Frame E: 직교환 시간 만료 시스템 메시지 ===== -->
+      <div class="frame-label">E. 직교환 시간 만료 — Amber 시스템 메시지</div>
+      <div class="phone-frame" style="position:relative; min-height:380px;">
+
+        <!-- Header (same as Frame A) -->
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid #EEF3F8;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px; height:18px; color:#8EA2B7;"><polyline points="15 18 9 12 15 6"/></svg>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <div style="width:28px; height:28px; border-radius:50%; background:#ECF7FF; display:flex; align-items:center; justify-content:center;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#2F8EC1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px; height:14px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <span style="font-size:13px; font-weight:600;">교환상대</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px; height:18px; color:#8EA2B7;"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+          </div>
+        </div>
+
+        <!-- Trade Status Banner — 교환 협의 중 -->
+        <div class="wf-trade-banner negotiating">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          <span>교환 조건을 협의 중이에요</span>
+        </div>
+
+        <!-- Messages with 직교환 만료 -->
+        <div style="flex:1; overflow-y:auto; padding:8px 12px;">
+
+          <div class="wf-date-divider">
+            <span class="wf-date-text">2026년 3월 11일 화요일</span>
+          </div>
+
+          <div class="wf-system-msg">
+            <span>채팅방이 생성되었습니다</span>
+          </div>
+
+          <!-- Normal messages -->
+          <div class="wf-msg-received">
+            <div class="wf-msg-avatar" style="background:#ECF7FF;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#2F8EC1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px; height:14px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="wf-msg-col">
+              <span class="wf-msg-nick">교환상대</span>
+              <div class="wf-msg-bubble-row">
+                <div class="wf-bubble-received">서코 2시 쪽에서 만나요!</div>
+                <span class="wf-bubble-time-r">오후 1:30</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="wf-msg-sent">
+            <span class="wf-bubble-time-s">오후 1:32</span>
+            <div class="wf-bubble-sent">네 좋아요~ 거기서 뵙겠습니다</div>
+          </div>
+
+          <!-- 8: 직교환 시간 만료 시스템 메시지 (Amber) -->
+          <div class="wf-section" style="position:relative; margin-top:8px;">
+            <div class="num-circle" style="top:2px; left:-4px;">8</div>
+            <div class="wf-system-msg-amber">
+              <svg class="wf-amber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <div class="wf-amber-text">
+                <strong>서울코믹월드 직교환 시간이 만료되었습니다</strong>
+                일반 직거래 제안으로 전환되었어요.
+                <div class="wf-amber-sub">오프라인 만남 일정을 다시 조율하려면 채팅으로 협의해주세요.</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Input Bar -->
+        <div class="wf-input-bar">
+          <div class="wf-input-plus">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+          <div class="wf-input-field">메시지를 입력하세요</div>
+          <div class="wf-input-send">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </div>
+        </div>
+
+      </div>
+
     </div>
   </div>
 
@@ -899,6 +1003,32 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
     </div>
     <hr class="desc-divider">
 
+    <!-- 8 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">8</div>
+        <span class="desc-comp-type">[SystemMsg]</span>
+        <span class="desc-comp-name">직교환 시간 만료 시스템 메시지</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>트리거: 오늘 직교환(`instant_meetup`) 시간대 종료 시 자동 발송</li>
+          <li>스타일: Amber 강조 카드형 시스템 메시지
+            <ul class="sub">
+              <li>배경: #FEF3C7 (Amber 100), 라운딩 12px, 패딩 12px 16px</li>
+              <li>좌측: `Clock` 아이콘 16px (#F59E0B)</li>
+              <li>텍스트: "[이벤트명] 직교환 시간이 만료되었습니다" (600w, #78350F)</li>
+              <li>서브: "일반 직거래 제안으로 전환되었어요." (#92400E)</li>
+              <li>안내: "오프라인 만남 일정을 다시 조율하려면 채팅으로 협의해주세요." (10px, #B45309)</li>
+            </ul>
+          </li>
+          <li>해당 채팅방에만 노출 (양쪽 유저 모두)</li>
+          <li>FCM 알림 동시 발송 (NOTI01 #16 직교환 시간 만료)</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
     <!-- State Table -->
     <div style="margin-top: 24px;">
       <div class="desc-comp-name" style="margin-bottom:8px;">화면 상태</div>
@@ -911,6 +1041,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <tr><td>전송 실패</td><td>메시지 옆 빨간 `AlertCircle` + "재전송" 탭</td></tr>
           <tr><td>네트워크 끊김</td><td>상단 배너 "네트워크 연결을 확인해주세요" (Red)</td></tr>
           <tr><td>거래 완료 후</td><td>메시지 입력 비활성 + 안내 텍스트</td></tr>
+          <tr><td>직교환 시간 만료</td><td>Amber 카드형 시스템 메시지 (#FEF3C7) + Clock 아이콘 — 일반 직거래 전환 안내</td></tr>
         </tbody>
       </table>
     </div>
@@ -938,7 +1069,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 <div class="revision-bar">
   <table>
     <thead><tr><th>날짜</th><th>버전</th><th>내용</th><th>작성자</th></tr></thead>
-    <tbody><tr><td>2026-03-06</td><td>0.1</td><td>초안 작성 -- 채팅 대화방 와이어프레임 (교환 협의/확정/완료, 공구 채팅)</td><td>-</td></tr></tbody>
+    <tbody><tr><td>2026-03-06</td><td>0.1</td><td>초안 작성 -- 채팅 대화방 와이어프레임 (교환 협의/확정/완료, 공구 채팅)</td><td>-</td></tr><tr><td>2026-03-11</td><td>0.2</td><td>Frame E 추가: 직교환 시간 만료 Amber 시스템 메시지 + desc #8 추가</td><td>-</td></tr></tbody>
   </table>
 </div>
 
