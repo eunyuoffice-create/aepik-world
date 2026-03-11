@@ -6,17 +6,17 @@
 <title>GRPB03 — 공구 등록 와이어프레임</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F7FAFD; color: #163958; }
 
 /* ===== META HEADER ===== */
 .meta-bar {
-  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  background: #fff; border-bottom: 2px solid #2F8EC1; padding: 12px 24px;
   display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
 }
 .meta-item { font-size: 11px; }
-.meta-label { color: #999; }
-.meta-value { font-weight: 600; color: #333; margin-left: 4px; }
-.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+.meta-label { color: #8EA2B7; }
+.meta-value { font-weight: 600; color: #163958; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2F8EC1; margin-right: auto; }
 
 /* ===== MAIN LAYOUT ===== */
 .main-layout { overflow-x: hidden;
@@ -40,31 +40,31 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* ===== DESCRIPTION SIDE ===== */
 .desc-side {
   flex: 1 1 45%; min-width: 0; background: #fff; padding: 24px 28px;
-  overflow-y: auto; border-left: 1px solid #ddd;
+  overflow-y: auto; border-left: 1px solid #DEE8F2;
 }
 .desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-.desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+.desc-subtitle { font-size: 12px; color: #45617E; margin-bottom: 20px; }
 
 .desc-item { margin-bottom: 20px; }
 .desc-num-row {
   display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
 }
 .desc-num {
-  background: #2563EB; color: #fff; width: 22px; height: 22px;
+  background: #2F8EC1; color: #fff; width: 22px; height: 22px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 11px; font-weight: 700; flex-shrink: 0;
 }
-.desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-type { font-size: 10px; color: #8EA2B7; background: #F7FAFD; padding: 2px 6px; border-radius: 3px; }
 .desc-comp-name { font-size: 14px; font-weight: 600; }
 
-.desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
+.desc-body { padding-left: 30px; font-size: 12px; color: #45617E; line-height: 1.7; }
 .desc-body ul { list-style: none; }
 .desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
-.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
-.desc-body .sub { padding-left: 14px; color: #888; }
-.desc-body .sub li::before { content: '└'; color: #ccc; }
+.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2F8EC1; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #45617E; }
+.desc-body .sub li::before { content: '└'; color: #8EA2B7; }
 
-.desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
+.desc-divider { border: none; border-top: 1px dashed #EEF3F8; margin: 16px 0; }
 
 /* ===== WIREFRAME ELEMENTS ===== */
 .wf-section { position: relative; }
@@ -72,7 +72,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* Number circle overlay */
 .num-circle {
   position: absolute; z-index: 10;
-  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  background: #2F8EC1; color: #fff; width: 20px; height: 20px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
@@ -80,33 +80,33 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* Header */
 .wf-header {
   display: flex; align-items: center; padding: 12px 16px;
-  border-bottom: 1px solid #eee; position: relative;
+  border-bottom: 1px solid #EEF3F8; position: relative;
 }
-.wf-back-icon { color: #666; cursor: pointer; font-weight: 600; }
-.wf-page-title { font-weight: 700; font-size: 14px; color: #1A1A1A; flex: 1; text-align: center; }
-.wf-close-icon { color: #666; cursor: pointer; font-weight: 600; }
+.wf-back-icon { color: #45617E; cursor: pointer; font-weight: 600; }
+.wf-page-title { font-weight: 700; font-size: 14px; color: #163958; flex: 1; text-align: center; }
+.wf-close-icon { color: #45617E; cursor: pointer; font-weight: 600; }
 
 /* Form Content */
 .wf-form-content { padding: 16px; overflow-y: auto; }
 
 /* Form section */
 .wf-form-section { margin-bottom: 20px; }
-.wf-section-label { font-size: 12px; font-weight: 600; color: #333; margin-bottom: 8px; }
-.wf-required { color: #EF4444; }
+.wf-section-label { font-size: 12px; font-weight: 600; color: #163958; margin-bottom: 8px; }
+.wf-required { color: #EA5D86; }
 
 /* Card Group */
 .wf-card-group {
   display: flex; gap: 8px;
 }
 .wf-card {
-  flex: 1; padding: 12px; border: 2px solid #E5E5E5; border-radius: 8px;
+  flex: 1; padding: 12px; border: 2px solid #DEE8F2; border-radius: 8px;
   background: #fff; text-align: center; font-size: 11px;
 }
 .wf-card.selected {
-  border-color: #2563EB; background: #EFF6FF;
+  border-color: #2F8EC1; background: #EAF7FF;
 }
 .wf-card-title { font-weight: 600; margin-bottom: 4px; }
-.wf-card-desc { font-size: 10px; color: #888; }
+.wf-card-desc { font-size: 10px; color: #45617E; }
 
 /* Chip Group */
 .wf-chip-group {
@@ -114,30 +114,30 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 }
 .wf-chip {
   padding: 6px 10px; border-radius: 16px; font-size: 11px;
-  background: #F5F5F5; color: #555; border: none; cursor: pointer;
+  background: #F7FAFD; color: #45617E; border: none; cursor: pointer;
 }
-.wf-chip.selected { background: #2563EB; color: #fff; }
+.wf-chip.selected { background: #2F8EC1; color: #fff; }
 
 /* Input elements */
 .wf-input-group { margin-bottom: 12px; }
-.wf-label { font-size: 11px; font-weight: 600; color: #333; margin-bottom: 4px; display: block; }
+.wf-label { font-size: 11px; font-weight: 600; color: #163958; margin-bottom: 4px; display: block; }
 .wf-input {
-  width: 100%; padding: 8px 10px; border: 1px solid #ddd; border-radius: 4px;
-  font-size: 11px; background: #fff; color: #333;
+  width: 100%; padding: 8px 10px; border: 1px solid #DEE8F2; border-radius: 4px;
+  font-size: 11px; background: #fff; color: #163958;
 }
-.wf-input::placeholder { color: #aaa; }
+.wf-input::placeholder { color: #8EA2B7; }
 
 /* Image upload */
 .wf-image-upload {
-  border: 2px dashed #ddd; border-radius: 8px; padding: 16px;
-  text-align: center; background: #FAFAFA; font-size: 11px; color: #999;
+  border: 2px dashed #DEE8F2; border-radius: 8px; padding: 16px;
+  text-align: center; background: #F7FAFD; font-size: 11px; color: #8EA2B7;
   margin-bottom: 8px;
 }
 .wf-image-thumbnails {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
 }
 .wf-image-thumb {
-  aspect-ratio: 1; background: #E5E5E5; border-radius: 4px;
+  aspect-ratio: 1; background: #DEE8F2; border-radius: 4px;
 }
 
 /* Toggle */
@@ -145,11 +145,11 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   display: flex; align-items: center; gap: 8px; font-size: 11px; margin-bottom: 8px;
 }
 .wf-toggle-switch {
-  width: 36px; height: 20px; background: #ddd; border-radius: 10px;
+  width: 36px; height: 20px; background: #DEE8F2; border-radius: 10px;
   position: relative; cursor: pointer; flex-shrink: 0;
 }
 .wf-toggle-switch.on {
-  background: #2563EB;
+  background: #2F8EC1;
 }
 .wf-toggle-switch.on::after {
   left: 18px;
@@ -165,57 +165,57 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
 /* Textarea */
 .wf-textarea {
-  width: 100%; padding: 8px 10px; border: 1px solid #ddd; border-radius: 4px;
-  font-size: 11px; background: #fff; color: #333; font-family: inherit;
+  width: 100%; padding: 8px 10px; border: 1px solid #DEE8F2; border-radius: 4px;
+  font-size: 11px; background: #fff; color: #163958; font-family: inherit;
   min-height: 60px;
 }
 
 /* Character list */
-.wf-character-list { border: 1px solid #E5E5E5; border-radius: 8px; background: #FAFAFA; }
+.wf-character-list { border: 1px solid #DEE8F2; border-radius: 8px; background: #F7FAFD; }
 .wf-character-item {
-  padding: 8px; border-bottom: 1px solid #E5E5E5;
+  padding: 8px; border-bottom: 1px solid #DEE8F2;
   display: flex; align-items: center; gap: 8px; font-size: 11px;
 }
 .wf-character-item:last-child { border-bottom: none; }
 .wf-character-checkbox { width: 16px; height: 16px; flex-shrink: 0; }
 .wf-character-name { flex: 1; font-weight: 500; }
-.wf-character-qty { width: 50px; padding: 4px; border: 1px solid #ddd; border-radius: 3px; font-size: 10px; }
+.wf-character-qty { width: 50px; padding: 4px; border: 1px solid #DEE8F2; border-radius: 3px; font-size: 10px; }
 
 /* Button bar */
 .wf-button-bar {
   position: sticky; bottom: 0; left: 0; right: 0;
   display: flex; gap: 8px; padding: 12px 16px;
-  background: #fff; border-top: 1px solid #E5E5E5;
+  background: #fff; border-top: 1px solid #DEE8F2;
 }
 .wf-button {
   flex: 1; padding: 10px; border-radius: 6px; font-size: 12px; font-weight: 600;
   border: none; cursor: pointer;
 }
 .wf-button.outline {
-  background: #fff; color: #333; border: 1px solid #ddd;
+  background: #fff; color: #163958; border: 1px solid #DEE8F2;
 }
 .wf-button.primary {
-  background: #2563EB; color: #fff;
+  background: #2F8EC1; color: #fff;
 }
 
 /* Divider line */
 .wf-divider {
-  height: 1px; background: #f0f0f0; margin: 8px 0;
+  height: 1px; background: #EEF3F8; margin: 8px 0;
 }
 
 /* Revision footer */
 .revision-bar {
-  background: #fff; border-top: 1px solid #eee; padding: 12px 24px;
-  font-size: 11px; color: #999;
+  background: #fff; border-top: 1px solid #EEF3F8; padding: 12px 24px;
+  font-size: 11px; color: #8EA2B7;
 }
 .revision-bar table { width: 100%; border-collapse: collapse; }
-.revision-bar th { text-align: left; font-weight: 600; color: #666; padding: 4px 8px; border-bottom: 1px solid #eee; }
+.revision-bar th { text-align: left; font-weight: 600; color: #45617E; padding: 4px 8px; border-bottom: 1px solid #EEF3F8; }
 .revision-bar td { padding: 4px 8px; }
 
 @media (max-width: 900px) {
   .main-layout { flex-direction: column; }
   .wireframe-side { flex: none; padding: 16px; }
-  .desc-side { flex: none; border-left: none; border-top: 1px solid #ddd; }
+  .desc-side { flex: none; border-left: none; border-top: 1px solid #DEE8F2; }
   .phone-stack { flex-direction: column; }
 }
 /* Responsive improvements for laptop/small screens */
@@ -240,10 +240,10 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 <!-- META HEADER -->
 <div class="meta-bar">
   <span class="title">GRPB03</span>
-  <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">공구 등록</span></span>
-  <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/groupbuy/new</span></span>
+  <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">공구 등록/수정</span></span>
+  <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/groupbuy/new (mode=create|edit)</span></span>
   <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
-  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.1</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.2</span></span>
   <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
   <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-06</span></span>
 </div>
@@ -263,7 +263,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <div class="num-circle" style="top:6px; left:6px;">1</div>
           <div class="wf-header">
             <span class="wf-back-icon">&lt;</span>
-            <span class="wf-page-title">공구 등록</span>
+            <span class="wf-page-title">공구 등록/수정</span>
             <span class="wf-close-icon">×</span>
           </div>
         </div>
@@ -366,7 +366,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <div class="num-circle" style="top:6px; left:6px;">1</div>
           <div class="wf-header">
             <span class="wf-back-icon">&lt;</span>
-            <span class="wf-page-title">공구 등록</span>
+            <span class="wf-page-title">공구 등록/수정</span>
             <span class="wf-close-icon">×</span>
           </div>
         </div>
@@ -398,6 +398,11 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
               <label class="wf-label">배송 예정일 <span class="wf-required">*</span></label>
               <input type="text" class="wf-input" placeholder="2026-04-01" value="2026-04-01">
             </div>
+
+            <div style="margin-top:10px; padding:10px; border:1px solid #FBCFE8; background:#FFF1F2; border-radius:8px;">
+              <div style="font-size:11px; font-weight:700; color:#BE185D;">수정 잠금 예시 (mode=edit)</div>
+              <div style="font-size:10px; color:#9D174D; margin-top:4px;">참여/입금 이력 존재 시 가격·인원·마감일·구성 필드는 비활성 처리됩니다.</div>
+            </div>
           </div>
 
           <!-- ⑦ 캐릭터 슬롯 설정 (세트 공구 시에만 표시) -->
@@ -421,7 +426,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
                 <input type="text" class="wf-character-qty" placeholder="3">
               </div>
             </div>
-            <div style="margin-top:8px; font-size:11px; color:#666;">
+            <div style="margin-top:8px; font-size:11px; color:#45617E;">
               [+] 캐릭터 직접 추가
             </div>
           </div>
@@ -450,8 +455,8 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
   <!-- ===== DESCRIPTION ===== -->
   <div class="desc-side">
-    <div class="desc-title">GRPB03 — 공구 등록</div>
-    <div class="desc-subtitle">라우트: /groupbuy/new &nbsp;|&nbsp; 로그인 필수 &nbsp;|&nbsp; Phase 1</div>
+    <div class="desc-title">GRPB03 — 공구 등록/수정</div>
+    <div class="desc-subtitle">라우트: /groupbuy/new?mode=create|edit &nbsp;|&nbsp; 로그인 필수 &nbsp;|&nbsp; Phase 1</div>
 
     <div class="desc-item">
       <div class="desc-num-row">
@@ -462,7 +467,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       <div class="desc-body">
         <ul>
           <li>좌측: 뒤로가기 아이콘 (&lt;) → 작성 정보 유실 경고 모달 후 GRPB01 이동</li>
-          <li>중앙: 페이지 제목 "공구 등록" (고정 텍스트)</li>
+          <li>중앙: 페이지 제목 "공구 등록" 또는 "공구 수정" (mode 값 기반)</li>
           <li>우측: 닫기 아이콘 (×) → 작성 정보 유실 경고 모달 후 GRPB01 이동</li>
           <li>스크롤 시 상단 고정 (sticky)</li>
         </ul>
@@ -487,7 +492,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
               <li>세트 공구 — 세트 구매 후 캐릭터 분배</li>
             </ul>
           </li>
-          <li>선택된 카드: Blue 테두리 (#2563EB) + 배경 강조 (#EFF6FF)</li>
+          <li>선택된 카드: Blue 테두리 (#2F8EC1) + 배경 강조 (#EAF7FF)</li>
           <li>선택 변경 시 폼 필드 동적 갱신 (세트 공구 시 캐릭터 슬롯 섹션 표시/숨김)</li>
         </ul>
       </div>
@@ -506,8 +511,8 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <li>형태: 4개 칩 (라디오 그룹, 단일 선택)</li>
           <li>옵션: 애니/만화/소설 | 아이돌/아티스트 | 배우/무대 | 게임</li>
           <li>기본 선택: 애니/만화/소설</li>
-          <li>선택된 칩: Blue 배경 (#2563EB) + 흰색 텍스트</li>
-          <li>비선택 칩: Gray 배경 (#F5F5F5) + Dark 텍스트 (#555)</li>
+          <li>선택된 칩: Blue 배경 (#2F8EC1) + 흰색 텍스트</li>
+          <li>비선택 칩: Gray 배경 (#F7FAFD) + Dark 텍스트 (#45617E)</li>
         </ul>
       </div>
     </div>
@@ -660,11 +665,12 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       <div class="desc-body">
         <ul>
           <li>Step 1 (기본/가격): [미리보기] | [다음]</li>
-          <li>Step 2 (모집/캐릭터): [이전] | [등록하기]</li>
+          <li>Step 2 (모집/캐릭터): [이전] | [등록하기]/[수정 저장]</li>
           <li>[미리보기] — Outline 스타일, 공구 정보 프리뷰 (GRPB02 preview mode)</li>
-          <li>[등록하기] — Blue 배경, 흰색 텍스트, 클릭 시 확인 모달
+          <li>[등록하기]/[수정 저장] — Blue 배경, 흰색 텍스트, 클릭 시 확인 모달
             <ul class="sub">
-              <li>모달: "공구를 등록하시겠습니까?" + [취소] [등록하기]</li>
+              <li>등록 모달: "공구를 등록하시겠습니까?" + [취소] [등록하기]</li>
+              <li>수정 모달: "변경 내용을 저장할까요?" + [취소] [저장]</li>
               <li>등록 중: 버튼 비활성화 + 로딩 스피너</li>
               <li>성공: GRPB02(공구 상세) 이동</li>
             </ul>
@@ -683,7 +689,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
     <!-- States -->
     <div style="margin-top:16px;">
-      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">화면 상태</div>
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2F8EC1;">화면 상태</div>
       <div class="desc-body" style="padding-left:0;">
         <ul>
           <li><strong>기본 상태</strong>: 공구 유형 일반 공구 선택, 카테고리 애니/만화/소설 선택, 폼 입력 준비</li>
@@ -692,28 +698,30 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <li><strong>로딩 상태</strong>: 등록 중 버튼 비활성화 + 스피너</li>
           <li><strong>진행자 미달</strong>: "진행자 자격이 없습니다" 경고 메시지 표시</li>
           <li><strong>작성 유실 경고</strong>: 뒤로가기/닫기 탭 시 확인 모달 "작성 중인 정보가 유실됩니다"</li>
+          <li><strong>수정 모드</strong>: 기존 데이터 prefill, CTA "수정 저장"으로 변경</li>
+          <li><strong>수정 잠금</strong>: 참여/입금 이력 존재 시 핵심 필드 비활성 + 안내 배너</li>
         </ul>
       </div>
     </div>
 
     <!-- Connected screens -->
     <div style="margin-top:16px;">
-      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">연관 화면</div>
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2F8EC1;">연관 화면</div>
       <div class="desc-body" style="padding-left:0;">
         <table style="width:100%; font-size:11px; border-collapse:collapse;">
           <thead>
-            <tr style="border-bottom:1px solid #eee;">
-              <th style="text-align:left; padding:4px 8px; color:#888;">이동 대상</th>
-              <th style="text-align:left; padding:4px 8px; color:#888;">조건</th>
-              <th style="text-align:left; padding:4px 8px; color:#888;">화면코드</th>
+            <tr style="border-bottom:1px solid #EEF3F8;">
+              <th style="text-align:left; padding:4px 8px; color:#45617E;">이동 대상</th>
+              <th style="text-align:left; padding:4px 8px; color:#45617E;">조건</th>
+              <th style="text-align:left; padding:4px 8px; color:#45617E;">화면코드</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td style="padding:4px 8px;">공구 목록</td><td style="padding:4px 8px;">뒤로가기 / 닫기</td><td style="padding:4px 8px;"><strong style="color:#2563EB;">GRPB01</strong></td></tr>
-            <tr><td style="padding:4px 8px;">공구 상세</td><td style="padding:4px 8px;">등록 완료</td><td style="padding:4px 8px;"><strong style="color:#2563EB;">GRPB02</strong></td></tr>
-            <tr><td style="padding:4px 8px;">로그인</td><td style="padding:4px 8px;">비로그인 + 진입</td><td style="padding:4px 8px;"><strong style="color:#2563EB;">AUTH01</strong></td></tr>
-            <tr><td style="padding:4px 8px;">본인인증</td><td style="padding:4px 8px;">미인증 + 진입</td><td style="padding:4px 8px;"><strong style="color:#2563EB;">AUTH02</strong></td></tr>
-            <tr><td style="padding:4px 8px;">홈</td><td style="padding:4px 8px;">네비게이션</td><td style="padding:4px 8px;"><strong style="color:#2563EB;">HOME01</strong></td></tr>
+            <tr><td style="padding:4px 8px;">공구 목록</td><td style="padding:4px 8px;">뒤로가기 / 닫기</td><td style="padding:4px 8px;"><strong style="color:#2F8EC1;">GRPB01</strong></td></tr>
+            <tr><td style="padding:4px 8px;">공구 상세</td><td style="padding:4px 8px;">등록 완료</td><td style="padding:4px 8px;"><strong style="color:#2F8EC1;">GRPB02</strong></td></tr>
+            <tr><td style="padding:4px 8px;">로그인</td><td style="padding:4px 8px;">비로그인 + 진입</td><td style="padding:4px 8px;"><strong style="color:#2F8EC1;">AUTH01</strong></td></tr>
+            <tr><td style="padding:4px 8px;">본인인증</td><td style="padding:4px 8px;">미인증 + 진입</td><td style="padding:4px 8px;"><strong style="color:#2F8EC1;">AUTH02</strong></td></tr>
+            <tr><td style="padding:4px 8px;">홈</td><td style="padding:4px 8px;">네비게이션</td><td style="padding:4px 8px;"><strong style="color:#2F8EC1;">HOME01</strong></td></tr>
           </tbody>
         </table>
       </div>
@@ -731,6 +739,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
     </thead>
     <tbody>
       <tr><td>2026-03-06</td><td>0.1</td><td>초안 작성 — HOME01 레퍼런스 패턴 적용</td><td>AI (Claude)</td></tr>
+      <tr><td>2026-03-10</td><td>0.2</td><td>등록/수정 모드 통합 및 수정 잠금(참여/입금 이력) 안내 케이스 추가</td><td>AI (Codex)</td></tr>
     </tbody>
   </table>
 </div>

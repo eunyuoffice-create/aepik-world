@@ -6,10 +6,10 @@
     <title>COMM01 디자인 토큰 — 애픽 월드 Design Tokens</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #F5F5F5; color: #111827; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #F4F8FC; color: #163958; }
 
         /* Header */
-        .page-header { background: #2563EB; color: #fff; padding: 32px 40px; }
+        .page-header { background: linear-gradient(135deg, #2F8EC1 0%, #69BFEA 100%); color: #fff; padding: 32px 40px; }
         .page-header h1 { font-size: 28px; font-weight: 700; }
         .page-header p { font-size: 14px; opacity: .8; margin-top: 6px; }
 
@@ -17,91 +17,86 @@
         .main { max-width: 1400px; margin: 0 auto; padding: 32px 40px; }
 
         /* Section */
-        .section { background: #fff; border-radius: 12px; padding: 28px; margin-bottom: 28px; border: 1px solid #E5E7EB; }
+        .section { background: #fff; border-radius: 12px; padding: 28px; margin-bottom: 28px; border: 1px solid #DEE8F2; }
         .section-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-        .section-title .badge { background: #EFF6FF; color: #2563EB; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 999px; }
+        .section-title .badge { background: #EAF7FF; color: #2F8EC1; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 999px; }
 
         /* Color Grid */
         .color-group { margin-bottom: 24px; }
-        .color-group-title { font-size: 14px; font-weight: 600; color: #4B5563; margin-bottom: 12px; }
+        .color-group-title { font-size: 14px; font-weight: 600; color: #45617E; margin-bottom: 12px; }
         .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
-        .color-chip { border: 1px solid #E5E7EB; border-radius: 10px; overflow: hidden; background: #fff; }
+        .color-chip { border: 1px solid #DEE8F2; border-radius: 10px; overflow: hidden; background: #fff; }
         .color-swatch { height: 72px; display: flex; align-items: flex-end; padding: 8px 10px; }
         .color-swatch span { font-size: 11px; font-weight: 600; padding: 2px 6px; border-radius: 4px; }
         .color-swatch .light-text { color: #fff; background: rgba(0,0,0,.2); }
         .color-swatch .dark-text { color: #111; background: rgba(255,255,255,.7); }
         .color-info { padding: 10px 12px; }
         .color-name { font-size: 13px; font-weight: 600; }
-        .color-hex { font-size: 12px; color: #9CA3AF; font-family: 'SF Mono', 'Fira Code', monospace; margin-top: 2px; }
-        .color-usage { font-size: 11px; color: #6B7280; margin-top: 4px; line-height: 1.4; }
+        .color-hex { font-size: 12px; color: #8EA2B7; font-family: 'SF Mono', 'Fira Code', monospace; margin-top: 2px; }
+        .color-usage { font-size: 11px; color: #45617E; margin-top: 4px; line-height: 1.4; }
 
         /* Typography */
         .type-table { width: 100%; border-collapse: collapse; }
-        .type-table th { text-align: left; font-size: 12px; color: #9CA3AF; font-weight: 500; padding: 8px 12px; border-bottom: 1px solid #E5E7EB; }
-        .type-table td { padding: 12px; border-bottom: 1px solid #F3F4F6; vertical-align: middle; }
+        .type-table th { text-align: left; font-size: 12px; color: #8EA2B7; font-weight: 500; padding: 8px 12px; border-bottom: 1px solid #DEE8F2; }
+        .type-table td { padding: 12px; border-bottom: 1px solid #EEF3F8; vertical-align: middle; }
         .type-sample { white-space: nowrap; }
-        .type-tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: #F3F4F6; color: #6B7280; }
+        .type-tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: #EEF3F8; color: #45617E; }
 
         /* Spacing */
         .spacing-grid { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; }
         .spacing-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-        .spacing-box { background: #3B82F6; border-radius: 4px; }
-        .spacing-label { font-size: 11px; font-weight: 600; color: #4B5563; }
-        .spacing-val { font-size: 10px; color: #9CA3AF; font-family: monospace; }
+        .spacing-box { background: #69BFEA; border-radius: 4px; }
+        .spacing-label { font-size: 11px; font-weight: 600; color: #45617E; }
+        .spacing-val { font-size: 10px; color: #8EA2B7; font-family: monospace; }
 
         /* Radius */
         .radius-grid { display: flex; flex-wrap: wrap; gap: 20px; }
         .radius-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-        .radius-box { width: 80px; height: 80px; background: #EFF6FF; border: 2px solid #3B82F6; }
-        .radius-label { font-size: 12px; font-weight: 600; color: #4B5563; }
-        .radius-val { font-size: 11px; color: #9CA3AF; }
+        .radius-box { width: 80px; height: 80px; background: #EAF7FF; border: 2px solid #69BFEA; }
+        .radius-label { font-size: 12px; font-weight: 600; color: #45617E; }
+        .radius-val { font-size: 11px; color: #8EA2B7; }
 
         /* Shadow */
         .shadow-grid { display: flex; flex-wrap: wrap; gap: 24px; }
         .shadow-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-        .shadow-box { width: 120px; height: 80px; background: #fff; border-radius: 12px; border: 1px solid #E5E7EB; }
-        .shadow-label { font-size: 12px; font-weight: 600; color: #4B5563; }
-        .shadow-val { font-size: 10px; color: #9CA3AF; font-family: monospace; max-width: 140px; text-align: center; line-height: 1.3; }
+        .shadow-box { width: 120px; height: 80px; background: #fff; border-radius: 12px; border: 1px solid #DEE8F2; }
+        .shadow-label { font-size: 12px; font-weight: 600; color: #45617E; }
+        .shadow-val { font-size: 10px; color: #8EA2B7; font-family: monospace; max-width: 140px; text-align: center; line-height: 1.3; }
 
         /* Icon */
-        .icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; }
-        .icon-item { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 16px 8px; border: 1px solid #F3F4F6; border-radius: 8px; }
-        .icon-item .icon { font-size: 24px; }
-        .icon-item .label { font-size: 10px; color: #6B7280; }
+        .icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 12px; }
+        .icon-item { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 10px; border: 1px solid #DEE8F2; border-radius: 12px; background: #F7FAFD; }
+        .icon-token { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+        .icon-token svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+        .icon-item .label { font-size: 11px; color: #45617E; font-weight: 600; text-align: center; line-height: 1.35; }
 
         /* Breakpoint */
         .bp-table { width: 100%; border-collapse: collapse; }
-        .bp-table th { text-align: left; font-size: 12px; color: #9CA3AF; font-weight: 500; padding: 8px 12px; border-bottom: 1px solid #E5E7EB; }
-        .bp-table td { padding: 10px 12px; border-bottom: 1px solid #F3F4F6; font-size: 13px; }
+        .bp-table th { text-align: left; font-size: 12px; color: #8EA2B7; font-weight: 500; padding: 8px 12px; border-bottom: 1px solid #DEE8F2; }
+        .bp-table td { padding: 10px 12px; border-bottom: 1px solid #EEF3F8; font-size: 13px; }
         .bp-bar { height: 8px; border-radius: 4px; margin-top: 4px; }
 
         /* Motion */
         .motion-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
-        .motion-item { border: 1px solid #E5E7EB; border-radius: 10px; padding: 16px; }
-        .motion-item .name { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
-        .motion-item .detail { font-size: 11px; color: #9CA3AF; line-height: 1.5; }
+        .motion-item { border: 1px solid #DEE8F2; border-radius: 10px; padding: 16px; }
+        .motion-item .name { font-size: 13px; font-weight: 600; margin-bottom: 4px; color: #45617E; }
+        .motion-item .detail { font-size: 11px; color: #8EA2B7; line-height: 1.5; }
 
         /* Footer */
-        .page-footer { text-align: center; padding: 24px; font-size: 12px; color: #9CA3AF; }
+        .page-footer { text-align: center; padding: 24px; font-size: 12px; color: #8EA2B7; }
 
         @media (max-width: 768px) {
             .main { padding: 16px; }
             .section { padding: 20px; }
             .color-grid { grid-template-columns: repeat(2, 1fr); }
         }
-    /* Responsive improvements for laptop/small screens */
-.meta-bar { flex-wrap: wrap; gap: 8px; }
-@media (max-width: 700px) {
-  .meta-bar { padding: 8px 12px; }
-  .meta-item { font-size: 11px; }
-}
 </style>
 </head>
 <body>
 
 <div class="page-header">
     <h1>COMM01 디자인 토큰</h1>
-    <p>애픽 월드 (Aepik World) Design Token Reference — v1.0 | 2026-03-06</p>
+    <p>애픽 월드 (Aepik World) Design Token Reference — v1.1 | 2026-03-10</p>
 </div>
 
 <div class="main">
@@ -115,24 +110,28 @@
         <div class="color-group-title">Primary — 브랜드 컬러</div>
         <div class="color-grid">
             <div class="color-chip">
-                <div class="color-swatch" style="background:#3B82F6;"><span class="light-text">Primary</span></div>
-                <div class="color-info"><div class="color-name">Aepik Blue</div><div class="color-hex">#3B82F6</div><div class="color-usage">메인 CTA, 로고, 핵심 강조</div></div>
+                <div class="color-swatch" style="background:#69BFEA;"><span class="light-text">Primary</span></div>
+                <div class="color-info"><div class="color-name">Aepik Sky Blue</div><div class="color-hex">#69BFEA</div><div class="color-usage">메인 CTA, 하이라이트, 링크</div></div>
             </div>
             <div class="color-chip">
-                <div class="color-swatch" style="background:#DBEAFE;"><span class="dark-text">Light</span></div>
-                <div class="color-info"><div class="color-name">Blue Light</div><div class="color-hex">#DBEAFE</div><div class="color-usage">배너 배경, 선택 상태, 하이라이트</div></div>
+                <div class="color-swatch" style="background:#EAF7FF;"><span class="dark-text">Light</span></div>
+                <div class="color-info"><div class="color-name">Blue Light</div><div class="color-hex">#EAF7FF</div><div class="color-usage">배너 배경, 선택 상태, 카드 배경</div></div>
             </div>
             <div class="color-chip">
-                <div class="color-swatch" style="background:#2563EB;"><span class="light-text">Dark</span></div>
-                <div class="color-info"><div class="color-name">Blue Dark</div><div class="color-hex">#2563EB</div><div class="color-usage">호버/프레스, 진한 강조</div></div>
+                <div class="color-swatch" style="background:#2F8EC1;"><span class="light-text">Dark</span></div>
+                <div class="color-info"><div class="color-name">Blue Dark</div><div class="color-hex">#2F8EC1</div><div class="color-usage">호버/프레스, 아이콘 활성</div></div>
             </div>
             <div class="color-chip">
-                <div class="color-swatch" style="background:#1D4ED8;"><span class="light-text">Deep</span></div>
-                <div class="color-info"><div class="color-name">Blue Deep</div><div class="color-hex">#1D4ED8</div><div class="color-usage">포커스 링, 진한 액센트</div></div>
+                <div class="color-swatch" style="background:#173E68;"><span class="light-text">Deep</span></div>
+                <div class="color-info"><div class="color-name">Blue Deep</div><div class="color-hex">#173E68</div><div class="color-usage">타이틀, 강한 포커스 포인트</div></div>
             </div>
             <div class="color-chip">
-                <div class="color-swatch" style="background:#EFF6FF;"><span class="dark-text">50</span></div>
-                <div class="color-info"><div class="color-name">Blue 50</div><div class="color-hex">#EFF6FF</div><div class="color-usage">카드 하이라이트 배경</div></div>
+                <div class="color-swatch" style="background:#F08DBC;"><span class="dark-text">Pink</span></div>
+                <div class="color-info"><div class="color-name">Brand Pink</div><div class="color-hex">#F08DBC</div><div class="color-usage">러블리 포인트, 배지, 강조 요소</div></div>
+            </div>
+            <div class="color-chip">
+                <div class="color-swatch" style="background:#FDE9F3;"><span class="dark-text">Pink Light</span></div>
+                <div class="color-info"><div class="color-name">Pink Light</div><div class="color-hex">#FDE9F3</div><div class="color-usage">핑크 톤 배경, 소프트 강조</div></div>
             </div>
         </div>
     </div>
@@ -146,28 +145,28 @@
                 <div class="color-info"><div class="color-name">White</div><div class="color-hex">#FFFFFF</div><div class="color-usage">메인/카드 배경</div></div>
             </div>
             <div class="color-chip">
-                <div class="color-swatch" style="background:#F9FAFB;"><span class="dark-text">50</span></div>
-                <div class="color-info"><div class="color-name">Gray 50</div><div class="color-hex">#F9FAFB</div><div class="color-usage">페이지 배경, 섹션 구분</div></div>
+                <div class="color-swatch" style="background:#F7FAFD;"><span class="dark-text">50</span></div>
+                <div class="color-info"><div class="color-name">Gray 50</div><div class="color-hex">#F7FAFD</div><div class="color-usage">페이지 배경, 섹션 구분</div></div>
             </div>
             <div class="color-chip">
-                <div class="color-swatch" style="background:#F3F4F6;"><span class="dark-text">100</span></div>
-                <div class="color-info"><div class="color-name">Gray 100</div><div class="color-hex">#F3F4F6</div><div class="color-usage">인풋 배경, 비활성 영역</div></div>
+                <div class="color-swatch" style="background:#EEF3F8;"><span class="dark-text">100</span></div>
+                <div class="color-info"><div class="color-name">Gray 100</div><div class="color-hex">#EEF3F8</div><div class="color-usage">인풋 배경, 비활성 영역</div></div>
             </div>
             <div class="color-chip">
-                <div class="color-swatch" style="background:#E5E7EB;"><span class="dark-text">200</span></div>
-                <div class="color-info"><div class="color-name">Gray 200</div><div class="color-hex">#E5E7EB</div><div class="color-usage">보더, 디바이더</div></div>
+                <div class="color-swatch" style="background:#DEE8F2;"><span class="dark-text">200</span></div>
+                <div class="color-info"><div class="color-name">Gray 200</div><div class="color-hex">#DEE8F2</div><div class="color-usage">보더, 디바이더</div></div>
             </div>
             <div class="color-chip">
-                <div class="color-swatch" style="background:#9CA3AF;"><span class="light-text">400</span></div>
-                <div class="color-info"><div class="color-name">Gray 400</div><div class="color-hex">#9CA3AF</div><div class="color-usage">보조 텍스트, 아이콘</div></div>
+                <div class="color-swatch" style="background:#8EA2B7;"><span class="light-text">400</span></div>
+                <div class="color-info"><div class="color-name">Gray 400</div><div class="color-hex">#8EA2B7</div><div class="color-usage">보조 텍스트, 아이콘</div></div>
             </div>
             <div class="color-chip">
-                <div class="color-swatch" style="background:#4B5563;"><span class="light-text">600</span></div>
-                <div class="color-info"><div class="color-name">Gray 600</div><div class="color-hex">#4B5563</div><div class="color-usage">본문 텍스트</div></div>
+                <div class="color-swatch" style="background:#45617E;"><span class="light-text">600</span></div>
+                <div class="color-info"><div class="color-name">Gray 600</div><div class="color-hex">#45617E</div><div class="color-usage">본문 텍스트</div></div>
             </div>
             <div class="color-chip">
-                <div class="color-swatch" style="background:#111827;"><span class="light-text">900</span></div>
-                <div class="color-info"><div class="color-name">Gray 900</div><div class="color-hex">#111827</div><div class="color-usage">제목, 핵심 텍스트</div></div>
+                <div class="color-swatch" style="background:#163958;"><span class="light-text">900</span></div>
+                <div class="color-info"><div class="color-name">Gray 900</div><div class="color-hex">#163958</div><div class="color-usage">제목, 핵심 텍스트</div></div>
             </div>
         </div>
     </div>
@@ -181,16 +180,16 @@
                 <div class="color-info"><div class="color-name">Success / Green</div><div class="color-hex">#10B981</div><div class="color-usage">거래 완료, 매칭 성공, 인증 완료</div></div>
             </div>
             <div class="color-chip">
-                <div class="color-swatch" style="background:#F59E0B;"><span class="dark-text">Warning</span></div>
-                <div class="color-info"><div class="color-name">Warning / Amber</div><div class="color-hex">#F59E0B</div><div class="color-usage">주의, 대기 중, 교환 제안</div></div>
+                <div class="color-swatch" style="background:#F3A34B;"><span class="dark-text">Warning</span></div>
+                <div class="color-info"><div class="color-name">Warning / Amber</div><div class="color-hex">#F3A34B</div><div class="color-usage">주의, 대기 중, 교환 제안</div></div>
             </div>
             <div class="color-chip">
-                <div class="color-swatch" style="background:#EF4444;"><span class="light-text">Error</span></div>
-                <div class="color-info"><div class="color-name">Error / Red</div><div class="color-hex">#EF4444</div><div class="color-usage">오류, 신고, 제재</div></div>
+                <div class="color-swatch" style="background:#EA5D86;"><span class="light-text">Error</span></div>
+                <div class="color-info"><div class="color-name">Error / Rose</div><div class="color-hex">#EA5D86</div><div class="color-usage">오류, 신고, 제재</div></div>
             </div>
             <div class="color-chip">
-                <div class="color-swatch" style="background:#3B82F6;"><span class="light-text">Info</span></div>
-                <div class="color-info"><div class="color-name">Info / Blue</div><div class="color-hex">#3B82F6</div><div class="color-usage">알림, 정보, 공구 진행 중</div></div>
+                <div class="color-swatch" style="background:#69BFEA;"><span class="light-text">Info</span></div>
+                <div class="color-info"><div class="color-name">Info / Blue</div><div class="color-hex">#69BFEA</div><div class="color-usage">알림, 정보, 공구 진행 중</div></div>
             </div>
         </div>
     </div>
@@ -223,20 +222,20 @@
         <div class="color-group-title">Trade Type Tags — 거래 유형 태그</div>
         <div class="color-grid">
             <div class="color-chip">
-                <div class="color-swatch" style="background:#FFF7ED;"><span style="color:#EA580C; font-size:13px; font-weight:700;">교환</span></div>
-                <div class="color-info"><div class="color-name">교환 태그</div><div class="color-hex">bg #FFF7ED / text #EA580C</div></div>
+                <div class="color-swatch" style="background:#ECF7FF;"><span style="color:#2F8EC1; font-size:13px; font-weight:700;">교환</span></div>
+                <div class="color-info"><div class="color-name">교환 태그</div><div class="color-hex">bg #ECF7FF / text #2F8EC1</div></div>
             </div>
             <div class="color-chip">
-                <div class="color-swatch" style="background:#EFF6FF;"><span style="color:#2563EB; font-size:13px; font-weight:700;">공구</span></div>
-                <div class="color-info"><div class="color-name">공구 태그</div><div class="color-hex">bg #EFF6FF / text #2563EB</div></div>
+                <div class="color-swatch" style="background:#E8F4FC;"><span style="color:#1E6FA8; font-size:13px; font-weight:700;">공구</span></div>
+                <div class="color-info"><div class="color-name">공구 태그</div><div class="color-hex">bg #E8F4FC / text #1E6FA8</div></div>
             </div>
             <div class="color-chip">
-                <div class="color-swatch" style="background:#F0FDF4;"><span style="color:#16A34A; font-size:13px; font-weight:700;">구함</span></div>
-                <div class="color-info"><div class="color-name">구함 태그</div><div class="color-hex">bg #F0FDF4 / text #16A34A</div></div>
+                <div class="color-swatch" style="background:#F0FDF4;"><span style="color:#16A34A; font-size:13px; font-weight:700;">동행</span></div>
+                <div class="color-info"><div class="color-name">동행 태그</div><div class="color-hex">bg #F0FDF4 / text #16A34A</div></div>
             </div>
             <div class="color-chip">
-                <div class="color-swatch" style="background:#FAF5FF;"><span style="color:#7C3AED; font-size:13px; font-weight:700;">세트공구</span></div>
-                <div class="color-info"><div class="color-name">세트공구 태그</div><div class="color-hex">bg #FAF5FF / text #7C3AED</div></div>
+                <div class="color-swatch" style="background:#FDECF4;"><span style="color:#BD4E88; font-size:13px; font-weight:700;">세트공구</span></div>
+                <div class="color-info"><div class="color-name">세트공구 태그</div><div class="color-hex">bg #FDECF4 / text #BD4E88</div></div>
             </div>
         </div>
     </div>
@@ -245,7 +244,7 @@
 <!-- ===== 2. 타이포그래피 ===== -->
 <div class="section">
     <div class="section-title">2. 타이포그래피 <span class="badge">Typography</span></div>
-    <p style="font-size:13px; color:#6B7280; margin-bottom:16px;">폰트: <strong>Pretendard</strong> (대안: Noto Sans KR) / 영문·숫자: <strong>Inter</strong></p>
+    <p style="font-size:13px; color:#45617E; margin-bottom:16px;">폰트: <strong>Pretendard</strong> (대안: Noto Sans KR) / 영문·숫자: <strong>Inter</strong></p>
     <table class="type-table">
         <thead><tr><th>레벨</th><th>크기</th><th>웨이트</th><th>행간</th><th>샘플</th><th>용도</th></tr></thead>
         <tbody>
@@ -299,19 +298,19 @@
             <div class="shadow-val">없음 (border만)<br>기본 카드, 인풋</div>
         </div>
         <div class="shadow-item">
-            <div class="shadow-box" style="box-shadow:0 1px 3px rgba(0,0,0,0.08);"></div>
+            <div class="shadow-box" style="box-shadow:0 4px 14px rgba(22,57,88,0.07);"></div>
             <div class="shadow-label">Level 1</div>
-            <div class="shadow-val">0 1px 3px rgba(0,0,0,.08)<br>호버 카드, 드롭다운</div>
+            <div class="shadow-val">0 4px 14px rgba(22,57,88,.07)<br>기본 카드, 섹션 강조</div>
         </div>
         <div class="shadow-item">
-            <div class="shadow-box" style="box-shadow:0 4px 12px rgba(0,0,0,0.1);"></div>
+            <div class="shadow-box" style="box-shadow:0 10px 24px rgba(22,57,88,0.12);"></div>
             <div class="shadow-label">Level 2</div>
-            <div class="shadow-val">0 4px 12px rgba(0,0,0,.1)<br>모달, 바텀시트, FAB</div>
+            <div class="shadow-val">0 10px 24px rgba(22,57,88,.12)<br>호버 카드, FAB</div>
         </div>
         <div class="shadow-item">
-            <div class="shadow-box" style="box-shadow:0 8px 24px rgba(0,0,0,0.12);"></div>
+            <div class="shadow-box" style="box-shadow:0 14px 36px rgba(22,57,88,0.16);"></div>
             <div class="shadow-label">Level 3</div>
-            <div class="shadow-val">0 8px 24px rgba(0,0,0,.12)<br>토스트, 알림 팝업</div>
+            <div class="shadow-val">0 14px 36px rgba(22,57,88,.16)<br>모달, 팝업 오버레이</div>
         </div>
     </div>
 </div>
@@ -324,15 +323,15 @@
         <tbody>
             <tr>
                 <td><strong>Mobile</strong></td><td>0~767px</td><td>기본</td><td>1컬럼, 풀폭, 하단 네비게이션</td>
-                <td><div class="bp-bar" style="width:40%; background:linear-gradient(90deg,#3B82F6,#93C5FD);"></div></td>
+                <td><div class="bp-bar" style="width:40%; background:linear-gradient(90deg,#69BFEA,#9CDCF7);"></div></td>
             </tr>
             <tr>
                 <td><strong>Desktop</strong></td><td>768px~</td><td>md:</td><td>중앙 max-1200px, 사이드바/그리드 확장</td>
-                <td><div class="bp-bar" style="width:100%; background:linear-gradient(90deg,#93C5FD,#2563EB);"></div></td>
+                <td><div class="bp-bar" style="width:100%; background:linear-gradient(90deg,#9CDCF7,#2F8EC1);"></div></td>
             </tr>
         </tbody>
     </table>
-    <p style="font-size:12px; color:#9CA3AF; margin-top:12px;">※ 패드(태블릿): 세로=Mobile / 가로=Desktop 자동 적용. 별도 레이아웃 없음.</p>
+    <p style="font-size:12px; color:#8EA2B7; margin-top:12px;">※ 패드(태블릿): 세로=Mobile / 가로=Desktop 자동 적용. 별도 레이아웃 없음.</p>
 </div>
 
 <!-- ===== 7. 모션 ===== -->
@@ -354,23 +353,23 @@
 <div class="section">
     <div class="section-title">8. 상태 아이콘 <span class="badge">Status Icons</span></div>
     <div class="icon-grid">
-        <div class="icon-item"><div class="icon" style="color:#F59E0B;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="label">교환 대기</div></div>
-        <div class="icon-item"><div class="icon" style="color:#10B981;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div class="label">교환 성사</div></div>
-        <div class="icon-item"><div class="icon" style="color:#3B82F6;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><div class="label">공구 진행</div></div>
-        <div class="icon-item"><div class="icon" style="color:#6B7280;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="label">공구 마감</div></div>
-        <div class="icon-item"><div class="icon" style="color:#EF4444;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div><div class="label">새 알림</div></div>
-        <div class="icon-item"><div class="icon" style="color:#10B981;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg></div><div class="label">Lv.1 새싹</div></div>
-        <div class="icon-item"><div class="icon" style="color:#3B82F6;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div class="label">Lv.2 일반</div></div>
-        <div class="icon-item"><div class="icon" style="color:#1D4ED8;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.7 10.3a2.41 2.41 0 0 0 0 3.41l7.59 7.59a2.41 2.41 0 0 0 3.41 0l7.59-7.59a2.41 2.41 0 0 0 0-3.41l-7.59-7.59a2.41 2.41 0 0 0-3.41 0Z"/></svg></div><div class="label">Lv.3 우수</div></div>
-        <div class="icon-item"><div class="icon" style="color:#92400E;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l3 12h14l3-12-5 4-5-6-5 6z"/><line x1="2" y1="20" x2="22" y2="20"/></svg></div><div class="label">Lv.4 VIP</div></div>
+        <div class="icon-item"><div class="icon-token" style="background:#FFF6EA; color:#F3A34B;"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="label">교환 대기</div></div>
+        <div class="icon-item"><div class="icon-token" style="background:#EAFBF3; color:#10B981;"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div class="label">교환 성사</div></div>
+        <div class="icon-item"><div class="icon-token" style="background:#EAF7FF; color:#2F8EC1;"><svg viewBox="0 0 24 24"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><div class="label">공구 진행</div></div>
+        <div class="icon-item"><div class="icon-token" style="background:#EEF3F8; color:#45617E;"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="label">공구 마감</div></div>
+        <div class="icon-item"><div class="icon-token" style="background:#FDE9F3; color:#EA5D86;"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div><div class="label">새 알림</div></div>
+        <div class="icon-item"><div class="icon-token" style="background:#EEF9F2; color:#16A34A;"><svg viewBox="0 0 24 24"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg></div><div class="label">Lv.1 새싹</div></div>
+        <div class="icon-item"><div class="icon-token" style="background:#EAF7FF; color:#2F8EC1;"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div class="label">Lv.2 일반</div></div>
+        <div class="icon-item"><div class="icon-token" style="background:#E8F2FA; color:#173E68;"><svg viewBox="0 0 24 24"><path d="M2.7 10.3a2.41 2.41 0 0 0 0 3.41l7.59 7.59a2.41 2.41 0 0 0 3.41 0l7.59-7.59a2.41 2.41 0 0 0 0-3.41l-7.59-7.59a2.41 2.41 0 0 0-3.41 0Z"/></svg></div><div class="label">Lv.3 우수</div></div>
+        <div class="icon-item"><div class="icon-token" style="background:#FDECF4; color:#BD4E88;"><svg viewBox="0 0 24 24"><path d="M2 4l3 12h14l3-12-5 4-5-6-5 6z"/><line x1="2" y1="20" x2="22" y2="20"/></svg></div><div class="label">Lv.4 VIP</div></div>
     </div>
-    <p style="font-size:12px; color:#9CA3AF; margin-top:12px;">아이콘 라이브러리: Lucide React (선 두께 1.5px, 기본 크기 20px, 컬러 Gray 600 / 활성 Blue)</p>
+    <p style="font-size:12px; color:#8EA2B7; margin-top:12px;">아이콘 라이브러리: Lucide (HOME01_디자인시안 기준, 선 두께 1.9px, 기본 크기 20px, 상태별 톤 배지 배경 적용)</p>
 </div>
 
 </div>
 
 <div class="page-footer">
-    애픽 월드 (Aepik World) 디자인 토큰 v1.0 — 2026-03-06 작성
+    애픽 월드 (Aepik World) 디자인 토큰 v1.1 — 2026-03-10 작성
 </div>
 
 </body>

@@ -6,17 +6,17 @@
 <title>GRPB02 — 공구 상세 와이어프레임</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F7FAFD; color: #163958; }
 
 /* ===== META HEADER ===== */
 .meta-bar {
-  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  background: #fff; border-bottom: 2px solid #2F8EC1; padding: 12px 24px;
   display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
 }
 .meta-item { font-size: 11px; }
-.meta-label { color: #999; }
-.meta-value { font-weight: 600; color: #333; margin-left: 4px; }
-.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+.meta-label { color: #8EA2B7; }
+.meta-value { font-weight: 600; color: #163958; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2F8EC1; margin-right: auto; }
 
 /* ===== MAIN LAYOUT ===== */
 .main-layout { overflow-x: hidden;
@@ -39,34 +39,34 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* ===== DESCRIPTION SIDE ===== */
 .desc-side {
   flex: 1 1 45%; min-width: 0; background: #fff; padding: 24px 28px;
-  overflow-y: auto; border-left: 1px solid #ddd;
+  overflow-y: auto; border-left: 1px solid #DEE8F2;
 }
 .desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-.desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+.desc-subtitle { font-size: 12px; color: #45617E; margin-bottom: 20px; }
 
 .desc-item { margin-bottom: 20px; }
 .desc-num-row {
   display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
 }
 .desc-num {
-  background: #2563EB; color: #fff; width: 22px; height: 22px;
+  background: #2F8EC1; color: #fff; width: 22px; height: 22px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 11px; font-weight: 700; flex-shrink: 0;
 }
-.desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-type { font-size: 10px; color: #8EA2B7; background: #F7FAFD; padding: 2px 6px; border-radius: 3px; }
 .desc-comp-name { font-size: 14px; font-weight: 600; }
 
-.desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
+.desc-body { padding-left: 30px; font-size: 12px; color: #45617E; line-height: 1.7; }
 .desc-body ul { list-style: none; }
 .desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
-.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
-.desc-body .sub { padding-left: 14px; color: #888; }
-.desc-body .sub li::before { content: '└'; color: #ccc; }
+.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2F8EC1; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #45617E; }
+.desc-body .sub li::before { content: '└'; color: #8EA2B7; }
 .desc-body table { width: 100%; font-size: 11px; border-collapse: collapse; margin-top: 6px; }
-.desc-body th { text-align: left; padding: 4px 8px; border-bottom: 1px solid #eee; color: #888; font-weight: 600; }
-.desc-body td { padding: 4px 8px; border-bottom: 1px solid #f0f0f0; }
+.desc-body th { text-align: left; padding: 4px 8px; border-bottom: 1px solid #EEF3F8; color: #45617E; font-weight: 600; }
+.desc-body td { padding: 4px 8px; border-bottom: 1px solid #EEF3F8; }
 
-.desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
+.desc-divider { border: none; border-top: 1px dashed #EEF3F8; margin: 16px 0; }
 
 /* ===== WIREFRAME ELEMENTS ===== */
 .wf-section { position: relative; }
@@ -74,7 +74,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* Number circle overlay */
 .num-circle {
   position: absolute; z-index: 10;
-  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  background: #2F8EC1; color: #fff; width: 20px; height: 20px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
@@ -82,20 +82,20 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* Header */
 .wf-header {
   display: flex; align-items: center; padding: 12px 16px;
-  border-bottom: 1px solid #eee; position: relative;
+  border-bottom: 1px solid #EEF3F8; position: relative;
 }
-.wf-header-back { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #333; }
-.wf-header-title { flex: 1; text-align: center; font-size: 14px; font-weight: 600; color: #333; }
+.wf-header-back { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #163958; }
+.wf-header-title { flex: 1; text-align: center; font-size: 14px; font-weight: 600; color: #163958; }
 .wf-header-icons { display: flex; gap: 12px; }
-.wf-icon { width: 20px; height: 20px; background: #ddd; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #888; }
+.wf-icon { width: 20px; height: 20px; background: #DEE8F2; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #45617E; }
 
 /* Image carousel */
 .wf-carousel {
   position: relative; width: 100%; aspect-ratio: 1 / 1;
-  background: #E5E5E5; display: flex; align-items: center; justify-content: center;
+  background: #DEE8F2; display: flex; align-items: center; justify-content: center;
   overflow: hidden;
 }
-.wf-carousel-text { font-size: 12px; color: #bbb; }
+.wf-carousel-text { font-size: 12px; color: #8EA2B7; }
 .wf-carousel-indicator {
   position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
   display: flex; gap: 4px; background: rgba(0,0,0,0.3); padding: 4px 8px; border-radius: 12px;
@@ -106,10 +106,11 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* Tag section */
 .wf-tag-section {
   padding: 12px 16px; display: flex; gap: 6px; flex-wrap: wrap;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #EEF3F8;
 }
 .wf-tag { font-size: 10px; padding: 2px 8px; border-radius: 4px; }
-.wf-tag.groupbuy { background: #EFF6FF; color: #2563EB; }
+.wf-tag.groupbuy { background: #E8F4FC; color: #1E6FA8; }
+.wf-tag.setgroupbuy { background: #FDECF4; color: #BD4E88; }
 .wf-tag.anime { background: #F5F3FF; color: #7C3AED; }
 .wf-tag.idol { background: #FDF2F8; color: #DB2777; }
 .wf-tag.actor { background: #FFFBEB; color: #F59E0B; }
@@ -117,97 +118,97 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
 /* Product title & price */
 .wf-product-info {
-  padding: 16px; border-bottom: 1px solid #eee;
+  padding: 16px; border-bottom: 1px solid #EEF3F8;
 }
 .wf-product-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; line-height: 1.4; }
-.wf-product-price { font-size: 13px; color: #555; margin-bottom: 4px; }
-.wf-shipping-note { font-size: 11px; color: #888; }
+.wf-product-price { font-size: 13px; color: #45617E; margin-bottom: 4px; }
+.wf-shipping-note { font-size: 11px; color: #45617E; }
 
 /* Organizer card */
 .wf-organizer-card {
-  padding: 16px; border-bottom: 1px solid #eee;
+  padding: 16px; border-bottom: 1px solid #EEF3F8;
   display: flex; align-items: center; gap: 12px;
 }
 .wf-organizer-avatar {
-  width: 48px; height: 48px; background: #E5E5E5;
+  width: 48px; height: 48px; background: #DEE8F2;
   border-radius: 50%; flex-shrink: 0;
 }
 .wf-organizer-info { flex: 1; font-size: 12px; }
 .wf-organizer-name { font-weight: 600; margin-bottom: 2px; }
-.wf-organizer-meta { color: #888; font-size: 11px; }
+.wf-organizer-meta { color: #45617E; font-size: 11px; }
 
 /* Participation info */
 .wf-participation-section {
-  padding: 16px; border-bottom: 1px solid #eee;
+  padding: 16px; border-bottom: 1px solid #EEF3F8;
 }
-.wf-participation-label { font-size: 12px; font-weight: 600; margin-bottom: 8px; color: #333; }
+.wf-participation-label { font-size: 12px; font-weight: 600; margin-bottom: 8px; color: #163958; }
 .wf-progress-container { margin-bottom: 12px; }
 .wf-progress-bar {
-  height: 8px; background: #E5E5E5; border-radius: 4px;
+  height: 8px; background: #DEE8F2; border-radius: 4px;
   overflow: hidden; margin-bottom: 6px;
 }
-.wf-progress-fill { height: 100%; background: #2563EB; border-radius: 4px; }
-.wf-progress-text { font-size: 11px; color: #666; }
-.wf-participation-detail { font-size: 11px; color: #888; margin-bottom: 4px; }
+.wf-progress-fill { height: 100%; background: #2F8EC1; border-radius: 4px; }
+.wf-progress-text { font-size: 11px; color: #45617E; }
+.wf-participation-detail { font-size: 11px; color: #45617E; margin-bottom: 4px; }
 
 /* Character slots (for set groupbuy) */
 .wf-character-slots {
-  padding: 16px; border-bottom: 1px solid #eee;
+  padding: 16px; border-bottom: 1px solid #EEF3F8;
 }
 .wf-character-row {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 8px 0; border-bottom: 1px solid #f0f0f0;
+  padding: 8px 0; border-bottom: 1px solid #EEF3F8;
 }
 .wf-character-row:last-child { border-bottom: none; }
 .wf-character-name { font-size: 12px; font-weight: 500; }
 .wf-character-status {
-  font-size: 10px; color: #2563EB; font-weight: 600;
+  font-size: 10px; color: #2F8EC1; font-weight: 600;
 }
-.wf-character-status.sold { color: #999; }
+.wf-character-status.sold { color: #8EA2B7; }
 
 /* Description */
 .wf-description-section {
-  padding: 16px; border-bottom: 1px solid #eee;
+  padding: 16px; border-bottom: 1px solid #EEF3F8;
 }
-.wf-desc-title { font-size: 12px; font-weight: 600; margin-bottom: 8px; color: #333; }
-.wf-desc-text { font-size: 11px; line-height: 1.6; color: #666; }
+.wf-desc-title { font-size: 12px; font-weight: 600; margin-bottom: 8px; color: #163958; }
+.wf-desc-text { font-size: 11px; line-height: 1.6; color: #45617E; }
 
 /* Participants */
 .wf-participants-section {
-  padding: 16px; border-bottom: 1px solid #eee;
+  padding: 16px; border-bottom: 1px solid #EEF3F8;
 }
-.wf-participants-title { font-size: 12px; font-weight: 600; margin-bottom: 8px; color: #333; }
+.wf-participants-title { font-size: 12px; font-weight: 600; margin-bottom: 8px; color: #163958; }
 .wf-participants-avatars {
   display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
 }
 .wf-participant-avatar {
-  width: 32px; height: 32px; background: #E5E5E5;
+  width: 32px; height: 32px; background: #DEE8F2;
   border-radius: 50%; flex-shrink: 0;
 }
-.wf-participants-more { font-size: 11px; color: #2563EB; }
+.wf-participants-more { font-size: 11px; color: #2F8EC1; }
 
 /* Bottom CTA bar (fixed) */
 .wf-bottom-cta {
   position: absolute; bottom: 0; width: 100%; background: #fff;
-  border-top: 1px solid #eee; padding: 12px 16px; display: flex;
+  border-top: 1px solid #EEF3F8; padding: 12px 16px; display: flex;
   gap: 8px; flex-shrink: 0;
 }
 .wf-btn-like {
-  width: 40px; height: 40px; background: #F5F5F5;
+  width: 40px; height: 40px; background: #F7FAFD;
   border-radius: 8px; display: flex; align-items: center;
   justify-content: center; font-size: 16px; flex-shrink: 0;
 }
 .wf-btn-primary {
-  flex: 1; height: 40px; background: #2563EB; color: #fff;
+  flex: 1; height: 40px; background: #2F8EC1; color: #fff;
   border-radius: 8px; display: flex; align-items: center;
   justify-content: center; font-size: 12px; font-weight: 600;
 }
 .wf-btn-primary.disabled {
-  background: #ccc; color: #999;
+  background: #8EA2B7; color: #8EA2B7;
 }
 .wf-btn-outline {
-  flex: 1; height: 40px; background: #fff; color: #2563EB;
-  border: 1px solid #2563EB; border-radius: 8px;
+  flex: 1; height: 40px; background: #fff; color: #2F8EC1;
+  border: 1px solid #2F8EC1; border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
   font-size: 12px; font-weight: 600;
 }
@@ -223,27 +224,27 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   max-height: 50%; overflow-y: auto; z-index: 21;
 }
 .wf-sheet-handle {
-  width: 32px; height: 4px; background: #ddd;
+  width: 32px; height: 4px; background: #DEE8F2;
   border-radius: 2px; margin: 0 auto 16px;
 }
 .wf-sheet-title { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
-.wf-sheet-item { padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
-.wf-sheet-item-label { font-size: 11px; color: #888; }
+.wf-sheet-item { padding: 8px 0; border-bottom: 1px solid #EEF3F8; }
+.wf-sheet-item-label { font-size: 11px; color: #45617E; }
 .wf-sheet-item-value { font-size: 13px; font-weight: 500; margin-top: 2px; }
 
 /* Revision footer */
 .revision-bar {
-  background: #fff; border-top: 1px solid #eee; padding: 12px 24px;
-  font-size: 11px; color: #999;
+  background: #fff; border-top: 1px solid #EEF3F8; padding: 12px 24px;
+  font-size: 11px; color: #8EA2B7;
 }
 .revision-bar table { width: 100%; border-collapse: collapse; }
-.revision-bar th { text-align: left; font-weight: 600; color: #666; padding: 4px 8px; border-bottom: 1px solid #eee; }
+.revision-bar th { text-align: left; font-weight: 600; color: #45617E; padding: 4px 8px; border-bottom: 1px solid #EEF3F8; }
 .revision-bar td { padding: 4px 8px; }
 
 @media (max-width: 900px) {
   .main-layout { flex-direction: column; }
   .wireframe-side { flex: none; padding: 16px; }
-  .desc-side { flex: none; border-left: none; border-top: 1px solid #ddd; }
+  .desc-side { flex: none; border-left: none; border-top: 1px solid #DEE8F2; }
 }
 /* Responsive improvements for laptop/small screens */
 .meta-bar { flex-wrap: wrap; gap: 8px; }
@@ -270,7 +271,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">공구 상세</span></span>
   <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/groupbuy/[id]</span></span>
   <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
-  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.1</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.2</span></span>
   <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
   <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-06</span></span>
 </div>
@@ -426,7 +427,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <div class="wf-section">
           <div class="num-circle" style="top:4px; left:6px;">3</div>
           <div class="wf-tag-section">
-            <span class="wf-tag groupbuy">세트공구</span>
+            <span class="wf-tag setgroupbuy">세트공구</span>
             <span class="wf-tag idol">아이돌/아티스트</span>
           </div>
         </div>
@@ -552,8 +553,8 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <!-- ③ Status Banner (Red) -->
         <div class="wf-section">
           <div class="num-circle" style="top:4px; left:6px;">3</div>
-          <div style="background: #FEE2E2; border-bottom: 1px solid #eee; padding: 12px 16px;">
-            <div style="font-size: 12px; color: #DC2626; font-weight: 600;">마감된 공구입니다</div>
+          <div style="background: #FEE2E2; border-bottom: 1px solid #EEF3F8; padding: 12px 16px;">
+            <div style="font-size: 12px; color: #EA5D86; font-weight: 600;">마감된 공구입니다</div>
             <div style="font-size: 11px; color: #991B1B; margin-top: 4px;">진행자가 진행 여부를 결정 중입니다</div>
           </div>
         </div>
@@ -614,6 +615,14 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <div class="wf-desc-text">
               원신 아크릴 스탠드 5종 세트입니다. 정품 굿즈이며 해외구매입니다.
             </div>
+          </div>
+        </div>
+
+        <!-- ⑧-B Edit Lock Notice -->
+        <div class="wf-section">
+          <div style="margin: 0 16px 12px; padding: 10px 12px; border: 1px solid #FBCFE8; border-radius: 10px; background: #FFF1F2;">
+            <div style="font-size: 11px; color: #BE185D; font-weight: 700;">핵심 수정 잠금</div>
+            <div style="font-size: 10px; color: #9D174D; margin-top: 4px;">참여/입금 이력이 있어 가격·인원·마감일·구성 수정은 불가합니다.</div>
           </div>
         </div>
 
@@ -823,10 +832,12 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
               <li><strong>세트 공구</strong>: [캐릭터 선점하기] (Blue)</li>
               <li><strong>마감된 공구</strong>: [마감된 공구] (Disabled Gray)</li>
               <li><strong>이미 참여 중</strong>: [참여 취소] (Outline)</li>
+              <li><strong>본인 글</strong>: [관리하기] + [수정] (잠금 시 수정 비활성)</li>
             </ul>
           </li>
           <li>비로그인: 로그인 유도 모달</li>
           <li>미인증: 본인인증 유도 모달</li>
+          <li>수정 잠금 안내: "참여 이력이 있어 핵심 조건을 수정할 수 없어요. 상세 설명이나 공지로 안내해 주세요."</li>
         </ul>
       </div>
     </div>
@@ -835,7 +846,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
     <!-- 상태별 바텀시트 -->
     <div style="margin-top:16px;">
-      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">모달 & 바텀시트</div>
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2F8EC1;">모달 & 바텀시트</div>
       <div class="desc-body" style="padding-left:0;">
         <ul>
           <li><strong>참여 확인 바텀시트 (일반 공구)</strong>:
@@ -863,7 +874,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
     <!-- States -->
     <div style="margin-top:16px;">
-      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">화면 상태</div>
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2F8EC1;">화면 상태</div>
       <div class="desc-body" style="padding-left:0;">
         <table>
           <thead>
@@ -911,6 +922,12 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
               <td>비활성</td>
               <td>"공구가 무산되었습니다" + 사유 표시</td>
             </tr>
+            <tr>
+              <td>본인 글(수정 잠금)</td>
+              <td>-</td>
+              <td>[관리하기] + [수정 비활성]</td>
+              <td>"참여 이력이 있어 핵심 조건 수정 불가" 안내 배너</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -918,7 +935,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
     <!-- Connected screens -->
     <div style="margin-top:16px;">
-      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">연관 화면</div>
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2F8EC1;">연관 화면</div>
       <div class="desc-body" style="padding-left:0;">
         <table>
           <thead>
@@ -933,6 +950,16 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
               <td>공구 목록</td>
               <td>뒤로가기 버튼</td>
               <td>GRPB01</td>
+            </tr>
+            <tr>
+              <td>공구 수정</td>
+              <td>본인 글 + 수정 가능 상태</td>
+              <td>GRPB03</td>
+            </tr>
+            <tr>
+              <td>공구 관리</td>
+              <td>본인 글 + 관리하기 버튼</td>
+              <td>GRPB04</td>
             </tr>
             <tr>
               <td>진행자 프로필</td>
@@ -976,6 +1003,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
     </thead>
     <tbody>
       <tr><td>2026-03-06</td><td>0.1</td><td>HOME01 참조 패턴으로 완전 재작성 (3개 Frame: 일반공구 모집중, 세트공구, 마감 상태)</td><td>AI (Claude)</td></tr>
+      <tr><td>2026-03-10</td><td>0.2</td><td>본인 글 수정 잠금 케이스(참여/입금 이력 기준) 및 안내 배너 추가</td><td>AI (Codex)</td></tr>
     </tbody>
   </table>
 </div>

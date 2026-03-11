@@ -1,0 +1,36 @@
+45:.desc-num-row {
+48:.desc-num {
+69:.num-circle {
+435:        <div class="num-circle" style="top:6px; left:6px;">1</div>
+447:        <div class="num-circle" style="top:4px; left:6px;">2</div>
+456:        <div class="num-circle" style="top:4px; left:6px;">3</div>
+469:        <div class="num-circle" style="top:8px; left:6px;">4</div>
+507:        <div class="num-circle" style="top:8px; left:6px;">5</div>
+566:        <div class="num-circle" style="top:8px; left:6px;">6</div>
+598:        <div class="num-circle" style="top:8px; left:6px;">7</div>
+624:        <div class="num-circle" style="top:-8px; left:-8px;">8</div>
+630:        <div class="num-circle" style="top:2px; left:6px;">9</div>
+663:        <div class="num-circle" style="top:6px; left:6px; z-index:20;">10</div>
+715:        <div class="num-circle" style="top:8px; left:8px;">11</div>
+875:      <div class="desc-num-row">
+876:        <div class="desc-num">1</div>
+897:      <div class="desc-num-row">
+898:        <div class="desc-num">2</div>
+915:      <div class="desc-num-row">
+916:        <div class="desc-num">3</div>
+935:      <div class="desc-num-row">
+936:        <div class="desc-num">4</div>
+963:      <div class="desc-num-row">
+964:        <div class="desc-num">5</div>
+990:      <div class="desc-num-row">
+991:        <div class="desc-num">6</div>
+1018:      <div class="desc-num-row">
+1019:        <div class="desc-num">7</div>
+1043:      <div class="desc-num-row">
+1044:        <div class="desc-num">8</div>
+1068:      <div class="desc-num-row">
+1069:        <div class="desc-num">9</div>
+1087:      <div class="desc-num-row">
+1088:        <div class="desc-num">10</div>
+1137:      <div class="desc-num-row">
+1138:        <div class="desc-num">11</div>

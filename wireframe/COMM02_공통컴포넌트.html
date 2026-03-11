@@ -6,9 +6,9 @@
     <title>COMM02 공통 컴포넌트 — 애픽 월드 UI Components</title>
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; background:#F5F5F5; color:#111827; }
+        body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; background:#F4F8FC; color:#163958; }
 
-        .page-header { background:#2563EB; color:#fff; padding:32px 40px; }
+        .page-header { background:#2F8EC1; color:#fff; padding:32px 40px; }
         .page-header h1 { font-size:28px; font-weight:700; }
         .page-header p { font-size:14px; opacity:.8; margin-top:6px; }
 
@@ -18,17 +18,17 @@
         /* Left: Phone Frames */
         .wireframe-side { background:#EAEAEA; border-radius:12px; padding:24px; display:flex; flex-direction:column; gap:32px; }
 
-        .phone-section-label { font-size:13px; font-weight:700; color:#2563EB; background:#fff; display:inline-block; padding:4px 14px; border-radius:999px; margin-bottom:8px; box-shadow:0 1px 4px rgba(0,0,0,.06); }
+        .phone-section-label { font-size:13px; font-weight:700; color:#2F8EC1; background:#fff; display:inline-block; padding:4px 14px; border-radius:999px; margin-bottom:8px; box-shadow:0 1px 4px rgba(0,0,0,.06); }
 
         .phone-frame { width:375px; margin:0 auto; background:#fff; border:3px solid #333; border-radius:16px; overflow:hidden; box-shadow:0 6px 20px rgba(0,0,0,.08); }
         .phone-frame .status-bar { height:44px; background:#fff; display:flex; align-items:center; justify-content:space-between; padding:0 20px; font-size:12px; font-weight:600; }
         .phone-inner { padding:16px; }
 
         /* Num Circle */
-        .num-circle { position:absolute; width:22px; height:22px; background:#2563EB; color:#fff; border-radius:50%; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; z-index:20; box-shadow:0 1px 4px rgba(37,99,235,.4); }
+        .num-circle { position:absolute; width:22px; height:22px; background:#2F8EC1; color:#fff; border-radius:50%; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; z-index:20; box-shadow:0 1px 4px rgba(47,142,193,.35); }
 
         /* Demo Styles */
-        .demo-label { font-size:11px; font-weight:600; color:#9CA3AF; text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px; margin-top:16px; }
+        .demo-label { font-size:11px; font-weight:600; color:#8EA2B7; text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px; margin-top:16px; }
         .demo-label:first-child { margin-top:0; }
 
         /* Buttons */
@@ -37,42 +37,42 @@
         .btn-lg { height:48px; padding:0 24px; font-size:16px; }
         .btn-md { height:40px; padding:0 16px; font-size:14px; }
         .btn-sm { height:32px; padding:0 12px; font-size:12px; }
-        .btn-primary { background:#3B82F6; color:#fff; }
-        .btn-secondary { background:#fff; color:#3B82F6; border:1px solid #3B82F6; }
-        .btn-ghost { background:transparent; color:#4B5563; }
-        .btn-danger { background:#EF4444; color:#fff; }
-        .btn-disabled { background:#F3F4F6; color:#9CA3AF; cursor:not-allowed; }
+        .btn-primary { background:#69BFEA; color:#fff; }
+        .btn-secondary { background:#fff; color:#69BFEA; border:1px solid #69BFEA; }
+        .btn-ghost { background:transparent; color:#45617E; }
+        .btn-danger { background:#EA5D86; color:#fff; }
+        .btn-disabled { background:#EEF3F8; color:#8EA2B7; cursor:not-allowed; }
 
         /* Inputs */
         .input-group { margin-bottom:12px; position:relative; }
-        .input-label { display:block; font-size:13px; font-weight:600; color:#374151; margin-bottom:4px; }
-        .input-field { width:100%; height:44px; border:1px solid #E5E7EB; border-radius:8px; padding:0 12px; font-size:14px; background:#fff; color:#111827; outline:none; }
-        .input-field:focus { border-color:#3B82F6; box-shadow:0 0 0 2px rgba(59,130,246,.15); }
-        .input-field.error { border-color:#EF4444; }
-        .input-field.disabled { background:#F3F4F6; color:#9CA3AF; cursor:not-allowed; }
-        .input-field::placeholder { color:#9CA3AF; }
-        .input-hint { font-size:11px; color:#9CA3AF; margin-top:3px; }
-        .input-error-msg { font-size:11px; color:#EF4444; margin-top:3px; }
-        .input-counter { position:absolute; right:12px; top:50%; transform:translateY(-50%); font-size:11px; color:#9CA3AF; }
+        .input-label { display:block; font-size:13px; font-weight:600; color:#45617E; margin-bottom:4px; }
+        .input-field { width:100%; height:44px; border:1px solid #DEE8F2; border-radius:8px; padding:0 12px; font-size:14px; background:#fff; color:#163958; outline:none; }
+        .input-field:focus { border-color:#69BFEA; box-shadow:0 0 0 2px rgba(105,191,234,.2); }
+        .input-field.error { border-color:#EA5D86; }
+        .input-field.disabled { background:#EEF3F8; color:#8EA2B7; cursor:not-allowed; }
+        .input-field::placeholder { color:#8EA2B7; }
+        .input-hint { font-size:11px; color:#8EA2B7; margin-top:3px; }
+        .input-error-msg { font-size:11px; color:#EA5D86; margin-top:3px; }
+        .input-counter { position:absolute; right:12px; top:50%; transform:translateY(-50%); font-size:11px; color:#8EA2B7; }
 
         /* Textarea */
-        .textarea-field { width:100%; min-height:100px; border:1px solid #E5E7EB; border-radius:8px; padding:12px; font-size:14px; font-family:inherit; resize:vertical; outline:none; }
-        .textarea-field:focus { border-color:#3B82F6; box-shadow:0 0 0 2px rgba(59,130,246,.15); }
+        .textarea-field { width:100%; min-height:100px; border:1px solid #DEE8F2; border-radius:8px; padding:12px; font-size:14px; font-family:inherit; resize:vertical; outline:none; }
+        .textarea-field:focus { border-color:#69BFEA; box-shadow:0 0 0 2px rgba(105,191,234,.2); }
 
         /* Select */
-        .select-field { width:100%; height:44px; border:1px solid #E5E7EB; border-radius:8px; padding:0 12px; font-size:14px; background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center; appearance:none; cursor:pointer; }
+        .select-field { width:100%; height:44px; border:1px solid #DEE8F2; border-radius:8px; padding:0 12px; font-size:14px; background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238EA2B7' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center; appearance:none; cursor:pointer; }
 
         /* Checkbox & Radio */
         .check-row { display:flex; align-items:center; gap:8px; margin-bottom:6px; font-size:14px; }
-        .check-box { width:20px; height:20px; border:2px solid #D1D5DB; border-radius:4px; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
-        .check-box.checked { background:#3B82F6; border-color:#3B82F6; color:#fff; font-size:12px; }
-        .radio-circle { width:20px; height:20px; border:2px solid #D1D5DB; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
-        .radio-circle.checked { border-color:#3B82F6; }
-        .radio-circle.checked::after { content:''; width:10px; height:10px; background:#3B82F6; border-radius:50%; }
+        .check-box { width:20px; height:20px; border:2px solid #DEE8F2; border-radius:4px; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+        .check-box.checked { background:#69BFEA; border-color:#69BFEA; color:#fff; font-size:12px; }
+        .radio-circle { width:20px; height:20px; border:2px solid #DEE8F2; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+        .radio-circle.checked { border-color:#69BFEA; }
+        .radio-circle.checked::after { content:''; width:10px; height:10px; background:#69BFEA; border-radius:50%; }
 
         /* Toggle */
-        .toggle-track { width:44px; height:24px; border-radius:12px; background:#D1D5DB; position:relative; cursor:pointer; transition:background .2s; }
-        .toggle-track.on { background:#3B82F6; }
+        .toggle-track { width:44px; height:24px; border-radius:12px; background:#DEE8F2; position:relative; cursor:pointer; transition:background .2s; }
+        .toggle-track.on { background:#69BFEA; }
         .toggle-knob { position:absolute; top:2px; left:2px; width:20px; height:20px; background:#fff; border-radius:50%; transition:left .2s; box-shadow:0 1px 3px rgba(0,0,0,.15); }
         .toggle-track.on .toggle-knob { left:22px; }
 
@@ -83,35 +83,35 @@
         .status-badge { display:inline-block; font-size:11px; font-weight:600; padding:3px 10px; border-radius:999px; }
 
         /* Toast */
-        .toast-demo { display:flex; align-items:center; gap:10px; background:#111827; color:#fff; padding:12px 16px; border-radius:12px; font-size:13px; box-shadow:0 8px 24px rgba(0,0,0,.12); }
+        .toast-demo { display:flex; align-items:center; gap:10px; background:#163958; color:#fff; padding:12px 16px; border-radius:12px; font-size:13px; box-shadow:0 8px 24px rgba(0,0,0,.12); }
         .toast-demo .icon { font-size:16px; }
 
         /* Modal */
         .modal-demo { background:#fff; border-radius:16px; padding:24px; box-shadow:0 8px 24px rgba(0,0,0,.12); max-width:320px; margin:0 auto; }
         .modal-title { font-size:18px; font-weight:700; margin-bottom:8px; }
-        .modal-body { font-size:14px; color:#4B5563; margin-bottom:20px; line-height:1.5; }
+        .modal-body { font-size:14px; color:#45617E; margin-bottom:20px; line-height:1.5; }
         .modal-actions { display:flex; gap:8px; justify-content:flex-end; }
 
         /* Bottom Sheet */
         .bottomsheet-demo { background:#fff; border-radius:16px 16px 0 0; padding:20px; box-shadow:0 -4px 20px rgba(0,0,0,.08); }
-        .bs-handle { width:40px; height:4px; background:#D1D5DB; border-radius:2px; margin:0 auto 16px; }
+        .bs-handle { width:40px; height:4px; background:#DEE8F2; border-radius:2px; margin:0 auto 16px; }
         .bs-title { font-size:16px; font-weight:600; margin-bottom:12px; }
-        .bs-option { display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid #F3F4F6; font-size:14px; }
+        .bs-option { display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid #EEF3F8; font-size:14px; }
         .bs-option:last-child { border-bottom:none; }
 
         /* Image Gallery */
-        .gallery-upload-area { width:100px; height:100px; border:2px dashed #D1D5DB; border-radius:8px; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; background:#FAFAFA; transition:border-color .2s; margin-bottom:8px; }
-        .gallery-upload-area:hover { border-color:#3B82F6; }
-        .gallery-thumb { position:relative; width:80px; height:80px; border-radius:8px; background:#E5E7EB; overflow:hidden; }
-        .gallery-thumb-delete { position:absolute; top:2px; right:2px; width:18px; height:18px; background:#EF4444; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; cursor:pointer; }
-        .gallery-badge { position:absolute; top:4px; left:4px; font-size:10px; font-weight:600; background:#3B82F6; color:#fff; padding:2px 6px; border-radius:4px; }
+        .gallery-upload-area { width:100px; height:100px; border:2px dashed #DEE8F2; border-radius:8px; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; background:#F7FAFD; transition:border-color .2s; margin-bottom:8px; }
+        .gallery-upload-area:hover { border-color:#69BFEA; }
+        .gallery-thumb { position:relative; width:80px; height:80px; border-radius:8px; background:#DEE8F2; overflow:hidden; }
+        .gallery-thumb-delete { position:absolute; top:2px; right:2px; width:18px; height:18px; background:#EA5D86; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; cursor:pointer; }
+        .gallery-badge { position:absolute; top:4px; left:4px; font-size:10px; font-weight:600; background:#69BFEA; color:#fff; padding:2px 6px; border-radius:4px; }
         
         /* Carousel */
-        .carousel-container { position:relative; width:100%; background:#E5E7EB; border-radius:8px; overflow:hidden; }
-        .carousel-main { width:100%; aspect-ratio:375/200; background:#D1D5DB; display:flex; align-items:center; justify-content:center; }
+        .carousel-container { position:relative; width:100%; background:#DEE8F2; border-radius:8px; overflow:hidden; }
+        .carousel-main { width:100%; aspect-ratio:375/200; background:#DEE8F2; display:flex; align-items:center; justify-content:center; }
         .carousel-dots { display:flex; justify-content:center; gap:6px; padding:8px 0; }
-        .carousel-dot { width:6px; height:6px; border-radius:50%; background:#D1D5DB; cursor:pointer; }
-        .carousel-dot.active { background:#3B82F6; }
+        .carousel-dot { width:6px; height:6px; border-radius:50%; background:#DEE8F2; cursor:pointer; }
+        .carousel-dot.active { background:#69BFEA; }
         .carousel-nav { position:absolute; top:50%; transform:translateY(-50%); width:28px; height:28px; background:rgba(0,0,0,.3); color:#fff; border:none; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:14px; }
         .carousel-nav.left { left:8px; }
         .carousel-nav.right { right:8px; }
@@ -119,89 +119,89 @@
         
         /* Profile Card */
         .profile-row { display:flex; align-items:center; gap:8px; padding:8px 0; }
-        .profile-avatar { width:40px; height:40px; border-radius:50%; background:#D1D5DB; flex-shrink:0; }
+        .profile-avatar { width:40px; height:40px; border-radius:50%; background:#DEE8F2; flex-shrink:0; }
         .profile-avatar.large { width:64px; height:64px; }
         .profile-info { flex:1; min-width:0; }
-        .profile-name { font-size:14px; font-weight:600; color:#111827; }
-        .profile-trust { font-size:12px; color:#9CA3AF; }
+        .profile-name { font-size:14px; font-weight:600; color:#163958; }
+        .profile-trust { font-size:12px; color:#8EA2B7; }
         .profile-rate { font-size:12px; color:#059669; }
-        .profile-badge { display:inline-block; font-size:10px; font-weight:600; background:#F3F4F6; color:#374151; padding:2px 6px; border-radius:4px; margin-right:4px; }
-        .trust-level-1 { color:#EF4444; }
+        .profile-badge { display:inline-block; font-size:10px; font-weight:600; background:#EEF3F8; color:#45617E; padding:2px 6px; border-radius:4px; margin-right:4px; }
+        .trust-level-1 { color:#EA5D86; }
         .trust-level-2 { color:#F59E0B; }
-        .trust-level-3 { color:#3B82F6; }
+        .trust-level-3 { color:#69BFEA; }
         .trust-level-4 { color:#059669; }
         
         /* Stepper */
         .stepper-horizontal { display:flex; align-items:center; margin-bottom:16px; }
         .step { display:flex; flex-direction:column; align-items:center; flex:1; }
-        .step-dot { width:28px; height:28px; border-radius:50%; background:#E5E7EB; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; color:#374151; position:relative; z-index:2; }
-        .step-dot.active { background:#3B82F6; color:#fff; }
+        .step-dot { width:28px; height:28px; border-radius:50%; background:#DEE8F2; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; color:#45617E; position:relative; z-index:2; }
+        .step-dot.active { background:#69BFEA; color:#fff; }
         .step-dot.completed { background:#059669; color:#fff; }
-        .step-line { flex:1; height:2px; background:#E5E7EB; margin:0 -8px; }
-        .step-line.active { background:#3B82F6; }
-        .step-label { font-size:11px; color:#6B7280; margin-top:4px; text-align:center; }
-        .step-label.active { color:#3B82F6; font-weight:600; }
+        .step-line { flex:1; height:2px; background:#DEE8F2; margin:0 -8px; }
+        .step-line.active { background:#69BFEA; }
+        .step-label { font-size:11px; color:#45617E; margin-top:4px; text-align:center; }
+        .step-label.active { color:#69BFEA; font-weight:600; }
         
         /* Timeline */
         .timeline { position:relative; padding-left:24px; margin-bottom:16px; }
-        .timeline::before { content:''; position:absolute; left:4px; top:0; bottom:0; width:2px; background:#E5E7EB; }
+        .timeline::before { content:''; position:absolute; left:4px; top:0; bottom:0; width:2px; background:#DEE8F2; }
         .timeline-item { margin-bottom:16px; position:relative; }
-        .timeline-dot { position:absolute; left:-19px; top:2px; width:14px; height:14px; border-radius:50%; background:#E5E7EB; border:2px solid #fff; }
-        .timeline-dot.active { background:#3B82F6; }
+        .timeline-dot { position:absolute; left:-19px; top:2px; width:14px; height:14px; border-radius:50%; background:#DEE8F2; border:2px solid #fff; }
+        .timeline-dot.active { background:#69BFEA; }
         .timeline-dot.completed { background:#059669; }
-        .timeline-label { font-size:12px; font-weight:600; color:#374151; }
+        .timeline-label { font-size:12px; font-weight:600; color:#45617E; }
         
         /* Notification */
-        .noti-item { display:flex; gap:10px; padding:12px; border-bottom:1px solid #F3F4F6; align-items:flex-start; }
+        .noti-item { display:flex; gap:10px; padding:12px; border-bottom:1px solid #EEF3F8; align-items:flex-start; }
         .noti-item:last-child { border-bottom:none; }
-        .noti-unread { background:#F0F9FF; }
-        .noti-indicator { width:8px; height:8px; border-radius:50%; background:#3B82F6; margin-top:6px; }
+        .noti-unread { background:#EAF7FF; }
+        .noti-indicator { width:8px; height:8px; border-radius:50%; background:#69BFEA; margin-top:6px; }
         .noti-content { flex:1; min-width:0; }
-        .noti-title { font-size:13px; font-weight:600; color:#111827; margin-bottom:2px; }
-        .noti-desc { font-size:12px; color:#6B7280; line-height:1.4; }
-        .noti-time { font-size:11px; color:#9CA3AF; margin-top:4px; }
+        .noti-title { font-size:13px; font-weight:600; color:#163958; margin-bottom:2px; }
+        .noti-desc { font-size:12px; color:#45617E; line-height:1.4; }
+        .noti-time { font-size:11px; color:#8EA2B7; margin-top:4px; }
         .noti-filter { display:flex; gap:6px; margin-bottom:12px; overflow-x:auto; padding-bottom:8px; }
-        .noti-filter-chip { display:inline-flex; align-items:center; padding:6px 12px; border:1px solid #D1D5DB; border-radius:999px; font-size:12px; color:#374151; white-space:nowrap; cursor:pointer; }
-        .noti-filter-chip.active { background:#3B82F6; color:#fff; border-color:#3B82F6; }
+        .noti-filter-chip { display:inline-flex; align-items:center; padding:6px 12px; border:1px solid #DEE8F2; border-radius:999px; font-size:12px; color:#45617E; white-space:nowrap; cursor:pointer; }
+        .noti-filter-chip.active { background:#69BFEA; color:#fff; border-color:#69BFEA; }
         
         /* Chat Bubble */
         .chat-bubble { margin-bottom:8px; display:flex; gap:8px; align-items:flex-end; }
         .chat-bubble.sent { justify-content:flex-end; }
         .chat-bubble.received { justify-content:flex-start; }
         .chat-message { max-width:70%; padding:10px 12px; border-radius:16px; font-size:13px; line-height:1.4; word-wrap:break-word; }
-        .chat-message.sent { background:#3B82F6; color:#fff; border-bottom-right-radius:4px; }
-        .chat-message.received { background:#F3F4F6; color:#111827; border-bottom-left-radius:4px; }
-        .chat-message.system { width:100%; text-align:center; background:transparent; color:#9CA3AF; font-size:12px; padding:0; }
-        .chat-avatar { width:28px; height:28px; border-radius:50%; background:#D1D5DB; flex-shrink:0; }
+        .chat-message.sent { background:#69BFEA; color:#fff; border-bottom-right-radius:4px; }
+        .chat-message.received { background:#EEF3F8; color:#163958; border-bottom-left-radius:4px; }
+        .chat-message.system { width:100%; text-align:center; background:transparent; color:#8EA2B7; font-size:12px; padding:0; }
+        .chat-avatar { width:28px; height:28px; border-radius:50%; background:#DEE8F2; flex-shrink:0; }
         .chat-image { max-width:200px; height:auto; border-radius:8px; margin-bottom:4px; }
-        .chat-card { border:1px solid #E5E7EB; border-radius:8px; padding:8px; margin-bottom:4px; }
+        .chat-card { border:1px solid #DEE8F2; border-radius:8px; padding:8px; margin-bottom:4px; }
         
         /* Map & Location */
-        .map-area { width:100%; aspect-ratio:375/200; background:#E5E7EB; border-radius:8px; display:flex; align-items:center; justify-content:center; color:#6B7280; font-size:13px; margin-bottom:8px; }
-        .location-card { border:1px solid #E5E7EB; border-radius:12px; padding:12px; margin-bottom:8px; }
-        .location-address { font-size:13px; font-weight:600; color:#111827; margin-bottom:4px; }
-        .location-subway { font-size:12px; color:#6B7280; }
+        .map-area { width:100%; aspect-ratio:375/200; background:#DEE8F2; border-radius:8px; display:flex; align-items:center; justify-content:center; color:#45617E; font-size:13px; margin-bottom:8px; }
+        .location-card { border:1px solid #DEE8F2; border-radius:12px; padding:12px; margin-bottom:8px; }
+        .location-address { font-size:13px; font-weight:600; color:#163958; margin-bottom:4px; }
+        .location-subway { font-size:12px; color:#45617E; }
         
         /* Calendar */
         .calendar-container { margin-bottom:12px; }
         .calendar-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
-        .calendar-title { font-size:14px; font-weight:600; color:#111827; }
+        .calendar-title { font-size:14px; font-weight:600; color:#163958; }
         .calendar-grid { display:grid; grid-template-columns:repeat(7, 1fr); gap:4px; margin-bottom:12px; }
-        .calendar-dow { font-size:11px; font-weight:600; color:#6B7280; text-align:center; padding:4px; }
+        .calendar-dow { font-size:11px; font-weight:600; color:#45617E; text-align:center; padding:4px; }
         .calendar-day { aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-size:12px; border-radius:6px; position:relative; }
-        .calendar-day.other-month { color:#D1D5DB; }
-        .calendar-day.today { background:#3B82F6; color:#fff; font-weight:600; }
-        .calendar-day.has-event::after { content:''; position:absolute; bottom:2px; width:4px; height:4px; border-radius:50%; background:#3B82F6; }
+        .calendar-day.other-month { color:#DEE8F2; }
+        .calendar-day.today { background:#69BFEA; color:#fff; font-weight:600; }
+        .calendar-day.has-event::after { content:''; position:absolute; bottom:2px; width:4px; height:4px; border-radius:50%; background:#69BFEA; }
         .calendar-view-toggle { display:flex; gap:6px; margin-bottom:12px; }
-        .calendar-view-btn { flex:1; padding:6px; border:1px solid #D1D5DB; border-radius:6px; font-size:11px; text-align:center; color:#374151; cursor:pointer; }
-        .calendar-view-btn.active { background:#3B82F6; color:#fff; border-color:#3B82F6; }
+        .calendar-view-btn { flex:1; padding:6px; border:1px solid #DEE8F2; border-radius:6px; font-size:11px; text-align:center; color:#45617E; cursor:pointer; }
+        .calendar-view-btn.active { background:#69BFEA; color:#fff; border-color:#69BFEA; }
         
         /* Badge & Dot */
-        .count-badge { position:absolute; min-width:18px; height:18px; background:#EF4444; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; top:-4px; right:-4px; border:2px solid #fff; }
-        .dot-indicator { position:absolute; width:8px; height:8px; background:#EF4444; border-radius:50%; top:-2px; right:-2px; border:2px solid #fff; }
+        .count-badge { position:absolute; min-width:18px; height:18px; background:#EA5D86; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; top:-4px; right:-4px; border:2px solid #fff; }
+        .dot-indicator { position:absolute; width:8px; height:8px; background:#EA5D86; border-radius:50%; top:-2px; right:-2px; border:2px solid #fff; }
         
         /* Avatar */
-        .avatar { border-radius:50%; background:#D1D5DB; display:flex; align-items:center; justify-content:center; color:#6B7280; flex-shrink:0; }
+        .avatar { border-radius:50%; background:#DEE8F2; display:flex; align-items:center; justify-content:center; color:#45617E; flex-shrink:0; }
         .avatar-24 { width:24px; height:24px; font-size:11px; }
         .avatar-32 { width:32px; height:32px; font-size:12px; }
         .avatar-40 { width:40px; height:40px; font-size:14px; }
@@ -212,76 +212,70 @@
         .avatar-group { display:flex; margin-left:-8px; }
         .avatar-group .avatar { border:2px solid #fff; }
         .avatar-group .avatar:first-child { margin-left:0; }
-        .avatar-trust-ring { border:2px solid #D1D5DB; }
-        .avatar-trust-ring.level-1 { border-color:#EF4444; }
+        .avatar-trust-ring { border:2px solid #DEE8F2; }
+        .avatar-trust-ring.level-1 { border-color:#EA5D86; }
         .avatar-trust-ring.level-2 { border-color:#F59E0B; }
-        .avatar-trust-ring.level-3 { border-color:#3B82F6; }
+        .avatar-trust-ring.level-3 { border-color:#69BFEA; }
         .avatar-trust-ring.level-4 { border-color:#059669; }
         .bs-option .icon { font-size:18px; width:24px; text-align:center; }
 
         /* Snackbar */
-        .snackbar-demo { background:#374151; color:#fff; padding:12px 16px; border-radius:8px; font-size:13px; display:flex; align-items:center; justify-content:space-between; }
-        .snackbar-action { color:#93C5FD; font-weight:600; font-size:13px; cursor:pointer; }
+        .snackbar-demo { background:#45617E; color:#fff; padding:12px 16px; border-radius:8px; font-size:13px; display:flex; align-items:center; justify-content:space-between; }
+        .snackbar-action { color:#69BFEA; font-weight:600; font-size:13px; cursor:pointer; }
 
         /* Empty State */
         .empty-state { text-align:center; padding:40px 20px; }
         .empty-icon { font-size:48px; margin-bottom:12px; opacity:.4; }
-        .empty-text { font-size:14px; color:#9CA3AF; margin-bottom:16px; line-height:1.5; }
+        .empty-text { font-size:14px; color:#8EA2B7; margin-bottom:16px; line-height:1.5; }
 
         /* Skeleton */
-        .skeleton { background:linear-gradient(90deg,#F3F4F6 25%,#E5E7EB 50%,#F3F4F6 75%); background-size:200% 100%; border-radius:6px; animation:shimmer 1.5s infinite; }
+        .skeleton { background:linear-gradient(90deg,#EEF3F8 25%,#DEE8F2 50%,#EEF3F8 75%); background-size:200% 100%; border-radius:6px; animation:shimmer 1.5s infinite; }
         @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 
         /* Card */
-        .product-card-demo { background:#fff; border:1px solid #E5E7EB; border-radius:12px; overflow:hidden; width:160px; }
-        .product-card-demo .card-img { width:100%; height:160px; background:#F3F4F6; }
+        .product-card-demo { background:#fff; border:1px solid #DEE8F2; border-radius:12px; overflow:hidden; width:160px; }
+        .product-card-demo .card-img { width:100%; height:160px; background:#EEF3F8; }
         .product-card-demo .card-body { padding:10px; }
         .product-card-demo .card-tags { display:flex; gap:4px; margin-bottom:4px; }
         .product-card-demo .card-title { font-size:13px; font-weight:600; line-height:1.3; }
-        .product-card-demo .card-meta { font-size:11px; color:#9CA3AF; margin-top:2px; }
-        .product-card-demo .card-trust { font-size:11px; color:#6B7280; margin-top:6px; padding-top:6px; border-top:1px solid #F3F4F6; }
+        .product-card-demo .card-meta { font-size:11px; color:#8EA2B7; margin-top:2px; }
+        .product-card-demo .card-trust { font-size:11px; color:#45617E; margin-top:6px; padding-top:6px; border-top:1px solid #EEF3F8; }
 
         /* Right: Description */
-        .desc-side { background:#fff; border:1px solid #E5E7EB; border-radius:12px; overflow:hidden; position:sticky; top:20px; max-height:calc(100vh - 40px); display:flex; flex-direction:column; }
-        .desc-header { padding:16px 20px; border-bottom:1px solid #E5E7EB; }
+        .desc-side { background:#fff; border:1px solid #DEE8F2; border-radius:12px; overflow:hidden; position:sticky; top:20px; max-height:calc(100vh - 40px); display:flex; flex-direction:column; }
+        .desc-header { padding:16px 20px; border-bottom:1px solid #DEE8F2; }
         .desc-header h2 { font-size:16px; font-weight:700; }
-        .desc-tabs { display:flex; border-bottom:1px solid #E5E7EB; }
-        .desc-tab { flex:1; padding:10px; text-align:center; font-size:13px; font-weight:500; color:#9CA3AF; cursor:pointer; border-bottom:2px solid transparent; }
-        .desc-tab.active { color:#2563EB; border-bottom-color:#2563EB; }
+        .desc-tabs { display:flex; border-bottom:1px solid #DEE8F2; }
+        .desc-tab { flex:1; padding:10px; text-align:center; font-size:13px; font-weight:500; color:#8EA2B7; cursor:pointer; border-bottom:2px solid transparent; }
+        .desc-tab.active { color:#2F8EC1; border-bottom-color:#2F8EC1; }
         .desc-body { flex:1; overflow-y:auto; padding:20px; }
         .desc-panel { display:none; }
         .desc-panel.active { display:block; }
 
-        .desc-item { margin-bottom:20px; padding-bottom:20px; border-bottom:1px solid #F3F4F6; }
+        .desc-item { margin-bottom:20px; padding-bottom:20px; border-bottom:1px solid #EEF3F8; }
         .desc-item:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
         .desc-item-title { display:flex; align-items:center; gap:8px; font-size:14px; font-weight:600; margin-bottom:6px; }
-        .desc-num { display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; background:#2563EB; color:#fff; border-radius:50%; font-size:11px; font-weight:700; flex-shrink:0; }
+        .desc-num { display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; background:#2F8EC1; color:#fff; border-radius:50%; font-size:11px; font-weight:700; flex-shrink:0; }
         .desc-text { font-size:13px; color:#555; line-height:1.6; }
-        .desc-detail { font-size:12px; color:#9CA3AF; margin-top:4px; line-height:1.5; }
+        .desc-detail { font-size:12px; color:#8EA2B7; margin-top:4px; line-height:1.5; }
 
         .spec-table { width:100%; border-collapse:collapse; font-size:12px; margin-top:8px; }
-        .spec-table th { text-align:left; background:#F9FAFB; padding:6px 8px; color:#6B7280; font-weight:500; }
-        .spec-table td { padding:6px 8px; border-bottom:1px solid #F3F4F6; }
+        .spec-table th { text-align:left; background:#F7FAFD; padding:6px 8px; color:#45617E; font-weight:500; }
+        .spec-table td { padding:6px 8px; border-bottom:1px solid #EEF3F8; }
 
-        .page-footer { text-align:center; padding:24px; font-size:12px; color:#9CA3AF; }
+        .page-footer { text-align:center; padding:24px; font-size:12px; color:#8EA2B7; }
 
         @media(max-width:1024px){
             .phone-frame { width:100%; max-width:375px; }
             .desc-side { position:static; max-height:none; }
         }
-    /* Responsive improvements for laptop/small screens */
-.meta-bar { flex-wrap: wrap; gap: 8px; }
-@media (max-width: 700px) {
-  .meta-bar { padding: 8px 12px; }
-  .meta-item { font-size: 11px; }
-}
 </style>
 </head>
 <body>
 
 <div class="page-header">
     <h1>COMM02 공통 컴포넌트</h1>
-    <p>애픽 월드 (Aepik World) UI Component Library — v2.0 | 2026-03-06</p>
+    <p>애픽 월드 (Aepik World) UI Component Library — v2.1 | 2026-03-10</p>
 </div>
 
 <div class="main">
@@ -320,7 +314,7 @@
                 <button class="btn btn-md btn-secondary" style="gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 찜</button>
                 <button class="btn btn-md btn-secondary" style="gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> 공유</button>
                 <button class="btn btn-sm btn-ghost" style="font-size:18px; padding:0 8px;">⋮</button>
-                <button class="btn btn-sm" style="background:#F3F4F6; font-size:16px; width:32px; padding:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
+                <button class="btn btn-sm" style="background:#EEF3F8; font-size:16px; width:32px; padding:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
             </div>
         </div>
     </div>
@@ -333,7 +327,7 @@
         <div class="phone-inner">
             <div class="demo-label">텍스트 인풋</div>
             <div class="input-group">
-                <label class="input-label">상품명 <span style="color:#EF4444;">*</span></label>
+                <label class="input-label">상품명 <span style="color:#EA5D86;">*</span></label>
                 <input class="input-field" type="text" placeholder="상품명을 입력하세요" value="하이큐 히나타 아크릴 스탠드">
                 <div class="input-hint">최대 50자</div>
             </div>
@@ -381,7 +375,7 @@
             </div>
             <div style="display:flex; align-items:center; gap:10px; margin-top:8px;">
                 <div class="toggle-track"><div class="toggle-knob"></div></div>
-                <span style="font-size:14px; color:#9CA3AF;">다크 모드</span>
+                <span style="font-size:14px; color:#8EA2B7;">다크 모드</span>
             </div>
         </div>
     </div>
@@ -394,10 +388,10 @@
         <div class="phone-inner">
             <div class="demo-label">거래 유형 태그</div>
             <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px;">
-                <span class="tag" style="background:#FFF7ED; color:#EA580C;">교환</span>
-                <span class="tag" style="background:#EFF6FF; color:#2563EB;">공구</span>
-                <span class="tag" style="background:#F0FDF4; color:#16A34A;">구함</span>
-                <span class="tag" style="background:#FAF5FF; color:#7C3AED;">세트공구</span>
+                <span class="tag" style="background:#ECF7FF; color:#2F8EC1;">교환</span>
+                <span class="tag" style="background:#E8F4FC; color:#1E6FA8;">공구</span>
+                <span class="tag" style="background:#F0FDF4; color:#16A34A;">동행</span>
+                <span class="tag" style="background:#FDECF4; color:#BD4E88;">세트공구</span>
             </div>
 
             <div class="demo-label">카테고리 태그</div>
@@ -410,50 +404,44 @@
 
             <div class="demo-label">상태 뱃지</div>
             <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px;">
-                <span class="status-badge" style="background:#FEF3C7; color:#92400E;">대기중</span>
-                <span class="status-badge" style="background:#D1FAE5; color:#065F46;">수락됨</span>
-                <span class="status-badge" style="background:#E5E7EB; color:#374151;">거절됨</span>
-                <span class="status-badge" style="background:#E5E7EB; color:#6B7280;">만료</span>
-                <span class="status-badge" style="background:#DBEAFE; color:#1E40AF;">모집중</span>
-                <span class="status-badge" style="background:#FEE2E2; color:#991B1B;">무산</span>
-                <span class="status-badge" style="background:#D1FAE5; color:#065F46;">진행 확정</span>
+                <span class="status-badge" style="background:#FFF6EA; color:#F3A34B;">대기중</span>
+                <span class="status-badge" style="background:#EAFBF3; color:#10B981;">수락됨</span>
+                <span class="status-badge" style="background:#DEE8F2; color:#45617E;">거절됨</span>
+                <span class="status-badge" style="background:#DEE8F2; color:#45617E;">만료</span>
+                <span class="status-badge" style="background:#EAF7FF; color:#1E6FA8;">모집중</span>
+                <span class="status-badge" style="background:#FDE9F3; color:#EA5D86;">무산</span>
+                <span class="status-badge" style="background:#EAFBF3; color:#10B981;">진행 확정</span>
             </div>
 
             <div class="demo-label">상태 도트</div>
             <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:12px;">
-                <div class="badge-dot" style="color:#065F46;"><style>.bd-green::before{background:#10B981;}/* Responsive improvements for laptop/small screens */
-.meta-bar { flex-wrap: wrap; gap: 8px; }
-@media (max-width: 700px) {
-  .meta-bar { padding: 8px 12px; }
-  .meta-item { font-size: 11px; }
-}
-</style><span class="badge-dot bd-green" style="--dot:#10B981;">● 거래 완료</span></div>
-                <div style="display:flex; align-items:center; gap:6px; font-size:12px;"><span style="width:8px;height:8px;border-radius:50%;background:#F59E0B;display:inline-block;"></span> 진행 결정 대기</div>
-                <div style="display:flex; align-items:center; gap:6px; font-size:12px;"><span style="width:8px;height:8px;border-radius:50%;background:#EF4444;display:inline-block;"></span> 무산</div>
+                <div style="display:flex; align-items:center; gap:6px; font-size:12px; color:#10B981;"><span style="width:8px;height:8px;border-radius:50%;background:#10B981;display:inline-block;"></span> 거래 완료</div>
+                <div style="display:flex; align-items:center; gap:6px; font-size:12px; color:#F3A34B;"><span style="width:8px;height:8px;border-radius:50%;background:#F3A34B;display:inline-block;"></span> 진행 결정 대기</div>
+                <div style="display:flex; align-items:center; gap:6px; font-size:12px; color:#EA5D86;"><span style="width:8px;height:8px;border-radius:50%;background:#EA5D86;display:inline-block;"></span> 무산</div>
             </div>
 
             <div class="demo-label">상품 상태 등급</div>
             <div style="display:flex; gap:6px;">
-                <span class="tag" style="background:#DBEAFE; color:#1E40AF; font-size:11px; padding:2px 8px;">S급</span>
-                <span class="tag" style="background:#D1FAE5; color:#065F46; font-size:11px; padding:2px 8px;">A급</span>
-                <span class="tag" style="background:#FEF3C7; color:#92400E; font-size:11px; padding:2px 8px;">B급</span>
-                <span class="tag" style="background:#E5E7EB; color:#374151; font-size:11px; padding:2px 8px;">C급</span>
+                <span class="tag" style="background:#EAF7FF; color:#1E6FA8; font-size:11px; padding:2px 8px;">S급</span>
+                <span class="tag" style="background:#EAFBF3; color:#10B981; font-size:11px; padding:2px 8px;">A급</span>
+                <span class="tag" style="background:#FFF6EA; color:#F3A34B; font-size:11px; padding:2px 8px;">B급</span>
+                <span class="tag" style="background:#DEE8F2; color:#45617E; font-size:11px; padding:2px 8px;">C급</span>
             </div>
 
             <div class="demo-label">신뢰 등급</div>
             <div style="display:flex; flex-wrap:wrap; gap:8px;">
-                <span class="tag" style="background:#F3F4F6; color:#6B7280; font-size:11px;">Lv.1</span>
-                <span class="tag" style="background:#EFF6FF; color:#2563EB; font-size:11px;">Lv.2</span>
-                <span class="tag" style="background:#DBEAFE; color:#1D4ED8; font-size:11px;">Lv.3</span>
-                <span class="tag" style="background:#FEF3C7; color:#92400E; font-size:11px;">Lv.4</span>
+                <span class="tag" style="background:#EEF3F8; color:#8EA2B7; font-size:11px;">Lv.1</span>
+                <span class="tag" style="background:#EAF7FF; color:#2F8EC1; font-size:11px;">Lv.2</span>
+                <span class="tag" style="background:#E8F2FA; color:#173E68; font-size:11px;">Lv.3</span>
+                <span class="tag" style="background:#FDECF4; color:#BD4E88; font-size:11px;">Lv.4</span>
             </div>
 
             <div class="demo-label">필터 칩</div>
             <div style="display:flex; gap:6px;">
-                <span class="tag" style="background:#3B82F6; color:#fff;">전체</span>
-                <span class="tag" style="background:#F3F4F6; color:#4B5563;">교환</span>
-                <span class="tag" style="background:#F3F4F6; color:#4B5563;">공구</span>
-                <span class="tag" style="background:#F3F4F6; color:#4B5563;">구함</span>
+                <span class="tag" style="background:#69BFEA; color:#fff;">전체</span>
+                <span class="tag" style="background:#EEF3F8; color:#45617E;">교환</span>
+                <span class="tag" style="background:#EEF3F8; color:#45617E;">공구</span>
+                <span class="tag" style="background:#EEF3F8; color:#45617E;">동행</span>
             </div>
         </div>
     </div>
@@ -463,7 +451,7 @@
 <div>
     <div class="phone-section-label">4. 팝업 & 오버레이</div>
     <div class="phone-frame">
-        <div class="phone-inner" style="background:#F9FAFB;">
+        <div class="phone-inner" style="background:#F7FAFD;">
             <div class="demo-label">확인 모달 (Confirm Modal)</div>
             <div class="modal-demo">
                 <div class="modal-title">교환 제안을 수락하시겠어요?</div>
@@ -487,15 +475,15 @@
             <div class="bottomsheet-demo">
                 <div class="bs-handle"></div>
                 <div class="bs-title">거절 사유 선택</div>
-                <div class="bs-option"><span class="icon" ><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#9CA3AF"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></span> 원하는 굿즈가 아닙니다</div>
-                <div class="bs-option"><span class="icon" ><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#9CA3AF"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg></span> 조건이 맞지 않습니다</div>
-                <div class="bs-option"><span class="icon" ><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#9CA3AF"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span> 상대방 신뢰도가 낮습니다</div>
-                <div class="bs-option"><span class="icon" ><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#9CA3AF"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></span> 직접 입력</div>
+                <div class="bs-option"><span class="icon" ><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#8EA2B7"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></span> 원하는 굿즈가 아닙니다</div>
+                <div class="bs-option"><span class="icon" ><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#8EA2B7"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg></span> 조건이 맞지 않습니다</div>
+                <div class="bs-option"><span class="icon" ><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#8EA2B7"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span> 상대방 신뢰도가 낮습니다</div>
+                <div class="bs-option"><span class="icon" ><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#8EA2B7"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></span> 직접 입력</div>
             </div>
 
             <div class="demo-label">토스트 (Toast)</div>
             <div class="toast-demo" style="margin-bottom:8px;"><span class="icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> 교환 글이 등록되었습니다</div>
-            <div class="toast-demo" style="background:#EF4444;"><span class="icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span> 네트워크 오류가 발생했습니다</div>
+            <div class="toast-demo" style="background:#EA5D86;"><span class="icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span> 네트워크 오류가 발생했습니다</div>
 
             <div class="demo-label">스낵바 (Snackbar)</div>
             <div class="snackbar-demo">
@@ -517,7 +505,7 @@
                     <div class="card-img"></div>
                     <div class="card-body">
                         <div class="card-tags">
-                            <span class="tag" style="background:#FFF7ED; color:#EA580C; font-size:10px; padding:2px 6px;">교환</span>
+                            <span class="tag" style="background:#ECF7FF; color:#2F8EC1; font-size:10px; padding:2px 6px;">교환</span>
                             <span class="tag" style="background:#F5F3FF; color:#8B5CF6; font-size:10px; padding:2px 6px;">애니</span>
                         </div>
                         <div class="card-title">하이큐 히나타 아크릴 스탠드</div>
@@ -529,7 +517,7 @@
                     <div class="card-img"></div>
                     <div class="card-body">
                         <div class="card-tags">
-                            <span class="tag" style="background:#EFF6FF; color:#2563EB; font-size:10px; padding:2px 6px;">공구</span>
+                            <span class="tag" style="background:#E8F4FC; color:#1E6FA8; font-size:10px; padding:2px 6px;">공구</span>
                             <span class="tag" style="background:#FDF2F8; color:#EC4899; font-size:10px; padding:2px 6px;">아이돌</span>
                         </div>
                         <div class="card-title">BTS 포토카드 세트 공동구매</div>
@@ -540,8 +528,8 @@
             </div>
 
             <div class="demo-label">빈 상태 (Empty State)</div>
-            <div class="empty-state" style="background:#F9FAFB; border-radius:12px;">
-                <div class="empty-icon" style="color:#D1D5DB;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 40.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+            <div class="empty-state" style="background:#F7FAFD; border-radius:12px;">
+                <div class="empty-icon" style="color:#DEE8F2;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 40.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
                 <div class="empty-text">아직 등록된 교환 상품이 없어요<br>첫 번째 교환을 시작해보세요!</div>
                 <button class="btn btn-md btn-primary">교환 등록하기</button>
             </div>
@@ -571,38 +559,38 @@
     <div class="phone-frame">
         <div class="phone-inner">
             <div class="demo-label">탑 바 (Top Bar)</div>
-            <div style="display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px solid #E5E7EB; margin-bottom:12px;">
-                <span style="font-size:18px; font-weight:700; color:#3B82F6;">애픽 월드</span>
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px solid #DEE8F2; margin-bottom:12px;">
+                <span style="font-size:18px; font-weight:700; color:#69BFEA;">애픽 월드</span>
                 <div style="display:flex; gap:16px; font-size:18px;">
-                    <span style="color:#374151;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
-                    <span style="color:#374151; position:relative;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span style="position:absolute;top:-4px;right:-6px;width:8px;height:8px;background:#EF4444;border-radius:50%;"></span></span>
+                    <span style="color:#45617E;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+                    <span style="color:#45617E; position:relative;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span style="position:absolute;top:-4px;right:-6px;width:8px;height:8px;background:#EA5D86;border-radius:50%;"></span></span>
                 </div>
             </div>
 
             <div class="demo-label">서브 헤더 (← 뒤로가기)</div>
-            <div style="display:flex; align-items:center; padding:12px 0; border-bottom:1px solid #E5E7EB; margin-bottom:12px;">
+            <div style="display:flex; align-items:center; padding:12px 0; border-bottom:1px solid #DEE8F2; margin-bottom:12px;">
                 <span style="font-size:18px; margin-right:12px;">←</span>
                 <span style="font-size:16px; font-weight:600;">교환 상세</span>
             </div>
 
             <div class="demo-label">바텀 네비게이션</div>
-            <div style="display:flex; border-top:1px solid #E5E7EB; padding-top:8px;">
-                <div style="flex:1; text-align:center;"><div style="color:#3B82F6;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div style="font-size:10px; color:#3B82F6; font-weight:600;">홈</div></div>
-                <div style="flex:1; text-align:center;"><div style="color:#9CA3AF;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><div style="font-size:10px; color:#9CA3AF;">교환</div></div>
-                <div style="flex:1; text-align:center;"><div style="color:#9CA3AF;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div style="font-size:10px; color:#9CA3AF;">이벤트</div></div>
-                <div style="flex:1; text-align:center;"><div style="color:#9CA3AF;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div><div style="font-size:10px; color:#9CA3AF;">채팅</div></div>
-                <div style="flex:1; text-align:center;"><div style="color:#9CA3AF;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div style="font-size:10px; color:#9CA3AF;">마이</div></div>
+            <div style="display:flex; border-top:1px solid #DEE8F2; padding-top:8px;">
+                <div style="flex:1; text-align:center;"><div style="color:#69BFEA;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div style="font-size:10px; color:#69BFEA; font-weight:600;">홈</div></div>
+                <div style="flex:1; text-align:center;"><div style="color:#8EA2B7;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><div style="font-size:10px; color:#8EA2B7;">교환</div></div>
+                <div style="flex:1; text-align:center;"><div style="color:#8EA2B7;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div style="font-size:10px; color:#8EA2B7;">이벤트</div></div>
+                <div style="flex:1; text-align:center;"><div style="color:#8EA2B7;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div><div style="font-size:10px; color:#8EA2B7;">채팅</div></div>
+                <div style="flex:1; text-align:center;"><div style="color:#8EA2B7;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div style="font-size:10px; color:#8EA2B7;">마이</div></div>
             </div>
 
             <div class="demo-label">탭 바 (Tab)</div>
-            <div style="display:flex; border-bottom:1px solid #E5E7EB; margin-bottom:12px;">
-                <div style="flex:1; padding:10px; text-align:center; font-size:14px; font-weight:600; color:#2563EB; border-bottom:2px solid #2563EB;">받은 제안</div>
-                <div style="flex:1; padding:10px; text-align:center; font-size:14px; color:#9CA3AF;">보낸 제안</div>
+            <div style="display:flex; border-bottom:1px solid #DEE8F2; margin-bottom:12px;">
+                <div style="flex:1; padding:10px; text-align:center; font-size:14px; font-weight:600; color:#2F8EC1; border-bottom:2px solid #2F8EC1;">받은 제안</div>
+                <div style="flex:1; padding:10px; text-align:center; font-size:14px; color:#8EA2B7;">보낸 제안</div>
             </div>
 
             <div class="demo-label">FAB (플로팅 액션 버튼)</div>
             <div style="display:flex; justify-content:flex-end;">
-                <div style="width:56px; height:56px; background:#3B82F6; border-radius:16px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:28px; box-shadow:0 4px 12px rgba(59,130,246,.35);">+</div>
+                <div style="width:56px; height:56px; background:#69BFEA; border-radius:16px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:28px; box-shadow:0 4px 12px rgba(47,142,193,.35);">+</div>
             </div>
         </div>
     </div>
@@ -614,64 +602,64 @@
     <div class="phone-frame">
         <div class="phone-inner">
             <div class="demo-label">검색 바 (메인 홈)</div>
-            <div style="display:flex; align-items:center; background:#F3F4F6; border-radius:10px; padding:0 12px; height:44px; margin-bottom:16px;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                <span style="margin-left:8px; font-size:14px; color:#9CA3AF;">작품, 캐릭터, 굿즈 검색</span>
+            <div style="display:flex; align-items:center; background:#EEF3F8; border-radius:10px; padding:0 12px; height:44px; margin-bottom:16px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8EA2B7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <span style="margin-left:8px; font-size:14px; color:#8EA2B7;">작품, 캐릭터, 굿즈 검색</span>
             </div>
 
             <div class="demo-label">검색 인풋 (포커스 상태)</div>
-            <div style="display:flex; align-items:center; border:2px solid #3B82F6; border-radius:10px; padding:0 12px; height:44px; margin-bottom:4px; box-shadow:0 0 0 2px rgba(59,130,246,.15);">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                <span style="margin-left:8px; font-size:14px; color:#111827;">하츠네 미쿠</span>
-                <span style="margin-left:auto; color:#9CA3AF; cursor:pointer;">
+            <div style="display:flex; align-items:center; border:2px solid #69BFEA; border-radius:10px; padding:0 12px; height:44px; margin-bottom:4px; box-shadow:0 0 0 2px rgba(105,191,234,.2);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#69BFEA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <span style="margin-left:8px; font-size:14px; color:#163958;">하츠네 미쿠</span>
+                <span style="margin-left:auto; color:#8EA2B7; cursor:pointer;">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </span>
             </div>
-            <div style="font-size:11px; color:#9CA3AF; margin-bottom:16px;">최소 2자 이상 입력 시 자동완성</div>
+            <div style="font-size:11px; color:#8EA2B7; margin-bottom:16px;">최소 2자 이상 입력 시 자동완성</div>
 
             <div class="demo-label">자동완성 드롭다운</div>
-            <div style="border:1px solid #E5E7EB; border-radius:10px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,.08); margin-bottom:16px;">
-                <div style="padding:10px 14px; border-bottom:1px solid #F3F4F6; display:flex; align-items:center; gap:8px;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                    <span style="font-size:14px;"><strong style="color:#3B82F6;">하츠네 미쿠</strong> 아크릴 스탠드</span>
+            <div style="border:1px solid #DEE8F2; border-radius:10px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,.08); margin-bottom:16px;">
+                <div style="padding:10px 14px; border-bottom:1px solid #EEF3F8; display:flex; align-items:center; gap:8px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8EA2B7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <span style="font-size:14px;"><strong style="color:#69BFEA;">하츠네 미쿠</strong> 아크릴 스탠드</span>
                 </div>
-                <div style="padding:10px 14px; border-bottom:1px solid #F3F4F6; display:flex; align-items:center; gap:8px;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                    <span style="font-size:14px;"><strong style="color:#3B82F6;">하츠네 미쿠</strong> 피규어</span>
+                <div style="padding:10px 14px; border-bottom:1px solid #EEF3F8; display:flex; align-items:center; gap:8px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8EA2B7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <span style="font-size:14px;"><strong style="color:#69BFEA;">하츠네 미쿠</strong> 피규어</span>
                 </div>
                 <div style="padding:10px 14px; display:flex; align-items:center; gap:8px;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                    <span style="font-size:14px;"><strong style="color:#3B82F6;">하츠네 미쿠</strong> 포토카드</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8EA2B7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <span style="font-size:14px;"><strong style="color:#69BFEA;">하츠네 미쿠</strong> 포토카드</span>
                 </div>
             </div>
 
             <div class="demo-label">최근 검색어 & 인기 검색어</div>
             <div style="margin-bottom:12px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                    <span style="font-size:13px; font-weight:600; color:#374151;">최근 검색어</span>
-                    <span style="font-size:11px; color:#9CA3AF; cursor:pointer;">전체 삭제</span>
+                    <span style="font-size:13px; font-weight:600; color:#45617E;">최근 검색어</span>
+                    <span style="font-size:11px; color:#8EA2B7; cursor:pointer;">전체 삭제</span>
                 </div>
                 <div style="display:flex; flex-wrap:wrap; gap:6px;">
-                    <span style="display:inline-flex; align-items:center; gap:4px; padding:6px 10px; background:#F3F4F6; border-radius:999px; font-size:12px; color:#374151;">
+                    <span style="display:inline-flex; align-items:center; gap:4px; padding:6px 10px; background:#EEF3F8; border-radius:999px; font-size:12px; color:#45617E;">
                         하츠네 미쿠
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8EA2B7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                     </span>
-                    <span style="display:inline-flex; align-items:center; gap:4px; padding:6px 10px; background:#F3F4F6; border-radius:999px; font-size:12px; color:#374151;">
+                    <span style="display:inline-flex; align-items:center; gap:4px; padding:6px 10px; background:#EEF3F8; border-radius:999px; font-size:12px; color:#45617E;">
                         BTS 포토카드
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8EA2B7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                     </span>
-                    <span style="display:inline-flex; align-items:center; gap:4px; padding:6px 10px; background:#F3F4F6; border-radius:999px; font-size:12px; color:#374151;">
+                    <span style="display:inline-flex; align-items:center; gap:4px; padding:6px 10px; background:#EEF3F8; border-radius:999px; font-size:12px; color:#45617E;">
                         원신 키링
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8EA2B7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                     </span>
                 </div>
             </div>
             <div>
-                <div style="font-size:13px; font-weight:600; color:#374151; margin-bottom:8px;">인기 검색어</div>
+                <div style="font-size:13px; font-weight:600; color:#45617E; margin-bottom:8px;">인기 검색어</div>
                 <div style="display:flex; flex-wrap:wrap; gap:6px;">
-                    <span style="padding:6px 10px; background:#EFF6FF; border-radius:999px; font-size:12px; color:#2563EB; font-weight:500;">1. 주술회전</span>
-                    <span style="padding:6px 10px; background:#EFF6FF; border-radius:999px; font-size:12px; color:#2563EB; font-weight:500;">2. 에스파</span>
-                    <span style="padding:6px 10px; background:#EFF6FF; border-radius:999px; font-size:12px; color:#2563EB; font-weight:500;">3. 젠레스 존 제로</span>
+                    <span style="padding:6px 10px; background:#EAF7FF; border-radius:999px; font-size:12px; color:#2F8EC1; font-weight:500;">1. 주술회전</span>
+                    <span style="padding:6px 10px; background:#EAF7FF; border-radius:999px; font-size:12px; color:#2F8EC1; font-weight:500;">2. 에스파</span>
+                    <span style="padding:6px 10px; background:#EAF7FF; border-radius:999px; font-size:12px; color:#2F8EC1; font-weight:500;">3. 젠레스 존 제로</span>
                 </div>
             </div>
         </div>
@@ -684,55 +672,55 @@
     <div class="phone-frame">
         <div class="phone-inner">
             <div class="demo-label">검색 결과 헤더</div>
-            <div style="display:flex; align-items:center; padding:8px 0; border-bottom:1px solid #E5E7EB; margin-bottom:12px;">
+            <div style="display:flex; align-items:center; padding:8px 0; border-bottom:1px solid #DEE8F2; margin-bottom:12px;">
                 <span style="font-size:18px; margin-right:12px; cursor:pointer;">←</span>
-                <div style="flex:1; display:flex; align-items:center; background:#F3F4F6; border-radius:10px; padding:0 12px; height:40px;">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                    <span style="margin-left:8px; font-size:14px; color:#111827;">하츠네 미쿠</span>
+                <div style="flex:1; display:flex; align-items:center; background:#EEF3F8; border-radius:10px; padding:0 12px; height:40px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8EA2B7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <span style="margin-left:8px; font-size:14px; color:#163958;">하츠네 미쿠</span>
                 </div>
             </div>
 
             <div class="demo-label">거래 유형 탭</div>
-            <div style="display:flex; border-bottom:1px solid #E5E7EB; margin-bottom:12px;">
-                <div style="flex:1; padding:10px; text-align:center; font-size:13px; font-weight:600; color:#2563EB; border-bottom:2px solid #2563EB;">전체 <span style="color:#3B82F6;">(42)</span></div>
-                <div style="flex:1; padding:10px; text-align:center; font-size:13px; color:#9CA3AF;">교환 (28)</div>
-                <div style="flex:1; padding:10px; text-align:center; font-size:13px; color:#9CA3AF;">공구 (10)</div>
-                <div style="flex:1; padding:10px; text-align:center; font-size:13px; color:#9CA3AF;">구함 (4)</div>
+            <div style="display:flex; border-bottom:1px solid #DEE8F2; margin-bottom:12px;">
+                <div style="flex:1; padding:10px; text-align:center; font-size:13px; font-weight:600; color:#2F8EC1; border-bottom:2px solid #2F8EC1;">전체 <span style="color:#69BFEA;">(42)</span></div>
+                <div style="flex:1; padding:10px; text-align:center; font-size:13px; color:#8EA2B7;">교환 (28)</div>
+                <div style="flex:1; padding:10px; text-align:center; font-size:13px; color:#8EA2B7;">공구 (10)</div>
+                <div style="flex:1; padding:10px; text-align:center; font-size:13px; color:#8EA2B7;">동행 (4)</div>
             </div>
 
             <div class="demo-label">필터 & 정렬 바</div>
             <div style="display:flex; gap:6px; margin-bottom:12px; overflow-x:auto;">
-                <span style="display:inline-flex; align-items:center; gap:4px; padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151; white-space:nowrap; cursor:pointer;">
+                <span style="display:inline-flex; align-items:center; gap:4px; padding:6px 12px; border:1px solid #DEE8F2; border-radius:999px; font-size:12px; color:#45617E; white-space:nowrap; cursor:pointer;">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
                     필터
                 </span>
-                <span style="padding:6px 12px; border:1px solid #3B82F6; background:#EFF6FF; border-radius:999px; font-size:12px; color:#2563EB; font-weight:500; white-space:nowrap;">애니/만화</span>
-                <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151; white-space:nowrap;">최신순 ↓</span>
-                <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151; white-space:nowrap;">거래 가능</span>
+                <span style="padding:6px 12px; border:1px solid #8B5CF6; background:#F3E8FF; border-radius:999px; font-size:12px; color:#7C3AED; font-weight:500; white-space:nowrap;">애니/만화</span>
+                <span style="padding:6px 12px; border:1px solid #DEE8F2; border-radius:999px; font-size:12px; color:#45617E; white-space:nowrap;">최신순 ↓</span>
+                <span style="padding:6px 12px; border:1px solid #DEE8F2; border-radius:999px; font-size:12px; color:#45617E; white-space:nowrap;">거래 가능</span>
             </div>
 
-            <div style="font-size:12px; color:#6B7280; margin-bottom:12px;">검색 결과 <strong>42</strong>건</div>
+            <div style="font-size:12px; color:#45617E; margin-bottom:12px;">검색 결과 <strong>42</strong>건</div>
 
             <div class="demo-label">결과 카드 (미리보기)</div>
-            <div style="display:flex; gap:10px; padding:12px; border:1px solid #E5E7EB; border-radius:12px; margin-bottom:8px;">
-                <div style="width:80px; height:80px; background:#F3F4F6; border-radius:8px; flex-shrink:0;"></div>
+            <div style="display:flex; gap:10px; padding:12px; border:1px solid #DEE8F2; border-radius:12px; margin-bottom:8px;">
+                <div style="width:80px; height:80px; background:#EEF3F8; border-radius:8px; flex-shrink:0;"></div>
                 <div style="flex:1; min-width:0;">
                     <div style="display:flex; gap:4px; margin-bottom:4px;">
-                        <span class="tag" style="background:#F3E8FF; color:#7C3AED; font-size:10px; padding:2px 6px;">교환</span>
+                        <span class="tag" style="background:#ECF7FF; color:#2F8EC1; font-size:10px; padding:2px 6px;">교환</span>
                         <span class="tag" style="background:#F3E8FF; color:#8B5CF6; font-size:10px; padding:2px 6px;">애니/만화</span>
                     </div>
                     <div style="font-size:13px; font-weight:600; margin-bottom:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">하츠네 미쿠 아크릴 스탠드 교환...</div>
-                    <div style="font-size:11px; color:#9CA3AF;">2시간 전 · 조회 28</div>
+                    <div style="font-size:11px; color:#8EA2B7;">2시간 전 · 조회 28</div>
                 </div>
             </div>
 
             <div class="demo-label">빈 검색 결과</div>
             <div style="text-align:center; padding:32px 0;">
-                <div style="color:#D1D5DB; margin-bottom:8px;">
+                <div style="color:#DEE8F2; margin-bottom:8px;">
                     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                 </div>
-                <div style="font-size:14px; font-weight:600; color:#374151; margin-bottom:4px;">검색 결과가 없어요</div>
-                <div style="font-size:12px; color:#9CA3AF;">다른 키워드로 검색해 보세요</div>
+                <div style="font-size:14px; font-weight:600; color:#45617E; margin-bottom:4px;">검색 결과가 없어요</div>
+                <div style="font-size:12px; color:#8EA2B7;">다른 키워드로 검색해 보세요</div>
             </div>
         </div>
     </div>
@@ -749,71 +737,71 @@
             <div style="position:absolute; bottom:0; left:0; right:0; background:#fff; border-radius:16px 16px 0 0; padding:16px;">
                 <!-- 드래그 핸들 -->
                 <div style="display:flex; justify-content:center; margin-bottom:16px;">
-                    <div style="width:40px; height:4px; background:#D1D5DB; border-radius:2px;"></div>
+                    <div style="width:40px; height:4px; background:#DEE8F2; border-radius:2px;"></div>
                 </div>
                 <!-- 헤더 -->
                 <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;">
-                    <span style="font-size:18px; font-weight:700; color:#111827;">필터</span>
-                    <span style="font-size:13px; color:#6B7280; cursor:pointer;">초기화</span>
+                    <span style="font-size:18px; font-weight:700; color:#163958;">필터</span>
+                    <span style="font-size:13px; color:#45617E; cursor:pointer;">초기화</span>
                 </div>
 
                 <div class="demo-label">카테고리</div>
                 <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;">
                     <span style="padding:8px 14px; border:1.5px solid #8B5CF6; background:#F3E8FF; border-radius:999px; font-size:13px; color:#7C3AED; font-weight:500;">애니/만화/소설</span>
-                    <span style="padding:8px 14px; border:1px solid #E5E7EB; border-radius:999px; font-size:13px; color:#374151;">아이돌/아티스트</span>
-                    <span style="padding:8px 14px; border:1px solid #E5E7EB; border-radius:999px; font-size:13px; color:#374151;">배우/무대</span>
-                    <span style="padding:8px 14px; border:1px solid #E5E7EB; border-radius:999px; font-size:13px; color:#374151;">게임</span>
+                    <span style="padding:8px 14px; border:1px solid #DEE8F2; border-radius:999px; font-size:13px; color:#45617E;">아이돌/아티스트</span>
+                    <span style="padding:8px 14px; border:1px solid #DEE8F2; border-radius:999px; font-size:13px; color:#45617E;">배우/무대</span>
+                    <span style="padding:8px 14px; border:1px solid #DEE8F2; border-radius:999px; font-size:13px; color:#45617E;">게임</span>
                 </div>
 
                 <div class="demo-label">굿즈 타입</div>
                 <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;">
-                    <span style="padding:6px 12px; border:1.5px solid #3B82F6; background:#EFF6FF; border-radius:999px; font-size:12px; color:#2563EB; font-weight:500;">포토카드</span>
-                    <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151;">아크릴</span>
-                    <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151;">인형/플러시</span>
-                    <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151;">앨범/CD</span>
-                    <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151;">기타</span>
+                    <span style="padding:6px 12px; border:1.5px solid #69BFEA; background:#EAF7FF; border-radius:999px; font-size:12px; color:#2F8EC1; font-weight:500;">포토카드</span>
+                    <span style="padding:6px 12px; border:1px solid #DEE8F2; border-radius:999px; font-size:12px; color:#45617E;">아크릴</span>
+                    <span style="padding:6px 12px; border:1px solid #DEE8F2; border-radius:999px; font-size:12px; color:#45617E;">인형/플러시</span>
+                    <span style="padding:6px 12px; border:1px solid #DEE8F2; border-radius:999px; font-size:12px; color:#45617E;">앨범/CD</span>
+                    <span style="padding:6px 12px; border:1px solid #DEE8F2; border-radius:999px; font-size:12px; color:#45617E;">기타</span>
                 </div>
 
                 <div class="demo-label">상품 상태</div>
                 <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;">
-                    <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151;">S급</span>
-                    <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151;">A급</span>
-                    <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151;">B급</span>
-                    <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151;">C급</span>
+                    <span style="padding:6px 12px; border:1px solid #DEE8F2; border-radius:999px; font-size:12px; color:#45617E;">S급</span>
+                    <span style="padding:6px 12px; border:1px solid #DEE8F2; border-radius:999px; font-size:12px; color:#45617E;">A급</span>
+                    <span style="padding:6px 12px; border:1px solid #DEE8F2; border-radius:999px; font-size:12px; color:#45617E;">B급</span>
+                    <span style="padding:6px 12px; border:1px solid #DEE8F2; border-radius:999px; font-size:12px; color:#45617E;">C급</span>
                 </div>
 
                 <div class="demo-label">거래 방법</div>
                 <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;">
-                    <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151;">택배</span>
-                    <span style="padding:6px 12px; border:1.5px solid #3B82F6; background:#EFF6FF; border-radius:999px; font-size:12px; color:#2563EB; font-weight:500;">직거래</span>
-                    <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151;">둘 다</span>
+                    <span style="padding:6px 12px; border:1px solid #DEE8F2; border-radius:999px; font-size:12px; color:#45617E;">택배</span>
+                    <span style="padding:6px 12px; border:1.5px solid #69BFEA; background:#EAF7FF; border-radius:999px; font-size:12px; color:#2F8EC1; font-weight:500;">직거래</span>
+                    <span style="padding:6px 12px; border:1px solid #DEE8F2; border-radius:999px; font-size:12px; color:#45617E;">둘 다</span>
                 </div>
 
                 <div class="demo-label">정렬</div>
                 <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;">
-                    <span style="padding:6px 12px; border:1.5px solid #3B82F6; background:#EFF6FF; border-radius:999px; font-size:12px; color:#2563EB; font-weight:500;">최신순</span>
-                    <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151;">인기순</span>
-                    <span style="padding:6px 12px; border:1px solid #E5E7EB; border-radius:999px; font-size:12px; color:#374151;">조회순</span>
+                    <span style="padding:6px 12px; border:1.5px solid #69BFEA; background:#EAF7FF; border-radius:999px; font-size:12px; color:#2F8EC1; font-weight:500;">최신순</span>
+                    <span style="padding:6px 12px; border:1px solid #DEE8F2; border-radius:999px; font-size:12px; color:#45617E;">인기순</span>
+                    <span style="padding:6px 12px; border:1px solid #DEE8F2; border-radius:999px; font-size:12px; color:#45617E;">조회순</span>
                 </div>
 
                 <div class="demo-label">추가 옵션</div>
                 <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:20px;">
-                    <label style="display:flex; align-items:center; gap:10px; font-size:13px; color:#374151; cursor:pointer;">
-                        <div style="width:20px; height:20px; border:2px solid #3B82F6; border-radius:4px; background:#3B82F6; display:flex; align-items:center; justify-content:center;">
+                    <label style="display:flex; align-items:center; gap:10px; font-size:13px; color:#45617E; cursor:pointer;">
+                        <div style="width:20px; height:20px; border:2px solid #69BFEA; border-radius:4px; background:#69BFEA; display:flex; align-items:center; justify-content:center;">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                         </div>
                         차액 협의 가능만
                     </label>
-                    <label style="display:flex; align-items:center; gap:10px; font-size:13px; color:#374151; cursor:pointer;">
-                        <div style="width:20px; height:20px; border:2px solid #E5E7EB; border-radius:4px;"></div>
+                    <label style="display:flex; align-items:center; gap:10px; font-size:13px; color:#45617E; cursor:pointer;">
+                        <div style="width:20px; height:20px; border:2px solid #DEE8F2; border-radius:4px;"></div>
                         거래 가능만
                     </label>
                 </div>
 
                 <!-- 하단 버튼 -->
                 <div style="display:flex; gap:8px;">
-                    <button style="flex:1; height:48px; border:1px solid #E5E7EB; border-radius:10px; background:#fff; font-size:15px; color:#4B5563; cursor:pointer;">초기화</button>
-                    <button style="flex:2; height:48px; border:none; border-radius:10px; background:#3B82F6; font-size:15px; font-weight:600; color:#fff; cursor:pointer;">42건 보기</button>
+                    <button style="flex:1; height:48px; border:1px solid #DEE8F2; border-radius:10px; background:#fff; font-size:15px; color:#45617E; cursor:pointer;">초기화</button>
+                    <button style="flex:2; height:48px; border:none; border-radius:10px; background:#69BFEA; font-size:15px; font-weight:600; color:#fff; cursor:pointer;">42건 보기</button>
                 </div>
             </div>
         </div>
@@ -828,8 +816,8 @@
         <div class="phone-inner">
             <div class="demo-label">사진 추가 영역</div>
             <div class="gallery-upload-area">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                <div style="font-size:11px; color:#6B7280; margin-top:6px;">사진 추가</div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8EA2B7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <div style="font-size:11px; color:#45617E; margin-top:6px;">사진 추가</div>
             </div>
 
             <div class="demo-label">업로드된 사진 (3/10)</div>
@@ -855,7 +843,7 @@
             </div>
 
             <div class="demo-label">드래그 힌트</div>
-            <div style="display:flex; align-items:center; gap:6px; padding:8px 10px; background:#EFF6FF; border-radius:6px; font-size:11px; color:#0284C7;">
+            <div style="display:flex; align-items:center; gap:6px; padding:8px 10px; background:#EAF7FF; border-radius:6px; font-size:11px; color:#2F8EC1;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
                 순서 변경: 사진을 드래그하세요
             </div>
@@ -871,7 +859,7 @@
             <div class="demo-label">배너 캐러셀</div>
             <div class="carousel-container" style="margin-bottom:16px;">
                 <div class="carousel-main">
-                    <div style="font-size:14px; color:#9CA3AF;">배너 이미지</div>
+                    <div style="font-size:14px; color:#8EA2B7;">배너 이미지</div>
                 </div>
                 <button class="carousel-nav left">‹</button>
                 <button class="carousel-nav right">›</button>
@@ -886,16 +874,16 @@
             <div class="demo-label">상세 이미지 슬라이더</div>
             <div style="margin-bottom:12px;">
                 <div class="carousel-main" style="aspect-ratio:375/240; height:auto;">
-                    <div style="font-size:13px; color:#9CA3AF;">상세 이미지</div>
+                    <div style="font-size:13px; color:#8EA2B7;">상세 이미지</div>
                 </div>
                 <div style="display:flex; gap:4px; margin-top:6px; overflow-x:auto;">
-                    <div style="width:60px; height:60px; background:#D1D5DB; border-radius:6px; flex-shrink:0; border:2px solid #3B82F6;"></div>
-                    <div style="width:60px; height:60px; background:#D1D5DB; border-radius:6px; flex-shrink:0;"></div>
-                    <div style="width:60px; height:60px; background:#D1D5DB; border-radius:6px; flex-shrink:0;"></div>
+                    <div style="width:60px; height:60px; background:#DEE8F2; border-radius:6px; flex-shrink:0; border:2px solid #69BFEA;"></div>
+                    <div style="width:60px; height:60px; background:#DEE8F2; border-radius:6px; flex-shrink:0;"></div>
+                    <div style="width:60px; height:60px; background:#DEE8F2; border-radius:6px; flex-shrink:0;"></div>
                 </div>
             </div>
 
-            <div style="font-size:11px; color:#9CA3AF; background:#F3F4F6; padding:6px 10px; border-radius:6px; text-align:center;">
+            <div style="font-size:11px; color:#8EA2B7; background:#EEF3F8; padding:6px 10px; border-radius:6px; text-align:center;">
                 자동 슬라이드 5초 • 스와이프 지원
             </div>
         </div>
@@ -908,7 +896,7 @@
     <div class="phone-frame">
         <div class="phone-inner">
             <div class="demo-label">컴팩트 프로필 행</div>
-            <div class="profile-row" style="border-bottom:1px solid #E5E7EB; padding-bottom:8px;">
+            <div class="profile-row" style="border-bottom:1px solid #DEE8F2; padding-bottom:8px;">
                 <div class="profile-avatar" style="background:#8B5CF6;"></div>
                 <div class="profile-info">
                     <div class="profile-name">초음속 팬</div>
@@ -917,7 +905,7 @@
             </div>
 
             <div class="demo-label" style="margin-top:12px;">확장 프로필 카드</div>
-            <div style="border:1px solid #E5E7EB; border-radius:12px; padding:12px; margin-top:8px;">
+            <div style="border:1px solid #DEE8F2; border-radius:12px; padding:12px; margin-top:8px;">
                 <div style="display:flex; gap:12px; margin-bottom:12px;">
                     <div class="profile-avatar large avatar-trust-ring level-2" style="background:#F59E0B;"></div>
                     <div style="flex:1;">
@@ -929,13 +917,13 @@
                         </div>
                     </div>
                 </div>
-                <div style="padding:8px 0; border-top:1px solid #F3F4F6; font-size:12px;">
+                <div style="padding:8px 0; border-top:1px solid #EEF3F8; font-size:12px;">
                     <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
-                        <span style="color:#6B7280;">교환 횟수</span>
-                        <span style="color:#111827; font-weight:600;">12회</span>
+                        <span style="color:#45617E;">교환 횟수</span>
+                        <span style="color:#163958; font-weight:600;">12회</span>
                     </div>
                     <div style="display:flex; justify-content:space-between;">
-                        <span style="color:#6B7280;">긍정률</span>
+                        <span style="color:#45617E;">긍정률</span>
                         <span style="color:#059669; font-weight:600;">98% (12/12)</span>
                     </div>
                 </div>
@@ -984,7 +972,7 @@
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-dot active"></div>
-                    <div class="timeline-label" style="color:#3B82F6;">진행확정</div>
+                    <div class="timeline-label" style="color:#2F8EC1;">진행확정</div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
@@ -1004,18 +992,18 @@
     <div class="phone-frame">
         <div class="phone-inner">
             <div class="demo-label">D+3 경고 (카운트다운)</div>
-            <div style="background:#FEF3C7; border:1px solid #FCD34D; border-radius:10px; padding:12px; margin-bottom:12px;">
-                <div style="font-size:12px; color:#92400E; font-weight:600; margin-bottom:6px;">진행 여부 결정 마감까지</div>
-                <div style="font-size:24px; font-weight:700; color:#D97706; margin-bottom:6px; text-align:center;">2일 15시간</div>
-                <div style="width:100%; height:8px; background:#FCD34D; border-radius:4px; overflow:hidden;">
-                    <div style="width:40%; height:100%; background:#D97706;"></div>
+            <div style="background:#FFF6EA; border:1px solid #F3A34B; border-radius:10px; padding:12px; margin-bottom:12px;">
+                <div style="font-size:12px; color:#45617E; font-weight:600; margin-bottom:6px;">진행 여부 결정 마감까지</div>
+                <div style="font-size:24px; font-weight:700; color:#F3A34B; margin-bottom:6px; text-align:center;">2일 15시간</div>
+                <div style="width:100%; height:8px; background:#EEF3F8; border-radius:4px; overflow:hidden;">
+                    <div style="width:40%; height:100%; background:#F3A34B;"></div>
                 </div>
             </div>
 
             <div class="demo-label">시간 표시</div>
-            <div style="background:#EFF6FF; border:1px solid #BFDBFE; border-radius:8px; padding:8px 12px; text-align:center;">
-                <div style="font-size:11px; color:#1E40AF; margin-bottom:4px;">남은 시간</div>
-                <div style="font-size:18px; font-weight:700; color:#2563EB;">72h 36m</div>
+            <div style="background:#EAF7FF; border:1px solid #9CDCF7; border-radius:8px; padding:8px 12px; text-align:center;">
+                <div style="font-size:11px; color:#2F8EC1; margin-bottom:4px;">남은 시간</div>
+                <div style="font-size:18px; font-weight:700; color:#2F8EC1;">72h 36m</div>
             </div>
         </div>
     </div>
@@ -1100,15 +1088,15 @@
                     <div class="chat-avatar"></div>
                     <div style="display:flex; flex-direction:column;">
                         <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Crect width='120' height='120' fill='%23D1D5DB'/%3E%3C/svg%3E" class="chat-image" style="width:120px; height:120px;">
-                        <span style="font-size:11px; color:#9CA3AF;">사진</span>
+                        <span style="font-size:11px; color:#8EA2B7;">사진</span>
                     </div>
                 </div>
 
                 <div class="chat-bubble received">
                     <div class="chat-avatar"></div>
                     <div class="chat-card" style="width:100%; max-width:none;">
-                        <div style="font-size:11px; font-weight:600; color:#2563EB; margin-bottom:4px;">거래 제안</div>
-                        <div style="font-size:12px; color:#374151; margin-bottom:8px;">초음속 팬님의 아크릴 스탠드 ↔ 당신의 피규어</div>
+                        <div style="font-size:11px; font-weight:600; color:#2F8EC1; margin-bottom:4px;">거래 제안</div>
+                        <div style="font-size:12px; color:#45617E; margin-bottom:8px;">초음속 팬님의 아크릴 스탠드 ↔ 당신의 피규어</div>
                         <div style="display:flex; gap:6px;">
                             <button class="btn btn-sm btn-primary">수락</button>
                             <button class="btn btn-sm btn-secondary">거절</button>
@@ -1127,7 +1115,7 @@
         <div class="phone-inner">
             <div class="demo-label">지도 영역</div>
             <div class="map-area">
-                <div style="display:flex; flex-direction:column; align-items:center; gap:6px; color:#6B7280;">
+                <div style="display:flex; flex-direction:column; align-items:center; gap:6px; color:#45617E;">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                     <span style="font-size:12px;">카카오맵 API</span>
                 </div>
@@ -1136,7 +1124,7 @@
             <div class="demo-label">위치 선택됨</div>
             <div class="location-card">
                 <div style="display:flex; gap:8px;">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-top:2px; flex-shrink:0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2F8EC1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-top:2px; flex-shrink:0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                     <div style="flex:1;">
                         <div class="location-address">서울 강남구 역삼동 테헤란로</div>
                         <div class="location-subway">지하철 2호선 강남역 9번 출구</div>
@@ -1211,8 +1199,8 @@
             </div>
 
             <div class="demo-label">이벤트 리스트</div>
-            <div style="border:1px solid #E5E7EB; border-radius:8px; padding:8px; font-size:12px;">
-                <div style="padding:4px 0; border-bottom:1px solid #F3F4F6;"><span style="color:#8B5CF6; font-weight:600;">3월 11일</span> - 생일 축제</div>
+            <div style="border:1px solid #DEE8F2; border-radius:8px; padding:8px; font-size:12px;">
+                <div style="padding:4px 0; border-bottom:1px solid #EEF3F8;"><span style="color:#8B5CF6; font-weight:600;">3월 11일</span> - 생일 축제</div>
                 <div style="padding:4px 0;"><span style="color:#EC4899; font-weight:600;">3월 14일</span> - 신곡 발표</div>
             </div>
         </div>
@@ -1227,29 +1215,29 @@
             <div class="demo-label">빨간 점 (알림)</div>
             <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
                 <div style="position:relative; display:flex; align-items:center; justify-content:center;">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#45617E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
                     <div class="dot-indicator"></div>
                 </div>
-                <span style="font-size:12px; color:#6B7280;">알림 있음</span>
+                <span style="font-size:12px; color:#45617E;">알림 있음</span>
             </div>
 
             <div class="demo-label">숫자 뱃지 (채팅)</div>
             <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
                 <div style="position:relative; display:flex; align-items:center; justify-content:center;">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#45617E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                     <div class="count-badge">99+</div>
                 </div>
-                <span style="font-size:12px; color:#6B7280;">99건 이상</span>
+                <span style="font-size:12px; color:#45617E;">99건 이상</span>
             </div>
 
             <div class="demo-label">탭 카운트</div>
-            <div style="display:flex; gap:16px; margin-bottom:16px; border-bottom:1px solid #E5E7EB; padding-bottom:8px;">
+            <div style="display:flex; gap:16px; margin-bottom:16px; border-bottom:1px solid #DEE8F2; padding-bottom:8px;">
                 <div style="flex:1; text-align:center; position:relative; padding-bottom:8px;">
-                    <div style="font-size:12px; color:#111827;">받은 제안</div>
+                    <div style="font-size:12px; color:#163958;">받은 제안</div>
                     <div class="count-badge" style="position:absolute; top:-6px; right:20%;">3</div>
                 </div>
                 <div style="flex:1; text-align:center; padding-bottom:8px;">
-                    <div style="font-size:12px; color:#6B7280;">보낸 제안</div>
+                    <div style="font-size:12px; color:#45617E;">보낸 제안</div>
                 </div>
             </div>
 
@@ -1273,20 +1261,20 @@
                 <div class="avatar avatar-32" style="background:#EC4899; color:#fff;">초</div>
                 <div class="avatar avatar-40" style="background:#F59E0B; color:#fff;">초</div>
                 <div class="avatar avatar-48" style="background:#06B6D4; color:#fff;">초</div>
-                <div class="avatar avatar-64" style="background:#3B82F6; color:#fff;">초</div>
+                <div class="avatar avatar-64" style="background:#69BFEA; color:#fff;">초</div>
             </div>
 
             <div class="demo-label">온라인 상태</div>
             <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
                 <div class="avatar avatar-40 avatar-online" style="background:#8B5CF6;"></div>
-                <span style="font-size:12px; color:#6B7280;">온라인 표시 (초록 점)</span>
+                <span style="font-size:12px; color:#45617E;">온라인 표시 (초록 점)</span>
             </div>
 
             <div class="demo-label">신뢰도 등급 테두리</div>
             <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
-                <div class="avatar avatar-40 avatar-trust-ring level-1" style="background:#EF4444;"></div>
+                <div class="avatar avatar-40 avatar-trust-ring level-1" style="background:#EA5D86;"></div>
                 <div class="avatar avatar-40 avatar-trust-ring level-2" style="background:#F59E0B;"></div>
-                <div class="avatar avatar-40 avatar-trust-ring level-3" style="background:#3B82F6;"></div>
+                <div class="avatar avatar-40 avatar-trust-ring level-3" style="background:#69BFEA;"></div>
                 <div class="avatar avatar-40 avatar-trust-ring level-4" style="background:#059669;"></div>
             </div>
 
@@ -1294,15 +1282,15 @@
             <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
                 <div class="avatar-group">
                     <div class="avatar avatar-32 avatar-trust-ring level-2" style="background:#F59E0B;"></div>
-                    <div class="avatar avatar-32 avatar-trust-ring level-3" style="background:#3B82F6;"></div>
-                    <div class="avatar avatar-32 avatar-trust-ring level-1" style="background:#EF4444;"></div>
+                    <div class="avatar avatar-32 avatar-trust-ring level-3" style="background:#69BFEA;"></div>
+                    <div class="avatar avatar-32 avatar-trust-ring level-1" style="background:#EA5D86;"></div>
                 </div>
-                <span style="font-size:12px; color:#6B7280;">참여자 3명</span>
+                <span style="font-size:12px; color:#45617E;">참여자 3명</span>
             </div>
 
             <div class="demo-label">기본 아바타</div>
-            <div class="avatar avatar-40" style="background:#D1D5DB;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#6B7280;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <div class="avatar avatar-40" style="background:#DEE8F2;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#45617E;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             </div>
         </div>
     </div>
@@ -1328,11 +1316,11 @@
                 <div class="desc-text">5가지 유형(Primary, Secondary, Ghost, Danger, Disabled), 3가지 사이즈(L/M/S), 풀폭/아이콘 버튼 지원</div>
                 <table class="spec-table">
                     <tr><th>유형</th><th>배경</th><th>텍스트</th><th>용도</th></tr>
-                    <tr><td>Primary</td><td>#3B82F6</td><td>#FFF</td><td>핵심 CTA</td></tr>
-                    <tr><td>Secondary</td><td>#FFF</td><td>#3B82F6</td><td>보조 액션</td></tr>
-                    <tr><td>Ghost</td><td>투명</td><td>#4B5563</td><td>텍스트 버튼</td></tr>
-                    <tr><td>Danger</td><td>#EF4444</td><td>#FFF</td><td>삭제, 신고</td></tr>
-                    <tr><td>Disabled</td><td>#F3F4F6</td><td>#9CA3AF</td><td>비활성</td></tr>
+                    <tr><td>Primary</td><td>#69BFEA</td><td>#FFF</td><td>핵심 CTA</td></tr>
+                    <tr><td>Secondary</td><td>#FFF</td><td>#69BFEA</td><td>보조 액션</td></tr>
+                    <tr><td>Ghost</td><td>투명</td><td>#45617E</td><td>텍스트 버튼</td></tr>
+                    <tr><td>Danger</td><td>#EA5D86</td><td>#FFF</td><td>삭제, 신고</td></tr>
+                    <tr><td>Disabled</td><td>#EEF3F8</td><td>#8EA2B7</td><td>비활성</td></tr>
                 </table>
                 <table class="spec-table" style="margin-top:8px;">
                     <tr><th>사이즈</th><th>높이</th><th>패딩</th><th>폰트</th></tr>
@@ -1347,17 +1335,17 @@
                 <div class="desc-text">텍스트 인풋, 텍스트 영역, 셀렉트, 체크박스, 라디오, 토글 지원. 모든 인풋은 높이 44px, 보더 8px 라운딩.</div>
                 <table class="spec-table">
                     <tr><th>상태</th><th>보더</th><th>배경</th></tr>
-                    <tr><td>기본</td><td>#E5E7EB</td><td>#FFF</td></tr>
-                    <tr><td>포커스</td><td>#3B82F6 + ring 2px</td><td>#FFF</td></tr>
-                    <tr><td>에러</td><td>#EF4444</td><td>#FFF</td></tr>
-                    <tr><td>비활성</td><td>#E5E7EB</td><td>#F3F4F6</td></tr>
+                    <tr><td>기본</td><td>#DEE8F2</td><td>#FFF</td></tr>
+                    <tr><td>포커스</td><td>#69BFEA + ring 2px</td><td>#FFF</td></tr>
+                    <tr><td>에러</td><td>#EA5D86</td><td>#FFF</td></tr>
+                    <tr><td>비활성</td><td>#DEE8F2</td><td>#EEF3F8</td></tr>
                 </table>
                 <div class="desc-detail">필수 항목: 레이블 옆 붉은 별(*) 표시. 에러 시 하단에 빨간 메시지. 글자 수 힌트는 하단 우측.</div>
             </div>
 
             <div class="desc-item">
                 <div class="desc-item-title"><span class="desc-num">3</span> 태그 & 뱃지</div>
-                <div class="desc-text">거래 유형 태그(교환/공구/구함/세트공구), 카테고리 태그(4대 팬덤), 상태 뱃지(7종), 상품 등급(S/A/B/C), 신뢰 등급(Lv.1~4), 필터 칩</div>
+                <div class="desc-text">거래 유형 태그(교환/공구/동행/세트공구), 카테고리 태그(4대 팬덤), 상태 뱃지(7종), 상품 등급(S/A/B/C), 신뢰 등급(Lv.1~4), 필터 칩</div>
                 <div class="desc-detail">태그 라운딩: 999px (pill). 패딩: 4px 10px. 폰트: 12px SemiBold.</div>
             </div>
 
@@ -1386,9 +1374,9 @@
                 <div class="desc-detail">
                     <strong>바텀 네비게이션 (공통)</strong><br>
                     - 5탭: 홈(/), 교환(/exchange), 이벤트(/events), 채팅(/chat), 마이(/my)<br>
-                    - 높이: 56px (safe-area 별도), 배경 #FFF, 상단 보더 1px #F3F4F6<br>
+                    - 높이: 56px (safe-area 별도), 배경 #FFF, 상단 보더 1px #EEF3F8<br>
                     - 아이콘: Lucide SVG 20x20px, 라벨 10px Medium, 간격 2px<br>
-                    - 비활성: #9CA3AF (Gray 400), 활성: #2563EB (Blue 600)<br>
+                    - 비활성: #8EA2B7 (Gray 400), 활성: #2F8EC1 (Blue 600)<br>
                     - 채팅 탭: 안읽음 카운트 뱃지 (빨간 도트/숫자, 아이콘 우상단)<br>
                     - 768px 이상: display:none (사이드 네비 전환)<br>
                     - 적용 대상: 메인 탭 화면 (HOME01, EXCH01, GRPB01, USER01, EVNT01 등)<br>
@@ -1406,7 +1394,7 @@
                     <tr><td>자동완성</td><td>최대 5개, 보더 1px, 라운딩 10px, shadow-md</td><td>2자 이상 입력 시 노출, 디바운스 300ms</td></tr>
                     <tr><td>최근 검색어</td><td>pill 칩, 배경 Gray 100</td><td>최대 10개, 개별/전체 삭제 가능</td></tr>
                     <tr><td>인기 검색어</td><td>pill 칩, 배경 Blue 50, 텍스트 Blue</td><td>상위 10개, 24시간 기준 갱신</td></tr>
-                    <tr><td>결과 탭</td><td>전체/교환/공구/구함</td><td>각 탭에 건수 표시</td></tr>
+                    <tr><td>결과 탭</td><td>전체/교환/공구/동행</td><td>각 탭에 건수 표시</td></tr>
                     <tr><td>필터 칩</td><td>pill, 선택 시 Blue 보더+배경</td><td>가로 스크롤, 필터 아이콘 포함</td></tr>
                     <tr><td>빈 결과</td><td>검색 아이콘(40px) + 안내 텍스트</td><td>대안 검색어 또는 CTA 제공</td></tr>
                 </table>
@@ -1419,7 +1407,7 @@
                 <table class="spec-table">
                     <tr><th>요소</th><th>스펙</th><th>비고</th></tr>
                     <tr><td>바텀시트</td><td>라운딩 16px 16px 0 0, 딤 배경 rgba(0,0,0,.4)</td><td>300ms translateY 진입, 드래그 닫기 지원</td></tr>
-                    <tr><td>드래그 핸들</td><td>40x4px, `#D1D5DB`</td><td>중앙 정렬</td></tr>
+                    <tr><td>드래그 핸들</td><td>40x4px, `#DEE8F2`</td><td>중앙 정렬</td></tr>
                     <tr><td>카테고리 칩</td><td>pill, 선택 시 카테고리 컬러 보더+배경</td><td>복수 선택 가능, 4대 카테고리</td></tr>
                     <tr><td>굿즈 타입 칩</td><td>pill, 선택 시 Blue 보더+배경</td><td>포토카드/아크릴/인형/앨범/기타</td></tr>
                     <tr><td>상품 상태</td><td>pill, S/A/B/C급</td><td>복수 선택 가능</td></tr>
@@ -1491,7 +1479,7 @@
                 <div class="desc-text">카테고리 필터 칩(전체/교환/공구/시스템), 알림 목록(미읽 파란 점 + 굵은 텍스트, 읽음 일반), 각 아이템(아이콘/텍스트/시간).</div>
                 <table class="spec-table">
                     <tr><th>항목</th><th>사양</th></tr>
-                    <tr><td>미읽 표시</td><td>파란 점 8px, 배경색 #F0F9FF</td></tr>
+                    <tr><td>미읽 표시</td><td>파란 점 8px, 배경색 #EAF7FF</td></tr>
                     <tr><td>타이틀</td><td>13px 굵음, 검정</td></tr>
                     <tr><td>설명</td><td>12px, 회색, 1줄 또는 2줄</td></tr>
                     <tr><td>시간</td><td>11px, 밝은 회색</td></tr>
@@ -1501,14 +1489,14 @@
 
             <div class="desc-item">
                 <div class="desc-item-title"><span class="desc-num">13</span> 채팅 버블</div>
-                <div class="desc-text">발신 버블(우측, 파랑 #3B82F6), 수신 버블(좌측, 회색 #F3F4F6), 시스템 메시지(중앙, 회색 작은 글씨), 이미지 메시지(썸네일), 거래 확인 카드(inline).</div>
+                <div class="desc-text">발신 버블(우측, 파랑 #69BFEA), 수신 버블(좌측, 회색 #EEF3F8), 시스템 메시지(중앙, 회색 작은 글씨), 이미지 메시지(썸네일), 거래 확인 카드(inline).</div>
                 <table class="spec-table">
                     <tr><th>유형</th><th>배경</th><th>텍스트</th><th>특징</th></tr>
-                    <tr><td>발신</td><td>#3B82F6</td><td>#fff</td><td>우측 정렬, radius 16px 우하단 4px</td></tr>
-                    <tr><td>수신</td><td>#F3F4F6</td><td>#111827</td><td>좌측 정렬, radius 16px 좌하단 4px</td></tr>
-                    <tr><td>시스템</td><td>transparent</td><td>#9CA3AF</td><td>중앙, 작은 글씨</td></tr>
+                    <tr><td>발신</td><td>#69BFEA</td><td>#fff</td><td>우측 정렬, radius 16px 우하단 4px</td></tr>
+                    <tr><td>수신</td><td>#EEF3F8</td><td>#163958</td><td>좌측 정렬, radius 16px 좌하단 4px</td></tr>
+                    <tr><td>시스템</td><td>transparent</td><td>#8EA2B7</td><td>중앙, 작은 글씨</td></tr>
                     <tr><td>이미지</td><td>-</td><td>-</td><td>최대 200px, radius 8px</td></tr>
-                    <tr><td>거래카드</td><td>#F3F4F6</td><td>#111827</td><td>보더 1px, 내부 버튼</td></tr>
+                    <tr><td>거래카드</td><td>#EEF3F8</td><td>#163958</td><td>보더 1px, 내부 버튼</td></tr>
                 </table>
             </div>
 
@@ -1644,10 +1632,7 @@
                     Desktop(768px+): 중앙 모달로 전환, ESC 키 닫기 지원
                 </div>
             </div>
-        </div>
-
-        <!-- Tab 3: 사용 가이드 -->
-                    <div class="desc-item">
+            <div class="desc-item">
                 <div class="desc-item-title">이미지 업로드 인터랙션</div>
                 <div class="desc-text">
                     업로드 영역 탭: 네이티브 file input 또는 드래그&드롭 지원<br>
@@ -1761,8 +1746,10 @@
                     배지(온라인 점): 초록색 점이 호버 시 상세 상태 팝오버
                 </div>
             </div>
+        </div>
 
-<div class="desc-panel" id="tab-logic">
+        <!-- Tab 3: 사용 가이드 -->
+        <div class="desc-panel" id="tab-logic">
             <div class="desc-item">
                 <div class="desc-item-title">이미지 업로드 사용 원칙</div>
                 <div class="desc-text">
@@ -1924,7 +1911,7 @@
                     최근 검색어: 최대 10개, FIFO. 로컬 저장.<br>
                     인기 검색어: 서버 집계, 24시간 기준 갱신.<br>
                     빈 결과: 항상 대안 안내 (다른 키워드 제안 또는 전체 목록 CTA).<br>
-                    필터: 카테고리(4대), 거래 유형(교환/공구/구함), 정렬(최신/인기) 지원.
+                    필터: 카테고리(4대), 거래 유형(교환/공구/동행), 정렬(최신/인기) 지원.
                 </div>
             </div>
             <div class="desc-item">
@@ -1957,7 +1944,7 @@
 </div><!-- main end -->
 
 <div class="page-footer">
-    애픽 월드 (Aepik World) 공통 컴포넌트 가이드 v2.0 — 2026-03-06 작성
+    애픽 월드 (Aepik World) 공통 컴포넌트 가이드 v2.1 — 2026-03-10 작성
 </div>
 
 <script>

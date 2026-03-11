@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WANT02 - 동행 상세</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #2F8EC1;
+      --success: #16A34A;
+      --danger: #EA5D86;
+      --warning: #F59E0B;
+      --neutral-50: #F7FAFD;
+      --neutral-100: #EEF3F8;
+      --neutral-200: #DEE8F2;
+      --neutral-300: #DEE8F2;
+      --neutral-400: #8EA2B7;
+      --neutral-500: #45617E;
+      --neutral-600: #45617E;
+      --neutral-700: #45617E;
+      --neutral-800: #163958;
+      --neutral-900: #163958;
+      --purple: #8B5CF6;
+      --pink: #EC4899;
+      --amber: #F59E0B;
+      --cyan: #06B6D4;
+      --green: #10B981;
+      --gray-light: #EAEAEA;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+      --shadow-phone: 0 4px 24px rgba(0,0,0,0.12);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      background: #fff;
+      color: var(--neutral-700);
+    }
+
+    /* Meta Bar */
+    .meta-bar {
+      background: #fff;
+      border-bottom: 2px solid var(--primary);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 13px;
+      overflow-x: auto;
+    }
+
+    .meta-bar .title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--neutral-900);
+      white-space: nowrap;
+    }
+
+    .meta-item {
+      display: flex;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .meta-label {
+      color: var(--neutral-500);
+      font-weight: 600;
+    }
+
+    .meta-value {
+      color: var(--neutral-700);
+      font-weight: 500;
+    }
+
+    /* Main Layout */
+    .main-layout {
+      display: flex;
+      min-height: calc(100vh - 48px);
+    }
+
+    .wireframe-side {
+      flex: 0 0 55%;
+      background: var(--gray-light);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      overflow-y: auto;
+    }
+
+    .desc-side {
+      flex: 0 0 45%;
+      background: #fff;
+      padding: 24px 28px;
+      border-left: 1px solid #DEE8F2;
+      overflow-y: auto;
+    }
+
+    /* Phone Stack */
+    .phone-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      width: 100%;
+    }
+
+    .frame-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .frame-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--neutral-700);
+      text-align: center;
+    }
+
+    /* Phone Frame */
+    .phone-frame {
+      width: 375px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: var(--shadow-phone);
+      position: relative;
+      overflow: hidden;
+      font-size: 12px;
+      color: var(--neutral-700);
+    }
+
+    /* Frame Content */
+    .frame-content {
+      height: 812px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .frame-header {
+      height: 50px;
+      background: #fff;
+      border-bottom: 1px solid var(--neutral-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      flex-shrink: 0;
+    }
+
+    .frame-header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .frame-header-center {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--neutral-900);
+      flex: 1;
+      text-align: center;
+    }
+
+    .frame-header-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      width: 32px;
+      height: 32px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--neutral-700);
+    }
+
+    .icon-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Scrollable Content */
+    .frame-scroll {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .frame-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .frame-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .frame-scroll::-webkit-scrollbar-thumb {
+      background: var(--neutral-300);
+      border-radius: 3px;
+    }
+
+    /* Image Area */
+    .wf-image-area {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #8B5CF6 0%, #A78BFA 100%);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 12px;
+    }
+
+    .wf-image-count {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .wf-image-dots {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+    }
+
+    .wf-dot {
+      width: 6px;
+      height: 6px;
+      background: rgba(255,255,255,0.6);
+      border-radius: 50%;
+    }
+
+    .wf-dot.active {
+      background: #fff;
+    }
+
+    /* Content Padding */
+    .wf-content {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Status Badges */
+    .wf-badges-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .wf-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .wf-badge.recruiting {
+      background: #DCFCE7;
+      color: var(--success);
+    }
+
+    .wf-badge.closed {
+      background: #EEF3F8;
+      color: var(--neutral-500);
+    }
+
+    .wf-badge.cancelled {
+      background: #FEE2E2;
+      color: var(--danger);
+    }
+
+    .wf-dday-badge {
+      background: var(--danger);
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* Title Section */
+    .wf-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--neutral-900);
+      line-height: 1.4;
+    }
+
+    .wf-meta-info {
+      font-size: 12px;
+      color: var(--neutral-500);
+    }
+
+    /* Event Card */
+    .wf-event-card {
+      background: var(--neutral-50);
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      border: 1px solid var(--neutral-200);
+    }
+
+    .wf-event-icon {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      color: var(--neutral-500);
+    }
+
+    .wf-event-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .wf-event-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--neutral-900);
+    }
+
+    .wf-event-date {
+      font-size: 11px;
+      color: var(--neutral-500);
+    }
+
+    .wf-event-chevron {
+      width: 20px;
+      height: 20px;
+      color: var(--neutral-400);
+      flex-shrink: 0;
+    }
+
+    /* Info Row */
+    .wf-info-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--neutral-700);
+    }
+
+    .wf-info-icon {
+      width: 18px;
+      height: 18px;
+      color: var(--neutral-500);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* Tags */
+    .wf-tag-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      flex-wrap: wrap;
+    }
+
+    .wf-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 8px;
+      background: var(--purple);
+      color: #fff;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 11px;
+    }
+
+    .wf-tag.pink {
+      background: var(--pink);
+    }
+
+    .wf-tag.amber {
+      background: var(--amber);
+    }
+
+    .wf-tag.cyan {
+      background: var(--cyan);
+    }
+
+    /* Map Placeholder */
+    .wf-map-placeholder {
+      width: 100%;
+      height: 150px;
+      background: var(--neutral-200);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: var(--neutral-500);
+      font-weight: 600;
+    }
+
+    /* Progress Section */
+    .wf-progress-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .wf-progress-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--neutral-900);
+    }
+
+    .wf-progress-bar {
+      width: 100%;
+      height: 8px;
+      background: var(--neutral-200);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .wf-progress-fill {
+      height: 100%;
+      background: var(--primary);
+      border-radius: 4px;
+    }
+
+    .wf-progress-text {
+      font-size: 12px;
+      color: var(--neutral-600);
+      font-weight: 500;
+    }
+
+    /* Description Text */
+    .wf-description {
+      font-size: 13px;
+      color: var(--neutral-700);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .wf-description-text {
+      color: var(--neutral-700);
+    }
+
+    .wf-description-more {
+      color: var(--primary);
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Author Box */
+    .wf-author-box {
+      background: var(--neutral-50);
+      border: 1px solid var(--neutral-200);
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .wf-avatar {
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .wf-author-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .wf-author-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--neutral-900);
+    }
+
+    .wf-author-meta {
+      font-size: 11px;
+      color: var(--neutral-500);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .wf-trust-badge {
+      background: var(--warning);
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* Sticky Bottom Bar */
+    .wf-sticky-bar {
+      position: sticky;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-top: 1px solid var(--neutral-200);
+      padding: 0;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 12px;
+      z-index: 10;
+    }
+
+    .wf-sticky-bar.disabled {
+      background: var(--neutral-100);
+    }
+
+    .wf-sticky-bar.disabled-text {
+      color: var(--neutral-500);
+      font-weight: 500;
+      font-size: 13px;
+    }
+
+    /* Buttons */
+    .wf-button {
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .wf-button.primary {
+      background: var(--primary);
+      color: #fff;
+      flex: 1;
+    }
+
+    .wf-button.secondary {
+      background: var(--neutral-100);
+      color: var(--neutral-700);
+      flex: 1;
+    }
+
+    .wf-button.small {
+      flex: none;
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+
+    .wf-button-group-3 {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .wf-button-group-3 .wf-button {
+      flex: 1;
+      padding: 10px 12px;
+      font-size: 12px;
+    }
+
+    /* Dialog Overlay */
+    .wf-dialog-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+    }
+
+    .wf-dialog-box {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      width: calc(375px - 40px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .wf-dialog-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--neutral-900);
+    }
+
+    .wf-dialog-message {
+      font-size: 13px;
+      color: var(--neutral-600);
+      line-height: 1.5;
+    }
+
+    .wf-dialog-input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--neutral-300);
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--neutral-900);
+      font-family: inherit;
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .wf-dialog-input::placeholder {
+      color: var(--neutral-400);
+    }
+
+    .wf-char-count {
+      font-size: 11px;
+      color: var(--neutral-500);
+      text-align: right;
+    }
+
+    .wf-dialog-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .wf-dialog-buttons .wf-button {
+      flex: 1;
+    }
+
+    /* Number Circle */
+    .num-circle {
+      position: absolute;
+      z-index: 10;
+      background: var(--primary);
+      color: #fff;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      box-shadow: var(--shadow-md);
+    }
+
+    /* WF Sections */
+    .wf-section {
+      position: relative;
+    }
+
+    /* Description Panel */
+    .desc-item {
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+    }
+
+    .desc-item:last-of-type {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .desc-num-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .desc-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .desc-comp-type {
+      background: var(--neutral-100);
+      color: var(--neutral-600);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .desc-comp-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--neutral-900);
+      flex: 1;
+    }
+
+    .desc-body {
+      padding-left: 30px;
+      font-size: 12px;
+      color: var(--neutral-600);
+      line-height: 1.7;
+    }
+
+    .desc-body ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .desc-body li {
+      margin-bottom: 6px;
+    }
+
+    .desc-body li:before {
+      content: "• ";
+      color: var(--primary);
+      font-weight: 700;
+      margin-right: 4px;
+    }
+
+    .desc-body ul.sub li:before {
+      content: "└ ";
+      color: var(--neutral-400);
+    }
+
+    .desc-divider {
+      border: none;
+      border-top: 1px dashed #EEF3F8;
+      margin: 16px 0;
+    }
+
+    /* Status Table */
+    .status-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-bottom: 16px;
+    }
+
+    .status-table th,
+    .status-table td {
+      padding: 8px;
+      text-align: left;
+      border: 1px solid var(--neutral-200);
+    }
+
+    .status-table th {
+      background: var(--neutral-100);
+      font-weight: 600;
+      color: var(--neutral-900);
+    }
+
+    .status-table td {
+      color: var(--neutral-700);
+    }
+
+    /* Related Screens Table */
+    .related-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .related-table th,
+    .related-table td {
+      padding: 8px;
+      text-align: left;
+      border: 1px solid var(--neutral-200);
+    }
+
+    .related-table th {
+      background: var(--neutral-100);
+      font-weight: 600;
+      color: var(--neutral-900);
+    }
+
+    .related-table td {
+      color: var(--neutral-700);
+    }
+
+    /* Revision Bar */
+    .revision-bar {
+      background: #fff;
+      border-top: 1px solid #EEF3F8;
+      padding: 20px 28px;
+      margin-top: 40px;
+    }
+
+    .revision-bar table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .revision-bar th,
+    .revision-bar td {
+      padding: 8px;
+      text-align: left;
+      border: 1px solid var(--neutral-200);
+    }
+
+    .revision-bar th {
+      background: var(--neutral-100);
+      font-weight: 600;
+      color: var(--neutral-900);
+    }
+
+    .revision-bar td {
+      color: var(--neutral-700);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .main-layout {
+        flex-direction: column;
+      }
+
+      .wireframe-side {
+        flex: none;
+        padding: 16px;
+        background: #fff;
+      }
+
+      .desc-side {
+        flex: none;
+        border-left: none;
+        border-top: 1px solid #DEE8F2;
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Meta Bar -->
+<div class="meta-bar">
+  <span class="title">WANT02</span>
+  <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">동행 상세</span></span>
+  <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/companion/[id]</span></span>
+  <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.4</span></span>
+  <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
+  <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-10</span></span>
+</div>
+
+<!-- Main Layout -->
+<div class="main-layout">
+  <!-- Wireframe Side -->
+  <div class="wireframe-side">
+    <div class="phone-stack">
+      <!-- Frame 1: 동행 상세 (타인 글 - 모집중) -->
+      <div class="frame-container">
+        <div class="frame-label">Frame 1: 동행 상세 (타인 글 - 모집중)</div>
+        <div class="phone-frame">
+          <div class="frame-content">
+            <!-- Header -->
+            <div class="frame-header">
+              <div class="frame-header-left">
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="frame-header-center">동행 상세</div>
+              <div class="frame-header-right">
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 2l-7 20-4-9-9-4 20-7z"/>
+                  </svg>
+                </button>
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Scrollable Content -->
+            <div class="frame-scroll">
+              <!-- Image Area -->
+              <div class="wf-section">
+                <div class="num-circle" style="top: 8px; left: 8px;">2</div>
+                <div class="wf-image-area">
+                  <div>이미지 영역</div>
+                  <div class="wf-image-count">1/3</div>
+                  <div class="wf-image-dots">
+                    <div class="wf-dot active"></div>
+                    <div class="wf-dot"></div>
+                    <div class="wf-dot"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Content -->
+              <div class="wf-content">
+                <!-- Status Badges -->
+                <div class="wf-section">
+                  <div class="num-circle" style="top: 8px; left: 8px;">3</div>
+                  <div class="wf-badges-row">
+                    <span class="wf-badge recruiting">모집중</span>
+                    <span class="wf-dday-badge">D-5</span>
+                  </div>
+                </div>
+
+                <!-- Title -->
+                <div class="wf-title">서울 롯데월드 동행</div>
+                <div class="wf-meta-info">2026.03.10 · 조회 128</div>
+
+                <!-- Event Card -->
+                <div class="wf-section">
+                  <div class="num-circle" style="top: 8px; left: 8px;">4</div>
+                  <div class="wf-event-card">
+                    <svg class="wf-event-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+                    </svg>
+                    <div class="wf-event-content">
+                      <div class="wf-event-name">애니콘 2026</div>
+                      <div class="wf-event-date">2026.03.15 ~ 2026.03.17</div>
+                    </div>
+                    <svg class="wf-event-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                  </div>
+                </div>
+
+                <!-- Category & Work Info -->
+                <div class="wf-section">
+                  <div class="num-circle" style="top: 8px; left: 8px;">5</div>
+                  <div class="wf-tag-row">
+                    <span class="wf-tag">애니</span>
+                    <span style="color: var(--neutral-500);">·</span>
+                    <span style="color: var(--neutral-700); font-weight: 500;">진격의 거인 · 에렌</span>
+                  </div>
+                </div>
+
+                <!-- Companion Date -->
+                <div class="wf-section">
+                  <div class="num-circle" style="top: 8px; left: 8px;">6</div>
+                  <div class="wf-info-row">
+                    <svg class="wf-info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+                    </svg>
+                    <span>2026.03.15(토) 오후</span>
+                  </div>
+                </div>
+
+                <!-- Location -->
+                <div class="wf-section">
+                  <div class="num-circle" style="top: 8px; left: 8px;">7</div>
+                  <div class="wf-info-row">
+                    <svg class="wf-info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    <span>서울시 송파구 롯데월드</span>
+                  </div>
+                </div>
+
+                <!-- Map -->
+                <div class="wf-section">
+                  <div class="num-circle" style="top: 8px; left: 8px;">8</div>
+                  <div class="wf-map-placeholder">카카오맵</div>
+                </div>
+
+                <!-- Progress Section -->
+                <div class="wf-section">
+                  <div class="num-circle" style="top: 8px; left: 8px;">9</div>
+                  <div class="wf-progress-section">
+                    <div class="wf-progress-title">모집 현황</div>
+                    <div class="wf-progress-bar">
+                      <div class="wf-progress-fill" style="width: 75%;"></div>
+                    </div>
+                    <div class="wf-progress-text">3/4명</div>
+                  </div>
+                </div>
+
+                <!-- Description -->
+                <div class="wf-section">
+                  <div class="num-circle" style="top: 8px; left: 8px;">10</div>
+                  <div class="wf-description">
+                    <div class="wf-description-text">애니콘 처음이라 같이 놀 사람 찾아요! 진격의 거인 팬들이면 더 좋습니다. 편하게 연락 주세요!</div>
+                    <div class="wf-description-more">더보기</div>
+                  </div>
+                </div>
+
+                <!-- Author Box -->
+                <div class="wf-section">
+                  <div class="num-circle" style="top: 8px; left: 8px;">11</div>
+                  <div class="wf-author-box">
+                    <div class="wf-avatar"></div>
+                    <div class="wf-author-info">
+                      <div class="wf-author-name">팬앤팬</div>
+                      <div class="wf-author-meta">
+                        <span class="wf-trust-badge">Lv.3</span>
+                        <span>2시간 전 접속</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Padding for sticky bar -->
+                <div style="height: 20px;"></div>
+              </div>
+            </div>
+
+            <!-- Sticky Bar - 타인의 모집중 글 -->
+            <div class="wf-section">
+              <div class="num-circle" style="top: 8px; left: 8px;">12</div>
+              <div class="wf-sticky-bar">
+                <button class="wf-button secondary">채팅 문의</button>
+                <button class="wf-button primary">동행 신청</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Frame 2: 동행 신청 다이얼로그 -->
+      <div class="frame-container">
+        <div class="frame-label">Frame 2: 동행 신청 다이얼로그</div>
+        <div class="phone-frame">
+          <div class="frame-content" style="background: rgba(0,0,0,0.3);">
+            <div class="wf-section">
+              <div class="num-circle" style="top: 100px; left: 20px;">13</div>
+              <div style="padding: 200px 20px; display: flex; align-items: center; justify-content: center; height: 812px;">
+                <div class="wf-dialog-box">
+                  <div class="wf-dialog-title">동행 신청</div>
+                  <textarea class="wf-dialog-input" placeholder="동행에 대한 한마디를 남겨주세요"></textarea>
+                  <div class="wf-char-count">0/100</div>
+                  <div class="wf-dialog-buttons">
+                    <button class="wf-button secondary">취소</button>
+                    <button class="wf-button primary">신청하기</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Frame 3: 동행 상세 (본인 글) -->
+      <div class="frame-container">
+        <div class="frame-label">Frame 3: 동행 상세 (본인 글)</div>
+        <div class="phone-frame">
+          <div class="frame-content">
+            <!-- Header -->
+            <div class="frame-header">
+              <div class="frame-header-left">
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="frame-header-center">동행 상세</div>
+              <div class="frame-header-right">
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 2l-7 20-4-9-9-4 20-7z"/>
+                  </svg>
+                </button>
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Scrollable Content (Same as Frame 1) -->
+            <div class="frame-scroll">
+              <div class="wf-image-area">
+                <div>이미지 영역</div>
+                <div class="wf-image-count">1/3</div>
+                <div class="wf-image-dots">
+                  <div class="wf-dot active"></div>
+                  <div class="wf-dot"></div>
+                  <div class="wf-dot"></div>
+                </div>
+              </div>
+
+              <div class="wf-content">
+                <div class="wf-badges-row">
+                  <span class="wf-badge recruiting">모집중</span>
+                  <span class="wf-dday-badge">D-5</span>
+                </div>
+                <div class="wf-title">서울 롯데월드 동행</div>
+                <div class="wf-meta-info">2026.03.10 · 조회 128</div>
+                <div class="wf-event-card">
+                  <svg class="wf-event-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+                  </svg>
+                  <div class="wf-event-content">
+                    <div class="wf-event-name">애니콘 2026</div>
+                    <div class="wf-event-date">2026.03.15 ~ 2026.03.17</div>
+                  </div>
+                  <svg class="wf-event-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"/>
+                  </svg>
+                </div>
+                <div class="wf-tag-row">
+                  <span class="wf-tag">애니</span>
+                  <span style="color: var(--neutral-500);">·</span>
+                  <span style="color: var(--neutral-700); font-weight: 500;">진격의 거인 · 에렌</span>
+                </div>
+                <div class="wf-info-row">
+                  <svg class="wf-info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+                  </svg>
+                  <span>2026.03.15(토) 오후</span>
+                </div>
+                <div class="wf-info-row">
+                  <svg class="wf-info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+                  </svg>
+                  <span>서울시 송파구 롯데월드</span>
+                </div>
+                <div class="wf-map-placeholder">카카오맵</div>
+                <div class="wf-progress-section">
+                  <div class="wf-progress-title">모집 현황</div>
+                  <div class="wf-progress-bar">
+                    <div class="wf-progress-fill" style="width: 75%;"></div>
+                  </div>
+                  <div class="wf-progress-text">3/4명</div>
+                </div>
+                <div class="wf-description">
+                  <div class="wf-description-text">애니콘 처음이라 같이 놀 사람 찾아요!</div>
+                  <div class="wf-description-more">더보기</div>
+                </div>
+                <div class="wf-author-box">
+                  <div class="wf-avatar"></div>
+                  <div class="wf-author-info">
+                    <div class="wf-author-name">팬앤팬</div>
+                    <div class="wf-author-meta">
+                      <span class="wf-trust-badge">Lv.3</span>
+                      <span>2시간 전 접속</span>
+                    </div>
+                  </div>
+                </div>
+                <div style="height: 20px;"></div>
+              </div>
+            </div>
+
+            <div style="margin: 0 16px 12px; padding: 10px 12px; border: 1px solid #FBCFE8; border-radius: 10px; background: #FFF1F2;">
+              <div style="font-size: 11px; color: #BE185D; font-weight: 700;">수정 잠금 안내</div>
+              <div style="font-size: 10px; color: #9D174D; margin-top: 4px;">신청 이력이 있어 핵심 조건(일시/장소/모집인원)은 수정할 수 없어요.</div>
+            </div>
+
+            <!-- Sticky Bar - 본인 글 (수정 잠금 케이스) -->
+            <div class="wf-sticky-bar">
+              <button class="wf-button secondary">
+                <svg style="width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 19v-2m0-4v-2m0-4v-2"/><polygon points="19.07 4.93 13.5 10.5 10.5 7.5 4.93 13.07 3 15 9 21 21 9 19.07 4.93"/>
+                </svg>
+                끌어올리기
+              </button>
+              <button class="wf-button secondary" style="opacity:.45; cursor:not-allowed;">수정 불가</button>
+              <button class="wf-button secondary">마감하기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Frame 4: 동행 상세 (마감 상태) -->
+      <div class="frame-container">
+        <div class="frame-label">Frame 4: 동행 상세 (마감 상태)</div>
+        <div class="phone-frame">
+          <div class="frame-content">
+            <!-- Header -->
+            <div class="frame-header">
+              <div class="frame-header-left">
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="frame-header-center">동행 상세</div>
+              <div class="frame-header-right">
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 2l-7 20-4-9-9-4 20-7z"/>
+                  </svg>
+                </button>
+                <button class="icon-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Scrollable Content -->
+            <div class="frame-scroll">
+              <div class="wf-image-area">
+                <div>이미지 영역</div>
+                <div class="wf-image-count">1/3</div>
+                <div class="wf-image-dots">
+                  <div class="wf-dot active"></div>
+                  <div class="wf-dot"></div>
+                  <div class="wf-dot"></div>
+                </div>
+              </div>
+
+              <div class="wf-content">
+                <div class="wf-badges-row">
+                  <span class="wf-badge closed">마감</span>
+                </div>
+                <div class="wf-title">서울 롯데월드 동행</div>
+                <div class="wf-meta-info">2026.03.10 · 조회 128</div>
+                <div class="wf-event-card">
+                  <svg class="wf-event-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+                  </svg>
+                  <div class="wf-event-content">
+                    <div class="wf-event-name">애니콘 2026</div>
+                    <div class="wf-event-date">2026.03.15 ~ 2026.03.17</div>
+                  </div>
+                  <svg class="wf-event-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"/>
+                  </svg>
+                </div>
+                <div class="wf-tag-row">
+                  <span class="wf-tag">애니</span>
+                  <span style="color: var(--neutral-500);">·</span>
+                  <span style="color: var(--neutral-700); font-weight: 500;">진격의 거인 · 에렌</span>
+                </div>
+                <div class="wf-info-row">
+                  <svg class="wf-info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+                  </svg>
+                  <span>2026.03.15(토) 오후</span>
+                </div>
+                <div class="wf-info-row">
+                  <svg class="wf-info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+                  </svg>
+                  <span>서울시 송파구 롯데월드</span>
+                </div>
+                <div class="wf-map-placeholder">카카오맵</div>
+                <div class="wf-progress-section">
+                  <div class="wf-progress-title">모집 현황</div>
+                  <div class="wf-progress-bar">
+                    <div class="wf-progress-fill" style="width: 100%;"></div>
+                  </div>
+                  <div class="wf-progress-text">4/4명</div>
+                </div>
+                <div class="wf-description">
+                  <div class="wf-description-text">애니콘 처음이라 같이 놀 사람 찾아요!</div>
+                  <div class="wf-description-more">더보기</div>
+                </div>
+                <div class="wf-author-box">
+                  <div class="wf-avatar"></div>
+                  <div class="wf-author-info">
+                    <div class="wf-author-name">팬앤팬</div>
+                    <div class="wf-author-meta">
+                      <span class="wf-trust-badge">Lv.3</span>
+                      <span>2시간 전 접속</span>
+                    </div>
+                  </div>
+                </div>
+                <div style="height: 20px;"></div>
+              </div>
+            </div>
+
+            <!-- Sticky Bar - 마감 상태 (비활성화) -->
+            <div class="wf-sticky-bar disabled">
+              <div class="wf-sticky-bar disabled-text">마감된 동행입니다</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Description Side -->
+  <div class="desc-side">
+    <!-- Item 1 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">1</div>
+        <span class="desc-comp-type">[Header]</span>
+        <span class="desc-comp-name">앱 헤더</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>뒤로가기(← 아이콘) 버튼</li>
+          <li>가운데 타이틀 "동행 상세"</li>
+          <li>우측 아이콘 버튼 2개
+            <ul class="sub">
+              <li>└ Share icon (공유)</li>
+              <li>└ MoreVertical icon (더보기 메뉴: 신고 / 차단 / URL복사)</li>
+            </ul>
+          </li>
+          <li>높이: 50px, 흰 배경, 하단 border 1px #DEE8F2</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- Item 2 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">2</div>
+        <span class="desc-comp-type">[Image]</span>
+        <span class="desc-comp-name">이미지 영역</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>높이: 200px</li>
+          <li>Swipe 슬라이더, 최대 3장</li>
+          <li>하단 indicator dots (현재 페이지 흰색, 비활성 회색)</li>
+          <li>우측상단 "N/M" 카운트 배지 (검은 반투명 배경, 흰 글자)</li>
+          <li>이미지 없는 경우: 카테고리별 gradient 배경 + 아이콘</li>
+          <li>탭 시: fullscreen 이미지 뷰 (COMM02 참고)</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- Item 3 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">3</div>
+        <span class="desc-comp-type">[Badge]</span>
+        <span class="desc-comp-name">상태 뱃지 + D-day</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>상태별 뱃지 (inline-flex, padding 4px 10px, border-radius 12px)
+            <ul class="sub">
+              <li>└ 모집중: 녹색 (#16A34A) 배경, 흰 글자</li>
+              <li>└ 마감: 회색 (#45617E) 배경</li>
+              <li>└ 취소: 빨강 (#EA5D86) 배경</li>
+            </ul>
+          </li>
+          <li>D-day 뱃지: 빨강 배경, 흰 글자 (예: D-5)</li>
+          <li>타이틀: 20px 700weight, 색상 #163958</li>
+          <li>메타 정보: "YYYY.MM.DD · 조회 N" (12px, 색상 #45617E)</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- Item 4 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">4</div>
+        <span class="desc-comp-type">[Card]</span>
+        <span class="desc-comp-name">연결 이벤트 카드</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>조건: 동행이 연결된 이벤트가 있을 때만 표시</li>
+          <li>배경: #F7FAFD, 테두리 1px #DEE8F2, border-radius 12px</li>
+          <li>레이아웃: flex, 세로 방향
+            <ul class="sub">
+              <li>└ 좌: Calendar 아이콘 (18px, 회색 #45617E)</li>
+              <li>└ 중: 이벤트명 (13px 600) + 날짜 (11px 회색)</li>
+              <li>└ 우: ChevronRight 아이콘 (20px, 회색 #8EA2B7)</li>
+            </ul>
+          </li>
+          <li>탭 시: EVNT02 화면으로 이동</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- Item 5 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">5</div>
+        <span class="desc-comp-type">[Info]</span>
+        <span class="desc-comp-name">동행 정보 섹션</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>카테고리 태그 + 작품명 · 캐릭터
+            <ul class="sub">
+              <li>└ 태그: COMM01 카테고리 색상 (자주 #8B5CF6, 분홍 #EC4899 등)</li>
+              <li>└ 플레이스홀더: "장르/팬덤명 · 캐릭터"</li>
+            </ul>
+          </li>
+          <li>동행 날짜: Calendar 아이콘 + "YYYY.MM.DD(요일) 시간대"</li>
+          <li>동행 장소: MapPin 아이콘 + 지역명 (Kakao API 주소)</li>
+          <li>모든 아이콘 좌측 배치, 간격 8px</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- Item 6 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">6</div>
+        <span class="desc-comp-type">[Map]</span>
+        <span class="desc-comp-name">카카오 지도 Embed</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>높이: 150px, border-radius 12px</li>
+          <li>Kakao Map API 마커 표시</li>
+          <li>마커 탭 시: 카카오맵 앱 또는 웹 열기 (커스텀 URI)</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- Item 7 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">7</div>
+        <span class="desc-comp-type">[Progress]</span>
+        <span class="desc-comp-name">모집 현황</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>제목: "모집 현황" (16px 600)</li>
+          <li>프로그레스 바: 높이 8px, 배경 #DEE8F2, fill 색상 #2F8EC1</li>
+          <li>텍스트: "N/M명" (12px 600, 색상 #45617E)</li>
+          <li>본인 글인 경우: 신청자 목록 표시 (신청자 프로필 + 수락/거절 버튼)</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- Item 8 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">8</div>
+        <span class="desc-comp-type">[Text]</span>
+        <span class="desc-comp-name">상세 설명</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>최대 3줄 표시, 초과 시 "더보기" 링크</li>
+          <li>글자 크기: 13px, 높이: 1.6</li>
+          <li>"더보기" 탭 시: 전체 텍스트 펼침 (접기 / 펼치기 토글)</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- Item 9 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">9</div>
+        <span class="desc-comp-type">[Profile]</span>
+        <span class="desc-comp-name">작성자 정보 박스</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>배경: #F7FAFD, 테두리 1px #DEE8F2, border-radius 12px, padding 12px</li>
+          <li>레이아웃: flex
+            <ul class="sub">
+              <li>└ 좌: 40px 원형 아바타</li>
+              <li>└ 중: 닉네임 (13px 600) + 신뢰도 뱃지 Lv.1~4 (10px, 배경 #F59E0B) + 마지막 접속 시간 (11px 회색)</li>
+              <li>└ 우: ChevronRight (선택사항)</li>
+            </ul>
+          </li>
+          <li>탭 시: USER01 (해당 유저 프로필 페이지)</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- Item 10 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">10</div>
+        <span class="desc-comp-type">[StickyBar]</span>
+        <span class="desc-comp-name">하단 고정 액션 바</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>위치: position sticky, bottom 0</li>
+          <li>높이: 56px, 흰 배경, 상단 border 1px #DEE8F2</li>
+          <li>패딩: 12px</li>
+          <li>4가지 상태
+            <ul class="sub">
+              <li>└ 타인의 모집중 글: "채팅 문의" (secondary 40%) + "동행 신청" (primary 60%)</li>
+              <li>└ 타인의 마감/취소 글: 전체 disabled gray bar + "마감된 동행입니다" 텍스트</li>
+              <li>└ 이미 신청함: "신청 완료" 비활성 + "신청 취소" 텍스트 버튼</li>
+              <li>└ 본인 글: "끌어올리기" + "수정"(신청 이력 0건일 때) + "마감하기"</li>
+              <li>└ 본인 글(수정 잠금): "수정 불가" 비활성 버튼 + 잠금 안내 배너</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- Item 11 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">11</div>
+        <span class="desc-comp-type">[Dialog]</span>
+        <span class="desc-comp-name">동행 신청 다이얼로그</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>COMM02 Dialog/Modal 패턴 참고</li>
+          <li>레이아웃: center popup (반투명 오버레이 배경 rgba(0,0,0,0.4))</li>
+          <li>박스: 흰 배경, border-radius 16px, padding 24px</li>
+          <li>제목: "동행 신청" (16px 700)</li>
+          <li>메시지 필드 (optional):
+            <ul class="sub">
+              <li>└ Textarea, placeholder "동행에 대한 한마디를 남겨주세요"</li>
+              <li>└ 최대 100자, 글자 수 카운트 "N/100" 표시</li>
+            </ul>
+          </li>
+          <li>버튼: "취소" (secondary) + "신청하기" (primary)</li>
+          <li>신청 완료 시: Toast 메시지 + 다이얼로그 닫힘 + 하단바 "신청 완료" 상태 전환</li>
+          <li>채팅방은 신청 즉시 생성되지 않고, 작성자 수락 시 생성</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Screen States -->
+    <hr class="desc-divider">
+    <h3 style="margin-top: 20px; margin-bottom: 12px; font-size: 14px; font-weight: 700;">화면 상태</h3>
+    <table class="status-table">
+      <thead>
+        <tr>
+          <th>상태</th>
+          <th>설명</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>정상 (모집중)</td>
+          <td>초대값 로드됨, 모집중 뱃지 표시, 녹색 배경</td>
+        </tr>
+        <tr>
+          <td>정상 (마감)</td>
+          <td>모집 완료, 회색 뱃지, 하단 bar 비활성화</td>
+        </tr>
+        <tr>
+          <td>정상 (취소)</td>
+          <td>작성자가 글 삭제, 빨강 뱃지, 하단 bar 비활성화</td>
+        </tr>
+        <tr>
+          <td>이미 신청</td>
+          <td>사용자가 이미 동행 신청 함, 하단 bar "신청 완료" + "신청 취소"</td>
+        </tr>
+        <tr>
+          <td>본인 글</td>
+          <td>작성자 본인, 하단 bar 3개 버튼 (끌어올리기/수정/마감하기)</td>
+        </tr>
+        <tr>
+          <td>본인 글(수정 잠금)</td>
+          <td>신청 이력 1건 이상이면 "수정 불가" 비활성 + 잠금 안내 문구</td>
+        </tr>
+        <tr>
+          <td>로딩</td>
+          <td>skeleton 로딩 상태, 콘텐츠 영역 회색 배경</td>
+        </tr>
+        <tr>
+          <td>에러</td>
+          <td>네트워크 오류, 재시도 버튼</td>
+        </tr>
+        <tr>
+          <td>삭제됨</td>
+          <td>글이 삭제된 상태, "삭제된 동행입니다" 메시지</td>
+        </tr>
+        <tr>
+          <td>비로그인</td>
+          <td>로그인 하지 않은 사용자, 로그인 유도 팝업</td>
+        </tr>
+        <tr>
+          <td>미인증</td>
+          <td>로그인 + 미인증 상태에서 신청/채팅 문의 시 본인인증 유도 바텀시트</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Related Screens -->
+    <hr class="desc-divider">
+    <h3 style="margin-top: 20px; margin-bottom: 12px; font-size: 14px; font-weight: 700;">연관 화면</h3>
+    <table class="related-table">
+      <thead>
+        <tr>
+          <th>이동 대상</th>
+          <th>조건</th>
+          <th>화면 코드</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>동행 목록</td>
+          <td>← 뒤로가기 버튼 탭</td>
+          <td>WANT01</td>
+        </tr>
+        <tr>
+          <td>이벤트 상세</td>
+          <td>연결 이벤트 카드 탭</td>
+          <td>EVNT02</td>
+        </tr>
+        <tr>
+          <td>채팅</td>
+          <td>"채팅 문의" 버튼 탭</td>
+          <td>CHAT02</td>
+        </tr>
+        <tr>
+          <td>프로필 페이지</td>
+          <td>작성자 프로필 박스 탭</td>
+          <td>USER01</td>
+        </tr>
+        <tr>
+          <td>로그인</td>
+          <td>비로그인 상태에서 액션 시도</td>
+          <td>AUTH01</td>
+        </tr>
+        <tr>
+          <td>본인인증</td>
+          <td>로그인 + 미인증 상태에서 동행 신청/채팅 문의 시도</td>
+          <td>AUTH02</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Revision Footer -->
+<div class="revision-bar">
+  <table>
+    <thead>
+      <tr>
+        <th>날짜</th>
+        <th>버전</th>
+        <th>내용</th>
+        <th>작성자</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>2026-03-10</td>
+        <td>0.1</td>
+        <td>초안 작성 (WANT01 바텀시트에서 독립 페이지로 분리)</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>2026-03-10</td>
+        <td>0.2</td>
+        <td>신청 완료 시점/채팅방 생성 시점 정합화 (채팅방은 수락 시 생성)</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>2026-03-10</td>
+        <td>0.3</td>
+        <td>동행 신청/문의 본인인증(JIT) 게이팅 명시 추가</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>2026-03-10</td>
+        <td>0.4</td>
+        <td>신청 이력 기반 수정 잠금(상태 무관) 케이스 및 안내 배너 추가</td>
+        <td>-</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

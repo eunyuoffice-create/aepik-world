@@ -6,17 +6,17 @@
 <title>USER02 — 내 활동 관리 와이어프레임</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F7FAFD; color: #163958; }
 
 /* ===== META HEADER ===== */
 .meta-bar {
-  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  background: #fff; border-bottom: 2px solid #2F8EC1; padding: 12px 24px;
   display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
 }
 .meta-item { font-size: 11px; }
-.meta-label { color: #999; }
-.meta-value { font-weight: 600; color: #333; margin-left: 4px; }
-.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+.meta-label { color: #8EA2B7; }
+.meta-value { font-weight: 600; color: #163958; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2F8EC1; margin-right: auto; }
 
 /* ===== MAIN LAYOUT ===== */
 .main-layout { overflow-x: hidden;
@@ -40,37 +40,37 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
 .frame-label {
   margin-bottom: 8px; font-size: 12px; font-weight: 600;
-  color: #555; text-align: center;
+  color: #45617E; text-align: center;
 }
 
 /* ===== DESCRIPTION SIDE ===== */
 .desc-side {
   flex: 1 1 45%; min-width: 0; background: #fff; padding: 24px 28px;
-  overflow-y: auto; border-left: 1px solid #ddd;
+  overflow-y: auto; border-left: 1px solid #DEE8F2;
 }
 .desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-.desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+.desc-subtitle { font-size: 12px; color: #45617E; margin-bottom: 20px; }
 
 .desc-item { margin-bottom: 20px; }
 .desc-num-row {
   display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
 }
 .desc-num {
-  background: #2563EB; color: #fff; width: 22px; height: 22px;
+  background: #2F8EC1; color: #fff; width: 22px; height: 22px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 11px; font-weight: 700; flex-shrink: 0;
 }
-.desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-type { font-size: 10px; color: #8EA2B7; background: #F7FAFD; padding: 2px 6px; border-radius: 3px; }
 .desc-comp-name { font-size: 14px; font-weight: 600; }
 
-.desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
+.desc-body { padding-left: 30px; font-size: 12px; color: #45617E; line-height: 1.7; }
 .desc-body ul { list-style: none; }
 .desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
-.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
-.desc-body .sub { padding-left: 14px; color: #888; }
-.desc-body .sub li::before { content: '└'; color: #ccc; }
+.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2F8EC1; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #45617E; }
+.desc-body .sub li::before { content: '└'; color: #8EA2B7; }
 
-.desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
+.desc-divider { border: none; border-top: 1px dashed #EEF3F8; margin: 16px 0; }
 
 /* ===== WIREFRAME ELEMENTS ===== */
 .wf-section { position: relative; }
@@ -78,7 +78,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* Number circle overlay */
 .num-circle {
   position: absolute; z-index: 10;
-  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  background: #2F8EC1; color: #fff; width: 20px; height: 20px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
@@ -86,68 +86,68 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* Header */
 .wf-header {
   display: flex; align-items: center; padding: 12px 16px;
-  border-bottom: 1px solid #eee; position: relative;
+  border-bottom: 1px solid #EEF3F8; position: relative;
 }
 .wf-back-icon { font-size: 16px; margin-right: auto; }
 .wf-page-title { font-weight: 700; font-size: 14px; flex: 1; text-align: center; }
 
 /* Tab Bar */
 .wf-tab-bar {
-  display: flex; gap: 16px; padding: 0 16px; border-bottom: 1px solid #eee;
+  display: flex; gap: 16px; padding: 0 16px; border-bottom: 1px solid #EEF3F8;
   overflow-x: hidden; position: relative;
 }
 .wf-tab {
-  padding: 12px 0; font-size: 11px; color: #aaa; white-space: nowrap;
+  padding: 12px 0; font-size: 11px; color: #8EA2B7; white-space: nowrap;
   border-bottom: 2px solid transparent; flex-shrink: 0; position: relative;
 }
 .wf-tab.active {
-  color: #2563EB; border-bottom-color: #2563EB; font-weight: 600;
+  color: #2F8EC1; border-bottom-color: #2F8EC1; font-weight: 600;
 }
 .wf-tab-badge {
-  font-size: 10px; color: #999; margin-left: 2px;
+  font-size: 10px; color: #8EA2B7; margin-left: 2px;
 }
 
 /* Filter chips */
 .wf-filter-bar {
   display: flex; gap: 6px; padding: 10px 16px; overflow-x: hidden;
-  border-bottom: 1px solid #f0f0f0; position: relative;
+  border-bottom: 1px solid #EEF3F8; position: relative;
 }
 .wf-chip {
   flex-shrink: 0; padding: 5px 10px; border-radius: 16px;
-  font-size: 11px; background: #F5F5F5; color: #555; border: 1px solid #E5E5E5;
+  font-size: 11px; background: #F7FAFD; color: #45617E; border: 1px solid #DEE8F2;
   white-space: nowrap;
 }
-.wf-chip.selected { background: #2563EB; color: #fff; border-color: #2563EB; }
+.wf-chip.selected { background: #2F8EC1; color: #fff; border-color: #2F8EC1; }
 
 /* Activity card list */
 .wf-activity-list {
   display: flex; flex-direction: column; padding: 10px 16px;
 }
 .wf-activity-card {
-  display: flex; gap: 10px; padding: 12px 0; border-bottom: 1px solid #f0f0f0; position: relative;
+  display: flex; gap: 10px; padding: 12px 0; border-bottom: 1px solid #EEF3F8; position: relative;
 }
 .wf-activity-card:last-child { border-bottom: none; }
 .wf-card-img {
-  width: 80px; height: 80px; background: #E5E5E5; border-radius: 8px;
+  width: 80px; height: 80px; background: #DEE8F2; border-radius: 8px;
   flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-  font-size: 10px; color: #bbb;
+  font-size: 10px; color: #8EA2B7;
 }
 .wf-card-body { flex: 1; display: flex; flex-direction: column; }
 .wf-card-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
-.wf-card-meta { font-size: 12px; color: #888; margin-bottom: 4px; }
+.wf-card-meta { font-size: 12px; color: #45617E; margin-bottom: 4px; }
 .wf-card-status {
   display: flex; gap: 6px; align-items: center; flex-wrap: wrap;
 }
 .wf-badge {
   font-size: 10px; padding: 2px 6px; border-radius: 3px; white-space: nowrap;
 }
-.wf-badge.blue { background: #DBEAFE; color: #2563EB; }
+.wf-badge.blue { background: #EAF7FF; color: #2F8EC1; }
 .wf-badge.amber { background: #FEF3C7; color: #F59E0B; }
 .wf-badge.green { background: #DCFCE7; color: #16A34A; }
-.wf-badge.red { background: #FEE2E2; color: #EF4444; }
+.wf-badge.red { background: #FEE2E2; color: #EA5D86; }
 .wf-badge.purple { background: #F3E8FF; color: #7C3AED; }
 .wf-more-icon {
-  position: absolute; top: 12px; right: 12px; font-size: 16px; color: #ccc;
+  position: absolute; top: 12px; right: 12px; font-size: 16px; color: #8EA2B7;
 }
 
 /* Progress bar */
@@ -155,37 +155,37 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   display: flex; align-items: center; gap: 8px; margin-top: 6px;
 }
 .wf-progress-bar {
-  flex: 1; height: 4px; background: #eee; border-radius: 2px; overflow: hidden;
+  flex: 1; height: 4px; background: #EEF3F8; border-radius: 2px; overflow: hidden;
 }
 .wf-progress-fill {
-  height: 100%; background: #2563EB; border-radius: 2px;
+  height: 100%; background: #2F8EC1; border-radius: 2px;
 }
 .wf-progress-text {
-  font-size: 10px; color: #888; white-space: nowrap;
+  font-size: 10px; color: #45617E; white-space: nowrap;
 }
 
 /* Sub tabs (within content area) */
 .wf-sub-tabs {
-  display: flex; gap: 20px; padding: 10px 16px; border-bottom: 1px solid #f0f0f0;
+  display: flex; gap: 20px; padding: 10px 16px; border-bottom: 1px solid #EEF3F8;
   font-size: 12px;
 }
 .wf-sub-tab {
-  color: #aaa; white-space: nowrap; padding-bottom: 6px;
+  color: #8EA2B7; white-space: nowrap; padding-bottom: 6px;
   border-bottom: 2px solid transparent;
 }
 .wf-sub-tab.active {
-  color: #2563EB; font-weight: 600; border-bottom-color: #2563EB;
+  color: #2F8EC1; font-weight: 600; border-bottom-color: #2F8EC1;
 }
 
 /* History card */
 .wf-history-card {
-  display: flex; gap: 10px; padding: 12px 16px; border-bottom: 1px solid #f0f0f0;
+  display: flex; gap: 10px; padding: 12px 16px; border-bottom: 1px solid #EEF3F8;
   align-items: flex-start;
 }
 .wf-avatar {
-  width: 36px; height: 36px; background: #E5E5E5; border-radius: 50%;
+  width: 36px; height: 36px; background: #DEE8F2; border-radius: 50%;
   flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-  font-size: 10px; color: #bbb;
+  font-size: 10px; color: #8EA2B7;
 }
 .wf-history-body { flex: 1; }
 .wf-history-header {
@@ -196,22 +196,22 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   font-size: 9px; padding: 2px 5px; border-radius: 2px;
 }
 .wf-history-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
-.wf-history-date { font-size: 10px; color: #888; margin-bottom: 4px; }
+.wf-history-date { font-size: 10px; color: #45617E; margin-bottom: 4px; }
 .wf-history-link {
-  font-size: 11px; color: #2563EB; text-decoration: none; cursor: pointer;
+  font-size: 11px; color: #2F8EC1; text-decoration: none; cursor: pointer;
 }
 
 /* Category tabs (wishlist) */
 .wf-category-tabs {
-  display: flex; gap: 12px; padding: 10px 16px; border-bottom: 1px solid #f0f0f0;
+  display: flex; gap: 12px; padding: 10px 16px; border-bottom: 1px solid #EEF3F8;
   overflow-x: hidden;
 }
 .wf-cat-tab {
-  font-size: 11px; color: #aaa; white-space: nowrap; padding-bottom: 6px;
+  font-size: 11px; color: #8EA2B7; white-space: nowrap; padding-bottom: 6px;
   border-bottom: 2px solid transparent; flex-shrink: 0;
 }
 .wf-cat-tab.active {
-  color: #2563EB; font-weight: 600; border-bottom-color: #2563EB;
+  color: #2F8EC1; font-weight: 600; border-bottom-color: #2F8EC1;
 }
 
 /* Product grid (2 cols) */
@@ -219,34 +219,34 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px 16px;
 }
 .wf-product-card {
-  background: #fff; border: 1px solid #eee; border-radius: 8px; overflow: hidden;
+  background: #fff; border: 1px solid #EEF3F8; border-radius: 8px; overflow: hidden;
   position: relative;
 }
 .wf-product-img {
-  width: 100%; aspect-ratio: 1; background: #E5E5E5;
+  width: 100%; aspect-ratio: 1; background: #DEE8F2;
   display: flex; align-items: center; justify-content: center;
-  font-size: 11px; color: #bbb;
+  font-size: 11px; color: #8EA2B7;
 }
 .wf-product-wishlist-heart {
-  position: absolute; top: 6px; right: 6px; font-size: 16px; color: #EF4444;
+  position: absolute; top: 6px; right: 6px; font-size: 16px; color: #EA5D86;
 }
 .wf-product-body { padding: 8px; }
 .wf-product-name { font-size: 11px; font-weight: 500; line-height: 1.3; margin-bottom: 4px; }
-.wf-product-meta { font-size: 10px; color: #999; }
+.wf-product-meta { font-size: 10px; color: #8EA2B7; }
 
 /* Revision footer */
 .revision-bar {
-  background: #fff; border-top: 1px solid #eee; padding: 12px 24px;
-  font-size: 11px; color: #999;
+  background: #fff; border-top: 1px solid #EEF3F8; padding: 12px 24px;
+  font-size: 11px; color: #8EA2B7;
 }
 .revision-bar table { width: 100%; border-collapse: collapse; }
-.revision-bar th { text-align: left; font-weight: 600; color: #666; padding: 4px 8px; border-bottom: 1px solid #eee; }
+.revision-bar th { text-align: left; font-weight: 600; color: #45617E; padding: 4px 8px; border-bottom: 1px solid #EEF3F8; }
 .revision-bar td { padding: 4px 8px; }
 
 @media (max-width: 900px) {
   .main-layout { flex-direction: column; }
   .wireframe-side { flex: none; padding: 16px; }
-  .desc-side { flex: none; border-left: none; border-top: 1px solid #ddd; }
+  .desc-side { flex: none; border-left: none; border-top: 1px solid #DEE8F2; }
 }
 /* Responsive improvements for laptop/small screens */
 .meta-bar { flex-wrap: wrap; gap: 8px; }
@@ -271,9 +271,9 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 <div class="meta-bar">
   <span class="title">USER02</span>
   <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">내 활동 관리</span></span>
-  <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/my/exchanges, /my/group-buys, /my/wanted, /my/history, /my/reviews, /my/wishlist</span></span>
+  <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/my/exchanges, /my/group-buys, /my/companion, /my/history, /my/reviews, /my/wishlist</span></span>
   <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
-  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.1</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.2</span></span>
   <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
   <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-06</span></span>
 </div>
@@ -306,7 +306,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <div class="wf-tab-bar">
               <div class="wf-tab active">교환글<span class="wf-tab-badge">3</span></div>
               <div class="wf-tab">공구<span class="wf-tab-badge">2</span></div>
-              <div class="wf-tab">구함글<span class="wf-tab-badge">1</span></div>
+              <div class="wf-tab">동행글<span class="wf-tab-badge">1</span></div>
               <div class="wf-tab">내역<span class="wf-tab-badge">5</span></div>
               <div class="wf-tab">후기<span class="wf-tab-badge">2</span></div>
               <div class="wf-tab">찜<span class="wf-tab-badge">8</span></div>
@@ -336,7 +336,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
                   <div class="wf-card-status">
                     <span class="wf-badge blue">교환중</span>
                     <span class="wf-badge amber">제안 2건</span>
-                    <span style="font-size:10px; color:#aaa;">3일 전</span>
+                    <span style="font-size:10px; color:#8EA2B7;">3일 전</span>
                   </div>
                 </div>
                 <div class="wf-more-icon">⋯</div>
@@ -349,7 +349,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
                   <div class="wf-card-meta">세븐틴 · 민규</div>
                   <div class="wf-card-status">
                     <span class="wf-badge green">교환완료</span>
-                    <span style="font-size:10px; color:#aaa;">1주 전</span>
+                    <span style="font-size:10px; color:#8EA2B7;">1주 전</span>
                   </div>
                 </div>
                 <div class="wf-more-icon">⋯</div>
@@ -381,7 +381,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <div class="wf-tab-bar">
               <div class="wf-tab">교환글<span class="wf-tab-badge">3</span></div>
               <div class="wf-tab active">공구<span class="wf-tab-badge">2</span></div>
-              <div class="wf-tab">구함글<span class="wf-tab-badge">1</span></div>
+              <div class="wf-tab">동행글<span class="wf-tab-badge">1</span></div>
               <div class="wf-tab">내역<span class="wf-tab-badge">5</span></div>
               <div class="wf-tab">후기<span class="wf-tab-badge">2</span></div>
               <div class="wf-tab">찜<span class="wf-tab-badge">8</span></div>
@@ -425,7 +425,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
                   </div>
                   <div class="wf-card-status">
                     <span class="wf-badge blue">모집중</span>
-                    <span style="font-size:10px; color:#aaa;">마감 D-5</span>
+                    <span style="font-size:10px; color:#8EA2B7;">마감 D-5</span>
                   </div>
                 </div>
                 <div class="wf-more-icon">⋯</div>
@@ -444,7 +444,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
                   </div>
                   <div class="wf-card-status">
                     <span class="wf-badge amber">배송중</span>
-                    <span style="font-size:10px; color:#aaa;">마감 D-2</span>
+                    <span style="font-size:10px; color:#8EA2B7;">마감 D-2</span>
                   </div>
                 </div>
                 <div class="wf-more-icon">⋯</div>
@@ -455,9 +455,9 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         </div><!-- end phone-frame -->
       </div>
 
-      <!-- FRAME C: 내 구함글 탭 -->
+      <!-- FRAME C: 내 동행글 탭 -->
       <div>
-        <div class="frame-label">Frame C: 내 구함글 탭 (/my/wanted)</div>
+        <div class="frame-label">Frame C: 내 동행글 탭 (/my/companion)</div>
         <div class="phone-frame">
 
           <!-- Header -->
@@ -476,7 +476,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <div class="wf-tab-bar">
               <div class="wf-tab">교환글<span class="wf-tab-badge">3</span></div>
               <div class="wf-tab">공구<span class="wf-tab-badge">2</span></div>
-              <div class="wf-tab active">구함글<span class="wf-tab-badge">1</span></div>
+              <div class="wf-tab active">동행글<span class="wf-tab-badge">1</span></div>
               <div class="wf-tab">내역<span class="wf-tab-badge">5</span></div>
               <div class="wf-tab">후기<span class="wf-tab-badge">2</span></div>
               <div class="wf-tab">찜<span class="wf-tab-badge">8</span></div>
@@ -495,7 +495,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
                   <div class="wf-card-status">
                     <span class="wf-badge blue">활성</span>
                     <span class="wf-badge blue">매칭 3건</span>
-                    <span style="font-size:10px; color:#aaa;">2026.02.20 · D-12</span>
+                    <span style="font-size:10px; color:#8EA2B7;">2026.02.20 · D-12</span>
                   </div>
                 </div>
                 <div class="wf-more-icon">⋯</div>
@@ -508,7 +508,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
                   <div class="wf-card-meta">세븐틴 · 민규</div>
                   <div class="wf-card-status">
                     <span class="wf-badge red">만료</span>
-                    <span style="font-size:10px; color:#aaa;">2026.02.10 · 만료됨</span>
+                    <span style="font-size:10px; color:#8EA2B7;">2026.02.10 · 만료됨</span>
                   </div>
                 </div>
                 <div class="wf-more-icon">⋯</div>
@@ -540,7 +540,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <div class="wf-tab-bar">
               <div class="wf-tab">교환글<span class="wf-tab-badge">3</span></div>
               <div class="wf-tab">공구<span class="wf-tab-badge">2</span></div>
-              <div class="wf-tab">구함글<span class="wf-tab-badge">1</span></div>
+              <div class="wf-tab">동행글<span class="wf-tab-badge">1</span></div>
               <div class="wf-tab">내역<span class="wf-tab-badge">5</span></div>
               <div class="wf-tab active">후기<span class="wf-tab-badge">2</span></div>
               <div class="wf-tab">찜<span class="wf-tab-badge">8</span></div>
@@ -548,21 +548,21 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           </div>
 
           <!-- Review Summary Card -->
-          <div style="padding: 16px; border-bottom: 1px solid #f0f0f0; text-align: center;">
+          <div style="padding: 16px; border-bottom: 1px solid #EEF3F8; text-align: center;">
             <div style="display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 12px;">
               <div style="position: relative; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
                 <svg style="position: absolute; width: 60px; height: 60px; transform: rotate(-90deg);" viewBox="0 0 60 60">
-                  <circle cx="30" cy="30" r="26" fill="none" stroke="#E5E5E5" stroke-width="4"></circle>
-                  <circle cx="30" cy="30" r="26" fill="none" stroke="#2563EB" stroke-width="4"
+                  <circle cx="30" cy="30" r="26" fill="none" stroke="#DEE8F2" stroke-width="4"></circle>
+                  <circle cx="30" cy="30" r="26" fill="none" stroke="#2F8EC1" stroke-width="4"
                     stroke-dasharray="137.6 174.6" stroke-linecap="round"></circle>
                 </svg>
-                <span style="font-size: 16px; font-weight: 700; color: #2563EB;">83%</span>
+                <span style="font-size: 16px; font-weight: 700; color: #2F8EC1;">83%</span>
               </div>
               <div style="text-align: left;">
-                <div style="font-size: 12px; color: #888; margin-bottom: 2px;">전체</div>
-                <div style="font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 6px;">12건</div>
-                <div style="font-size: 11px; color: #2563EB; margin-bottom: 2px;">긍정 10건</div>
-                <div style="font-size: 11px; color: #EF4444;">부정 2건</div>
+                <div style="font-size: 12px; color: #45617E; margin-bottom: 2px;">전체</div>
+                <div style="font-size: 14px; font-weight: 600; color: #163958; margin-bottom: 6px;">12건</div>
+                <div style="font-size: 11px; color: #2F8EC1; margin-bottom: 2px;">긍정 10건</div>
+                <div style="font-size: 11px; color: #EA5D86;">부정 2건</div>
               </div>
             </div>
           </div>
@@ -577,9 +577,9 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
                   <div class="wf-history-header">
                     <span class="wf-history-name">거래매니아</span>
                   </div>
-                  <div style="font-size: 12px; color: #555; margin-bottom: 4px;">친절하고 빠른 거래 감사합니다!</div>
+                  <div style="font-size: 12px; color: #45617E; margin-bottom: 4px;">친절하고 빠른 거래 감사합니다!</div>
                   <div class="wf-history-date">2026-03-01</div>
-                  <div style="font-size: 11px; color: #888;">교환: 하이큐 히나타 아크릴</div>
+                  <div style="font-size: 11px; color: #45617E;">교환: 하이큐 히나타 아크릴</div>
                 </div>
               </div>
 
@@ -589,9 +589,9 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
                   <div class="wf-history-header">
                     <span class="wf-history-name">팬굿즈러버</span>
                   </div>
-                  <div style="font-size: 12px; color: #555; margin-bottom: 4px;">상품 상태가 설명과 달랐어요</div>
+                  <div style="font-size: 12px; color: #45617E; margin-bottom: 4px;">상품 상태가 설명과 달랐어요</div>
                   <div class="wf-history-date">2026-02-28</div>
-                  <div style="font-size: 11px; color: #888; margin-bottom: 4px;">교환: 원신 감우 피규어</div>
+                  <div style="font-size: 11px; color: #45617E; margin-bottom: 4px;">교환: 원신 감우 피규어</div>
                   <a class="wf-history-link">이의 제기</a>
                 </div>
               </div>
@@ -622,7 +622,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <div class="wf-tab-bar">
               <div class="wf-tab">교환글<span class="wf-tab-badge">3</span></div>
               <div class="wf-tab">공구<span class="wf-tab-badge">2</span></div>
-              <div class="wf-tab">구함글<span class="wf-tab-badge">1</span></div>
+              <div class="wf-tab">동행글<span class="wf-tab-badge">1</span></div>
               <div class="wf-tab active">내역<span class="wf-tab-badge">5</span></div>
               <div class="wf-tab">후기<span class="wf-tab-badge">2</span></div>
               <div class="wf-tab">찜<span class="wf-tab-badge">8</span></div>
@@ -630,15 +630,15 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           </div>
 
           <!-- Period & Type Filter -->
-          <div style="padding: 10px 16px; border-bottom: 1px solid #f0f0f0;">
-            <div style="font-size:10px; color:#888; margin-bottom:4px;">기간</div>
+          <div style="padding: 10px 16px; border-bottom: 1px solid #EEF3F8;">
+            <div style="font-size:10px; color:#45617E; margin-bottom:4px;">기간</div>
             <div class="wf-filter-bar" style="padding:4px 0; border-bottom:none;">
               <div class="wf-chip selected">1개월</div>
               <div class="wf-chip">3개월</div>
               <div class="wf-chip">6개월</div>
               <div class="wf-chip">1년</div>
             </div>
-            <div style="font-size:10px; color:#888; margin:8px 0 4px;">유형</div>
+            <div style="font-size:10px; color:#45617E; margin:8px 0 4px;">유형</div>
             <div class="wf-filter-bar" style="padding:4px 0; border-bottom:none;">
               <div class="wf-chip selected">전체</div>
               <div class="wf-chip">교환</div>
@@ -655,7 +655,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
                 <div class="wf-history-body">
                   <div class="wf-history-header">
                     <span class="wf-history-name">김선정</span>
-                    <span class="wf-history-type-badge" style="background:#DBEAFE; color:#2563EB;">교환</span>
+                    <span class="wf-history-type-badge" style="background:#EAF7FF; color:#2F8EC1;">교환</span>
                   </div>
                   <div class="wf-history-title">하이큐 히나타 스탠드</div>
                   <div class="wf-history-date">완료일 2026-03-02</div>
@@ -672,7 +672,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
                   </div>
                   <div class="wf-history-title">세상의 중심 공구 배송</div>
                   <div class="wf-history-date">완료일 2026-02-28</div>
-                  <span style="font-size:11px; color:#ccc;">후기 작성 완료</span>
+                  <span style="font-size:11px; color:#8EA2B7;">후기 작성 완료</span>
                 </div>
               </div>
             </div>
@@ -702,7 +702,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <div class="wf-tab-bar">
               <div class="wf-tab">교환글<span class="wf-tab-badge">3</span></div>
               <div class="wf-tab">공구<span class="wf-tab-badge">2</span></div>
-              <div class="wf-tab">구함글<span class="wf-tab-badge">1</span></div>
+              <div class="wf-tab">동행글<span class="wf-tab-badge">1</span></div>
               <div class="wf-tab">내역<span class="wf-tab-badge">5</span></div>
               <div class="wf-tab">후기<span class="wf-tab-badge">2</span></div>
               <div class="wf-tab active">찜<span class="wf-tab-badge">8</span></div>
@@ -795,7 +795,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       </div>
       <div class="desc-body">
         <ul>
-          <li>6개 탭: 교환글 / 공구 / 구함글 / 내역 / 후기 / 찜</li>
+          <li>6개 탭: 교환글 / 공구 / 동행글 / 내역 / 후기 / 찜</li>
           <li>가로 스크롤 가능</li>
           <li>활성 탭: 파란색 하단 인디케이터 + Bold</li>
           <li>각 탭 우측에 카운트 뱃지 (예: "교환글 3")</li>
@@ -850,7 +850,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       <div class="desc-num-row">
         <div class="desc-num">5</div>
         <span class="desc-comp-type">[Card]</span>
-        <span class="desc-comp-name">구함글 카드</span>
+        <span class="desc-comp-name">동행글 카드</span>
       </div>
       <div class="desc-body">
         <ul>
@@ -862,7 +862,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <li>매칭 알림 뱃지: "매칭 N건" (Blue bg)</li>
           <li>우측: 더보기(⋯) 아이콘 → 액션시트 (수정/삭제/기간연장)</li>
           <li>기간연장: 만료 7일 전부터 활성</li>
-          <li>카드 탭 시: 구함글 상세 페이지 이동 (WANT01)</li>
+          <li>카드 탭 시: 동행글 상세 페이지 이동 (WANT02)</li>
         </ul>
       </div>
     </div>
@@ -902,7 +902,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <li>원형 게이지: 긍정 비율을 Blue arc로 시각화</li>
           <li>중앙 %: 긍정 비율 퍼센트 (예: "83%")</li>
           <li>우측 통계: 전체 N건 / 긍정 N건 / 부정 N건</li>
-          <li>컬러: 긍정(Blue #2563EB) / 부정(Red #EF4444)</li>
+          <li>컬러: 긍정(Blue #2F8EC1) / 부정(Red #EA5D86)</li>
           <li>후기 목록 상단 고정</li>
         </ul>
       </div>
@@ -1005,7 +1005,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
     <!-- States -->
     <div style="margin-top:16px;">
-      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">화면 상태</div>
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2F8EC1;">화면 상태</div>
       <div class="desc-body" style="padding-left:0;">
         <ul>
           <li><strong>로딩 중</strong>: 스켈레톤 카드 3개 펄스 애니메이션</li>
@@ -1026,21 +1026,21 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
     <!-- Connected screens -->
     <div style="margin-top:16px;">
-      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">연관 화면</div>
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2F8EC1;">연관 화면</div>
       <div class="desc-body" style="padding-left:0;">
         <table style="width:100%; font-size:11px; border-collapse:collapse;">
           <thead>
-            <tr style="border-bottom:1px solid #eee;">
-              <th style="text-align:left; padding:4px 8px; color:#888;">이동 대상</th>
-              <th style="text-align:left; padding:4px 8px; color:#888;">조건</th>
-              <th style="text-align:left; padding:4px 8px; color:#888;">화면코드</th>
+            <tr style="border-bottom:1px solid #EEF3F8;">
+              <th style="text-align:left; padding:4px 8px; color:#45617E;">이동 대상</th>
+              <th style="text-align:left; padding:4px 8px; color:#45617E;">조건</th>
+              <th style="text-align:left; padding:4px 8px; color:#45617E;">화면코드</th>
             </tr>
           </thead>
           <tbody>
             <tr><td style="padding:4px 8px;">마이페이지</td><td style="padding:4px 8px;">뒤로가기 탭</td><td style="padding:4px 8px;">USER01</td></tr>
             <tr><td style="padding:4px 8px;">교환 상세</td><td style="padding:4px 8px;">교환글 카드 탭</td><td style="padding:4px 8px;">EXCH02</td></tr>
             <tr><td style="padding:4px 8px;">공구 상세</td><td style="padding:4px 8px;">공구 카드 탭</td><td style="padding:4px 8px;">GRPB02</td></tr>
-            <tr><td style="padding:4px 8px;">구함글 상세</td><td style="padding:4px 8px;">구함글 카드 탭</td><td style="padding:4px 8px;">WANT01</td></tr>
+            <tr><td style="padding:4px 8px;">동행글 상세</td><td style="padding:4px 8px;">동행글 카드 탭</td><td style="padding:4px 8px;">WANT02</td></tr>
             <tr><td style="padding:4px 8px;">교환글 등록</td><td style="padding:4px 8px;">빈 상태 CTA</td><td style="padding:4px 8px;">EXCH03</td></tr>
             <tr><td style="padding:4px 8px;">공구 목록</td><td style="padding:4px 8px;">빈 상태 CTA</td><td style="padding:4px 8px;">GRPB01</td></tr>
             <tr><td style="padding:4px 8px;">메인 홈</td><td style="padding:4px 8px;">찜 빈 상태 CTA</td><td style="padding:4px 8px;">HOME01</td></tr>
@@ -1063,7 +1063,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
     </thead>
     <tbody>
       <tr><td>2026-03-06</td><td>0.1</td><td>초안 작성 — 4 frames (내 교환글/공구/내역/찜)</td><td>AI (Claude)</td></tr>
-      <tr><td>2026-03-06</td><td>0.2</td><td>구함글 탭 + 받은 후기 탭 frames 추가 (총 6 frames)</td><td>AI (Claude)</td></tr>
+      <tr><td>2026-03-10</td><td>0.2</td><td>동행 라우트 /my/companion 정합화, 동행 카드 딥링크 WANT02 반영</td><td>-</td></tr>
     </tbody>
   </table>
 </div>

@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WANT01 — 동행 구함 | 애픽 월드</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F7FAFD; color: #163958; }
+
+    /* ===== META HEADER ===== */
+    .meta-bar {
+      background: #fff; border-bottom: 2px solid #2F8EC1; padding: 12px 24px;
+      display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
+    }
+    .meta-item { font-size: 11px; }
+    .meta-label { color: #8EA2B7; }
+    .meta-value { font-weight: 600; color: #163958; margin-left: 4px; }
+    .meta-bar .title { font-size: 16px; font-weight: 700; color: #2F8EC1; margin-right: auto; }
+
+    /* ===== MAIN LAYOUT ===== */
+    .main-layout { overflow-x: hidden; display: flex; min-height: calc(100vh - 48px); }
+
+    /* ===== WIREFRAME SIDE ===== */
+    .wireframe-side {
+      flex: 1 1 55%; min-width: 0; background: #EAEAEA; padding: 32px;
+      display: flex; justify-content: center; overflow-y: auto;
+    }
+    .phone-frame {
+      width: 375px; background: #fff; border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative;
+      overflow: hidden; }
+
+    /* ===== DESCRIPTION SIDE ===== */
+    .desc-side {
+      flex: 1 1 45%; min-width: 0; background: #fff; padding: 24px 28px;
+      overflow-y: auto; border-left: 1px solid #DEE8F2;
+    }
+    .desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+    .desc-subtitle { font-size: 12px; color: #45617E; margin-bottom: 20px; }
+
+    .desc-item { margin-bottom: 20px; }
+    .desc-num-row {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+    }
+    .desc-num {
+      width: 22px; height: 22px; background: #2F8EC1; color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; flex-shrink: 0;
+    }
+    .desc-comp-type {
+      font-size: 10px; padding: 2px 6px; background: #EEF3F8; color: #8EA2B7;
+      border-radius: 2px; font-weight: 600;
+    }
+    .desc-comp-name {
+      font-size: 14px; font-weight: 600; color: #163958;
+    }
+    .desc-body {
+      padding-left: 30px; font-size: 12px; color: #45617E; line-height: 1.7;
+    }
+    .desc-body ul { list-style: none; }
+    .desc-body li {
+      padding-left: 12px;
+      position: relative;
+    }
+    .desc-body li:before {
+      content: "•"; position: absolute; left: 0;
+      color: #2F8EC1; font-weight: 700;
+    }
+    .desc-body li ul.sub li:before {
+      content: "└"; color: #8EA2B7;
+    }
+    .desc-body li ul.sub {
+      margin-top: 4px;
+      padding-left: 0;
+    }
+    .desc-divider {
+      border: none; border-top: 1px dashed #EEF3F8; margin: 16px 0;
+    }
+
+    /* Description section headers */
+    .desc-section-title {
+      font-size: 13px; font-weight: 700; color: #163958; margin-top: 24px; margin-bottom: 12px;
+    }
+
+    /* Status table */
+    .desc-status-table {
+      width: 100%; font-size: 12px; border-collapse: collapse; margin-bottom: 20px;
+    }
+    .desc-status-table th, .desc-status-table td {
+      border: 1px solid #DEE8F2; padding: 8px;
+      text-align: left;
+    }
+    .desc-status-table th {
+      background: #f9f9f9; font-weight: 600;
+    }
+
+    /* Relation table */
+    .desc-relation-table {
+      width: 100%; font-size: 12px; border-collapse: collapse;
+    }
+    .desc-relation-table th, .desc-relation-table td {
+      border: 1px solid #DEE8F2; padding: 8px;
+      text-align: left;
+    }
+    .desc-relation-table th {
+      background: #f9f9f9; font-weight: 600;
+    }
+
+    /* ===== WIREFRAME ELEMENTS ===== */
+
+    /* Phone stack */
+    .phone-stack { display: flex; flex-direction: column; gap: 24px; align-items: center; }
+    .frame-label { font-size: 12px; font-weight: 600; color: #45617E; margin-bottom: 4px; text-align: center; }
+
+    /* Header */
+    .wf-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 16px; border-bottom: 1px solid #EEF3F8;
+    }
+    .wf-header-title {
+      font-size: 16px; font-weight: 700; color: #163958;
+    }
+    .wf-header-icon {
+      width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+      background: #F7FAFD; border-radius: 8px; flex-shrink: 0;
+    }
+    .wf-header-icon svg { width: 20px; height: 20px; stroke: #45617E; }
+
+    /* Tab bar */
+    .wf-tab-bar {
+      display: flex; gap: 0; border-bottom: 1px solid #EEF3F8; padding: 0;
+    }
+    .wf-tab-item {
+      flex: 1; text-align: center; padding: 12px; font-size: 14px; font-weight: 500;
+      color: #8EA2B7; position: relative;
+    }
+    .wf-tab-item.active {
+      color: #2F8EC1;
+    }
+    .wf-tab-item.active:after {
+      content: ""; position: absolute; bottom: -1px; left: 0; right: 0;
+      height: 2px; background: #2F8EC1;
+    }
+
+    /* Filter bar */
+    .wf-filter-bar {
+      display: flex; gap: 6px; padding: 8px 16px; overflow-x: auto;
+      border-bottom: 1px solid #EEF3F8;
+    }
+    .wf-filter-chip {
+      padding: 6px 12px; background: #F7FAFD; border-radius: 16px;
+      font-size: 12px; color: #45617E; white-space: nowrap; flex-shrink: 0;
+    }
+    .wf-filter-chip.active {
+      background: #2F8EC1; color: #fff;
+    }
+
+    /* Sort row */
+    .wf-sort-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 16px; font-size: 12px; color: #45617E;
+      border-bottom: 1px solid #EEF3F8;
+    }
+    .wf-sort-dropdown {
+      display: flex; align-items: center; gap: 4px; cursor: pointer;
+      font-weight: 500;
+    }
+
+    /* Companion card list */
+    .wf-companion-list {
+      padding: 8px 16px;
+    }
+    .wf-companion-card {
+      display: flex; gap: 12px; padding: 12px; margin-bottom: 8px;
+      border: 1px solid #EEF3F8; border-radius: 8px; background: #F7FAFD;
+      position: relative;
+    }
+    .wf-companion-img {
+      width: 80px; height: 80px; background: #DEE8F2; border-radius: 8px;
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      font-size: 10px; color: #8EA2B7; position: relative; overflow: hidden;
+    }
+    .wf-companion-img-tag {
+      position: absolute; bottom: 4px; left: 4px;
+      font-size: 8px; padding: 2px 4px; border-radius: 2px; color: #fff; font-weight: 600;
+    }
+    .wf-companion-img-tag.anime { background: #8B5CF6; }
+    .wf-companion-img-tag.idol { background: #EC4899; }
+    .wf-companion-img-tag.actor { background: #F59E0B; }
+    .wf-companion-img-tag.game { background: #06B6D4; }
+
+    .wf-companion-body {
+      flex: 1; min-width: 0; display: flex; flex-direction: column;
+    }
+    .wf-companion-header {
+      display: flex; align-items: flex-start; gap: 8px; margin-bottom: 6px;
+    }
+    .wf-companion-status {
+      font-size: 10px; padding: 2px 6px; border-radius: 3px;
+      background: #D1FAE5; color: #065F46; font-weight: 600; flex-shrink: 0;
+    }
+    .wf-companion-category-tag {
+      font-size: 9px; padding: 1px 5px; border-radius: 3px; flex-shrink: 0;
+    }
+    .wf-companion-category-tag.anime { background: #F5F3FF; color: #7C3AED; }
+    .wf-companion-category-tag.idol { background: #FDF2F8; color: #DB2777; }
+    .wf-companion-category-tag.actor { background: #FFFBEB; color: #F59E0B; }
+    .wf-companion-category-tag.game { background: #ECFEFF; color: #0891B2; }
+
+    .wf-companion-title {
+      font-size: 12px; font-weight: 600; color: #163958; margin-bottom: 4px;
+    }
+    .wf-companion-event {
+      display: flex; align-items: center; gap: 3px; font-size: 11px; color: #45617E; margin-bottom: 4px;
+    }
+    .wf-companion-event svg { width: 12px; height: 12px; stroke: #45617E; }
+
+    .wf-companion-meta {
+      font-size: 10px; color: #8EA2B7; margin-bottom: 4px;
+    }
+    .wf-companion-recruitment {
+      font-size: 10px; color: #45617E;
+    }
+
+    .wf-companion-dday {
+      position: absolute; top: 8px; right: 8px;
+      font-size: 10px; padding: 2px 6px; background: #FEE2E2; color: #EA5D86;
+      border-radius: 3px; font-weight: 600;
+    }
+
+    /* Empty state */
+    .wf-empty-state {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 40px 16px; text-align: center;
+    }
+    .wf-empty-icon {
+      width: 60px; height: 60px; background: #EEF3F8; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; margin-bottom: 12px;
+    }
+    .wf-empty-title {
+      font-size: 14px; font-weight: 600; color: #163958; margin-bottom: 4px;
+    }
+    .wf-empty-desc {
+      font-size: 12px; color: #8EA2B7;
+    }
+
+    /* Bottom sheet */
+    .wf-bottom-sheet {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: #fff; border-radius: 20px 20px 0 0;
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.1);
+      max-height: 85%;
+      overflow-y: auto;
+      z-index: 20;
+    }
+    .wf-bottom-sheet.large {
+      max-height: 90%;
+    }
+
+    .wf-sheet-handle {
+      height: 4px; width: 40px; background: #DEE8F2;
+      border-radius: 2px; margin: 8px auto;
+    }
+
+    .wf-sheet-header {
+      padding: 16px; border-bottom: 1px solid #EEF3F8;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .wf-sheet-title {
+      font-size: 16px; font-weight: 700; color: #163958;
+    }
+    .wf-sheet-close {
+      width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
+      background: #F7FAFD; border-radius: 6px; cursor: pointer;
+    }
+    .wf-sheet-close svg { width: 16px; height: 16px; stroke: #45617E; }
+
+    .wf-sheet-body {
+      padding: 16px;
+    }
+
+    .wf-form-group {
+      margin-bottom: 16px;
+    }
+    .wf-form-label {
+      font-size: 12px; font-weight: 600; color: #163958; margin-bottom: 6px;
+      display: block;
+    }
+    .wf-form-input {
+      width: 100%; padding: 10px 12px; border: 1px solid #DEE8F2;
+      border-radius: 8px; font-size: 13px; color: #163958;
+      background: #F7FAFD;
+    }
+    .wf-form-input::placeholder {
+      color: #8EA2B7;
+    }
+
+    .wf-profile-row {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+      padding-bottom: 12px; border-bottom: 1px solid #EEF3F8;
+    }
+    .wf-avatar {
+      width: 40px; height: 40px; background: #8EA2B7; border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .wf-profile-info { flex: 1; min-width: 0; }
+    .wf-nickname {
+      font-size: 12px; font-weight: 600; color: #163958;
+    }
+    .wf-trust-badge {
+      font-size: 10px; color: #2F8EC1; margin-left: 4px;
+    }
+
+    .wf-event-card-inline {
+      width: 100%; background: #F7FAFD; border: 1px solid #EEF3F8;
+      border-radius: 8px; overflow: hidden; margin-bottom: 12px;
+    }
+    .wf-event-card-header {
+      display: flex; height: 80px;
+    }
+    .wf-event-img-small {
+      width: 80px; height: 80px; background: #DEE8F2; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 10px; color: #8EA2B7;
+    }
+    .wf-event-info {
+      flex: 1; padding: 10px 12px; display: flex; flex-direction: column; justify-content: center;
+    }
+    .wf-event-name-small {
+      font-size: 12px; font-weight: 600; color: #163958; margin-bottom: 2px;
+    }
+    .wf-event-date-small {
+      font-size: 11px; color: #2F8EC1; font-weight: 500;
+    }
+
+    .wf-mini-map {
+      width: 100%; height: 120px; background: #DEE8F2; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; color: #8EA2B7; margin-bottom: 12px;
+      border: 1px solid #EEF3F8;
+    }
+
+    .wf-progress-info {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+    }
+    .wf-progress-bar {
+      flex: 1; height: 4px; background: #EEF3F8; border-radius: 2px; overflow: hidden;
+    }
+    .wf-progress-fill {
+      height: 100%; background: #2F8EC1; border-radius: 2px;
+    }
+    .wf-progress-text {
+      font-size: 11px; color: #45617E; min-width: 50px; text-align: right;
+    }
+
+    .wf-description {
+      font-size: 12px; color: #45617E; line-height: 1.6; margin-bottom: 16px;
+      padding: 12px; background: #F7FAFD; border-radius: 8px;
+    }
+
+    .wf-button {
+      width: 100%; padding: 12px; border: none; border-radius: 8px;
+      font-size: 13px; font-weight: 600; cursor: pointer;
+    }
+    .wf-button.primary {
+      background: #2F8EC1; color: #fff; margin-bottom: 8px;
+    }
+    .wf-button.secondary {
+      background: transparent; border: 1px solid #DEE8F2; color: #163958;
+    }
+
+    .wf-button-group {
+      display: flex; gap: 8px;
+    }
+    .wf-button-group .wf-button {
+      flex: 1; margin-bottom: 0;
+    }
+
+    .wf-textarea {
+      width: 100%; padding: 10px 12px; border: 1px solid #DEE8F2;
+      border-radius: 8px; font-size: 13px; font-family: inherit;
+      resize: vertical; min-height: 60px; background: #F7FAFD;
+    }
+    .wf-textarea::placeholder {
+      color: #8EA2B7;
+    }
+
+    .wf-image-upload {
+      width: 100%; padding: 16px; border: 2px dashed #DEE8F2;
+      border-radius: 8px; text-align: center;
+      background: #F7FAFD;
+    }
+    .wf-image-upload-icon {
+      width: 28px; height: 28px; margin: 0 auto 8px;
+      color: #8EA2B7; display: flex; align-items: center; justify-content: center;
+    }
+    .wf-image-upload-icon svg {
+      width: 100%; height: 100%;
+      fill: none; stroke: currentColor; stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    .wf-image-upload-text {
+      font-size: 12px; color: #45617E;
+    }
+
+    .wf-stepper {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .wf-stepper-btn {
+      width: 28px; height: 28px; border: 1px solid #DEE8F2; background: #fff;
+      border-radius: 4px; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 14px; font-weight: 600; color: #163958;
+    }
+    .wf-stepper-value {
+      font-size: 13px; font-weight: 600; color: #163958; min-width: 30px; text-align: center;
+    }
+
+    .wf-chip-group {
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .wf-chip {
+      padding: 6px 12px; border: 1px solid #DEE8F2; border-radius: 6px;
+      font-size: 12px; cursor: pointer; background: #fff;
+    }
+    .wf-chip.active {
+      background: #2F8EC1; color: #fff; border-color: #2F8EC1;
+    }
+
+    /* Bottom Nav */
+    .wf-bottom-nav {
+      display: flex; border-top: 1px solid #EEF3F8; background: #fff;
+      padding: 8px 0 12px; position: relative;
+    }
+    .wf-nav-item {
+      flex: 1; text-align: center; font-size: 10px; color: #8EA2B7;
+    }
+    .wf-nav-item.active { color: #2F8EC1; }
+    .wf-nav-icon { width: 20px; height: 20px; margin: 0 auto 2px; }
+    .wf-nav-icon svg { width: 20px; height: 20px; display: block; }
+
+    /* FAB */
+    .wf-fab {
+      position: absolute; bottom: 72px; right: 16px;
+      width: 48px; height: 48px; background: #2F8EC1; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 22px; font-weight: 300;
+      box-shadow: 0 3px 10px rgba(47,142,193,0.3); z-index: 5;
+    }
+    .wf-fab svg { width: 24px; height: 24px; stroke: #fff; }
+
+    /* Revision footer */
+    .revision-bar {
+      background: #fff; border-top: 1px solid #EEF3F8; padding: 12px 24px;
+      font-size: 11px; color: #8EA2B7;
+    }
+    .revision-bar table { width: 100%; border-collapse: collapse; }
+    .revision-bar th { text-align: left; font-weight: 600; color: #45617E; padding: 4px 8px; border-bottom: 1px solid #EEF3F8; }
+    .revision-bar td { padding: 4px 8px; }
+
+    @media (max-width: 900px) {
+      .main-layout { flex-direction: column; }
+      .wireframe-side { flex: none; padding: 16px; }
+      .desc-side { flex: none; border-left: none; border-top: 1px solid #DEE8F2; }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- META HEADER -->
+<div class="meta-bar">
+  <span class="title">WANT01</span>
+  <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">동행 구함</span></span>
+  <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/companion</span></span>
+  <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">1.3</span></span>
+  <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
+  <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-09</span></span>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="main-layout">
+
+  <!-- WIREFRAME SIDE -->
+  <div class="wireframe-side">
+    <div class="phone-stack">
+
+      <!-- FRAME 1: 동행 구함 목록 -->
+      <div>
+        <div class="frame-label">동행 구함 목록</div>
+        <div class="phone-frame">
+          <!-- Header -->
+          <div class="wf-header">
+            <span class="wf-header-title">동행 구함</span>
+            <div class="wf-header-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Tab Bar -->
+          <div class="wf-tab-bar">
+            <div class="wf-tab-item active">전체</div>
+            <div class="wf-tab-item">내 동행</div>
+          </div>
+
+          <!-- Filter Bar -->
+          <div class="wf-filter-bar">
+            <div class="wf-filter-chip active">전체</div>
+            <div class="wf-filter-chip">카테고리</div>
+            <div class="wf-filter-chip">작품</div>
+            <div class="wf-filter-chip">이벤트</div>
+            <div class="wf-filter-chip">지역</div>
+          </div>
+
+          <!-- Sort Row -->
+          <div class="wf-sort-row">
+            <span>전체 24개</span>
+            <div class="wf-sort-dropdown">최신순 ▾</div>
+          </div>
+
+          <!-- Companion Card List -->
+          <div class="wf-companion-list">
+
+            <!-- Card 1 -->
+            <div class="wf-companion-card">
+              <div class="wf-companion-img">
+                이미지
+                <div class="wf-companion-img-tag anime">애니</div>
+              </div>
+              <div class="wf-companion-body">
+                <div class="wf-companion-header">
+                  <div class="wf-companion-status">모집중</div>
+                  <div class="wf-companion-category-tag anime">애니</div>
+                </div>
+                <div class="wf-companion-title">서울 롯데월드 동행</div>
+                <div class="wf-companion-event">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+                    <path d="M16 2v4M8 2v4M3 9h18"></path>
+                  </svg>
+                  <span>애니콘 2026</span>
+                </div>
+                <div class="wf-companion-meta">진격의 거인 · 에렌</div>
+                <div class="wf-companion-recruitment">3/4명 신청</div>
+              </div>
+              <div class="wf-companion-dday">D-3</div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="wf-companion-card">
+              <div class="wf-companion-img">
+                이미지
+                <div class="wf-companion-img-tag idol">아이돌</div>
+              </div>
+              <div class="wf-companion-body">
+                <div class="wf-companion-header">
+                  <div class="wf-companion-status">모집중</div>
+                  <div class="wf-companion-category-tag idol">아이돌</div>
+                </div>
+                <div class="wf-companion-title">뮤직페스트 응원 동행</div>
+                <div class="wf-companion-event">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+                    <path d="M16 2v4M8 2v4M3 9h18"></path>
+                  </svg>
+                  <span>뮤직페스트 2026</span>
+                </div>
+                <div class="wf-companion-meta">더보이즈 · 응원봉</div>
+                <div class="wf-companion-recruitment">1/3명 신청</div>
+              </div>
+              <div class="wf-companion-dday">D-7</div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="wf-companion-card">
+              <div class="wf-companion-img">
+                이미지
+                <div class="wf-companion-img-tag actor">배우</div>
+              </div>
+              <div class="wf-companion-body">
+                <div class="wf-companion-header">
+                  <div class="wf-companion-status">모집중</div>
+                  <div class="wf-companion-category-tag actor">배우</div>
+                </div>
+                <div class="wf-companion-title">홍대 뮤지컬 동행</div>
+                <div class="wf-companion-event">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+                    <path d="M16 2v4M8 2v4M3 9h18"></path>
+                  </svg>
+                  <span>뮤지컬 시즌</span>
+                </div>
+                <div class="wf-companion-meta">번지 · OST 러브콜</div>
+                <div class="wf-companion-recruitment">2/2명 신청</div>
+              </div>
+              <div class="wf-companion-dday">D-1</div>
+            </div>
+
+          </div>
+
+          <!-- FAB -->
+          <div class="wf-fab">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </div>
+
+          <!-- Bottom Nav -->
+          <div class="wf-bottom-nav">
+            <div class="wf-nav-item">
+              <div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></div> Home
+            </div>
+            <div class="wf-nav-item">
+              <div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg></div> Search
+            </div>
+            <div class="wf-nav-item active">
+              <div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></div> Companion
+            </div>
+            <div class="wf-nav-item">
+              <div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></div> Notify
+            </div>
+            <div class="wf-nav-item">
+              <div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21a8 8 0 0 0-16 0"></path><circle cx="12" cy="7" r="4"></circle></svg></div> My
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FRAME 2: 동행글 등록/수정 바텀시트 -->
+      <div>
+        <div class="frame-label">동행글 등록/수정 바텀시트</div>
+        <div class="phone-frame">
+          <div style="padding-top: 697px;"></div>
+          <div class="wf-bottom-sheet large">
+            <div class="wf-sheet-handle"></div>
+            <div class="wf-sheet-header">
+              <h3 class="wf-sheet-title">동행 등록/수정</h3>
+              <div class="wf-sheet-close">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </div>
+            </div>
+            <div class="wf-sheet-body">
+
+              <!-- Event Search -->
+              <div class="wf-form-group">
+                <label class="wf-form-label">연결 이벤트</label>
+                <input type="text" class="wf-form-input" placeholder="이벤트 검색...">
+              </div>
+
+              <!-- Title -->
+              <div class="wf-form-group">
+                <label class="wf-form-label">제목</label>
+                <input type="text" class="wf-form-input" placeholder="예) 서울 롯데월드 동행">
+              </div>
+
+              <!-- Category -->
+              <div class="wf-form-group">
+                <label class="wf-form-label">카테고리</label>
+                <div class="wf-chip-group">
+                  <div class="wf-chip active" style="background: #F5F3FF; border-color: #8B5CF6; color: #7C3AED;">애니/만화/소설</div>
+                  <div class="wf-chip" style="color: #DB2777;">아이돌/아티스트</div>
+                  <div class="wf-chip" style="color: #F59E0B;">배우/무대</div>
+                  <div class="wf-chip" style="color: #0891B2;">게임</div>
+                </div>
+              </div>
+
+              <!-- Work & Character -->
+              <div class="wf-form-group">
+                <label class="wf-form-label">작품 & 캐릭터</label>
+                <input type="text" class="wf-form-input" placeholder="작품 선택...">
+                <input type="text" class="wf-form-input" placeholder="캐릭터 선택..." style="margin-top: 6px;">
+              </div>
+
+              <!-- Date & Time -->
+              <div class="wf-form-group">
+                <label class="wf-form-label">일시</label>
+                <input type="text" class="wf-form-input" placeholder="2026.03.15" style="margin-bottom: 6px;">
+                <div class="wf-chip-group">
+                  <div class="wf-chip active" style="background: #EAF7FF; border-color: #2F8EC1; color: #2F8EC1;">오전</div>
+                  <div class="wf-chip">오후</div>
+                  <div class="wf-chip">저녁</div>
+                  <div class="wf-chip">종일</div>
+                </div>
+              </div>
+
+              <!-- Location -->
+              <div class="wf-form-group">
+                <label class="wf-form-label">장소</label>
+                <input type="text" class="wf-form-input" placeholder="장소 입력...">
+              </div>
+
+              <!-- Member Count -->
+              <div class="wf-form-group">
+                <label class="wf-form-label">모집 인원</label>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <div class="wf-stepper">
+                    <button class="wf-stepper-btn">−</button>
+                    <div class="wf-stepper-value">2</div>
+                    <button class="wf-stepper-btn">+</button>
+                  </div>
+                  <span style="font-size: 12px; color: #45617E;">명 (1~5명)</span>
+                </div>
+              </div>
+
+              <!-- Description -->
+              <div class="wf-form-group">
+                <label class="wf-form-label">소개</label>
+                <textarea class="wf-textarea" placeholder="동행에 대해 소개해주세요"></textarea>
+              </div>
+
+              <!-- Image Upload -->
+              <div class="wf-form-group">
+                <label class="wf-form-label">사진 (최대 3장)</label>
+                <div class="wf-image-upload">
+                  <div class="wf-image-upload-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                      <circle cx="12" cy="13" r="4"/>
+                    </svg>
+                  </div>
+                  <div class="wf-image-upload-text">사진을 선택하세요</div>
+                </div>
+              </div>
+
+              <!-- Submit -->
+              <button class="wf-button primary" style="margin-bottom: 24px;">동행 등록/수정 저장</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DESCRIPTION SIDE -->
+  <div class="desc-side">
+    <div class="desc-title">WANT01 동행 구함</div>
+    <div class="desc-subtitle">이벤트 현장 동행자 모집 & 매칭 플랫폼</div>
+
+    <!-- Item 1 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">1</div>
+        <span class="desc-comp-type">[Header]</span>
+        <span class="desc-comp-name">앱 헤더</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>타이틀: "동행 구함"</li>
+          <li>우측: 검색 아이콘 (Search icon)</li>
+          <li>배경: 흰색, 하단 경계선 (#EEF3F8)</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- Item 2 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">2</div>
+        <span class="desc-comp-type">[Tab]</span>
+        <span class="desc-comp-name">탭 바</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>탭 1: "전체" (기본 활성)</li>
+          <li>탭 2: "내 동행" (사용자가 신청한 동행 목록)</li>
+          <li>활성 탭: 파란색 하단 경계선 (#2F8EC1) 강조</li>
+          <li>비활성 탭: 회색 텍스트 (#8EA2B7)</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- Item 3 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">3</div>
+        <span class="desc-comp-type">[Filter]</span>
+        <span class="desc-comp-name">필터 바</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>필터 칩: 전체 / 카테고리 / 작품 / 이벤트 / 지역</li>
+          <li>활성: 파란 배경 + 흰 텍스트 (#2F8EC1)</li>
+          <li>비활성: 회색 배경 (#F7FAFD) + 어두운 텍스트</li>
+          <li>가로 스크롤 가능 (overflow-x: auto)</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- Item 4 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">4</div>
+        <span class="desc-comp-type">[Sort]</span>
+        <span class="desc-comp-name">정렬 + 결과 수</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>좌: "전체 24개" (검색 결과 수)</li>
+          <li>우: "최신순 ▾" (정렬 드롭다운)</li>
+          <li>선택 옵션: 최신순 / 인기순 / 마감임박순</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- Item 5 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">5</div>
+        <span class="desc-comp-type">[Card]</span>
+        <span class="desc-comp-name">동행 카드 리스트</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>카드 구조:
+            <ul class="sub">
+              <li>좌: 썸네일 이미지 (80x80)</li>
+              <li>└ 좌상단 카테고리 뱃지 (애니/아이돌/배우/게임)</li>
+              <li>└ 중앙: 모집상태 뱃지 (초록색 "모집중")</li>
+              <li>└ 제목 (최대 2줄)</li>
+              <li>└ 연결 이벤트 + 날짜 (Calendar icon)</li>
+              <li>└ 작품 · 캐릭터</li>
+              <li>└ 모집 현황 (예: 1/3명 신청)</li>
+              <li>└ D-day 뱃지 (우상단, 빨간 배경)</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- Item 6 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">6</div>
+        <span class="desc-comp-type">[FAB]</span>
+        <span class="desc-comp-name">등록 버튼 (플로팅)</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>위치: 우하단 (bottom: 72px, right: 16px)</li>
+          <li>배경: 파란색 (#2F8EC1)</li>
+          <li>아이콘: 플러스 기호 (+)</li>
+          <li>클릭 시: 동행글 등록 바텀시트 오픈</li>
+          <li>비로그인 시: 로그인 유도 팝업 (AUTH01)</li>
+          <li>로그인 + 미인증 시: 본인인증 유도 바텀시트 (JIT)</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- Item 7 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">7</div>
+        <span class="desc-comp-type">[BottomSheet]</span>
+        <span class="desc-comp-name">동행글 등록 바텀시트</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>큰 사이즈 바텀시트 (스크롤 가능, 약 90% 높이)</li>
+          <li>mode=create|edit 공용 폼 (수정 시 기존 값 prefill)</li>
+          <li>필드 목록:
+            <ul class="sub">
+              <li>연결 이벤트 검색 (dropdown / search)</li>
+              <li>제목 (텍스트 input)</li>
+              <li>카테고리 (4개 칩 선택)</li>
+              <li>작품 & 캐릭터 (dropdown 또는 search)</li>
+              <li>일시 (날짜 picker + 시간대 칩: 오전/오후/저녁/종일)</li>
+              <li>장소 (텍스트 input)</li>
+              <li>모집 인원 (stepper: 1~5명)</li>
+              <li>설명 (textarea)</li>
+              <li>사진 첨부 (max 3장, 이미지 업로드 버튼)</li>
+            </ul>
+          </li>
+          <li>하단 버튼: "동행 등록"/"수정 저장" (mode 기반)</li>
+          <li>수정 잠금: 신청 이력 1건 이상이면 핵심 조건(일시/장소/모집인원) 비활성 + 안내 문구 노출</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- Item 8 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">8</div>
+        <span class="desc-comp-type">[Nav]</span>
+        <span class="desc-comp-name">하단 네비게이션</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>5개 탭: Home / Search / Companion(활성) / Notify / My</li>
+          <li>활성 탭: 파란 아이콘 + 파란 텍스트 (#2F8EC1)</li>
+          <li>비활성 탭: 회색 아이콘 + 회색 텍스트</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- 화면 상태 섹션 -->
+    <div class="desc-section-title">화면 상태</div>
+    <table class="desc-status-table">
+      <thead>
+        <tr>
+          <th>상태</th>
+          <th>설명</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>정상</td>
+          <td>동행글 목록 표시, 필터/정렬 적용 가능</td>
+        </tr>
+        <tr>
+          <td>빈 상태</td>
+          <td>검색 결과 없음 또는 필터 적용 후 결과 0개 시</td>
+        </tr>
+        <tr>
+          <td>로딩</td>
+          <td>초기 진입 또는 필터 변경 시</td>
+        </tr>
+        <tr>
+          <td>에러</td>
+          <td>서버 오류 또는 네트워크 문제</td>
+        </tr>
+        <tr>
+          <td>비로그인</td>
+          <td>게시글 조회는 가능, "내 동행" 탭/FAB/신청 시 로그인 유도</td>
+        </tr>
+        <tr>
+          <td>미인증</td>
+          <td>로그인 + 미인증 상태에서 FAB/신청 시도 시 본인인증 유도 바텀시트</td>
+        </tr>
+        <tr>
+          <td>수정 잠금</td>
+          <td>신청 이력 1건 이상인 내 동행글은 핵심 조건 수정 불가, 상세 설명만 수정 가능</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 연관 화면 섹션 -->
+    <div class="desc-section-title">연관 화면</div>
+    <table class="desc-relation-table">
+      <thead>
+        <tr>
+          <th>이동 대상</th>
+          <th>조건</th>
+          <th>화면코드</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>동행 상세</td>
+          <td>동행 카드 탭 → 동행 상세 페이지 이동</td>
+          <td>WANT02</td>
+        </tr>
+        <tr>
+          <td>이벤트 상세</td>
+          <td>동행글의 "연결 이벤트" 클릭 → 해당 이벤트 상세 페이지 이동</td>
+          <td>EVNT02</td>
+        </tr>
+        <tr>
+          <td>이벤트 목록</td>
+          <td>필터 "이벤트" 칩 클릭 → 이벤트 필터 조회로 이동</td>
+          <td>EVNT01</td>
+        </tr>
+        <tr>
+          <td>검색</td>
+          <td>Header의 검색 아이콘 클릭 → 검색 페이지 이동</td>
+          <td>SRCH01</td>
+        </tr>
+        <tr>
+          <td>메인 홈</td>
+          <td>하단 네비게이션 "Home" 탭 클릭</td>
+          <td>HOME01</td>
+        </tr>
+        <tr>
+          <td>회원가입/로그인</td>
+          <td>비로그인 상태에서 "내 동행"/FAB/신청 시도</td>
+          <td>AUTH01~02</td>
+        </tr>
+        <tr>
+          <td>마이페이지</td>
+          <td>하단 네비게이션 "My" 탭 클릭</td>
+          <td>USER01</td>
+        </tr>
+        <tr>
+          <td>채팅</td>
+          <td>하단 네비게이션 "채팅" 탭 클릭</td>
+          <td>CHAT01</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
+
+<!-- REVISION FOOTER -->
+<div class="revision-bar">
+  <table>
+    <thead>
+      <tr>
+        <th>날짜</th>
+        <th>버전</th>
+        <th>내용</th>
+        <th>작성자</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>2026-03-07</td>
+        <td>0.1</td>
+        <td>초안 작성 (동행 게시판)</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>2026-03-09</td>
+        <td>1.0</td>
+        <td>동행 구함으로 전면 전환 (4개 프레임, 기능 정의)</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>2026-03-10</td>
+        <td>1.1</td>
+        <td>상세/신청 바텀시트 제거 (WANT02 분리), 디스크립션 번호 재정렬, 연관 화면에 WANT02 추가</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>2026-03-10</td>
+        <td>1.2</td>
+        <td>동행 등록/신청 본인인증(JIT) 게이팅 반영, 하단 네비 아이콘 SVG 정리</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>2026-03-10</td>
+        <td>1.3</td>
+        <td>등록/수정 공용 바텀시트 정리 및 신청 이력 기반 수정 잠금 안내 추가</td>
+        <td>-</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

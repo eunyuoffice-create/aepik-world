@@ -230,7 +230,7 @@
 <li><a href="#3-어드민-접근--인증">어드민 접근 &amp; 인증</a></li>
 <li><a href="#4-대시보드--현황-요약">대시보드 — 현황 요약</a></li>
 <li><a href="#5-회원-관리">회원 관리</a></li>
-<li><a href="#6-매물-관리-교환글--공구--구함">매물 관리 (교환글 · 공구 · 구함)</a></li>
+<li><a href="#6-매물-관리-교환글--공구--동행">매물 관리 (교환글 · 공구 · 동행)</a></li>
 <li><a href="#7-공동구매-관리">공동구매 관리</a></li>
 <li><a href="#8-신고--제재-관리">신고 &amp; 제재 관리</a></li>
 <li><a href="#9-작품--캐릭터-관리">작품 / 캐릭터 관리</a></li>
@@ -425,7 +425,7 @@
 </tr>
 <tr>
 <td>오늘의 매물 등록</td>
-<td>교환글 / 공구 / 구함 각각</td>
+<td>교환글 / 공구 / 동행 각각</td>
 <td></td>
 </tr>
 <tr>
@@ -575,7 +575,7 @@
 </tr>
 <tr>
 <td>거래 활동</td>
-<td>등록한 교환글/공구/구함 목록, 교환 성사 내역, 참여 공구 목록</td>
+<td>등록한 교환글/공구/동행 목록, 교환 성사 내역, 참여 공구 목록</td>
 </tr>
 <tr>
 <td>신뢰 지표</td>
@@ -608,12 +608,12 @@
 <tr>
 <td>경고 부여</td>
 <td>경고 사유 입력 + 알림 발송</td>
-<td>경고 3회 → 7일 정지</td>
+<td>사안별 제재 매트릭스 기준 누적 적용</td>
 </tr>
 <tr>
 <td>일시 정지</td>
-<td>7일 / 30일 / 사용자 지정</td>
-<td>교환·공구 참여 불가</td>
+<td>7일 / 30일 / 90일</td>
+<td>교환·공구·동행 참여 불가</td>
 </tr>
 <tr>
 <td>영구 정지</td>
@@ -638,7 +638,7 @@
 </tbody>
 </table>
 <hr />
-<h2 id="6">6. 매물 관리 (교환글 · 공구 · 구함)</h2>
+<h2 id="6">6. 매물 관리 (교환글 · 공구 · 동행)</h2>
 <h3 id="_10">매물 목록</h3>
 <table>
 <thead>
@@ -656,7 +656,7 @@
 </tr>
 <tr>
 <td>유형</td>
-<td>교환 / 공구(일반) / 공구(세트) / 구함</td>
+<td>교환 / 공구(일반) / 공구(세트) / 동행</td>
 <td><svg style="display:inline;vertical-align:middle;width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> 필터</td>
 </tr>
 <tr>
@@ -890,7 +890,7 @@
 </tr>
 <tr>
 <td>신고 유형</td>
-<td>교환 미발송 / 공구 먹튀 / 허위 매물 / 욕설·비하 / 사진 도용 / 기타</td>
+<td>교환 미발송 / 공구 먹튀 / 동행 무단 취소 / 허위 매물 / 욕설·비하 / 사진 도용 / 기타</td>
 <td><svg style="display:inline;vertical-align:middle;width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></td>
 </tr>
 <tr>
@@ -968,7 +968,7 @@
   ↓ 채팅 기록, 매물 정보, 사용자 이력 확인
 [처리 결정]
   ├── 경고 부여 → 사용자에게 경고 알림
-  ├── 일시 정지 (7일/30일) → 계정 기능 제한 + 사용자 알림
+  ├── 일시 정지 (7일/30일/90일) → 계정 기능 제한 + 사용자 알림
   ├── 영구 정지 → 계정 차단 + 동일 번호 차단 + 사용자 알림
   ├── 매물 삭제/숨김 → 해당 매물 비노출 처리
   ├── 공구 강제 종료 → 참여자 전원에게 알림
@@ -985,6 +985,7 @@
 <th>1회</th>
 <th>2회</th>
 <th>3회</th>
+<th>4회</th>
 </tr>
 </thead>
 <tbody>
@@ -992,35 +993,48 @@
 <td>교환 미발송</td>
 <td>경고</td>
 <td>7일 정지</td>
+<td>30일 정지</td>
 <td>영구 정지</td>
+</tr>
+<tr>
+<td>동행 무단 취소</td>
+<td>경고</td>
+<td>30일 정지</td>
+<td>-</td>
+<td>-</td>
 </tr>
 <tr>
 <td>허위 매물</td>
 <td>매물 삭제 + 경고</td>
 <td>7일 정지</td>
 <td>30일 정지</td>
+<td>-</td>
 </tr>
 <tr>
 <td>욕설/비하</td>
 <td>경고</td>
 <td>30일 정지</td>
-<td>영구 정지</td>
+<td>90일 정지</td>
+<td>-</td>
 </tr>
 <tr>
 <td>사진 도용</td>
 <td>매물 삭제 + 경고</td>
 <td>7일 정지</td>
 <td>30일 정지</td>
+<td>-</td>
 </tr>
 <tr>
 <td><strong>공구 먹튀</strong></td>
 <td><strong>즉시 영구 정지 + 번호 차단</strong></td>
 <td>-</td>
 <td>-</td>
+<td>-</td>
 </tr>
 <tr>
 <td><strong>사기 (고의)</strong></td>
 <td><strong>즉시 영구 정지 + 번호 차단</strong></td>
+<td>-</td>
 <td>-</td>
 <td>-</td>
 </tr>
@@ -1502,9 +1516,9 @@
 <td>공구 마감일 경과 → 자동 마감 / 만료 처리</td>
 </tr>
 <tr>
-<td>구함글 만료</td>
+<td>동행글 만료</td>
 <td>매일 00:00</td>
-<td>30일 경과 구함글 만료 처리</td>
+<td>30일 경과 동행글 만료 처리</td>
 </tr>
 <tr>
 <td>교환 자동 완료</td>
@@ -2056,7 +2070,7 @@ enum UserStatus {
 <h3 id="report">신고 (Report) 테이블</h3>
 <pre><code class="language-prisma">model Report {
   id            Int          @id @default(autoincrement())
-  type          ReportType   // EXCHANGE_NO_SEND | GROUP_BUY_SCAM | FAKE_LISTING | HARASSMENT | PHOTO_THEFT | OTHER
+  type          ReportType   // EXCHANGE_NO_SEND | GROUP_BUY_SCAM | COMPANION_NO_SHOW | FAKE_LISTING | HARASSMENT | PHOTO_THEFT | OTHER
   status        ReportStatus @default(PENDING) // PENDING | REVIEWING | RESOLVED | REJECTED
   description   String
   attachments   String[]     // 스크린샷 URL 배열
@@ -2081,6 +2095,7 @@ enum UserStatus {
 enum ReportType {
   EXCHANGE_NO_SEND
   GROUP_BUY_SCAM
+  COMPANION_NO_SHOW
   FAKE_LISTING
   HARASSMENT
   PHOTO_THEFT
@@ -2097,7 +2112,7 @@ enum ReportStatus {
 <h3 id="sanction">제재 이력 (Sanction) 테이블</h3>
 <pre><code class="language-prisma">model Sanction {
   id            Int            @id @default(autoincrement())
-  type          SanctionType   // WARNING | SUSPEND_7D | SUSPEND_30D | PERMANENT_BAN | NICKNAME_CHANGE | UNSUSPEND
+  type          SanctionType   // WARNING | SUSPEND_7D | SUSPEND_30D | SUSPEND_90D | PERMANENT_BAN | NICKNAME_CHANGE | UNSUSPEND
   reason        String
   reportId      Int?           // 관련 신고 (nullable)
 
@@ -2115,6 +2130,7 @@ enum SanctionType {
   WARNING
   SUSPEND_7D
   SUSPEND_30D
+  SUSPEND_90D
   PERMANENT_BAN
   NICKNAME_CHANGE
   UNSUSPEND

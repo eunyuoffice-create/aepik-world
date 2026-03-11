@@ -6,17 +6,17 @@
 <title>EVNT03 — 이벤트 등록 와이어프레임</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F7FAFD; color: #163958; }
 
 /* ===== META HEADER ===== */
 .meta-bar {
-  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  background: #fff; border-bottom: 2px solid #2F8EC1; padding: 12px 24px;
   display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
 }
 .meta-item { font-size: 11px; }
-.meta-label { color: #999; }
-.meta-value { font-weight: 600; color: #333; margin-left: 4px; }
-.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+.meta-label { color: #8EA2B7; }
+.meta-value { font-weight: 600; color: #163958; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2F8EC1; margin-right: auto; }
 
 /* ===== MAIN LAYOUT ===== */
 .main-layout { overflow-x: hidden;
@@ -33,7 +33,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   display: flex; flex-direction: column; align-items: center; gap: 6px;
 }
 .phone-col-label {
-  font-size: 11px; font-weight: 700; color: #2563EB; background: #fff;
+  font-size: 11px; font-weight: 700; color: #2F8EC1; background: #fff;
   padding: 4px 12px; border-radius: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
 }
 .phone-frame {
@@ -44,47 +44,47 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* ===== DESCRIPTION SIDE ===== */
 .desc-side {
   flex: 1 1 45%; min-width: 0; background: #fff; padding: 24px 28px;
-  overflow-y: auto; border-left: 1px solid #ddd;
+  overflow-y: auto; border-left: 1px solid #DEE8F2;
 }
 .desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-.desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+.desc-subtitle { font-size: 12px; color: #45617E; margin-bottom: 20px; }
 
 .desc-item { margin-bottom: 20px; }
 .desc-num-row {
   display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
 }
 .desc-num {
-  background: #2563EB; color: #fff; width: 22px; height: 22px;
+  background: #2F8EC1; color: #fff; width: 22px; height: 22px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 11px; font-weight: 700; flex-shrink: 0;
 }
-.desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-type { font-size: 10px; color: #8EA2B7; background: #F7FAFD; padding: 2px 6px; border-radius: 3px; }
 .desc-comp-name { font-size: 14px; font-weight: 600; }
 
-.desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
+.desc-body { padding-left: 30px; font-size: 12px; color: #45617E; line-height: 1.7; }
 .desc-body ul { list-style: none; }
 .desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
-.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
-.desc-body .sub { padding-left: 14px; color: #888; }
-.desc-body .sub li::before { content: '└'; color: #ccc; }
+.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2F8EC1; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #45617E; }
+.desc-body .sub li::before { content: '└'; color: #8EA2B7; }
 
-.desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
+.desc-divider { border: none; border-top: 1px dashed #EEF3F8; margin: 16px 0; }
 
 .conn-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px; }
-.conn-table th { background: #F5F5F5; padding: 6px 8px; text-align: left; font-weight: 600; border-bottom: 1px solid #ddd; }
-.conn-table td { padding: 6px 8px; border-bottom: 1px solid #eee; }
-.conn-table .code { color: #2563EB; font-weight: 600; }
+.conn-table th { background: #F7FAFD; padding: 6px 8px; text-align: left; font-weight: 600; border-bottom: 1px solid #DEE8F2; }
+.conn-table td { padding: 6px 8px; border-bottom: 1px solid #EEF3F8; }
+.conn-table .code { color: #2F8EC1; font-weight: 600; }
 
-.states-section { margin-top: 16px; padding: 12px; background: #FAFAFA; border-radius: 8px; border: 1px solid #eee; }
+.states-section { margin-top: 16px; padding: 12px; background: #F7FAFD; border-radius: 8px; border: 1px solid #EEF3F8; }
 .states-title { font-size: 12px; font-weight: 600; margin-bottom: 8px; }
-.states-item { font-size: 11px; color: #666; margin-bottom: 4px; padding-left: 14px; position: relative; }
-.states-item::before { content: '▸'; position: absolute; left: 0; color: #2563EB; }
+.states-item { font-size: 11px; color: #45617E; margin-bottom: 4px; padding-left: 14px; position: relative; }
+.states-item::before { content: '▸'; position: absolute; left: 0; color: #2F8EC1; }
 
 /* ===== WIREFRAME ELEMENTS ===== */
 .wf-section { position: relative; }
 .num-circle {
   position: absolute; z-index: 10;
-  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  background: #2F8EC1; color: #fff; width: 20px; height: 20px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
@@ -92,96 +92,96 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* Header */
 .wf-header {
   display: flex; align-items: center; padding: 12px 16px;
-  border-bottom: 1px solid #eee; position: relative;
+  border-bottom: 1px solid #EEF3F8; position: relative;
 }
-.wf-back { font-size: 16px; color: #555; cursor: pointer; margin-right: 12px; }
+.wf-back { font-size: 16px; color: #45617E; cursor: pointer; margin-right: 12px; }
 .wf-header-title { font-size: 15px; font-weight: 600; }
 
 /* Form elements */
 .wf-form { padding: 16px; }
 .wf-form-group { margin-bottom: 16px; position: relative; }
 .wf-form-label {
-  font-size: 12px; font-weight: 600; color: #333; margin-bottom: 6px;
+  font-size: 12px; font-weight: 600; color: #163958; margin-bottom: 6px;
   display: flex; align-items: center; gap: 4px;
 }
-.wf-required { color: #EF4444; font-size: 10px; }
+.wf-required { color: #EA5D86; font-size: 10px; }
 .wf-form-input {
-  width: 100%; padding: 10px 12px; border: 1px solid #ddd;
-  border-radius: 8px; font-size: 13px; color: #333; background: #fff; height: 40px;
+  width: 100%; padding: 10px 12px; border: 1px solid #DEE8F2;
+  border-radius: 8px; font-size: 13px; color: #163958; background: #fff; height: 40px;
 }
-.wf-form-input.placeholder { color: #bbb; }
+.wf-form-input.placeholder { color: #8EA2B7; }
 .wf-form-select {
-  width: 100%; padding: 10px 12px; border: 1px solid #ddd;
-  border-radius: 8px; font-size: 13px; color: #333; background: #fff; height: 40px;
+  width: 100%; padding: 10px 12px; border: 1px solid #DEE8F2;
+  border-radius: 8px; font-size: 13px; color: #163958; background: #fff; height: 40px;
   display: flex; justify-content: space-between; align-items: center;
 }
 .wf-form-textarea {
-  width: 100%; padding: 10px 12px; border: 1px solid #ddd;
-  border-radius: 8px; font-size: 13px; color: #bbb; background: #fff;
+  width: 100%; padding: 10px 12px; border: 1px solid #DEE8F2;
+  border-radius: 8px; font-size: 13px; color: #8EA2B7; background: #fff;
   min-height: 80px; line-height: 1.5; resize: none;
 }
 
 /* Category chips */
 .wf-category-chips { display: flex; gap: 8px; flex-wrap: wrap; }
 .wf-chip {
-  padding: 8px 14px; border: 2px solid #ddd; border-radius: 20px;
-  font-size: 12px; color: #666; background: #fff; cursor: pointer;
+  padding: 8px 14px; border: 2px solid #DEE8F2; border-radius: 20px;
+  font-size: 12px; color: #45617E; background: #fff; cursor: pointer;
 }
 .wf-chip.anime { border-color: #8B5CF6; color: #8B5CF6; }
 .wf-chip.idol { border-color: #EC4899; color: #EC4899; }
 .wf-chip.actor { border-color: #F59E0B; color: #F59E0B; }
 .wf-chip.game { border-color: #06B6D4; color: #06B6D4; }
-.wf-chip.selected { background: #EFF6FF; border-color: #2563EB; color: #2563EB; font-weight: 600; }
+.wf-chip.selected { background: #EAF7FF; border-color: #2F8EC1; color: #2F8EC1; font-weight: 600; }
 
 /* Map area */
 .wf-form-map {
-  height: 120px; background: #E0E0E0; border: 1px solid #ddd; border-radius: 8px;
+  height: 120px; background: #E0E0E0; border: 1px solid #DEE8F2; border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 12px; color: #999; margin-top: 8px; flex-direction: column; gap: 4px;
+  font-size: 12px; color: #8EA2B7; margin-top: 8px; flex-direction: column; gap: 4px;
 }
 
 /* Date/Time inline */
 .wf-date-range { display: flex; gap: 8px; align-items: center; }
-.wf-date-input { flex: 1; padding: 10px 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 13px; height: 40px; }
-.wf-separator { color: #999; font-weight: 600; }
+.wf-date-input { flex: 1; padding: 10px 12px; border: 1px solid #DEE8F2; border-radius: 8px; font-size: 13px; height: 40px; }
+.wf-separator { color: #8EA2B7; font-weight: 600; }
 
 .wf-time-fields { display: flex; gap: 8px; }
-.wf-time-field { flex: 1; padding: 10px 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 13px; height: 40px; }
+.wf-time-field { flex: 1; padding: 10px 12px; border: 1px solid #DEE8F2; border-radius: 8px; font-size: 13px; height: 40px; }
 
 /* Image upload */
 .wf-image-upload {
-  border: 2px dashed #ddd; border-radius: 8px; padding: 20px;
-  text-align: center; background: #FAFAFA; margin-top: 8px;
+  border: 2px dashed #DEE8F2; border-radius: 8px; padding: 20px;
+  text-align: center; background: #F7FAFD; margin-top: 8px;
 }
-.wf-image-upload-icon { font-size: 24px; color: #999; margin-bottom: 4px; }
-.wf-image-upload-text { font-size: 12px; color: #999; }
+.wf-image-upload-icon { font-size: 24px; color: #8EA2B7; margin-bottom: 4px; }
+.wf-image-upload-text { font-size: 12px; color: #8EA2B7; }
 
 /* Input with counter */
 .wf-input-counter { position: relative; }
-.wf-counter { position: absolute; bottom: 8px; right: 12px; font-size: 11px; color: #999; }
+.wf-counter { position: absolute; bottom: 8px; right: 12px; font-size: 11px; color: #8EA2B7; }
 
 /* Submit button */
 .wf-submit-btn {
-  margin: 8px 16px 20px; padding: 14px; background: #2563EB;
+  margin: 8px 16px 20px; padding: 14px; background: #2F8EC1;
   color: #fff; font-size: 14px; font-weight: 700; text-align: center;
   border-radius: 10px; width: calc(100% - 32px);
 }
-.wf-submit-btn.disabled { background: #ddd; color: #999; }
+.wf-submit-btn.disabled { background: #DEE8F2; color: #8EA2B7; }
 
 /* Revision footer */
 .revision-bar {
-  background: #FAFAFA; border-top: 1px solid #eee; padding: 12px 24px;
-  font-size: 11px; color: #999;
+  background: #F7FAFD; border-top: 1px solid #EEF3F8; padding: 12px 24px;
+  font-size: 11px; color: #8EA2B7;
 }
 .revision-bar table { width: 100%; border-collapse: collapse; }
-.revision-bar th { text-align: left; font-weight: 600; padding: 4px 8px; border-bottom: 1px solid #eee; }
-.revision-bar td { padding: 4px 8px; border-bottom: 1px solid #f0f0f0; }
+.revision-bar th { text-align: left; font-weight: 600; padding: 4px 8px; border-bottom: 1px solid #EEF3F8; }
+.revision-bar td { padding: 4px 8px; border-bottom: 1px solid #EEF3F8; }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
   .main-layout { flex-direction: column; }
   .wireframe-side { flex: none; width: 100%; padding: 20px; }
-  .desc-side { flex: none; width: 100%; border-left: none; border-top: 1px solid #ddd; }
+  .desc-side { flex: none; width: 100%; border-left: none; border-top: 1px solid #DEE8F2; }
 }
 .meta-bar { flex-wrap: wrap; gap: 8px; }
 .phone-frame { width: 375px; }
@@ -256,7 +256,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <div class="num-circle" style="top:0; left:0;">4</div>
             <div class="wf-form-label">작품/아이돌 <span class="wf-required">*</span></div>
             <div class="wf-form-input placeholder">
-              <span style="color:#bbb;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="display:inline; margin-right:4px; vertical-align:middle;">작품 검색...</svg></span>
+              <span style="color:#8EA2B7;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="display:inline; margin-right:4px; vertical-align:middle;">작품 검색...</svg></span>
             </div>
           </div>
 
@@ -265,7 +265,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <div class="num-circle" style="top:0; left:0;">5</div>
             <div class="wf-form-label">캐릭터/멤버 <span class="wf-required">*</span></div>
             <div class="wf-form-input placeholder">
-              <span style="color:#bbb;">캐릭터/멤버 검색...</span>
+              <span style="color:#8EA2B7;">캐릭터/멤버 검색...</span>
             </div>
           </div>
 
@@ -282,13 +282,13 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <div class="wf-form-label">이벤트 기간 <span class="wf-required">*</span></div>
             <div class="wf-date-range">
               <div class="wf-date-input" style="display:flex; align-items:center;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="margin-right:6px; color:#999;">시작일</svg>
-                <span style="color:#bbb;">2026-03-15</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="margin-right:6px; color:#8EA2B7;">시작일</svg>
+                <span style="color:#8EA2B7;">2026-03-15</span>
               </div>
               <span class="wf-separator">~</span>
               <div class="wf-date-input" style="display:flex; align-items:center;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="margin-right:6px; color:#999;">종료일</svg>
-                <span style="color:#bbb;">2026-03-20</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="margin-right:6px; color:#8EA2B7;">종료일</svg>
+                <span style="color:#8EA2B7;">2026-03-20</span>
               </div>
             </div>
           </div>
@@ -307,7 +307,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <div class="wf-form-group">
             <div class="num-circle" style="top:0; left:0;">8</div>
             <div class="wf-form-label">장소 <span class="wf-required">*</span></div>
-            <div class="wf-form-input" style="color:#999; display:flex; align-items:center;">
+            <div class="wf-form-input" style="color:#8EA2B7; display:flex; align-items:center;">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="margin-right:6px;">서울 마포구 홍대입구역</svg>
             </div>
             <div class="wf-form-map">
@@ -316,7 +316,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           </div>
 
           <!-- ⑨ Optional Section Header -->
-          <div style="margin-top:20px; margin-bottom:12px; font-size:12px; font-weight:600; color:#666;">선택 입력</div>
+          <div style="margin-top:20px; margin-bottom:12px; font-size:12px; font-weight:600; color:#45617E;">선택 입력</div>
 
           <!-- ⑨-1 Operating Hours -->
           <div class="wf-form-group">
@@ -324,12 +324,12 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <div class="wf-form-label">운영 시간</div>
             <div class="wf-time-fields">
               <div class="wf-time-field" style="display:flex; align-items:center;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="margin-right:4px; color:#999;">시작</svg>
-                <span style="color:#bbb;">10:00</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="margin-right:4px; color:#8EA2B7;">시작</svg>
+                <span style="color:#8EA2B7;">10:00</span>
               </div>
               <div class="wf-time-field" style="display:flex; align-items:center;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="margin-right:4px; color:#999;">종료</svg>
-                <span style="color:#bbb;">18:00</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="margin-right:4px; color:#8EA2B7;">종료</svg>
+                <span style="color:#8EA2B7;">18:00</span>
               </div>
             </div>
           </div>
@@ -359,7 +359,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <div class="num-circle" style="top:0; left:0;">9</div>
             <div class="wf-form-label">외부 링크</div>
             <div class="wf-form-input placeholder">
-              <span style="color:#bbb;">URL을 입력해주세요</span>
+              <span style="color:#8EA2B7;">URL을 입력해주세요</span>
             </div>
           </div>
         </div>
@@ -573,7 +573,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
     <!-- Connected screens -->
     <div style="margin-top:20px;">
-      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">연관 화면</div>
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2F8EC1;">연관 화면</div>
       <table class="conn-table">
         <thead>
           <tr><th>이동 대상</th><th>조건</th><th>화면코드</th></tr>

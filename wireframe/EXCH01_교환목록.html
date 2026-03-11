@@ -6,599 +6,1175 @@
 <title>EXCH01 — 교환 목록 와이어프레임</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F7FAFD; color: #163958; }
 
 /* ===== META HEADER ===== */
 .meta-bar {
-  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  background: #fff; border-bottom: 2px solid #2F8EC1; padding: 12px 24px;
   display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
 }
 .meta-item { font-size: 11px; }
-.meta-label { color: #999; }
-.meta-value { font-weight: 600; color: #333; margin-left: 4px; }
-.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+.meta-label { color: #8EA2B7; }
+.meta-value { font-weight: 600; color: #163958; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2F8EC1; margin-right: auto; }
 
 /* ===== MAIN LAYOUT ===== */
-.main-layout { overflow-x: hidden;
-  display: flex; min-height: calc(100vh - 48px);
+.main-layout {
+  display: flex; min-height: calc(100vh - 48px); overflow-x: hidden;
 }
 
 /* ===== WIREFRAME SIDE ===== */
 .wireframe-side {
-  flex: 1 1 55%; min-width: 0; background: #EAEAEA; padding: 32px;
+  flex: 0 0 55%; background: #EAEAEA; padding: 32px;
   display: flex; justify-content: center; overflow-y: auto;
 }
+.phone-stack { display: flex; flex-direction: column; gap: 24px; }
+.frame-label { font-size: 12px; font-weight: 600; color: #45617E; margin: 0 0 8px 4px; }
 .phone-frame {
   width: 375px; background: #fff; border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative;
-  overflow: hidden; }
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative; overflow: hidden;
+}
+.desktop-frame {
+  width: min(980px, 100%); background: #fff; border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative; overflow: hidden;
+}
 
 /* ===== DESCRIPTION SIDE ===== */
 .desc-side {
-  flex: 1 1 45%; min-width: 0; background: #fff; padding: 24px 28px;
-  overflow-y: auto; border-left: 1px solid #ddd;
+  flex: 0 0 45%; background: #fff; padding: 24px 28px;
+  overflow-y: auto; border-left: 1px solid #DEE8F2;
 }
 .desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-.desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
-
+.desc-subtitle { font-size: 12px; color: #45617E; margin-bottom: 20px; }
 .desc-item { margin-bottom: 20px; }
-.desc-num-row {
-  display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
-}
+.desc-num-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
 .desc-num {
-  background: #2563EB; color: #fff; width: 22px; height: 22px;
-  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px; border-radius: 50%; background: #2F8EC1; color: #fff;
+  display: flex; align-items: center; justify-content: center;
   font-size: 11px; font-weight: 700; flex-shrink: 0;
 }
-.desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-type { font-size: 10px; color: #8EA2B7; background: #F7FAFD; padding: 2px 6px; border-radius: 3px; }
 .desc-comp-name { font-size: 14px; font-weight: 600; }
-
-.desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
+.desc-body { padding-left: 30px; font-size: 12px; color: #45617E; line-height: 1.7; }
 .desc-body ul { list-style: none; }
 .desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
-.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
-.desc-body .sub { padding-left: 14px; color: #888; }
-.desc-body .sub li::before { content: '└'; color: #ccc; }
-
-.desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
+.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2F8EC1; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #45617E; }
+.desc-body .sub li::before { content: '└'; color: #8EA2B7; }
+.desc-divider { border: none; border-top: 1px dashed #EEF3F8; margin: 16px 0; }
 
 /* ===== WIREFRAME ELEMENTS ===== */
 .wf-section { position: relative; }
-
-/* Number circle overlay */
 .num-circle {
   position: absolute; z-index: 10;
-  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  background: #2F8EC1; color: #fff; width: 20px; height: 20px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
-
-/* Header */
 .wf-header {
   display: flex; align-items: center; padding: 12px 16px;
-  border-bottom: 1px solid #eee; position: relative;
+  border-bottom: 1px solid #EEF3F8;
 }
-.wf-page-title { font-weight: 700; font-size: 16px; color: #1A1A1A; }
+.wf-page-title { font-weight: 700; font-size: 16px; color: #163958; }
 .wf-header-icons { margin-left: auto; display: flex; gap: 12px; }
-.wf-icon { width: 24px; height: 24px; background: #f0f0f0; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #888; }
-
-/* Filter chips */
+.wf-icon {
+  width: 24px; height: 24px; background: #EEF3F8; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center; color: #45617E;
+}
 .wf-filter-bar {
   display: flex; gap: 6px; padding: 10px 16px; overflow-x: hidden;
-  border-bottom: 1px solid #f0f0f0; position: relative;
+  border-bottom: 1px solid #EEF3F8;
 }
 .wf-chip {
   flex-shrink: 0; padding: 5px 10px; border-radius: 16px;
-  font-size: 11px; background: #F5F5F5; color: #555; border: 1px solid #E5E5E5;
+  font-size: 11px; background: #F7FAFD; color: #45617E; border: 1px solid #DEE8F2;
   white-space: nowrap;
 }
-.wf-chip.selected { background: #2563EB; color: #fff; border-color: #2563EB; }
-.wf-chip-reset { flex-shrink: 0; padding: 5px 8px; font-size: 10px; color: #999; }
-
-/* Sort bar */
+.wf-chip.selected { background: #2F8EC1; color: #fff; border-color: #2F8EC1; }
+.wf-chip-reset { flex-shrink: 0; padding: 5px 8px; font-size: 10px; color: #8EA2B7; }
 .wf-sort-bar {
   display: flex; align-items: center; padding: 8px 16px;
-  font-size: 11px; color: #999; position: relative;
+  font-size: 11px; color: #8EA2B7;
 }
-.wf-sort-count { color: #333; font-weight: 600; }
-.wf-sort-option { margin-left: auto; color: #555; font-weight: 500; }
-
-/* Product grid */
+.wf-sort-count { color: #163958; font-weight: 600; }
+.wf-sort-option { margin-left: auto; color: #45617E; font-weight: 500; }
 .wf-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
   padding: 8px 16px;
 }
-.wf-product-card {
-  background: #fff; border: 1px solid #eee; border-radius: 8px; overflow: hidden;
-}
+.wf-product-card { background: #fff; border: 1px solid #EEF3F8; border-radius: 8px; overflow: hidden; }
 .wf-product-card.completed { opacity: 0.5; }
-.wf-product-card.completed .wf-product-img { position: relative; }
+.wf-product-img {
+  width: 100%; aspect-ratio: 1; background: #DEE8F2;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: #8EA2B7; position: relative;
+}
 .wf-completed-badge {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
   background: rgba(0,0,0,0.6); color: #fff; font-size: 10px; font-weight: 700;
   padding: 4px 10px; border-radius: 4px;
 }
-.wf-product-img {
-  width: 100%; aspect-ratio: 1; background: #E5E5E5;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px; color: #bbb; position: relative;
-}
 .wf-product-body { padding: 8px; }
 .wf-product-tags { display: flex; gap: 4px; margin-bottom: 4px; }
 .wf-tag { font-size: 9px; padding: 1px 5px; border-radius: 3px; }
-.wf-tag.exchange { background: #FFF7ED; color: #EA580C; }
-.wf-tag.exchange-cash { background: #FFF7ED; color: #EA580C; }
+.wf-tag.exchange, .wf-tag.exchange-cash { background: #ECF7FF; color: #2F8EC1; }
 .wf-tag.anime { background: #F5F3FF; color: #7C3AED; }
 .wf-tag.idol { background: #FDF2F8; color: #DB2777; }
 .wf-tag.actor { background: #FFFBEB; color: #F59E0B; }
 .wf-tag.game { background: #ECFEFF; color: #0891B2; }
-.wf-product-name { font-size: 11px; font-weight: 500; line-height: 1.3; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.wf-product-meta { font-size: 10px; color: #999; }
-.wf-product-rating { font-size: 10px; color: #888; margin-top: 2px; }
-
-/* Badge styles */
-.wf-badge-container {
-  position: absolute; top: 4px; right: 4px; display: flex; gap: 2px; z-index: 5;
+.wf-product-name {
+  font-size: 11px; color: #163958; line-height: 1.3; margin-bottom: 4px;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
+.wf-product-meta { font-size: 10px; color: #8EA2B7; }
+.wf-product-rating { font-size: 10px; color: #45617E; margin-top: 2px; }
+.wf-badge-container { position: absolute; top: 4px; right: 4px; display: flex; gap: 2px; z-index: 5; }
 .wf-badge {
   font-size: 9px; font-weight: 600; padding: 2px 6px; border-radius: 3px;
-  white-space: nowrap;
+  white-space: nowrap; color: #fff;
 }
-.wf-badge.proposal { background: #3B82F6; color: #fff; }
-.wf-badge.bumped { background: #F97316; color: #fff; }
-
-/* FAB */
+.wf-badge.proposal { background: #69BFEA; }
+.wf-badge.bumped { background: #F3A34B; }
+.wf-badge.mine { background: #45617E; }
+.wf-card-more {
+  position: absolute; top: 4px; left: 4px; width: 18px; height: 18px;
+  border-radius: 50%; border: 1px solid #DEE8F2; background: rgba(255,255,255,0.95);
+  display: flex; align-items: center; justify-content: center; color: #45617E; z-index: 7;
+}
+.wf-card-menu {
+  position: absolute; top: 24px; left: 4px; width: 72px; border: 1px solid #DEE8F2;
+  border-radius: 6px; background: #fff; box-shadow: 0 6px 14px rgba(0,0,0,0.12); z-index: 8;
+}
+.wf-card-menu-item {
+  height: 20px; padding: 0 6px; display: flex; align-items: center;
+  font-size: 9px; color: #45617E; border-bottom: 1px solid #EEF3F8;
+}
+.wf-card-menu-item:last-child { border-bottom: 0; }
+.wf-card-menu-item.active { color: #2F8EC1; font-weight: 600; }
+.wf-card-menu-item.disabled { color: #8EA2B7; background: #F7FAFD; }
+.wf-edit-lock-note {
+  margin-top: 4px; font-size: 9px; color: #8EA2B7; line-height: 1.35;
+}
 .wf-fab {
   position: absolute; bottom: 68px; right: 16px; z-index: 20;
-  width: 48px; height: 48px; border-radius: 50%;
-  background: #2563EB; color: #fff;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px; font-weight: 400;
-  box-shadow: 0 4px 12px rgba(37,99,235,0.35);
+  width: 48px; height: 48px; border-radius: 50%; background: #2F8EC1; color: #fff;
+  display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 400;
+  box-shadow: 0 4px 12px rgba(47,142,193,0.35);
 }
-
-/* Bottom nav */
 .wf-bottom-nav {
-  position: relative; bottom: 0; left: 0; right: 0;
-  display: flex; justify-content: space-around; align-items: center;
-  padding: 10px 0 14px; background: #fff; border-top: 1px solid #eee;
+  position: relative; display: flex; justify-content: space-around; align-items: center;
+  padding: 10px 0 14px; background: #fff; border-top: 1px solid #EEF3F8;
 }
-.wf-nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 9px; color: #bbb; }
-.wf-nav-item.active { color: #2563EB; }
+.wf-nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 9px; color: #8EA2B7; }
+.wf-nav-item.active { color: #2F8EC1; }
 .wf-nav-icon { font-size: 16px; }
 
-/* Skeleton loading hint */
-.wf-skeleton {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
-  padding: 8px 16px;
+/* bottom sheet */
+.wf-dim { position: absolute; inset: 0; background: rgba(22,57,88,0.45); z-index: 18; }
+.wf-bottom-sheet {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 19; background: #fff;
+  border-top-left-radius: 16px; border-top-right-radius: 16px;
+  box-shadow: 0 -10px 24px rgba(0,0,0,0.12); padding: 10px 12px 12px;
 }
-.wf-skeleton-card { background: #F0F0F0; border-radius: 8px; height: 180px; animation: pulse 1.5s infinite; }
-@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+.wf-sheet-handle { width: 44px; height: 4px; border-radius: 999px; background: #D1DEE9; margin: 0 auto 10px; }
+.wf-sheet-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 8px; font-size: 13px; font-weight: 700; color: #163958;
+}
+.wf-sheet-close {
+  width: 20px; height: 20px; border-radius: 6px; background: #EEF3F8;
+  display: flex; align-items: center; justify-content: center; color: #45617E;
+}
+.wf-sheet-search {
+  height: 32px; border: 1px solid #DEE8F2; background: #F7FAFD; border-radius: 8px;
+  display: flex; align-items: center; padding: 0 10px; font-size: 11px; color: #8EA2B7;
+  margin-bottom: 8px;
+}
+.wf-sheet-list { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
+.wf-sheet-item {
+  height: 32px; border: 1px solid #EEF3F8; border-radius: 8px; padding: 0 10px;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 11px; color: #45617E; background: #fff;
+}
+.wf-sheet-item.selected { border-color: #2F8EC1; background: #ECF7FF; color: #163958; font-weight: 600; }
+.wf-sheet-check {
+  width: 14px; height: 14px; border-radius: 50%; background: #2F8EC1;
+  display: inline-flex; align-items: center; justify-content: center; color: #fff; font-size: 9px;
+}
+.wf-sheet-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.wf-sheet-btn {
+  height: 34px; border-radius: 8px; border: 1px solid #DEE8F2;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 600;
+}
+.wf-sheet-btn.reset { color: #45617E; background: #fff; }
+.wf-sheet-btn.apply { color: #fff; background: #2F8EC1; border-color: #2F8EC1; }
 
-/* Revision footer */
+/* desktop */
+.wf-pc-topbar {
+  height: 56px; border-bottom: 1px solid #EEF3F8; padding: 0 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.wf-pc-title { font-size: 16px; font-weight: 700; color: #163958; }
+.wf-pc-search {
+  margin-left: 10px; width: 260px; height: 34px; border-radius: 8px;
+  border: 1px solid #DEE8F2; background: #F7FAFD;
+  display: flex; align-items: center; gap: 6px; padding: 0 10px;
+  color: #8EA2B7; font-size: 11px;
+}
+.wf-pc-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.wf-pc-icon {
+  width: 28px; height: 28px; border-radius: 8px; background: #EEF3F8;
+  display: flex; align-items: center; justify-content: center; color: #45617E;
+}
+.wf-pc-write-btn {
+  height: 34px; border-radius: 8px; padding: 0 12px; border: 1px solid #2F8EC1;
+  background: #2F8EC1; color: #fff; font-size: 12px; font-weight: 600;
+  display: flex; align-items: center; gap: 6px;
+}
+.wf-pc-content { padding: 12px 14px 14px; }
+.wf-pc-filter-row {
+  display: flex; align-items: center; gap: 8px; padding-bottom: 10px; border-bottom: 1px solid #EEF3F8;
+}
+.wf-pc-chip {
+  padding: 6px 10px; border-radius: 16px; border: 1px solid #DEE8F2; background: #F7FAFD;
+  color: #45617E; font-size: 11px;
+}
+.wf-pc-chip.selected { background: #2F8EC1; border-color: #2F8EC1; color: #fff; }
+.wf-pc-filter-group { position: relative; display: inline-flex; }
+.wf-pc-reset { margin-left: auto; font-size: 11px; color: #8EA2B7; }
+.wf-pc-sort-row {
+  display: flex; align-items: center; padding: 10px 0; color: #8EA2B7; font-size: 12px;
+}
+.wf-pc-sort-row .count { color: #163958; font-weight: 600; }
+.wf-pc-sort-row .sort { margin-left: auto; color: #45617E; font-weight: 500; }
+.wf-pc-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.wf-pc-card { background: #fff; border: 1px solid #EEF3F8; border-radius: 8px; overflow: hidden; }
+.wf-pc-card.completed { opacity: 0.5; }
+.wf-pc-thumb {
+  width: 100%; aspect-ratio: 1; background: #DEE8F2; position: relative;
+  display: flex; align-items: center; justify-content: center; color: #8EA2B7; font-size: 11px;
+}
+.wf-pc-completed {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.6); color: #fff; font-size: 10px; font-weight: 700;
+  border-radius: 4px; padding: 4px 8px;
+}
+.wf-pc-body { padding: 8px; }
+.wf-pc-tags { display: flex; gap: 4px; margin-bottom: 4px; }
+.wf-pc-tag { font-size: 9px; padding: 1px 5px; border-radius: 3px; }
+.wf-pc-tag.exchange, .wf-pc-tag.exchange-cash { background: #ECF7FF; color: #2F8EC1; }
+.wf-pc-tag.anime { background: #F5F3FF; color: #7C3AED; }
+.wf-pc-tag.idol { background: #FDF2F8; color: #DB2777; }
+.wf-pc-tag.game { background: #ECFEFF; color: #0891B2; }
+.wf-pc-name {
+  font-size: 11px; color: #163958; line-height: 1.35; margin-bottom: 4px;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.wf-pc-meta { font-size: 10px; color: #8EA2B7; }
+.wf-pc-rating { font-size: 10px; color: #45617E; margin-top: 2px; }
+.wf-pc-badge-row { position: absolute; top: 4px; right: 4px; display: flex; gap: 3px; }
+.wf-pc-badge { font-size: 9px; font-weight: 600; color: #fff; border-radius: 3px; padding: 2px 6px; }
+.wf-pc-badge.proposal { background: #69BFEA; }
+.wf-pc-badge.bumped { background: #F3A34B; }
+.wf-pc-badge.mine { background: #45617E; }
+.wf-pc-card-more {
+  position: absolute; top: 4px; left: 4px; width: 18px; height: 18px;
+  border-radius: 50%; border: 1px solid #DEE8F2; background: rgba(255,255,255,0.95);
+  display: flex; align-items: center; justify-content: center; color: #45617E; z-index: 7;
+}
+.wf-pc-card-menu {
+  position: absolute; top: 24px; left: 4px; width: 80px; border: 1px solid #DEE8F2;
+  border-radius: 6px; background: #fff; box-shadow: 0 6px 14px rgba(0,0,0,0.12); z-index: 8;
+}
+.wf-pc-card-menu-item {
+  height: 22px; padding: 0 8px; display: flex; align-items: center;
+  font-size: 10px; color: #45617E; border-bottom: 1px solid #EEF3F8;
+}
+.wf-pc-card-menu-item:last-child { border-bottom: 0; }
+.wf-pc-card-menu-item.active { color: #2F8EC1; font-weight: 600; }
+.wf-pc-card-menu-item.disabled { color: #8EA2B7; background: #F7FAFD; }
+.wf-pc-edit-lock-note {
+  margin-top: 4px; font-size: 10px; color: #8EA2B7; line-height: 1.35;
+}
+
+.wf-pc-popover {
+  position: absolute; top: 34px; left: 0; width: 240px; z-index: 30;
+  background: #fff; border: 1px solid #DEE8F2; border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12); padding: 8px;
+}
+.wf-pc-pop-title { font-size: 11px; font-weight: 600; color: #163958; margin-bottom: 6px; }
+.wf-pc-pop-search {
+  height: 30px; border: 1px solid #DEE8F2; border-radius: 8px; background: #F7FAFD;
+  display: flex; align-items: center; gap: 6px; padding: 0 8px; font-size: 10px; color: #8EA2B7;
+  margin-bottom: 6px;
+}
+.wf-pc-pop-list { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; }
+.wf-pc-pop-item {
+  height: 30px; border: 1px solid #EEF3F8; border-radius: 7px;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 11px; color: #45617E; padding: 0 8px;
+}
+.wf-pc-pop-item.selected { background: #ECF7FF; border-color: #2F8EC1; color: #163958; font-weight: 600; }
+.wf-pc-pop-check {
+  width: 12px; height: 12px; border-radius: 50%; background: #2F8EC1; color: #fff;
+  font-size: 8px; display: inline-flex; align-items: center; justify-content: center;
+}
+.wf-pc-pop-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.wf-pc-pop-btn {
+  height: 30px; border-radius: 7px; border: 1px solid #DEE8F2; font-size: 11px; font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
+}
+.wf-pc-pop-btn.reset { background: #fff; color: #45617E; }
+.wf-pc-pop-btn.apply { background: #2F8EC1; color: #fff; border-color: #2F8EC1; }
+
+.wf-modal-dim {
+  position: absolute; inset: 0; background: rgba(22,57,88,0.48); z-index: 24;
+}
+.wf-confirm-modal {
+  position: absolute; left: 50%; top: 54%; transform: translate(-50%, -50%);
+  width: 292px; background: #fff; border-radius: 12px; z-index: 25;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.18); padding: 14px 14px 12px;
+}
+.wf-confirm-title { font-size: 13px; font-weight: 700; color: #163958; margin-bottom: 6px; }
+.wf-confirm-body { font-size: 11px; color: #45617E; line-height: 1.5; }
+.wf-confirm-meta {
+  margin-top: 8px; border: 1px solid #EEF3F8; background: #F7FAFD; border-radius: 8px;
+  padding: 7px 8px; font-size: 10px; color: #8EA2B7; line-height: 1.4;
+}
+.wf-confirm-actions { margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.wf-confirm-btn {
+  height: 32px; border-radius: 8px; border: 1px solid #DEE8F2;
+  display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600;
+}
+.wf-confirm-btn.cancel { background: #fff; color: #45617E; }
+.wf-confirm-btn.primary { background: #2F8EC1; color: #fff; border-color: #2F8EC1; }
+.wf-confirm-btn.danger { background: #E11D48; color: #fff; border-color: #E11D48; }
+.wf-inline-toast {
+  position: absolute; left: 50%; bottom: 80px; transform: translateX(-50%);
+  background: rgba(22,57,88,0.9); color: #fff; border-radius: 999px;
+  padding: 7px 12px; font-size: 10px; z-index: 26; white-space: nowrap;
+}
+.wf-inline-toast.success { background: rgba(47,142,193,0.95); }
+
 .revision-bar {
-  background: #fff; border-top: 1px solid #eee; padding: 12px 24px;
-  font-size: 11px; color: #999;
+  background: #fff; border-top: 1px solid #EEF3F8; padding: 12px 24px;
+  font-size: 11px; color: #8EA2B7;
 }
 .revision-bar table { width: 100%; border-collapse: collapse; }
-.revision-bar th { text-align: left; font-weight: 600; color: #666; padding: 4px 8px; border-bottom: 1px solid #eee; }
+.revision-bar th { text-align: left; font-weight: 600; color: #45617E; padding: 4px 8px; border-bottom: 1px solid #EEF3F8; }
 .revision-bar td { padding: 4px 8px; }
 
 @media (max-width: 900px) {
   .main-layout { flex-direction: column; }
   .wireframe-side { flex: none; padding: 16px; }
-  .desc-side { flex: none; border-left: none; border-top: 1px solid #ddd; }
-}
-/* Responsive improvements for laptop/small screens */
-.meta-bar { flex-wrap: wrap; gap: 8px; }
-.phone-frame { width: 375px; }
-@media (max-width: 1200px) {
-  .main-layout { gap: 0; }
-  .wireframe-side { flex: 0 0 50%; padding: 20px; }
-  .desc-side { flex: 0 0 50%; padding: 20px; }
+  .desc-side { flex: none; border-left: none; border-top: 1px solid #DEE8F2; }
 }
 @media (max-width: 700px) {
   .wireframe-side { padding: 12px; justify-content: center; }
   .desc-side { padding: 12px 16px; }
   .phone-frame { width: 100%; min-width: 0; }
-  .meta-bar { padding: 8px 12px; }
-  .meta-item { font-size: 11px; }
+  .desktop-frame { width: 100%; }
+  .wf-pc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .wf-pc-search { width: 180px; }
+  .wf-pc-write-btn { display: none; }
+  .meta-bar { padding: 8px 12px; gap: 8px; }
 }
 </style>
 </head>
 <body>
 
-<!-- META HEADER -->
 <div class="meta-bar">
   <span class="title">EXCH01</span>
   <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">교환 목록</span></span>
   <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/exchange</span></span>
   <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
-  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.2</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">1.2</span></span>
   <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
   <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-06</span></span>
 </div>
 
-<!-- MAIN LAYOUT -->
 <div class="main-layout">
-
-  <!-- ===== WIREFRAME SIDE ===== -->
   <div class="wireframe-side">
-    <div class="phone-frame">
+    <div class="phone-stack">
 
-      <!-- ① Header -->
-      <div class="wf-section">
-        <div class="num-circle" style="top:8px; left:6px;">1</div>
-        <div class="wf-header">
-          <span class="wf-page-title">교환</span>
-          <div class="wf-header-icons">
-            <div class="wf-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+      <div>
+        <div class="frame-label">Frame A: 필터 적용 상태</div>
+        <div class="phone-frame">
+          <div class="wf-section">
+            <div class="num-circle" style="top:8px; left:6px;">1</div>
+            <div class="wf-header">
+              <span class="wf-page-title">교환</span>
+              <div class="wf-header-icons">
+                <div class="wf-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <!-- ② 필터 바 -->
-      <div class="wf-section">
-        <div class="num-circle" style="top:4px; left:6px;">2</div>
-        <div class="wf-filter-bar">
-          <div class="wf-chip selected">하이큐 ✕</div>
-          <div class="wf-chip">캐릭터 ▾</div>
-          <div class="wf-chip">굿즈 타입 ▾</div>
-          <div class="wf-chip">상태 ▾</div>
-          <div class="wf-chip">거래 방법 ▾</div>
-          <div class="wf-chip">차액 ▾</div>
-          <div class="wf-chip-reset">초기화</div>
-        </div>
-      </div>
+          <div class="wf-section">
+            <div class="num-circle" style="top:4px; left:6px;">2</div>
+            <div class="wf-filter-bar">
+              <div class="wf-chip selected">하이큐 ✕</div>
+              <div class="wf-chip">캐릭터 ▾</div>
+              <div class="wf-chip">굿즈 타입 ▾</div>
+              <div class="wf-chip">상태 ▾</div>
+              <div class="wf-chip">거래 방법 ▾</div>
+              <div class="wf-chip">차액 ▾</div>
+              <div class="wf-chip-reset">초기화</div>
+            </div>
+          </div>
 
-      <!-- ③ 정렬 + 결과 수 -->
-      <div class="wf-section">
-        <div class="num-circle" style="top:4px; left:6px;">3</div>
-        <div class="wf-sort-bar">
-          <span>전체 <span class="wf-sort-count">124</span>개</span>
-          <span class="wf-sort-option">최신순 ▾</span>
-        </div>
-      </div>
+          <div class="wf-section">
+            <div class="num-circle" style="top:4px; left:6px;">3</div>
+            <div class="wf-sort-bar">
+              <span>전체 <span class="wf-sort-count">124</span>개</span>
+              <span class="wf-sort-option">최신순 ▾</span>
+            </div>
+          </div>
 
-      <!-- ④ 교환글 그리드 -->
-      <div class="wf-section">
-        <div class="num-circle" style="top:4px; left:6px;">4</div>
-        <div class="wf-grid">
-          <!-- Card 1 -->
-          <div class="wf-product-card">
-            <div class="wf-product-img">IMG</div>
-            <div class="wf-product-body">
-              <div class="wf-product-tags">
-                <span class="wf-tag exchange">교환</span>
-                <span class="wf-tag anime">애니/만화/소설</span>
+          <div class="wf-section">
+            <div class="num-circle" style="top:4px; left:6px;">4</div>
+            <div class="num-circle" style="top:116px; left:184px;">10</div>
+            <div class="wf-grid">
+              <div class="wf-product-card">
+                <div class="wf-product-img">IMG</div>
+                <div class="wf-product-body">
+                  <div class="wf-product-tags"><span class="wf-tag exchange">교환</span><span class="wf-tag anime">애니/만화/소설</span></div>
+                  <div class="wf-product-name">하이큐 히나타 아크릴 스탠드</div>
+                  <div class="wf-product-meta">하이큐 · 히나타 쇼요</div>
+                  <div class="wf-product-rating">&#9733; 4.8 · 거래 12회</div>
+                </div>
               </div>
-              <div class="wf-product-name">하이큐 히나타 아크릴 스탠드</div>
-              <div class="wf-product-meta">하이큐 · 히나타 쇼요</div>
-              <div class="wf-product-rating">&#9733; 4.8 · 거래 12회</div>
+
+              <div class="wf-product-card">
+                <div class="wf-product-img">IMG
+                  <div class="wf-card-more">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                  </div>
+                  <div class="wf-card-menu">
+                    <div class="wf-card-menu-item disabled">수정 불가</div>
+                    <div class="wf-card-menu-item">끌어올리기</div>
+                    <div class="wf-card-menu-item disabled">삭제 불가</div>
+                  </div>
+                  <div class="wf-badge-container">
+                    <div class="wf-badge mine">내 글</div>
+                    <div class="wf-badge proposal">제안 3건</div>
+                  </div>
+                </div>
+                <div class="wf-product-body">
+                  <div class="wf-product-tags"><span class="wf-tag exchange-cash">교환+차액</span><span class="wf-tag anime">애니/만화/소설</span></div>
+                  <div class="wf-product-name">하이큐 카게야마 캔뱃지 세트</div>
+                  <div class="wf-product-meta">하이큐 · 카게야마 토비오</div>
+                  <div class="wf-product-rating">&#9733; 4.5 · 거래 8회</div>
+                  <div class="wf-edit-lock-note">받은 제안 이력이 있어 수정/삭제할 수 없어요. 분쟁 방지를 위해 마감으로 종료해 주세요.</div>
+                </div>
+              </div>
+
+              <div class="wf-product-card">
+                <div class="wf-product-img">IMG
+                  <div class="wf-badge-container"><div class="wf-badge bumped">UP</div></div>
+                </div>
+                <div class="wf-product-body">
+                  <div class="wf-product-tags"><span class="wf-tag exchange">교환</span><span class="wf-tag anime">애니/만화/소설</span></div>
+                  <div class="wf-product-name">하이큐 오이카와 포토카드 Special</div>
+                  <div class="wf-product-meta">하이큐 · 오이카와 토오루</div>
+                  <div class="wf-product-rating">&#9733; 5.0 · 거래 41회</div>
+                </div>
+              </div>
+
+              <div class="wf-product-card completed">
+                <div class="wf-product-img">IMG<div class="wf-completed-badge">교환완료</div></div>
+                <div class="wf-product-body">
+                  <div class="wf-product-tags"><span class="wf-tag exchange">교환</span><span class="wf-tag anime">애니/만화/소설</span></div>
+                  <div class="wf-product-name">하이큐 켄마 아크릴 키링</div>
+                  <div class="wf-product-meta">하이큐 · 코즈메 켄마</div>
+                  <div class="wf-product-rating">&#9733; 4.3 · 거래 5회</div>
+                </div>
+              </div>
             </div>
           </div>
-          <!-- Card 2 -->
-          <div class="wf-product-card">
-            <div class="wf-product-img">IMG
-              <div class="wf-badge-container">
-                <div class="wf-badge proposal">제안 3건</div>
-              </div>
-            </div>
-            <div class="wf-product-body">
-              <div class="wf-product-tags">
-                <span class="wf-tag exchange-cash">교환+차액</span>
-                <span class="wf-tag anime">애니/만화/소설</span>
-              </div>
-              <div class="wf-product-name">하이큐 카게야마 캔뱃지 세트</div>
-              <div class="wf-product-meta">하이큐 · 카게야마 토비오</div>
-              <div class="wf-product-rating">&#9733; 4.5 · 거래 8회</div>
-            </div>
-          </div>
-          <!-- Card 3 -->
-          <div class="wf-product-card">
-            <div class="wf-product-img">IMG
-              <div class="wf-badge-container">
-                <div class="wf-badge bumped">UP</div>
-              </div>
-            </div>
-            <div class="wf-product-body">
-              <div class="wf-product-tags">
-                <span class="wf-tag exchange">교환</span>
-                <span class="wf-tag anime">애니/만화/소설</span>
-              </div>
-              <div class="wf-product-name">하이큐 오이카와 포토카드 Special</div>
-              <div class="wf-product-meta">하이큐 · 오이카와 토오루</div>
-              <div class="wf-product-rating">&#9733; 5.0 · 거래 41회</div>
-            </div>
-          </div>
-          <!-- Card 4 - Completed -->
-          <div class="wf-product-card completed">
-            <div class="wf-product-img">IMG<div class="wf-completed-badge">교환완료</div></div>
-            <div class="wf-product-body">
-              <div class="wf-product-tags">
-                <span class="wf-tag exchange">교환</span>
-                <span class="wf-tag anime">애니/만화/소설</span>
-              </div>
-              <div class="wf-product-name">하이큐 켄마 아크릴 키링</div>
-              <div class="wf-product-meta">하이큐 · 코즈메 켄마</div>
-              <div class="wf-product-rating">&#9733; 4.3 · 거래 5회</div>
-            </div>
-          </div>
-          <!-- Card 5 -->
-          <div class="wf-product-card">
-            <div class="wf-product-img">IMG</div>
-            <div class="wf-product-body">
-              <div class="wf-product-tags">
-                <span class="wf-tag exchange">교환</span>
-                <span class="wf-tag anime">애니/만화/소설</span>
-              </div>
-              <div class="wf-product-name">하이큐 니시노야 피규어</div>
-              <div class="wf-product-meta">하이큐 · 니시노야 유우</div>
-              <div class="wf-product-rating">&#9733; 4.7 · 거래 16회</div>
-            </div>
-          </div>
-          <!-- Card 6 -->
-          <div class="wf-product-card">
-            <div class="wf-product-img">IMG</div>
-            <div class="wf-product-body">
-              <div class="wf-product-tags">
-                <span class="wf-tag exchange-cash">교환+차액</span>
-                <span class="wf-tag anime">애니/만화/소설</span>
-              </div>
-              <div class="wf-product-name">하이큐 츠키시마 아크릴 블럭</div>
-              <div class="wf-product-meta">하이큐 · 츠키시마 케이</div>
-              <div class="wf-product-rating">&#9733; 4.9 · 거래 23회</div>
+
+          <div class="num-circle" style="bottom:72px; right:6px; z-index:25;">5</div>
+          <div class="wf-fab">+</div>
+
+          <div class="wf-section">
+            <div class="num-circle" style="top:2px; left:6px;">6</div>
+            <div class="wf-bottom-nav">
+              <div class="wf-nav-item"><div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>홈</div>
+              <div class="wf-nav-item active"><div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>교환</div>
+              <div class="wf-nav-item"><div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>이벤트</div>
+              <div class="wf-nav-item"><div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>채팅</div>
+              <div class="wf-nav-item"><div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>마이</div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ⑤ FAB -->
-      <div class="num-circle" style="bottom:72px; right:6px; z-index:25;">5</div>
-      <div class="wf-fab">+</div>
-
-      <!-- ⑥ 하단 네비게이션 -->
-            <div class="wf-section">
-        <div class="num-circle" style="top:2px; left:6px;">6</div>
-        <div class="wf-bottom-nav">
-          <div class="wf-nav-item">
-            <div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-            홈
+      <div>
+        <div class="frame-label">Frame B: 필터 미적용(초기) 상태</div>
+        <div class="phone-frame">
+          <div class="wf-header">
+            <span class="wf-page-title">교환</span>
+            <div class="wf-header-icons">
+              <div class="wf-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+            </div>
           </div>
-          <div class="wf-nav-item active">
-            <div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
-            교환
+          <div class="wf-filter-bar">
+            <div class="wf-chip">작품 ▾</div>
+            <div class="wf-chip">캐릭터 ▾</div>
+            <div class="wf-chip">굿즈 타입 ▾</div>
+            <div class="wf-chip">상태 ▾</div>
+            <div class="wf-chip">거래 방법 ▾</div>
+            <div class="wf-chip">차액 ▾</div>
           </div>
-          <div class="wf-nav-item">
-            <div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-            이벤트
+          <div class="wf-sort-bar">
+            <span>전체 <span class="wf-sort-count">327</span>개</span>
+            <span class="wf-sort-option">최신순 ▾</span>
           </div>
-          <div class="wf-nav-item">
-            <div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
-            채팅
+          <div class="wf-grid">
+            <div class="wf-product-card"><div class="wf-product-img">IMG</div></div>
+            <div class="wf-product-card"><div class="wf-product-img">IMG</div></div>
+            <div class="wf-product-card"><div class="wf-product-img">IMG</div></div>
+            <div class="wf-product-card"><div class="wf-product-img">IMG</div></div>
           </div>
-          <div class="wf-nav-item">
-            <div class="wf-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-            마이
+          <div class="wf-fab">+</div>
+          <div class="wf-bottom-nav">
+            <div class="wf-nav-item">홈</div><div class="wf-nav-item active">교환</div><div class="wf-nav-item">이벤트</div><div class="wf-nav-item">채팅</div><div class="wf-nav-item">마이</div>
           </div>
         </div>
       </div>
 
-    </div><!-- /phone-frame -->
-  </div><!-- /wireframe-side -->
+      <div>
+        <div class="frame-label">Frame C: 필터 선택 바텀시트(작품)</div>
+        <div class="phone-frame">
+          <div class="wf-section">
+            <div class="num-circle" style="top:44px; left:6px;">7</div>
+            <div class="wf-header">
+              <span class="wf-page-title">교환</span>
+              <div class="wf-header-icons">
+                <div class="wf-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+              </div>
+            </div>
+            <div class="wf-filter-bar">
+              <div class="wf-chip">작품 ▾</div>
+              <div class="wf-chip">캐릭터 ▾</div>
+              <div class="wf-chip">굿즈 타입 ▾</div>
+              <div class="wf-chip">상태 ▾</div>
+              <div class="wf-chip">거래 방법 ▾</div>
+            </div>
+            <div class="wf-sort-bar">
+              <span>전체 <span class="wf-sort-count">327</span>개</span>
+              <span class="wf-sort-option">최신순 ▾</span>
+            </div>
+            <div class="wf-grid">
+              <div class="wf-product-card"><div class="wf-product-img">IMG</div></div>
+              <div class="wf-product-card"><div class="wf-product-img">IMG</div></div>
+              <div class="wf-product-card"><div class="wf-product-img">IMG</div></div>
+              <div class="wf-product-card"><div class="wf-product-img">IMG</div></div>
+            </div>
+          </div>
 
-  <!-- ===== DESCRIPTION SIDE ===== -->
+          <div class="wf-dim"></div>
+          <div class="wf-bottom-sheet">
+            <div class="wf-sheet-handle"></div>
+            <div class="wf-sheet-header">
+              <span>작품 선택</span>
+              <span class="wf-sheet-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>
+            </div>
+            <div class="wf-sheet-search">작품명 검색</div>
+            <div class="wf-sheet-list">
+              <div class="wf-sheet-item selected"><span>하이큐</span><span class="wf-sheet-check">✓</span></div>
+              <div class="wf-sheet-item"><span>주술회전</span><span></span></div>
+              <div class="wf-sheet-item"><span>명탐정 코난</span><span></span></div>
+              <div class="wf-sheet-item"><span>블루 록</span><span></span></div>
+            </div>
+            <div class="wf-sheet-actions">
+              <div class="wf-sheet-btn reset">초기화</div>
+              <div class="wf-sheet-btn apply">적용</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="frame-label">Frame D: 교환 목록 (PC)</div>
+        <div class="desktop-frame">
+          <div class="wf-section">
+            <div class="num-circle" style="top:8px; left:8px;">8</div>
+            <div class="wf-pc-topbar">
+              <span class="wf-pc-title">교환</span>
+              <div class="wf-pc-search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                상품명, 작품, 캐릭터 검색
+              </div>
+              <div class="wf-pc-actions">
+                <div class="wf-pc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                <div class="wf-pc-write-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>교환글 등록</div>
+              </div>
+            </div>
+
+            <div class="wf-pc-content">
+              <div class="wf-pc-filter-row">
+                <span class="wf-pc-chip selected">하이큐 ✕</span>
+                <span class="wf-pc-chip">캐릭터 ▾</span>
+                <span class="wf-pc-chip">굿즈 타입 ▾</span>
+                <span class="wf-pc-chip">상태 ▾</span>
+                <span class="wf-pc-chip">거래 방법 ▾</span>
+                <span class="wf-pc-chip">차액 ▾</span>
+                <span class="wf-pc-reset">초기화</span>
+              </div>
+
+              <div class="wf-pc-sort-row">
+                <span>전체 <span class="count">124</span>개</span>
+                <span class="sort">최신순 ▾</span>
+              </div>
+
+              <div class="wf-pc-grid">
+                <div class="wf-pc-card">
+                  <div class="wf-pc-thumb">IMG</div>
+                  <div class="wf-pc-body">
+                    <div class="wf-pc-tags"><span class="wf-pc-tag exchange">교환</span><span class="wf-pc-tag anime">애니/만화/소설</span></div>
+                    <div class="wf-pc-name">하이큐 히나타 아크릴 스탠드</div>
+                    <div class="wf-pc-meta">하이큐 · 히나타 쇼요</div>
+                    <div class="wf-pc-rating">&#9733; 4.8 · 거래 12회</div>
+                  </div>
+                </div>
+
+                <div class="wf-pc-card">
+                  <div class="wf-pc-thumb">IMG
+                    <div class="wf-pc-card-more">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                    </div>
+                    <div class="wf-pc-card-menu">
+                      <div class="wf-pc-card-menu-item disabled">수정 불가</div>
+                      <div class="wf-pc-card-menu-item">끌어올리기</div>
+                      <div class="wf-pc-card-menu-item disabled">삭제 불가</div>
+                    </div>
+                    <div class="wf-pc-badge-row"><span class="wf-pc-badge mine">내 글</span><span class="wf-pc-badge proposal">제안 3건</span></div>
+                  </div>
+                  <div class="wf-pc-body">
+                    <div class="wf-pc-tags"><span class="wf-pc-tag exchange-cash">교환+차액</span><span class="wf-pc-tag anime">애니/만화/소설</span></div>
+                    <div class="wf-pc-name">하이큐 카게야마 캔뱃지 세트</div>
+                    <div class="wf-pc-meta">하이큐 · 카게야마 토비오</div>
+                    <div class="wf-pc-rating">&#9733; 4.5 · 거래 8회</div>
+                    <div class="wf-pc-edit-lock-note">받은 제안 이력이 있어 수정/삭제할 수 없어요. 분쟁 방지를 위해 마감으로 종료해 주세요.</div>
+                  </div>
+                </div>
+
+                <div class="wf-pc-card">
+                  <div class="wf-pc-thumb">IMG
+                    <div class="wf-pc-badge-row"><span class="wf-pc-badge bumped">UP</span></div>
+                  </div>
+                  <div class="wf-pc-body">
+                    <div class="wf-pc-tags"><span class="wf-pc-tag exchange">교환</span><span class="wf-pc-tag idol">아이돌/아티스트</span></div>
+                    <div class="wf-pc-name">세븐틴 민규 포토카드 FML ver.</div>
+                    <div class="wf-pc-meta">세븐틴 · 민규</div>
+                    <div class="wf-pc-rating">&#9733; 4.9 · 거래 28회</div>
+                  </div>
+                </div>
+
+                <div class="wf-pc-card completed">
+                  <div class="wf-pc-thumb">IMG<div class="wf-pc-completed">교환완료</div></div>
+                  <div class="wf-pc-body">
+                    <div class="wf-pc-tags"><span class="wf-pc-tag exchange">교환</span><span class="wf-pc-tag game">게임</span></div>
+                    <div class="wf-pc-name">원신 라이덴 쇼군 아크릴 키링</div>
+                    <div class="wf-pc-meta">원신 · 라이덴 쇼군</div>
+                    <div class="wf-pc-rating">&#9733; 4.9 · 거래 31회</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="frame-label">Frame E: PC 필터 팝오버(작품 선택)</div>
+        <div class="desktop-frame">
+          <div class="wf-section">
+            <div class="num-circle" style="top:8px; left:8px;">9</div>
+            <div class="wf-pc-topbar">
+              <span class="wf-pc-title">교환</span>
+              <div class="wf-pc-search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                상품명, 작품, 캐릭터 검색
+              </div>
+              <div class="wf-pc-actions">
+                <div class="wf-pc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                <div class="wf-pc-write-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>교환글 등록</div>
+              </div>
+            </div>
+
+            <div class="wf-pc-content">
+              <div class="wf-pc-filter-row">
+                <div class="wf-pc-filter-group">
+                  <span class="wf-pc-chip selected">작품 ▾</span>
+                  <div class="wf-pc-popover">
+                    <div class="wf-pc-pop-title">작품 선택</div>
+                    <div class="wf-pc-pop-search">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                      작품명 검색
+                    </div>
+                    <div class="wf-pc-pop-list">
+                      <div class="wf-pc-pop-item selected"><span>하이큐</span><span class="wf-pc-pop-check">✓</span></div>
+                      <div class="wf-pc-pop-item"><span>주술회전</span><span></span></div>
+                      <div class="wf-pc-pop-item"><span>명탐정 코난</span><span></span></div>
+                      <div class="wf-pc-pop-item"><span>블루 록</span><span></span></div>
+                    </div>
+                    <div class="wf-pc-pop-actions">
+                      <div class="wf-pc-pop-btn reset">초기화</div>
+                      <div class="wf-pc-pop-btn apply">적용</div>
+                    </div>
+                  </div>
+                </div>
+                <span class="wf-pc-chip">캐릭터 ▾</span>
+                <span class="wf-pc-chip">굿즈 타입 ▾</span>
+                <span class="wf-pc-chip">상태 ▾</span>
+                <span class="wf-pc-chip">거래 방법 ▾</span>
+                <span class="wf-pc-chip">차액 ▾</span>
+                <span class="wf-pc-reset">초기화</span>
+              </div>
+
+              <div class="wf-pc-sort-row">
+                <span>전체 <span class="count">124</span>개</span>
+                <span class="sort">최신순 ▾</span>
+              </div>
+
+              <div class="wf-pc-grid">
+                <div class="wf-pc-card">
+                  <div class="wf-pc-thumb">IMG</div>
+                  <div class="wf-pc-body">
+                    <div class="wf-pc-tags"><span class="wf-pc-tag exchange">교환</span><span class="wf-pc-tag anime">애니/만화/소설</span></div>
+                    <div class="wf-pc-name">하이큐 히나타 아크릴 스탠드</div>
+                    <div class="wf-pc-meta">하이큐 · 히나타 쇼요</div>
+                    <div class="wf-pc-rating">&#9733; 4.8 · 거래 12회</div>
+                  </div>
+                </div>
+                <div class="wf-pc-card">
+                  <div class="wf-pc-thumb">IMG
+                    <div class="wf-pc-badge-row"><span class="wf-pc-badge mine">내 글</span><span class="wf-pc-badge proposal">제안 2건</span></div>
+                  </div>
+                  <div class="wf-pc-body">
+                    <div class="wf-pc-tags"><span class="wf-pc-tag exchange-cash">교환+차액</span><span class="wf-pc-tag anime">애니/만화/소설</span></div>
+                    <div class="wf-pc-name">하이큐 카게야마 캔뱃지 세트</div>
+                    <div class="wf-pc-meta">하이큐 · 카게야마 토비오</div>
+                    <div class="wf-pc-rating">&#9733; 4.5 · 거래 8회</div>
+                  </div>
+                </div>
+                <div class="wf-pc-card"><div class="wf-pc-thumb">IMG</div><div class="wf-pc-body"><div class="wf-pc-tags"><span class="wf-pc-tag exchange">교환</span><span class="wf-pc-tag idol">아이돌/아티스트</span></div><div class="wf-pc-name">세븐틴 민규 포토카드 FML ver.</div><div class="wf-pc-meta">세븐틴 · 민규</div><div class="wf-pc-rating">&#9733; 4.9 · 거래 28회</div></div></div>
+                <div class="wf-pc-card completed"><div class="wf-pc-thumb">IMG<div class="wf-pc-completed">교환완료</div></div><div class="wf-pc-body"><div class="wf-pc-tags"><span class="wf-pc-tag exchange">교환</span><span class="wf-pc-tag game">게임</span></div><div class="wf-pc-name">원신 라이덴 쇼군 아크릴 키링</div><div class="wf-pc-meta">원신 · 라이덴 쇼군</div><div class="wf-pc-rating">&#9733; 4.9 · 거래 31회</div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="frame-label">Frame F: 내 글 액션 — 수정 분기 (가능/잠금)</div>
+        <div class="phone-frame">
+          <div class="wf-section">
+            <div class="num-circle" style="top:44px; left:6px;">11</div>
+            <div class="wf-header">
+              <span class="wf-page-title">교환</span>
+              <div class="wf-header-icons">
+                <div class="wf-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+              </div>
+            </div>
+            <div class="wf-sort-bar">
+              <span>내 글 액션 플로우</span>
+              <span class="wf-sort-option">더보기 메뉴</span>
+            </div>
+            <div class="wf-grid" style="grid-template-columns:1fr;">
+              <div class="wf-product-card">
+                <div class="wf-product-img">IMG
+                  <div class="wf-card-more">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                  </div>
+                  <div class="wf-card-menu">
+                    <div class="wf-card-menu-item active">수정</div>
+                    <div class="wf-card-menu-item">끌어올리기</div>
+                    <div class="wf-card-menu-item">삭제</div>
+                  </div>
+                  <div class="wf-badge-container"><div class="wf-badge mine">내 글</div></div>
+                </div>
+                <div class="wf-product-body">
+                  <div class="wf-product-name">받은 제안 이력 0건</div>
+                  <div class="wf-product-meta">`수정` 탭 시 EXCH03 수정 모드(`/exchange/[id]/edit`)로 이동</div>
+                </div>
+              </div>
+              <div class="wf-product-card">
+                <div class="wf-product-img">IMG
+                  <div class="wf-card-more">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                  </div>
+                  <div class="wf-card-menu">
+                    <div class="wf-card-menu-item disabled">수정 불가</div>
+                    <div class="wf-card-menu-item">끌어올리기</div>
+                    <div class="wf-card-menu-item disabled">삭제 불가</div>
+                  </div>
+                  <div class="wf-badge-container"><div class="wf-badge mine">내 글</div><div class="wf-badge proposal">제안 2건</div></div>
+                </div>
+                <div class="wf-product-body">
+                  <div class="wf-product-name">받은 제안 이력 1건 이상</div>
+                  <div class="wf-product-meta">`수정/삭제` 잠금 + 안내 토스트 노출</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="wf-inline-toast">받은 제안 이력이 있어 수정/삭제할 수 없어요.</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="frame-label">Frame G: 내 글 액션 — 끌어올리기 확인 팝업</div>
+        <div class="phone-frame">
+          <div class="wf-section">
+            <div class="num-circle" style="top:44px; left:6px;">12</div>
+            <div class="wf-header">
+              <span class="wf-page-title">교환</span>
+              <div class="wf-header-icons">
+                <div class="wf-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+              </div>
+            </div>
+            <div class="wf-grid" style="grid-template-columns:1fr; padding-top:12px;">
+              <div class="wf-product-card">
+                <div class="wf-product-img">IMG
+                  <div class="wf-card-more">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                  </div>
+                  <div class="wf-card-menu">
+                    <div class="wf-card-menu-item">수정</div>
+                    <div class="wf-card-menu-item active">끌어올리기</div>
+                    <div class="wf-card-menu-item">삭제</div>
+                  </div>
+                  <div class="wf-badge-container"><div class="wf-badge mine">내 글</div></div>
+                </div>
+                <div class="wf-product-body">
+                  <div class="wf-product-name">내 글 끌어올리기 실행 전</div>
+                  <div class="wf-product-meta">확인 팝업에서 취소/진행 선택</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="wf-modal-dim"></div>
+          <div class="wf-confirm-modal">
+            <div class="wf-confirm-title">이 글을 끌어올릴까요?</div>
+            <div class="wf-confirm-body">확인 시 목록 상단으로 재노출됩니다.</div>
+            <div class="wf-confirm-meta">오늘 무료 1회 남음 · Phase 1.5부터 추가 끌어올리기 500원/회</div>
+            <div class="wf-confirm-actions">
+              <div class="wf-confirm-btn cancel">취소</div>
+              <div class="wf-confirm-btn primary">끌어올리기</div>
+            </div>
+          </div>
+          <div class="wf-inline-toast success">끌어올리기 완료 · 목록 최상단으로 이동했어요.</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="frame-label">Frame H: 내 글 액션 — 삭제 확인 팝업 (제안 이력 0건)</div>
+        <div class="phone-frame">
+          <div class="wf-section">
+            <div class="num-circle" style="top:44px; left:6px;">13</div>
+            <div class="wf-header">
+              <span class="wf-page-title">교환</span>
+              <div class="wf-header-icons">
+                <div class="wf-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+              </div>
+            </div>
+            <div class="wf-grid" style="grid-template-columns:1fr; padding-top:12px;">
+              <div class="wf-product-card">
+                <div class="wf-product-img">IMG
+                  <div class="wf-card-more">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                  </div>
+                  <div class="wf-card-menu">
+                    <div class="wf-card-menu-item">수정</div>
+                    <div class="wf-card-menu-item">끌어올리기</div>
+                    <div class="wf-card-menu-item active" style="color:#E11D48;">삭제</div>
+                  </div>
+                  <div class="wf-badge-container"><div class="wf-badge mine">내 글</div></div>
+                </div>
+                <div class="wf-product-body">
+                  <div class="wf-product-name">받은 제안 이력 0건 삭제 실행 전</div>
+                  <div class="wf-product-meta">삭제 확인 팝업에서 취소/삭제 선택</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="wf-modal-dim"></div>
+          <div class="wf-confirm-modal">
+            <div class="wf-confirm-title">이 교환글을 삭제할까요?</div>
+            <div class="wf-confirm-body">삭제 후 복구할 수 없습니다.</div>
+            <div class="wf-confirm-meta">받은 제안 이력이 없는 글만 삭제할 수 있어요. 삭제 후에는 복구할 수 없습니다.</div>
+            <div class="wf-confirm-actions">
+              <div class="wf-confirm-btn cancel">취소</div>
+              <div class="wf-confirm-btn danger">삭제</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="frame-label">Frame I: PC 내 글 액션 — 삭제 확인 팝업 (제안 이력 0건)</div>
+        <div class="desktop-frame">
+          <div class="wf-section">
+            <div class="num-circle" style="top:8px; left:8px;">14</div>
+            <div class="wf-pc-topbar">
+              <span class="wf-pc-title">교환</span>
+              <div class="wf-pc-search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                상품명, 작품, 캐릭터 검색
+              </div>
+              <div class="wf-pc-actions">
+                <div class="wf-pc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                <div class="wf-pc-write-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>교환글 등록</div>
+              </div>
+            </div>
+            <div class="wf-pc-content">
+              <div class="wf-pc-grid" style="grid-template-columns:repeat(2, minmax(0, 1fr));">
+                <div class="wf-pc-card">
+                  <div class="wf-pc-thumb">IMG
+                    <div class="wf-pc-card-more">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                    </div>
+                    <div class="wf-pc-card-menu">
+                      <div class="wf-pc-card-menu-item">수정</div>
+                      <div class="wf-pc-card-menu-item">끌어올리기</div>
+                      <div class="wf-pc-card-menu-item active" style="color:#E11D48;">삭제</div>
+                    </div>
+                    <div class="wf-pc-badge-row"><span class="wf-pc-badge mine">내 글</span></div>
+                  </div>
+                  <div class="wf-pc-body">
+                    <div class="wf-pc-tags"><span class="wf-pc-tag exchange-cash">교환+차액</span><span class="wf-pc-tag anime">애니/만화/소설</span></div>
+                    <div class="wf-pc-name">하이큐 카게야마 캔뱃지 세트</div>
+                    <div class="wf-pc-meta">PC에서도 제안 이력 0건일 때만 삭제 확인 팝업 후 실행</div>
+                  </div>
+                </div>
+                <div class="wf-pc-card"><div class="wf-pc-thumb">IMG</div><div class="wf-pc-body"><div class="wf-pc-name">기타 카드</div><div class="wf-pc-meta">배경 목록</div></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="wf-modal-dim"></div>
+          <div class="wf-confirm-modal" style="width:332px;">
+            <div class="wf-confirm-title">삭제 전 확인</div>
+            <div class="wf-confirm-body">PC는 받은 제안 이력 0건에서만 중앙 모달로 삭제 확인을 진행합니다.</div>
+            <div class="wf-confirm-meta">키보드 접근성: `Enter` 확인 / `Esc` 닫기</div>
+            <div class="wf-confirm-actions">
+              <div class="wf-confirm-btn cancel">취소</div>
+              <div class="wf-confirm-btn danger">삭제</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <div class="desc-side">
     <div class="desc-title">EXCH01 교환 목록</div>
-    <div class="desc-subtitle">교환글을 탐색하고 필터링하는 메인 목록 화면</div>
+    <div class="desc-subtitle">교환글을 탐색하고 필터링하는 메인 목록 화면 (모바일/PC + 필터/팝오버 + 내 글 액션 팝업 플로우)</div>
 
-    <!-- ① Header -->
     <div class="desc-item">
-      <div class="desc-num-row">
-        <div class="desc-num">1</div>
-        <span class="desc-comp-type">[Header]</span>
-        <span class="desc-comp-name">페이지 헤더</span>
-      </div>
+      <div class="desc-num-row"><div class="desc-num">1</div><span class="desc-comp-type">[Header]</span><span class="desc-comp-name">페이지 헤더</span></div>
+      <div class="desc-body"><ul><li>좌측: 페이지 제목 "교환"</li><li>우측: 검색 아이콘 탭 시 SRCH01 이동</li><li>스크롤 시 상단 고정(sticky)</li></ul></div>
+    </div>
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row"><div class="desc-num">2</div><span class="desc-comp-type">[FilterChips]</span><span class="desc-comp-name">필터 바</span></div>
       <div class="desc-body">
         <ul>
-          <li>좌측: 페이지 제목 "교환" (고정 텍스트)</li>
-          <li>우측: 검색 아이콘 (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>)
-            <ul class="sub">
-              <li>탭 시: 검색 페이지(SRCH01) 이동</li>
-            </ul>
-          </li>
-          <li>스크롤 시 상단 고정 (sticky)</li>
+          <li>가로 칩: 작품/캐릭터/굿즈 타입/상태/거래 방법/차액</li>
+          <li>선택 칩은 Blue 배경 + 값 표시(예: 하이큐 ✕)</li>
+          <li>필터가 하나 이상 선택되면 `초기화` 표시</li>
+          <li>칩 탭 시 바텀시트(모바일) 또는 팝오버(PC) 열림</li>
         </ul>
       </div>
     </div>
-
     <hr class="desc-divider">
 
-    <!-- ② 필터 바 -->
     <div class="desc-item">
-      <div class="desc-num-row">
-        <div class="desc-num">2</div>
-        <span class="desc-comp-type">[FilterChips]</span>
-        <span class="desc-comp-name">필터 바</span>
-      </div>
+      <div class="desc-num-row"><div class="desc-num">3</div><span class="desc-comp-type">[SortBar]</span><span class="desc-comp-name">정렬 + 결과 수</span></div>
+      <div class="desc-body"><ul><li>좌측: 전체 N개</li><li>우측: 최신순/인기순/가까운순</li><li>변경 즉시 목록 재조회</li></ul></div>
+    </div>
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row"><div class="desc-num">4</div><span class="desc-comp-type">[Grid]</span><span class="desc-comp-name">교환글 그리드</span></div>
       <div class="desc-body">
         <ul>
-          <li>가로 스크롤 칩 형태 (모바일에서 좌우 스와이프)</li>
-          <li>필터 항목:
+          <li>모바일 2열 / PC 4열</li>
+          <li>카드 정보: 이미지, 거래유형/카테고리, 상품명, 작품·캐릭터, 평점·거래횟수</li>
+          <li>이미지 우상단 상태 뱃지
             <ul class="sub">
-              <li>작품 ▾ — 작품 DB 검색 선택</li>
-              <li>캐릭터 ▾ — 작품 선택 시 활성화</li>
-              <li>굿즈 타입 ▾ — 포토카드/아크릴/캔뱃지/피규어/인형/엽서/의류/기타</li>
-              <li>상품 상태 ▾ — S급/A급/B급/C급</li>
-              <li>거래 방법 ▾ — 택배/직거래/둘 다</li>
-              <li>차액 여부 ▾ — 차액 가능/불가</li>
+              <li>내 글: `내 글`</li>
+              <li>제안 N건(본인 글)</li>
+              <li>UP(끌어올리기)</li>
             </ul>
           </li>
-          <li>칩 탭 시: 바텀시트 → 옵션 선택 → 칩에 선택값 표시 + ✕</li>
-          <li>선택된 칩: Blue 배경 + 흰색 텍스트</li>
-          <li>초기화 버튼: 선택된 필터가 1개 이상일 때만 표시</li>
+          <li>받은 제안 이력이 1건 이상(상태 무관)이면 `수정/삭제` 비활성 + 안내 문구 노출</li>
+          <li>교환 완료는 오버레이 + 카드 반투명</li>
+          <li>카드 탭 시 EXCH02 이동</li>
         </ul>
       </div>
     </div>
-
     <hr class="desc-divider">
 
-    <!-- ③ 정렬 + 결과 수 -->
     <div class="desc-item">
-      <div class="desc-num-row">
-        <div class="desc-num">3</div>
-        <span class="desc-comp-type">[SortBar]</span>
-        <span class="desc-comp-name">정렬 + 결과 수</span>
-      </div>
+      <div class="desc-num-row"><div class="desc-num">5</div><span class="desc-comp-type">[FAB]</span><span class="desc-comp-name">교환글 등록 버튼</span></div>
+      <div class="desc-body"><ul><li>우하단 고정</li><li>탭 시 EXCH03 이동</li><li>비로그인 시 로그인 유도</li></ul></div>
+    </div>
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row"><div class="desc-num">6</div><span class="desc-comp-type">[BottomNav]</span><span class="desc-comp-name">하단 네비게이션</span></div>
+      <div class="desc-body"><ul><li>홈/교환/이벤트/채팅/마이</li><li>교환 탭 활성 상태</li></ul></div>
+    </div>
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row"><div class="desc-num">7</div><span class="desc-comp-type">[BottomSheet]</span><span class="desc-comp-name">필터 선택 바텀시트</span></div>
+      <div class="desc-body"><ul><li>칩 탭 시 바텀시트 노출 + 배경 dim</li><li>검색 + 옵션 리스트 + 초기화/적용</li><li>적용 시 칩/목록/건수 동기 갱신</li></ul></div>
+    </div>
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row"><div class="desc-num">8</div><span class="desc-comp-type">[DesktopLayout]</span><span class="desc-comp-name">PC 교환 목록 레이아웃</span></div>
+      <div class="desc-body"><ul><li>768px+에서 적용</li><li>TopBar + 필터 바 + 정렬 + 4열 그리드</li><li>모바일과 동일한 카드 정보/상태 노출</li></ul></div>
+    </div>
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row"><div class="desc-num">9</div><span class="desc-comp-type">[DesktopFilterPopover]</span><span class="desc-comp-name">PC 필터 선택 팝오버</span></div>
+      <div class="desc-body"><ul><li>칩 하단 팝오버 오픈</li><li>검색 + 옵션 + 초기화/적용</li><li>외부 클릭/닫기 시 미적용</li></ul></div>
+    </div>
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row"><div class="desc-num">10</div><span class="desc-comp-type">[MyPostActions]</span><span class="desc-comp-name">내 글 카드 액션 케이스</span></div>
       <div class="desc-body">
         <ul>
-          <li>좌측: "전체 N개" — 필터 적용 결과 수</li>
-          <li>우측: 정렬 드롭다운
-            <ul class="sub">
-              <li>최신순 (기본) — created_at DESC</li>
-              <li>인기순 — 조회수 + 찜 수 기반</li>
-              <li>가까운순 — 위치 권한 허용 시만 활성화</li>
-            </ul>
-          </li>
-          <li>선택 변경 시 목록 즉시 리로드</li>
+          <li>본인 글 카드에는 `내 글` 뱃지 + 더보기 메뉴 표시</li>
+          <li>더보기 메뉴: `수정 / 끌어올리기 / 삭제`</li>
+          <li>단, 받은 제안 이력 1건 이상(상태 무관)이면 `수정/삭제` 비활성 + 정책 안내 노출</li>
+          <li>받은 제안 이력 0건일 때만 `수정` 탭 시 EXCH03 수정 모드(`/exchange/[id]/edit`) 이동</li>
+          <li>모바일/PC 동일 정책 적용</li>
         </ul>
       </div>
     </div>
-
     <hr class="desc-divider">
 
-    <!-- ④ 교환글 그리드 -->
     <div class="desc-item">
-      <div class="desc-num-row">
-        <div class="desc-num">4</div>
-        <span class="desc-comp-type">[Grid]</span>
-        <span class="desc-comp-name">교환글 그리드</span>
-      </div>
+      <div class="desc-num-row"><div class="desc-num">11</div><span class="desc-comp-type">[EditFlow]</span><span class="desc-comp-name">수정 액션 분기</span></div>
       <div class="desc-body">
         <ul>
-          <li>2열 그리드 (모바일) / 4열 (데스크톱)</li>
-          <li>카드: ProductCard 컴포넌트
-            <ul class="sub">
-              <li>이미지 (1:1 비율, object-fit: cover)</li>
-              <li>이미지 우상단 뱃지 (선택):
-                <ul class="sub">
-                  <li>제안 받은 매물 (본인 글): "제안 N건" 파란색 뱃지</li>
-                  <li>끌어올리기된 매물: "UP" 주황색 뱃지</li>
-                </ul>
-              </li>
-              <li>태그: [거래유형] + [카테고리]</li>
-              <li>상품명 (최대 2줄, text-overflow: ellipsis)</li>
-              <li>작품명 · 캐릭터명 (Gray 400)</li>
-              <li>&#9733; 평점 · 거래 N회</li>
-            </ul>
-          </li>
-          <li>교환 완료 매물: 이미지 위 "교환완료" 뱃지 + 전체 반투명(opacity 0.5)</li>
-          <li>무한 스크롤 (Intersection Observer)
-            <ul class="sub">
-              <li>하단 도달 시 다음 페이지 자동 로드</li>
-              <li>로딩 중 스켈레톤 카드 2개 표시</li>
-            </ul>
-          </li>
-          <li>카드 탭 시: 교환 상세(EXCH02) 이동</li>
-          <li>카드 호버: shadow-md + translateY(-2px)</li>
+          <li>`proposal_history_count=0`이면 `수정` 탭 시 EXCH03 수정 모드 이동</li>
+          <li>`proposal_history_count≥1`이면 `수정` 비활성 + 안내 토스트 노출</li>
+          <li>잠금 안내 문구: "받은 제안 이력이 있어 수정할 수 없어요."</li>
         </ul>
       </div>
     </div>
-
     <hr class="desc-divider">
 
-    <!-- ⑤ FAB -->
     <div class="desc-item">
-      <div class="desc-num-row">
-        <div class="desc-num">5</div>
-        <span class="desc-comp-type">[FAB]</span>
-        <span class="desc-comp-name">교환글 등록 버튼</span>
-      </div>
+      <div class="desc-num-row"><div class="desc-num">12</div><span class="desc-comp-type">[BumpConfirm]</span><span class="desc-comp-name">끌어올리기 확인 팝업</span></div>
       <div class="desc-body">
         <ul>
-          <li>우하단 고정 (bottom: 80px, right: 16px)</li>
-          <li>56×56px, border-radius: 50%, Blue 배경</li>
-          <li>아이콘: + (또는 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> 편집 아이콘)</li>
-          <li>탭 시: 교환글 등록(EXCH03) 이동
-            <ul class="sub">
-              <li>비로그인: 로그인 유도 바텀시트</li>
-              <li>미인증: 본인인증 유도 바텀시트</li>
-            </ul>
-          </li>
-          <li>스크롤 다운 시: 축소 or 반투명 (선택)</li>
+          <li>`끌어올리기` 탭 시 확인 팝업 노출 (취소/끌어올리기)</li>
+          <li>확인 시 bump 처리 후 성공 토스트 + 카드 `UP` 뱃지/정렬 갱신</li>
+          <li>무료 횟수/유료 전환 안내를 팝업 본문에 함께 노출 (Phase 1.5 추가 500원/회)</li>
         </ul>
       </div>
     </div>
-
     <hr class="desc-divider">
 
-    <!-- ⑥ 하단 네비게이션 -->
     <div class="desc-item">
-      <div class="desc-num-row">
-        <div class="desc-num">6</div>
-        <span class="desc-comp-type">[BottomNav]</span>
-        <span class="desc-comp-name">하단 네비게이션</span>
-      </div>
+      <div class="desc-num-row"><div class="desc-num">13</div><span class="desc-comp-type">[DeletePolicy]</span><span class="desc-comp-name">삭제 잠금/확인 정책</span></div>
       <div class="desc-body">
         <ul>
-          <li>5개 탭: 홈 | <strong>교환(활성)</strong> | 이벤트 | 채팅 | 마이</li>
-          <li>활성 탭: Blue (#2563EB), 비활성: Gray 400</li>
-          <li>채팅/마이: 비로그인 시 로그인 유도</li>
-          <li>채팅: 안 읽은 메시지 뱃지 (빨간 dot)</li>
+          <li>`proposal_history_count=0`에서만 `삭제` 탭 시 확인 팝업 노출 (취소/삭제)</li>
+          <li>`proposal_history_count≥1`이면 `삭제` 비활성 + 잠금 안내 토스트/문구 노출</li>
+          <li>잠금 안내: "받은 제안 이력이 있어 삭제할 수 없어요. 분쟁 방지를 위해 마감으로 종료해 주세요."</li>
         </ul>
       </div>
     </div>
-
     <hr class="desc-divider">
 
-    <!-- 화면 상태 -->
+    <div class="desc-item">
+      <div class="desc-num-row"><div class="desc-num">14</div><span class="desc-comp-type">[DesktopMyPostActions]</span><span class="desc-comp-name">PC 내 글 액션 팝업</span></div>
+      <div class="desc-body">
+        <ul>
+          <li>PC는 바텀시트 대신 중앙 모달로 `끌어올리기/삭제` 확인</li>
+          <li>단, 삭제 확인 모달은 받은 제안 이력 0건에서만 노출</li>
+          <li>모바일과 동일한 정책/문구/예외 조건 유지</li>
+          <li>키보드 접근성(`Enter` 확인, `Esc` 닫기) 지원</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
     <div style="margin-top:16px;">
-      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">화면 상태</div>
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2F8EC1;">화면 상태</div>
       <div class="desc-body" style="padding-left:0;">
         <ul>
-          <li><strong>기본 상태</strong>: 필터 적용된 교환글 목록 표시</li>
-          <li><strong>로딩 상태</strong>: 스켈레톤 카드 6개 (2×3) 펄스 애니메이션</li>
-          <li><strong>빈 상태</strong>: "조건에 맞는 교환글이 없어요" + 빈 상자 일러스트 + [교환글 등록하기] CTA</li>
-          <li><strong>에러 상태</strong>: "네트워크 오류" + [다시 시도] 버튼</li>
-          <li><strong>비로그인</strong>: 목록 조회 가능, FAB 탭 시 로그인 유도</li>
-          <li><strong>뱃지 표시</strong>: 끌어올리기된 매물은 상단 정렬 + UP 뱃지 / 본인 글의 제안 있음 → 제안 N건 뱃지</li>
+          <li><strong>필터 미적용(초기)</strong>: 선택 칩 없음, 초기화 숨김</li>
+          <li><strong>필터 적용</strong>: 선택 칩/초기화 노출, 조건 기반 결과</li>
+          <li><strong>필터 선택 상태</strong>: 바텀시트 오픈, 옵션 선택/적용</li>
+          <li><strong>PC 기본 상태</strong>: 4열 목록 + 상단 필터/정렬 고정</li>
+          <li><strong>PC 필터 선택 상태</strong>: 칩 하단 팝오버 오픈</li>
+          <li><strong>내 글 상태</strong>: `내 글`/`제안 N건` 표시 + 더보기 메뉴에서 수정/삭제(이력 0건)</li>
+          <li><strong>수정 잠금 상태</strong>: 받은 제안 이력이 있으면 `수정` 비활성 + 안내 문구 노출</li>
+          <li><strong>삭제 잠금 상태</strong>: 받은 제안 이력이 있으면 `삭제` 비활성 + 마감 유도 안내 노출</li>
+          <li><strong>끌어올리기 확인 상태</strong>: 확인 팝업에서 취소/진행 분기</li>
+          <li><strong>삭제 확인 상태</strong>: 받은 제안 이력 0건에서만 삭제 확인 팝업 노출</li>
+          <li><strong>로딩</strong>: 스켈레톤 카드 표시</li>
+          <li><strong>빈 상태</strong>: 결과 없음 + 등록 CTA</li>
+          <li><strong>에러</strong>: 네트워크 오류 + 다시 시도</li>
         </ul>
       </div>
     </div>
 
-    <!-- 연관 화면 -->
     <div style="margin-top:16px;">
-      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">연관 화면</div>
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2F8EC1;">연관 화면</div>
       <div class="desc-body" style="padding-left:0;">
         <table style="width:100%; font-size:11px; border-collapse:collapse;">
           <thead>
-            <tr style="border-bottom:1px solid #eee;">
-              <th style="text-align:left; padding:4px 8px; color:#888;">이동 대상</th>
-              <th style="text-align:left; padding:4px 8px; color:#888;">조건</th>
-              <th style="text-align:left; padding:4px 8px; color:#888;">화면코드</th>
+            <tr style="border-bottom:1px solid #EEF3F8;">
+              <th style="text-align:left; padding:4px 8px; color:#45617E;">이동 대상</th>
+              <th style="text-align:left; padding:4px 8px; color:#45617E;">조건</th>
+              <th style="text-align:left; padding:4px 8px; color:#45617E;">화면코드</th>
             </tr>
           </thead>
           <tbody>
             <tr><td style="padding:4px 8px;">교환 상세</td><td style="padding:4px 8px;">카드 탭</td><td style="padding:4px 8px;">EXCH02</td></tr>
             <tr><td style="padding:4px 8px;">교환글 등록</td><td style="padding:4px 8px;">FAB 탭</td><td style="padding:4px 8px;">EXCH03</td></tr>
-            <tr><td style="padding:4px 8px;">검색</td><td style="padding:4px 8px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> 아이콘 탭</td><td style="padding:4px 8px;">SRCH01</td></tr>
+            <tr><td style="padding:4px 8px;">교환글 수정</td><td style="padding:4px 8px;">내 글 카드 > 수정 (받은 제안 이력 0건)</td><td style="padding:4px 8px;">EXCH03 (수정 모드)</td></tr>
+            <tr><td style="padding:4px 8px;">검색</td><td style="padding:4px 8px;">검색 아이콘 탭</td><td style="padding:4px 8px;">SRCH01</td></tr>
             <tr><td style="padding:4px 8px;">홈</td><td style="padding:4px 8px;">홈 탭 / 뒤로가기</td><td style="padding:4px 8px;">HOME01</td></tr>
             <tr><td style="padding:4px 8px;">로그인</td><td style="padding:4px 8px;">비로그인 + FAB</td><td style="padding:4px 8px;">AUTH01</td></tr>
           </tbody>
         </table>
       </div>
     </div>
+  </div>
+</div>
 
-  </div><!-- /desc-side -->
-</div><!-- /main-layout -->
-
-<!-- REVISION FOOTER -->
 <div class="revision-bar">
   <table>
     <thead><tr><th>날짜</th><th>버전</th><th>내용</th><th>작성자</th></tr></thead>
     <tbody>
       <tr><td>2026-03-06</td><td>0.1</td><td>초안 작성</td><td>AI (Claude)</td></tr>
       <tr><td>2026-03-06</td><td>0.2</td><td>레이아웃 표준화 적용</td><td>AI (Claude)</td></tr>
+      <tr><td>2026-03-10</td><td>0.3</td><td>필터 미적용(초기) 상태 프레임 추가</td><td>-</td></tr>
+      <tr><td>2026-03-10</td><td>0.4</td><td>필터 선택 바텀시트(작품) 프레임 및 설명 추가</td><td>-</td></tr>
+      <tr><td>2026-03-10</td><td>0.5</td><td>교환 목록 PC 프레임(4열/상단 필터/등록 버튼) 추가</td><td>AI (Codex)</td></tr>
+      <tr><td>2026-03-10</td><td>0.6</td><td>PC 필터 팝오버 오픈 상태 프레임 및 설명 추가</td><td>AI (Codex)</td></tr>
+      <tr><td>2026-03-10</td><td>0.7</td><td>내 글 카드 수정 케이스(내 글 뱃지/더보기 메뉴/수정 진입) 추가</td><td>AI (Codex)</td></tr>
+      <tr><td>2026-03-10</td><td>0.8</td><td>받은 제안 이력 기반 수정 잠금 정책(초안) 반영</td><td>AI (Codex)</td></tr>
+      <tr><td>2026-03-10</td><td>0.9</td><td>수정 잠금 기준을 pending에서 제안 이력 전체(상태 무관)로 강화</td><td>AI (Codex)</td></tr>
+      <tr><td>2026-03-11</td><td>1.0</td><td>내 글 액션(수정/끌어올리기/삭제) 후속 플로우 및 확인 팝업(모바일/PC) 프레임 추가</td><td>AI (Codex)</td></tr>
+      <tr><td>2026-03-11</td><td>1.1</td><td>받은 제안 이력 1건 이상 시 삭제 잠금 정책 반영 (삭제 확인은 이력 0건 케이스만 허용)</td><td>AI (Codex)</td></tr>
+      <tr><td>2026-03-11</td><td>1.2</td><td>끌어올리기 유료 정책 고정값 반영: Phase 1.5 추가 끌어올리기 500원/회</td><td>AI (Codex)</td></tr>
     </tbody>
   </table>
 </div>

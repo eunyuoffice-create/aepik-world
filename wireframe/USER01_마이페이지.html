@@ -6,17 +6,17 @@
 <title>USER01 — 마이페이지 와이어프레임</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F7FAFD; color: #163958; }
 
 /* ===== META HEADER ===== */
 .meta-bar {
-  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  background: #fff; border-bottom: 2px solid #2F8EC1; padding: 12px 24px;
   display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
 }
 .meta-item { font-size: 11px; }
-.meta-label { color: #999; }
-.meta-value { font-weight: 600; color: #333; margin-left: 4px; }
-.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+.meta-label { color: #8EA2B7; }
+.meta-value { font-weight: 600; color: #163958; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2F8EC1; margin-right: auto; }
 
 /* ===== MAIN LAYOUT ===== */
 .main-layout { overflow-x: hidden;
@@ -39,38 +39,38 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   overflow: hidden; }
 
 .frame-label {
-  font-size: 13px; font-weight: 600; color: #2563EB;
+  font-size: 13px; font-weight: 600; color: #2F8EC1;
   margin-bottom: 12px; text-align: center;
 }
 
 /* ===== DESCRIPTION SIDE ===== */
 .desc-side {
   flex: 1 1 45%; min-width: 0; background: #fff; padding: 24px 28px;
-  overflow-y: auto; border-left: 1px solid #ddd;
+  overflow-y: auto; border-left: 1px solid #DEE8F2;
 }
 .desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-.desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+.desc-subtitle { font-size: 12px; color: #45617E; margin-bottom: 20px; }
 
 .desc-item { margin-bottom: 20px; }
 .desc-num-row {
   display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
 }
 .desc-num {
-  background: #2563EB; color: #fff; width: 22px; height: 22px;
+  background: #2F8EC1; color: #fff; width: 22px; height: 22px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 11px; font-weight: 700; flex-shrink: 0;
 }
-.desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-type { font-size: 10px; color: #8EA2B7; background: #F7FAFD; padding: 2px 6px; border-radius: 3px; }
 .desc-comp-name { font-size: 14px; font-weight: 600; }
 
-.desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
+.desc-body { padding-left: 30px; font-size: 12px; color: #45617E; line-height: 1.7; }
 .desc-body ul { list-style: none; }
 .desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
-.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
-.desc-body .sub { padding-left: 14px; color: #888; }
-.desc-body .sub li::before { content: '└'; color: #ccc; }
+.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2F8EC1; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #45617E; }
+.desc-body .sub li::before { content: '└'; color: #8EA2B7; }
 
-.desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
+.desc-divider { border: none; border-top: 1px dashed #EEF3F8; margin: 16px 0; }
 
 /* ===== WIREFRAME ELEMENTS ===== */
 .wf-section { position: relative; }
@@ -78,7 +78,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* Number circle overlay */
 .num-circle {
   position: absolute; z-index: 10;
-  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  background: #2F8EC1; color: #fff; width: 20px; height: 20px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
@@ -86,39 +86,39 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* Header */
 .wf-header {
   display: flex; align-items: center; padding: 12px 16px;
-  border-bottom: 1px solid #eee; position: relative;
+  border-bottom: 1px solid #EEF3F8; position: relative;
 }
-.wf-page-title { font-weight: 700; font-size: 16px; color: #1A1A1A; }
+.wf-page-title { font-weight: 700; font-size: 16px; color: #163958; }
 .wf-header-icons { margin-left: auto; display: flex; gap: 12px; }
-.wf-icon { width: 24px; height: 24px; background: #f0f0f0; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #888; }
-.wf-back-arrow { width: auto; background: none; font-size: 16px; color: #1A1A1A; }
+.wf-icon { width: 24px; height: 24px; background: #EEF3F8; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #45617E; }
+.wf-back-arrow { width: auto; background: none; font-size: 16px; color: #163958; }
 
 /* Profile Card */
 .wf-profile-card {
-  padding: 20px 16px; text-align: center; border-bottom: 1px solid #f0f0f0;
+  padding: 20px 16px; text-align: center; border-bottom: 1px solid #EEF3F8;
 }
 .wf-profile-avatar {
   width: 72px; height: 72px; border-radius: 50%;
-  background: #E5E5E5; margin: 0 auto 12px; display: flex;
-  align-items: center; justify-content: center; font-size: 11px; color: #bbb;
+  background: #DEE8F2; margin: 0 auto 12px; display: flex;
+  align-items: center; justify-content: center; font-size: 11px; color: #8EA2B7;
 }
 .wf-profile-nickname-row {
   display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 4px;
 }
-.wf-profile-nickname { font-size: 18px; font-weight: 700; color: #1A1A1A; }
+.wf-profile-nickname { font-size: 18px; font-weight: 700; color: #163958; }
 .wf-check-badge {
-  width: 16px; height: 16px; background: #2563EB; border-radius: 50%;
+  width: 16px; height: 16px; background: #2F8EC1; border-radius: 50%;
   display: flex; align-items: center; justify-content: center; color: #fff; font-size: 10px;
   flex-shrink: 0;
 }
-.wf-profile-stats { font-size: 12px; color: #888; margin-bottom: 8px; }
-.wf-profile-bias { font-size: 12px; color: #555; margin-bottom: 12px; }
+.wf-profile-stats { font-size: 12px; color: #45617E; margin-bottom: 8px; }
+.wf-profile-bias { font-size: 12px; color: #45617E; margin-bottom: 12px; }
 .wf-btn-secondary {
   display: inline-block; padding: 8px 16px; font-size: 12px; font-weight: 500;
-  border: 1px solid #ddd; border-radius: 6px; background: #fff; color: #1A1A1A;
+  border: 1px solid #DEE8F2; border-radius: 6px; background: #fff; color: #163958;
   cursor: pointer;
 }
-.wf-btn-secondary:hover { background: #F5F5F5; }
+.wf-btn-secondary:hover { background: #F7FAFD; }
 
 /* Quick Count */
 .wf-quick-count {
@@ -126,55 +126,55 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   padding: 16px; gap: 10px;
 }
 .wf-count-item {
-  padding: 12px; background: #F9F9F9; border: 1px solid #eee;
+  padding: 12px; background: #F9F9F9; border: 1px solid #EEF3F8;
   border-radius: 8px; text-align: center;
 }
-.wf-count-value { font-size: 20px; font-weight: 700; color: #2563EB; }
-.wf-count-label { font-size: 11px; color: #888; margin-top: 4px; }
+.wf-count-value { font-size: 20px; font-weight: 700; color: #2F8EC1; }
+.wf-count-label { font-size: 11px; color: #45617E; margin-top: 4px; }
 
 /* Menu List */
 .wf-menu-list { padding: 0; }
-.wf-menu-group { border-bottom: 1px solid #f0f0f0; }
+.wf-menu-group { border-bottom: 1px solid #EEF3F8; }
 .wf-menu-group-title {
-  padding: 12px 16px 8px; font-size: 11px; font-weight: 600; color: #999; text-transform: uppercase;
+  padding: 12px 16px 8px; font-size: 11px; font-weight: 600; color: #8EA2B7; text-transform: uppercase;
 }
 .wf-menu-item {
-  display: flex; align-items: center; padding: 14px 16px; border-bottom: 1px solid #fafafa;
+  display: flex; align-items: center; padding: 14px 16px; border-bottom: 1px solid #F7FAFD;
   position: relative;
 }
-.wf-menu-icon { width: 20px; height: 20px; background: #f0f0f0; border-radius: 4px; margin-right: 12px; }
-.wf-menu-label { flex: 1; font-size: 14px; color: #1A1A1A; }
+.wf-menu-icon { width: 20px; height: 20px; background: #EEF3F8; border-radius: 4px; margin-right: 12px; }
+.wf-menu-label { flex: 1; font-size: 14px; color: #163958; }
 .wf-menu-badge {
-  background: #2563EB; color: #fff; font-size: 9px; font-weight: 600;
+  background: #2F8EC1; color: #fff; font-size: 9px; font-weight: 600;
   padding: 2px 6px; border-radius: 10px; margin-right: 8px;
 }
-.wf-menu-arrow { color: #ccc; font-size: 14px; }
+.wf-menu-arrow { color: #8EA2B7; font-size: 14px; }
 
 /* Logout Button */
 .wf-logout-btn {
   padding: 16px; text-align: center;
-  border-top: 1px solid #f0f0f0;
+  border-top: 1px solid #EEF3F8;
 }
 .wf-btn-ghost {
-  font-size: 14px; color: #999; background: none; border: none;
+  font-size: 14px; color: #8EA2B7; background: none; border: none;
   cursor: pointer; text-decoration: none;
 }
 
 /* Tabs */
 .wf-tabs {
-  display: flex; border-bottom: 1px solid #eee; padding: 0;
+  display: flex; border-bottom: 1px solid #EEF3F8; padding: 0;
   position: relative;
 }
 .wf-tab {
   flex: 1; padding: 12px 0; text-align: center; font-size: 13px;
-  font-weight: 500; color: #999; position: relative; background: #fff;
+  font-weight: 500; color: #8EA2B7; position: relative; background: #fff;
 }
 .wf-tab.active {
-  color: #2563EB; font-weight: 600;
+  color: #2F8EC1; font-weight: 600;
 }
 .wf-tab.active::after {
   content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
-  height: 2px; background: #2563EB;
+  height: 2px; background: #2F8EC1;
 }
 
 /* Grid Layout */
@@ -183,12 +183,12 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   padding: 8px 16px;
 }
 .wf-product-card {
-  background: #fff; border: 1px solid #eee; border-radius: 8px; overflow: hidden;
+  background: #fff; border: 1px solid #EEF3F8; border-radius: 8px; overflow: hidden;
 }
 .wf-product-img {
-  width: 100%; aspect-ratio: 1; background: #E5E5E5;
+  width: 100%; aspect-ratio: 1; background: #DEE8F2;
   display: flex; align-items: center; justify-content: center;
-  font-size: 11px; color: #bbb;
+  font-size: 11px; color: #8EA2B7;
 }
 .wf-product-body { padding: 8px; }
 .wf-product-tags { display: flex; gap: 4px; margin-bottom: 4px; }
@@ -198,21 +198,21 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 .wf-tag.actor { background: #FFFBEB; color: #F59E0B; }
 .wf-tag.game { background: #ECFEFF; color: #0891B2; }
 .wf-product-name { font-size: 11px; font-weight: 500; line-height: 1.3; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.wf-product-meta { font-size: 10px; color: #999; }
+.wf-product-meta { font-size: 10px; color: #8EA2B7; }
 
 /* Form Elements */
-.wf-form-group { padding: 16px; border-bottom: 1px solid #f0f0f0; }
-.wf-form-label { font-size: 13px; font-weight: 600; color: #1A1A1A; margin-bottom: 8px; display: block; }
+.wf-form-group { padding: 16px; border-bottom: 1px solid #EEF3F8; }
+.wf-form-label { font-size: 13px; font-weight: 600; color: #163958; margin-bottom: 8px; display: block; }
 .wf-input {
   width: 100%; padding: 10px 12px; font-size: 14px;
-  border: 1px solid #ddd; border-radius: 6px; background: #fff;
+  border: 1px solid #DEE8F2; border-radius: 6px; background: #fff;
   position: relative;
 }
 .wf-input-wrapper { position: relative; }
-.wf-counter { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 12px; color: #999; }
+.wf-counter { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 12px; color: #8EA2B7; }
 .wf-validation { font-size: 11px; margin-top: 6px; }
 .wf-validation.success { color: #16A34A; }
-.wf-validation.error { color: #DC2626; }
+.wf-validation.error { color: #EA5D86; }
 
 /* Category Tags */
 .wf-category-tags {
@@ -230,7 +230,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* Reviews */
 .wf-reviews-section { padding: 0; }
 .wf-review-item {
-  padding: 12px 16px; border-bottom: 1px solid #f0f0f0;
+  padding: 12px 16px; border-bottom: 1px solid #EEF3F8;
   display: flex; gap: 12px;
 }
 .wf-review-icon {
@@ -238,25 +238,25 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0; font-size: 14px;
 }
-.wf-review-icon.positive { background: #EFF6FF; color: #2563EB; }
-.wf-review-icon.negative { background: #FEE2E2; color: #DC2626; }
+.wf-review-icon.positive { background: #EAF7FF; color: #2F8EC1; }
+.wf-review-icon.negative { background: #FEE2E2; color: #EA5D86; }
 .wf-review-body { flex: 1; }
-.wf-review-text { font-size: 12px; color: #555; margin-bottom: 4px; }
-.wf-review-date { font-size: 10px; color: #999; }
+.wf-review-text { font-size: 12px; color: #45617E; margin-bottom: 4px; }
+.wf-review-date { font-size: 10px; color: #8EA2B7; }
 
 /* Revision footer */
 .revision-bar {
-  background: #fff; border-top: 1px solid #eee; padding: 12px 24px;
-  font-size: 11px; color: #999;
+  background: #fff; border-top: 1px solid #EEF3F8; padding: 12px 24px;
+  font-size: 11px; color: #8EA2B7;
 }
 .revision-bar table { width: 100%; border-collapse: collapse; }
-.revision-bar th { text-align: left; font-weight: 600; color: #666; padding: 4px 8px; border-bottom: 1px solid #eee; }
+.revision-bar th { text-align: left; font-weight: 600; color: #45617E; padding: 4px 8px; border-bottom: 1px solid #EEF3F8; }
 .revision-bar td { padding: 4px 8px; }
 
 @media (max-width: 900px) {
   .main-layout { flex-direction: column; }
   .wireframe-side { flex: none; padding: 16px; }
-  .desc-side { flex: none; border-left: none; border-top: 1px solid #ddd; }
+  .desc-side { flex: none; border-left: none; border-top: 1px solid #DEE8F2; }
 }
 /* Responsive improvements for laptop/small screens */
 .meta-bar { flex-wrap: wrap; gap: 8px; }
@@ -275,13 +275,13 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 }
 /* Bottom Nav */
 .wf-bottom-nav {
-  display: flex; border-top: 1px solid #eee; background: #fff;
+  display: flex; border-top: 1px solid #EEF3F8; background: #fff;
   padding: 8px 0 12px; position: relative;
 }
 .wf-nav-item {
-  flex: 1; text-align: center; font-size: 10px; color: #aaa;
+  flex: 1; text-align: center; font-size: 10px; color: #8EA2B7;
 }
-.wf-nav-item.active { color: #2563EB; }
+.wf-nav-item.active { color: #2F8EC1; }
 .wf-nav-icon { font-size: 16px; margin-bottom: 2px; }
 
 </style>
@@ -294,7 +294,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">마이페이지</span></span>
   <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/my, /my/edit, /user/[userId]</span></span>
   <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
-  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.1</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.2</span></span>
   <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
   <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-06</span></span>
 </div>
@@ -317,7 +317,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <div class="wf-header">
             <span class="wf-page-title">마이페이지</span>
             <div class="wf-header-icons">
-              <div class="wf-icon" style="background:#EFF6FF; color:#2563EB;">
+              <div class="wf-icon" style="background:#EAF7FF; color:#2F8EC1;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px; height:14px;">
                   <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
                 </svg>
@@ -359,7 +359,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             </div>
             <div class="wf-count-item">
               <div class="wf-count-value">3</div>
-              <div class="wf-count-label">내 구함글</div>
+              <div class="wf-count-label">내 동행글</div>
             </div>
           </div>
         </div>
@@ -425,7 +425,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <div class="wf-menu-item">
               <div class="wf-menu-icon"></div>
               <span class="wf-menu-label">앱 버전</span>
-              <span style="color: #999; font-size: 12px; margin-left: auto;">1.0.0</span>
+              <span style="color: #8EA2B7; font-size: 12px; margin-left: auto;">1.0.0</span>
             </div>
           </div>
         </div>
@@ -477,7 +477,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <div class="wf-header">
             <span class="wf-back-arrow">‹</span>
             <span style="flex:1; text-align:center; font-weight:700; font-size:16px;">프로필 편집</span>
-            <span style="color:#2563EB; font-size:14px; font-weight:600;">저장</span>
+            <span style="color:#2F8EC1; font-size:14px; font-weight:600;">저장</span>
           </div>
         </div>
 
@@ -485,9 +485,9 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <div class="wf-section">
           <div class="num-circle" style="top:8px; left:6px;">7</div>
           <div style="padding:20px 16px; text-align:center;">
-            <div style="width:100px; height:100px; border-radius:50%; background:#E5E5E5; margin:0 auto 12px; display:flex; align-items:center; justify-content:center; position:relative;">
-              <span style="font-size:11px; color:#bbb;">100px</span>
-              <div style="position:absolute; bottom:0; right:0; width:28px; height:28px; background:#2563EB; border-radius:50%; border:2px solid white; display:flex; align-items:center; justify-content:center; color:white; font-size:14px;">
+            <div style="width:100px; height:100px; border-radius:50%; background:#DEE8F2; margin:0 auto 12px; display:flex; align-items:center; justify-content:center; position:relative;">
+              <span style="font-size:11px; color:#8EA2B7;">100px</span>
+              <div style="position:absolute; bottom:0; right:0; width:28px; height:28px; background:#2F8EC1; border-radius:50%; border:2px solid white; display:flex; align-items:center; justify-content:center; color:white; font-size:14px;">
                 <svg viewBox="0 0 24 24" fill="currentColor" style="width:14px; height:14px;">
                   <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>
                 </svg>
@@ -516,7 +516,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <label class="wf-form-label">최애 표시 (프로필에 공개)</label>
             <div class="wf-input-wrapper">
               <input class="wf-input" type="text" placeholder="예: 영지 (블루아카이브)" value="히나타 쇼요">
-              <span style="position:absolute; right:12px; top:50%; transform:translateY(-50%); cursor:pointer; color:#999; font-size:14px;">×</span>
+              <span style="position:absolute; right:12px; top:50%; transform:translateY(-50%); cursor:pointer; color:#8EA2B7; font-size:14px;">×</span>
             </div>
           </div>
         </div>
@@ -532,7 +532,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
               <div class="wf-category-tag amber">배우/무대</div>
               <div class="wf-category-tag cyan">게임</div>
             </div>
-            <button style="margin-top:12px; font-size:12px; color:#2563EB; background:none; border:none; cursor:pointer; font-weight:500;">변경</button>
+            <button style="margin-top:12px; font-size:12px; color:#2F8EC1; background:none; border:none; cursor:pointer; font-weight:500;">변경</button>
           </div>
         </div>
 
@@ -548,7 +548,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <div class="wf-header">
             <span class="wf-back-arrow">‹</span>
             <span style="flex:1; text-align:center; font-weight:700; font-size:16px;">사용자닉네임</span>
-            <div class="wf-icon" style="background:#f0f0f0;">⋯</div>
+            <div class="wf-icon" style="background:#EEF3F8;">⋯</div>
           </div>
         </div>
 
@@ -567,7 +567,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             </div>
             <div class="wf-profile-bias">최애: 캐릭터명</div>
             <div class="wf-profile-stats">교환 8회 · 긍정 88% · 가입일 2025.08</div>
-            <div style="font-size:12px; color:#888; margin-top:8px;">2025년 08월 가입</div>
+            <div style="font-size:12px; color:#45617E; margin-top:8px;">2025년 08월 가입</div>
           </div>
         </div>
 
@@ -577,7 +577,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <div class="wf-tabs">
             <div class="wf-tab active">교환글 5</div>
             <div class="wf-tab">공구 2</div>
-            <div class="wf-tab">구함글 1</div>
+            <div class="wf-tab">동행글 1</div>
           </div>
         </div>
 
@@ -631,7 +631,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <!-- C-5: Reviews -->
         <div class="wf-section">
           <div class="num-circle" style="top:8px; left:6px;">14</div>
-          <div style="padding:12px 16px; font-size:13px; font-weight:600; color:#1A1A1A;">받은 후기</div>
+          <div style="padding:12px 16px; font-size:13px; font-weight:600; color:#163958;">받은 후기</div>
           <div class="wf-reviews-section">
             <div class="wf-review-item">
               <div class="wf-review-icon positive">+</div>
@@ -706,7 +706,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       <div class="desc-body">
         <ul>
           <li>가로 3등분 카드 (탭 가능)</li>
-          <li>항목: "내 교환글 N" / "내 공구 N" / "내 구함글 N"</li>
+          <li>항목: "내 교환글 N" / "내 공구 N" / "내 동행글 N"</li>
           <li>카드 탭 시: USER02 해당 탭으로 이동</li>
         </ul>
       </div>
@@ -892,10 +892,10 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       </div>
       <div class="desc-body">
         <ul>
-          <li>탭 바: "교환글 N" / "공구 N" / "구함글 N"</li>
+          <li>탭 바: "교환글 N" / "공구 N" / "동행글 N"</li>
           <li>각 탭 내 2열 그리드 카드 (ProductCard)</li>
           <li>활성 매물만 표시 (완료/삭제 제외)</li>
-          <li>빈 상태: "등록된 [교환글/공구/구함글]이 없습니다"</li>
+          <li>빈 상태: "등록된 [교환글/공구/동행글]이 없습니다"</li>
           <li>카드 탭 시: 해당 상세 화면 (EXCH02/GRPB02/WANT01) 이동</li>
         </ul>
       </div>
@@ -923,7 +923,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
     <!-- States -->
     <div style="margin-top:16px;">
-      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">화면 상태</div>
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2F8EC1;">화면 상태</div>
       <div class="desc-body" style="padding-left:0;">
         <ul>
           <li><strong>로딩 중</strong>: 프로필 카드 + 메뉴 스켈레톤 UI (회색 박스 펄스 애니메이션)</li>
@@ -938,14 +938,14 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
     <!-- Connected screens -->
     <div style="margin-top:16px;">
-      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">연관 화면</div>
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2F8EC1;">연관 화면</div>
       <div class="desc-body" style="padding-left:0;">
         <table style="width:100%; font-size:11px; border-collapse:collapse;">
           <thead>
-            <tr style="border-bottom:1px solid #eee;">
-              <th style="text-align:left; padding:4px 8px; color:#888;">이동 대상</th>
-              <th style="text-align:left; padding:4px 8px; color:#888;">조건</th>
-              <th style="text-align:left; padding:4px 8px; color:#888;">화면코드</th>
+            <tr style="border-bottom:1px solid #EEF3F8;">
+              <th style="text-align:left; padding:4px 8px; color:#45617E;">이동 대상</th>
+              <th style="text-align:left; padding:4px 8px; color:#45617E;">조건</th>
+              <th style="text-align:left; padding:4px 8px; color:#45617E;">화면코드</th>
             </tr>
           </thead>
           <tbody>
@@ -975,6 +975,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
     </thead>
     <tbody>
       <tr><td>2026-03-06</td><td>0.1</td><td>초안 작성 — 마이페이지 메인(A) + 프로필 편집(B) + 타인 프로필(C) 3개 프레임</td><td>AI (Claude)</td></tr>
+      <tr><td>2026-03-10</td><td>0.2</td><td>화면 상태 문구 정합화 (비로그인 조건 문구 수정)</td><td>-</td></tr>
     </tbody>
   </table>
 </div>

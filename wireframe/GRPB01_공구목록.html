@@ -6,17 +6,17 @@
 <title>GRPB01 — 공구 목록 와이어프레임</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F7FAFD; color: #163958; }
 
 /* ===== META HEADER ===== */
 .meta-bar {
-  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  background: #fff; border-bottom: 2px solid #2F8EC1; padding: 12px 24px;
   display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
 }
 .meta-item { font-size: 11px; }
-.meta-label { color: #999; }
-.meta-value { font-weight: 600; color: #333; margin-left: 4px; }
-.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+.meta-label { color: #8EA2B7; }
+.meta-value { font-weight: 600; color: #163958; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2F8EC1; margin-right: auto; }
 
 /* ===== MAIN LAYOUT ===== */
 .main-layout { overflow-x: hidden;
@@ -36,31 +36,31 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* ===== DESCRIPTION SIDE ===== */
 .desc-side {
   flex: 1 1 45%; min-width: 0; background: #fff; padding: 24px 28px;
-  overflow-y: auto; border-left: 1px solid #ddd;
+  overflow-y: auto; border-left: 1px solid #DEE8F2;
 }
 .desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-.desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+.desc-subtitle { font-size: 12px; color: #45617E; margin-bottom: 20px; }
 
 .desc-item { margin-bottom: 20px; }
 .desc-num-row {
   display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
 }
 .desc-num {
-  background: #2563EB; color: #fff; width: 22px; height: 22px;
+  background: #2F8EC1; color: #fff; width: 22px; height: 22px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 11px; font-weight: 700; flex-shrink: 0;
 }
-.desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-type { font-size: 10px; color: #8EA2B7; background: #F7FAFD; padding: 2px 6px; border-radius: 3px; }
 .desc-comp-name { font-size: 14px; font-weight: 600; }
 
-.desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
+.desc-body { padding-left: 30px; font-size: 12px; color: #45617E; line-height: 1.7; }
 .desc-body ul { list-style: none; }
 .desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
-.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
-.desc-body .sub { padding-left: 14px; color: #888; }
-.desc-body .sub li::before { content: '└'; color: #ccc; }
+.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2F8EC1; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #45617E; }
+.desc-body .sub li::before { content: '└'; color: #8EA2B7; }
 
-.desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
+.desc-divider { border: none; border-top: 1px dashed #EEF3F8; margin: 16px 0; }
 
 /* ===== WIREFRAME ELEMENTS ===== */
 .wf-section { position: relative; }
@@ -68,7 +68,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* Number circle overlay */
 .num-circle {
   position: absolute; z-index: 10;
-  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  background: #2F8EC1; color: #fff; width: 20px; height: 20px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
@@ -76,54 +76,54 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* Header */
 .wf-header {
   display: flex; align-items: center; padding: 12px 16px;
-  border-bottom: 1px solid #eee; position: relative;
+  border-bottom: 1px solid #EEF3F8; position: relative;
 }
-.wf-page-title { font-weight: 700; font-size: 16px; color: #1A1A1A; }
+.wf-page-title { font-weight: 700; font-size: 16px; color: #163958; }
 .wf-header-icons { margin-left: auto; display: flex; gap: 12px; }
-.wf-icon { width: 20px; height: 20px; background: #ddd; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #888; }
+.wf-icon { width: 20px; height: 20px; background: #DEE8F2; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #45617E; }
 
 /* Category filter bar */
 .wf-category-bar {
   display: flex; gap: 8px; padding: 10px 16px; overflow-x: auto;
-  border-bottom: 1px solid #f0f0f0; position: relative;
+  border-bottom: 1px solid #EEF3F8; position: relative;
 }
 .wf-cat-chip {
   flex-shrink: 0; padding: 6px 12px; border-radius: 16px;
-  font-size: 11px; background: #F5F5F5; color: #555; border: 1px solid #E5E5E5;
+  font-size: 11px; background: #F7FAFD; color: #45617E; border: 1px solid #DEE8F2;
   white-space: nowrap;
 }
-.wf-cat-chip.selected { background: #2563EB; color: #fff; border-color: #2563EB; }
+.wf-cat-chip.selected { background: #2F8EC1; color: #fff; border-color: #2F8EC1; }
 
 /* Tab bar */
 .wf-tab-bar {
-  display: flex; gap: 0; padding: 0 16px; border-bottom: 1px solid #E5E5E5;
+  display: flex; gap: 0; padding: 0 16px; border-bottom: 1px solid #DEE8F2;
   position: relative;
 }
 .wf-tab {
   flex: 1; padding: 10px 0; text-align: center; font-size: 11px;
-  color: #999; border-bottom: 2px solid transparent; cursor: pointer;
+  color: #8EA2B7; border-bottom: 2px solid transparent; cursor: pointer;
 }
-.wf-tab.active { color: #2563EB; border-bottom-color: #2563EB; font-weight: 600; }
+.wf-tab.active { color: #2F8EC1; border-bottom-color: #2F8EC1; font-weight: 600; }
 
 /* Filter chips */
 .wf-filter-bar {
   display: flex; gap: 6px; padding: 10px 16px; overflow-x: auto;
-  border-bottom: 1px solid #f0f0f0; position: relative;
+  border-bottom: 1px solid #EEF3F8; position: relative;
 }
 .wf-chip {
   flex-shrink: 0; padding: 5px 10px; border-radius: 16px;
-  font-size: 11px; background: #F5F5F5; color: #555; border: 1px solid #E5E5E5;
+  font-size: 11px; background: #F7FAFD; color: #45617E; border: 1px solid #DEE8F2;
   white-space: nowrap;
 }
-.wf-chip.selected { background: #2563EB; color: #fff; border-color: #2563EB; }
+.wf-chip.selected { background: #2F8EC1; color: #fff; border-color: #2F8EC1; }
 
 /* Sort bar */
 .wf-sort-bar {
   display: flex; align-items: center; padding: 8px 16px;
-  font-size: 11px; color: #999; position: relative;
+  font-size: 11px; color: #8EA2B7; position: relative;
 }
-.wf-sort-count { color: #333; font-weight: 600; }
-.wf-sort-option { margin-left: auto; color: #555; font-weight: 500; }
+.wf-sort-count { color: #163958; font-weight: 600; }
+.wf-sort-option { margin-left: auto; color: #45617E; font-weight: 500; }
 
 /* Product list (1-column) */
 .wf-list {
@@ -131,7 +131,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   padding: 8px 16px;
 }
 .wf-groupbuy-card {
-  background: #fff; border: 1px solid #eee; border-radius: 8px; overflow: hidden;
+  background: #fff; border: 1px solid #EEF3F8; border-radius: 8px; overflow: hidden;
   display: flex; flex-direction: column;
 }
 .wf-groupbuy-card.closed { opacity: 0.6; }
@@ -142,65 +142,65 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 .wf-badge.pending-decision { background: #FCD34D; color: #78350F; }
 .wf-badge.confirmed { background: #86EFAC; color: #15803D; }
 .wf-badge.cancelled { background: #FCA5A5; color: #7F1D1D; }
-.wf-badge.shipping { background: #BFDBFE; color: #1E40AF; }
+.wf-badge.shipping { background: #D9EAF7; color: #1E40AF; }
 .wf-groupbuy-img {
-  width: 100%; aspect-ratio: 16/9; background: #E5E5E5;
+  width: 100%; aspect-ratio: 16/9; background: #DEE8F2;
   display: flex; align-items: center; justify-content: center;
-  font-size: 11px; color: #bbb;
+  font-size: 11px; color: #8EA2B7;
 }
 .wf-groupbuy-body { padding: 10px; }
 .wf-groupbuy-tags { display: flex; gap: 4px; margin-bottom: 6px; }
 .wf-tag { font-size: 9px; padding: 2px 6px; border-radius: 3px; font-weight: 500; }
-.wf-tag.groupbuy { background: #EFF6FF; color: #2563EB; }
-.wf-tag.setgroupbuy { background: #FAF5FF; color: #7C3AED; }
+.wf-tag.groupbuy { background: #E8F4FC; color: #1E6FA8; }
+.wf-tag.setgroupbuy { background: #FDECF4; color: #BD4E88; }
 .wf-tag.anime { background: #F5F3FF; color: #7C3AED; }
 .wf-tag.idol { background: #FDF2F8; color: #DB2777; }
-.wf-tag.actor { background: #FFFBEB; color: #D97706; }
+.wf-tag.actor { background: #FFFBEB; color: #F3A34B; }
 .wf-tag.game { background: #ECFEFF; color: #0891B2; }
 .wf-groupbuy-name { font-size: 12px; font-weight: 600; line-height: 1.3; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.wf-groupbuy-organizer { font-size: 10px; color: #666; margin-bottom: 6px; }
+.wf-groupbuy-organizer { font-size: 10px; color: #45617E; margin-bottom: 6px; }
 .wf-progress-bar {
-  width: 100%; height: 6px; background: #F0F0F0; border-radius: 3px;
+  width: 100%; height: 6px; background: #EEF3F8; border-radius: 3px;
   overflow: hidden; margin-bottom: 4px;
 }
 .wf-progress-fill { height: 100%; border-radius: 3px; }
-.wf-progress-fill.blue { background: #3B82F6; }
+.wf-progress-fill.blue { background: #69BFEA; }
 .wf-progress-fill.green { background: #16A34A; }
-.wf-groupbuy-meta { font-size: 10px; color: #666; display: flex; justify-content: space-between; }
+.wf-groupbuy-meta { font-size: 10px; color: #45617E; display: flex; justify-content: space-between; }
 
 /* FAB */
 .wf-fab {
   position: absolute; bottom: 72px; right: 16px;
-  width: 48px; height: 48px; background: #2563EB; border-radius: 50%;
+  width: 48px; height: 48px; background: #2F8EC1; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   color: #fff; font-size: 22px; font-weight: 300;
-  box-shadow: 0 3px 10px rgba(37,99,235,0.3); z-index: 5;
+  box-shadow: 0 3px 10px rgba(47,142,193,0.3); z-index: 5;
 }
 
 /* Bottom nav */
 .wf-bottom-nav {
-  display: flex; border-top: 1px solid #eee; background: #fff;
+  display: flex; border-top: 1px solid #EEF3F8; background: #fff;
   padding: 8px 0 12px; position: relative;
 }
 .wf-nav-item {
-  flex: 1; text-align: center; font-size: 10px; color: #aaa;
+  flex: 1; text-align: center; font-size: 10px; color: #8EA2B7;
 }
-.wf-nav-item.active { color: #2563EB; }
+.wf-nav-item.active { color: #2F8EC1; }
 .wf-nav-icon { font-size: 16px; margin-bottom: 2px; }
 
 /* Revision footer */
 .revision-bar {
-  background: #fff; border-top: 1px solid #eee; padding: 12px 24px;
-  font-size: 11px; color: #999;
+  background: #fff; border-top: 1px solid #EEF3F8; padding: 12px 24px;
+  font-size: 11px; color: #8EA2B7;
 }
 .revision-bar table { width: 100%; border-collapse: collapse; }
-.revision-bar th { text-align: left; font-weight: 600; color: #666; padding: 4px 8px; border-bottom: 1px solid #eee; }
+.revision-bar th { text-align: left; font-weight: 600; color: #45617E; padding: 4px 8px; border-bottom: 1px solid #EEF3F8; }
 .revision-bar td { padding: 4px 8px; }
 
 @media (max-width: 900px) {
   .main-layout { flex-direction: column; }
   .wireframe-side { flex: none; padding: 16px; }
-  .desc-side { flex: none; border-left: none; border-top: 1px solid #ddd; }
+  .desc-side { flex: none; border-left: none; border-top: 1px solid #DEE8F2; }
 }
 /* Responsive improvements for laptop/small screens */
 .meta-bar { flex-wrap: wrap; gap: 8px; }
@@ -559,6 +559,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
               <li>무산: Red 뱃지 + 취소선 + opacity 0.6</li>
             </ul>
           </li>
+          <li>내 공구 문맥: 참여/입금 이력으로 잠금된 글은 "핵심 수정 잠금" 보조 라벨 표시</li>
           <li>무한 스크롤 (Intersection Observer) — 하단 도달 시 다음 페이지 로드</li>
           <li>로딩 중: 스켈레톤 카드 표시 (회색 박스 펄스 애니메이션)</li>
           <li>카드 탭 시: 공구 상세(GRPB02) 이동</li>
@@ -603,7 +604,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       <div class="desc-body">
         <ul>
           <li>5개 탭: 홈 | 공구(활성) | 이벤트 | 채팅 | 마이</li>
-          <li>활성 탭: Blue (#2563EB), 비활성: Gray 400</li>
+          <li>활성 탭: Blue (#2F8EC1), 비활성: Gray 400</li>
           <li>공구: 별도 탭으로 홈과 분리됨</li>
           <li>채팅/마이: 비로그인 시 로그인 유도</li>
           <li>채팅: 안 읽은 메시지 뱃지 표시 (빨간 dot)</li>
@@ -616,7 +617,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
     <!-- States -->
     <div style="margin-top:16px;">
-      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">화면 상태</div>
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2F8EC1;">화면 상태</div>
       <div class="desc-body" style="padding-left:0;">
         <ul>
           <li><strong>기본 상태</strong>: 필터 적용된 공구 목록 표시</li>
@@ -630,14 +631,14 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
     <!-- Connected screens -->
     <div style="margin-top:16px;">
-      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">연관 화면</div>
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2F8EC1;">연관 화면</div>
       <div class="desc-body" style="padding-left:0;">
         <table style="width:100%; font-size:11px; border-collapse:collapse;">
           <thead>
-            <tr style="border-bottom:1px solid #eee;">
-              <th style="text-align:left; padding:4px 8px; color:#888;">이동 대상</th>
-              <th style="text-align:left; padding:4px 8px; color:#888;">조건</th>
-              <th style="text-align:left; padding:4px 8px; color:#888;">화면코드</th>
+            <tr style="border-bottom:1px solid #EEF3F8;">
+              <th style="text-align:left; padding:4px 8px; color:#45617E;">이동 대상</th>
+              <th style="text-align:left; padding:4px 8px; color:#45617E;">조건</th>
+              <th style="text-align:left; padding:4px 8px; color:#45617E;">화면코드</th>
             </tr>
           </thead>
           <tbody>
@@ -664,6 +665,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
     <tbody>
       <tr><td>2026-03-06</td><td>0.1</td><td>초안 작성</td><td>AI (Claude)</td></tr>
       <tr><td>2026-03-06</td><td>0.2</td><td>공구 상태 시스템 (진행결정대기/무산/진행확정/배송중) 뱃지 추가</td><td>AI (Claude)</td></tr>
+      <tr><td>2026-03-10</td><td>0.3</td><td>내 공구 문맥의 수정 잠금 라벨(참여/입금 이력 기준) 설명 추가</td><td>AI (Codex)</td></tr>
     </tbody>
   </table>
 </div>

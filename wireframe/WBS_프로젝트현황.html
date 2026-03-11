@@ -6,28 +6,28 @@
 <title>애픽 월드 — 프로젝트 WBS</title>
 <style>
   :root {
-    --blue: #3B82F6;
-    --blue-dark: #2563EB;
-    --blue-deep: #1D4ED8;
-    --blue-light: #DBEAFE;
-    --blue-50: #EFF6FF;
+    --blue: #69BFEA;
+    --blue-dark: #2F8EC1;
+    --blue-deep: #2F8EC1;
+    --blue-light: #EAF7FF;
+    --blue-50: #EAF7FF;
     --purple: #8B5CF6;
     --pink: #EC4899;
     --amber: #F59E0B;
     --cyan: #06B6D4;
     --green: #16A34A;
     --green-light: #DCFCE7;
-    --red: #DC2626;
-    --gray-50: #F9FAFB;
-    --gray-100: #F3F4F6;
-    --gray-200: #E5E7EB;
-    --gray-300: #D1D5DB;
-    --gray-400: #9CA3AF;
-    --gray-500: #6B7280;
-    --gray-600: #4B5563;
-    --gray-700: #374151;
-    --gray-800: #1F2937;
-    --gray-900: #111827;
+    --red: #EA5D86;
+    --gray-50: #F7FAFD;
+    --gray-100: #EEF3F8;
+    --gray-200: #DEE8F2;
+    --gray-300: #DEE8F2;
+    --gray-400: #8EA2B7;
+    --gray-500: #45617E;
+    --gray-600: #45617E;
+    --gray-700: #45617E;
+    --gray-800: #163958;
+    --gray-900: #163958;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -43,17 +43,58 @@
   .header {
     background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-deep) 100%);
     color: white;
-    padding: 32px 40px;
+    padding: 16px 40px;
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 4px 20px rgba(37,99,235,0.3);
+    box-shadow: 0 4px 20px rgba(47,142,193,0.3);
+    transition: padding 0.3s ease;
+  }
+  .header.expanded {
+    padding: 32px 40px;
   }
   .header-top {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    margin-bottom: 0;
+    cursor: pointer;
+    user-select: none;
+  }
+  .header.expanded .header-top {
     margin-bottom: 24px;
+  }
+  .header-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 6px;
+    padding: 4px 12px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.8);
+    margin-left: 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .header-toggle .toggle-chevron {
+    display: inline-block;
+    transition: transform 0.3s ease;
+    font-size: 12px;
+  }
+  .header.expanded .header-toggle .toggle-chevron {
+    transform: rotate(180deg);
+  }
+  .header-collapsible {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.3s ease;
+    opacity: 0;
+  }
+  .header.expanded .header-collapsible {
+    max-height: 300px;
+    opacity: 1;
   }
   .header h1 {
     font-size: 24px;
@@ -121,7 +162,7 @@
   .overall-progress .bar-fill {
     height: 100%;
     border-radius: 6px;
-    background: linear-gradient(90deg, #60A5FA, #34D399);
+    background: linear-gradient(90deg, #69BFEA, #34D399);
     transition: width 0.8s ease;
   }
   .overall-progress .bar-label {
@@ -272,7 +313,7 @@
   }
   .status-in-progress {
     background: #FEF3C7;
-    color: #D97706;
+    color: #F3A34B;
   }
   .status-pending {
     background: var(--gray-100);
@@ -284,7 +325,7 @@
     display: inline-block;
   }
   .status-completed .status-dot { background: var(--green); }
-  .status-in-progress .status-dot { background: #D97706; }
+  .status-in-progress .status-dot { background: #F3A34B; }
   .status-pending .status-dot { background: var(--gray-400); }
 
   /* Progress cell */
@@ -406,10 +447,10 @@
     margin-left: 6px;
   }
   .tag-doc { background: #EDE9FE; color: #7C3AED; }
-  .tag-wire { background: #DBEAFE; color: #2563EB; }
+  .tag-wire { background: #EAF7FF; color: #2F8EC1; }
   .tag-design { background: #FDF2F8; color: #DB2777; }
   .tag-dev { background: #ECFEFF; color: #0891B2; }
-  .tag-spec { background: #FEF3C7; color: #D97706; }
+  .tag-spec { background: #FEF3C7; color: #F3A34B; }
 
   /* Footer */
   .footer {
@@ -441,6 +482,74 @@
   table { font-size: 12px; }
   table th, table td { padding: 6px 8px; }
 }
+
+/* Accordion functionality */
+.l1-row {
+  cursor: pointer;
+  user-select: none;
+}
+
+.l1-row:hover {
+  background-color: #F7FAFD;
+}
+
+.l1-row .chevron {
+  display: inline-block;
+  margin-right: 8px;
+  transition: transform 0.3s ease;
+  font-size: 14px;
+  color: #45617E;
+  width: 16px;
+  text-align: center;
+}
+
+.l1-row.expanded .chevron {
+  transform: rotate(90deg);
+}
+
+.child-row {
+  display: none;
+}
+
+.l1-row.expanded ~ .child-row:not(.l1-row) {
+  display: table-row;
+}
+
+/* Better approach: use data attribute for grouping */
+tbody tr.collapsed {
+  display: none;
+}
+
+
+/* Accordion functionality */
+.l1-row {
+  cursor: pointer;
+  user-select: none;
+}
+
+.l1-row:hover {
+  background-color: #F7FAFD !important;
+}
+
+.l1-row .chevron {
+  display: inline-block;
+  margin-right: 8px;
+  transition: transform 0.3s ease;
+  font-size: 14px;
+  color: #45617E;
+  width: 16px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.l1-row.expanded .chevron {
+  transform: rotate(90deg);
+}
+
+tbody tr.child-hidden {
+  display: none !important;
+}
+
 </style>
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
@@ -454,16 +563,23 @@
       <h1>애픽 월드 Aepik World</h1>
       <div class="subtitle">팬굿즈 교환 / 공동구매 플랫폼 — 프로젝트 WBS</div>
     </div>
-    <div class="date-badge">
-      <span>집계기준일</span>
-      2026.03.06
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div class="date-badge">
+        <span>집계기준일</span>
+        2026.03.09
+      </div>
+      <div class="header-toggle">
+        <span class="toggle-chevron">&#9660;</span>
+        <span class="toggle-label">상세</span>
+      </div>
     </div>
   </div>
 
+  <div class="header-collapsible">
   <div class="summary-row">
     <div class="summary-card">
       <div class="label">전체 Task</div>
-      <div class="value">142</div>
+      <div class="value">109</div>
     </div>
     <div class="summary-card">
       <div class="label">Completed</div>
@@ -471,27 +587,28 @@
     </div>
     <div class="summary-card">
       <div class="label">In Progress</div>
-      <div class="value" style="color:#FBBF24">2</div>
+      <div class="value" style="color:#FBBF24">0</div>
     </div>
     <div class="summary-card">
       <div class="label">Pending</div>
-      <div class="value" style="color:rgba(255,255,255,0.5)">103</div>
+      <div class="value" style="color:rgba(255,255,255,0.5)">72</div>
     </div>
     <div class="summary-card">
       <div class="label">진척율</div>
-      <div class="value">26<span class="unit">%</span></div>
+      <div class="value">34<span class="unit">%</span></div>
     </div>
   </div>
 
   <div class="overall-progress">
     <div class="bar-bg">
-      <div class="bar-fill" style="width:26%"></div>
+      <div class="bar-fill" style="width:34%"></div>
     </div>
     <div class="bar-label">
-      <span>기획 53% + 개발 0% (기획/디자인/개발 전체)</span>
-      <span>26% 완료</span>
+      <span>기획 100% + 개발 0% (기획/디자인/개발 전체)</span>
+      <span>34% 완료</span>
     </div>
   </div>
+  </div><!-- /header-collapsible -->
 </div>
 
 <!-- MAIN -->
@@ -534,7 +651,7 @@
       <div class="phase-title">프로젝트 기초 세팅</div>
       <div class="phase-progress">
         <div class="mini-bar"><div class="mini-fill" style="width:100%;background:var(--green)"></div></div>
-        <span>12/12</span>
+        <span>11/11</span>
         <span class="phase-toggle">&#9660;</span>
       </div>
     </div>
@@ -711,7 +828,7 @@
           <td><a class="wire-link" target="_blank" href="COMM01_디자인토큰.html">COMM01.md/.html</a></td>
           <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
-          <td>2026.03.06</td>
+          <td>2026.03.11</td>
           <td>2026.03.06</td>
           <td>2026.03.06</td>
         </tr>
@@ -737,10 +854,10 @@
   <div class="phase">
     <div class="phase-header" onclick="togglePhase(this)">
       <div class="phase-badge" style="background:var(--blue)">1</div>
-      <div class="phase-title">핵심 거래 화면 (교환 / 공구 / 구함)</div>
+      <div class="phase-title">핵심 거래 화면 (교환 / 공구 / 동행)</div>
       <div class="phase-progress">
-        <div class="mini-bar"><div class="mini-fill" style="width:60%;background:var(--blue)"></div></div>
-        <span>9/15</span>
+        <div class="mini-bar"><div class="mini-fill" style="width:100%;background:var(--green)"></div></div>
+        <span>11/11</span>
         <span class="phase-toggle">&#9660;</span>
       </div>
     </div>
@@ -803,7 +920,7 @@
           <td>5</td>
           <td>EXCH</td>
           <td></td>
-          <td class="task-name">교환 (목록 / 상세 / 등록 / 신청함)</td>
+          <td class="task-name">교환 (목록 / 상세 / 등록 / 제안 / 신청함)</td>
           <td></td>
           <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
@@ -849,6 +966,18 @@
         </tr>
         <tr>
           <td>5.4</td>
+          <td></td>
+          <td>EXCH04</td>
+          <td class="task-name l3-indent">교환제안 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
+          <td><a class="wire-link" target="_blank" href="EXCH04_교환제안.html">EXCH04.md/.html</a></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
+          <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
+          <td>2026.03.11</td>
+          <td>2026.03.11</td>
+          <td>2026.03.11</td>
+        </tr>
+        <tr>
+          <td>5.5</td>
           <td></td>
           <td>EXCH05</td>
           <td class="task-name l3-indent">교환신청함 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
@@ -927,25 +1056,37 @@
           <td>7</td>
           <td>WANT</td>
           <td></td>
-          <td class="task-name">구함 게시판</td>
+          <td class="task-name">동행 구함</td>
           <td></td>
-          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
+          <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
+          <td>2026.03.14</td>
+          <td>2026.03.16</td>
+          <td>2026.03.09</td>
+        </tr>
+        <tr>
+          <td>7.1</td>
+          <td></td>
+          <td>WANT01</td>
+          <td class="task-name l3-indent">동행 구함 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
+          <td><a class="wire-link" target="_blank" href="WANT01_동행구함.html">WANT01.html</a> / <a class="wire-link" target="_blank" href="../docs/기획/screens/WANT01_동행구함.md">WANT01.md</a></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.03.14</td>
           <td>2026.03.16</td>
           <td>2026.03.07</td>
         </tr>
         <tr>
-          <td>7.1</td>
+          <td>7.2</td>
           <td></td>
-          <td>WANT01</td>
-          <td class="task-name l3-indent">구함 게시판 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
-          <td><a class="wire-link" target="_blank" href="WANT01_구함게시판.html">WANT01.html</a> / <a class="wire-link" target="_blank" href="../docs/기획/screens/WANT01_구함게시판.md">WANT01.md</a></td>
-          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td>WANT02</td>
+          <td class="task-name l3-indent">동행 상세 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
+          <td><a class="wire-link" target="_blank" href="WANT02_동행상세.html">WANT02.html</a> / <a class="wire-link" target="_blank" href="../docs/기획/screens/WANT02_동행상세.md">WANT02.md</a></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.03.14</td>
           <td>2026.03.16</td>
-          <td>2026.03.07</td>
+          <td>2026.03.10</td>
         </tr>
       </tbody>
     </table>
@@ -959,8 +1100,8 @@
       <div class="phase-badge" style="background:var(--purple)">2</div>
       <div class="phase-title">유저 인프라 (인증 / 프로필 / 마이페이지)</div>
       <div class="phase-progress">
-        <div class="mini-bar"><div class="mini-fill" style="width:0%;background:var(--purple)"></div></div>
-        <span>0/10</span>
+        <div class="mini-bar"><div class="mini-fill" style="width:100%;background:var(--green)"></div></div>
+        <span>5/5</span>
         <span class="phase-toggle">&#9660;</span>
       </div>
     </div>
@@ -987,7 +1128,7 @@
           <td></td>
           <td class="task-name">인증 (로그인 / 회원가입)</td>
           <td></td>
-          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.03.17</td>
           <td>2026.03.21</td>
@@ -999,7 +1140,7 @@
           <td>AUTH01</td>
           <td class="task-name l3-indent">로그인 / 소셜 로그인 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
           <td><a class="wire-link" target="_blank" href="AUTH01_로그인.html">AUTH01.md/.html</a></td>
-          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.03.17</td>
           <td>2026.03.19</td>
@@ -1011,7 +1152,7 @@
           <td>AUTH02</td>
           <td class="task-name l3-indent">회원가입 / 온보딩 (관심 카테고리 선택) 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
           <td><a class="wire-link" target="_blank" href="AUTH02_회원가입.html">AUTH02.md/.html</a></td>
-          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.03.19</td>
           <td>2026.03.21</td>
@@ -1025,7 +1166,7 @@
           <td></td>
           <td class="task-name">유저 (프로필 / 마이페이지 / 설정)</td>
           <td></td>
-          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.03.21</td>
           <td>2026.03.28</td>
@@ -1037,7 +1178,7 @@
           <td>USER01</td>
           <td class="task-name l3-indent">유저 프로필 (신뢰배지, 거래내역) 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
           <td><a class="wire-link" target="_blank" href="USER01_마이페이지.html">USER01.md/.html</a></td>
-          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.03.21</td>
           <td>2026.03.23</td>
@@ -1047,9 +1188,9 @@
           <td>9.2</td>
           <td></td>
           <td>USER02</td>
-          <td class="task-name l3-indent">마이페이지 (내 교환/공구/구함 관리) 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
+          <td class="task-name l3-indent">마이페이지 (내 교환/공구/동행 관리) 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
           <td><a class="wire-link" target="_blank" href="USER02_내활동관리.html">USER02.md/.html</a></td>
-          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.03.23</td>
           <td>2026.03.25</td>
@@ -1061,7 +1202,7 @@
           <td>USER03</td>
           <td class="task-name l3-indent">설정 / 계정관리 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
           <td><a class="wire-link" target="_blank" href="USER03_설정.html">USER03.md/.html</a></td>
-          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.03.25</td>
           <td>2026.03.28</td>
@@ -1079,8 +1220,8 @@
       <div class="phase-badge" style="background:var(--cyan)">3</div>
       <div class="phase-title">소통 / 탐색 (채팅 / 검색 / 알림)</div>
       <div class="phase-progress">
-        <div class="mini-bar"><div class="mini-fill" style="width:0%;background:var(--cyan)"></div></div>
-        <span>0/8</span>
+        <div class="mini-bar"><div class="mini-fill" style="width:100%;background:var(--green)"></div></div>
+        <span>4/4</span>
         <span class="phase-toggle">&#9660;</span>
       </div>
     </div>
@@ -1107,7 +1248,7 @@
           <td></td>
           <td class="task-name">채팅 (목록 / 대화방)</td>
           <td></td>
-          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.03.28</td>
           <td>2026.04.02</td>
@@ -1119,7 +1260,7 @@
           <td>CHAT01</td>
           <td class="task-name l3-indent">채팅 목록 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
           <td><a class="wire-link" target="_blank" href="CHAT01_채팅목록.html">CHAT01.html</a> / <a class="wire-link" target="_blank" href="../docs/기획/screens/CHAT01_채팅목록.md">CHAT01.md</a></td>
-          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.03.28</td>
           <td>2026.03.30</td>
@@ -1131,7 +1272,7 @@
           <td>CHAT02</td>
           <td class="task-name l3-indent">채팅 대화방 (거래 카드 연동) 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
           <td><a class="wire-link" target="_blank" href="CHAT02_채팅대화방.html">CHAT02.html</a> / <a class="wire-link" target="_blank" href="../docs/기획/screens/CHAT02_채팅대화방.md">CHAT02.md</a></td>
-          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.03.30</td>
           <td>2026.04.02</td>
@@ -1145,7 +1286,7 @@
           <td></td>
           <td class="task-name">통합 검색</td>
           <td></td>
-          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.04.02</td>
           <td>2026.04.04</td>
@@ -1157,7 +1298,7 @@
           <td>SRCH01</td>
           <td class="task-name l3-indent">통합 검색 (최근검색, 인기검색, 필터) 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
           <td><a class="wire-link" target="_blank" href="SRCH01_검색.html">SRCH01.md/.html</a></td>
-          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.04.02</td>
           <td>2026.04.04</td>
@@ -1171,7 +1312,7 @@
           <td></td>
           <td class="task-name">알림</td>
           <td></td>
-          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.04.04</td>
           <td>2026.04.06</td>
@@ -1183,7 +1324,7 @@
           <td>NOTI01</td>
           <td class="task-name l3-indent">알림 센터 (FCM 푸시 연동) 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
           <td><a class="wire-link" target="_blank" href="NOTI01_알림센터.html">NOTI01.html</a> / <a class="wire-link" target="_blank" href="../docs/기획/screens/NOTI01_알림센터.md">NOTI01.md</a></td>
-          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.04.04</td>
           <td>2026.04.06</td>
@@ -1202,7 +1343,7 @@
       <div class="phase-title">부가 기능 (이벤트 / 배너 / 정적페이지)</div>
       <div class="phase-progress">
         <div class="mini-bar"><div class="mini-fill" style="width:100%;background:var(--green)"></div></div>
-        <span>8/8</span>
+        <span>6/6</span>
         <span class="phase-toggle">&#9660;</span>
       </div>
     </div>
@@ -1229,8 +1370,8 @@
           <td></td>
           <td class="task-name">이벤트 (캘린더 / 상세)</td>
           <td></td>
-          <td><span class="status status-pending"><span class="status-dot"></span>Pending</span></td>
-          <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:0%"></div></div><span class="progress-text">0%</span></div></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Pending</span></td>
+          <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.04.06</td>
           <td>2026.04.11</td>
           <td>-</td>
@@ -1241,7 +1382,7 @@
           <td>EVNT01</td>
           <td class="task-name l3-indent">이벤트 캘린더 (생카/팝업/오프모임) 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
           <td><a class="wire-link" target="_blank" href="EVNT01_이벤트캘린더.html">EVNT01.html</a> / <a class="wire-link" target="_blank" href="../docs/기획/screens/EVNT01_이벤트캘린더.md">EVNT01.md</a></td>
-          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.04.06</td>
           <td>2026.04.09</td>
@@ -1253,7 +1394,7 @@
           <td>EVNT02</td>
           <td class="task-name l3-indent">이벤트 상세 (카카오맵 연동) 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
           <td><a class="wire-link" target="_blank" href="EVNT02_이벤트상세.html">EVNT02.html</a> / <a class="wire-link" target="_blank" href="../docs/기획/screens/EVNT02_이벤트상세.md">EVNT02.md</a></td>
-          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.04.09</td>
           <td>2026.04.11</td>
@@ -1265,7 +1406,7 @@
           <td>EVNT03</td>
           <td class="task-name l3-indent">이벤트 등록 (별도 페이지) 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
           <td><a class="wire-link" target="_blank" href="EVNT03_이벤트등록.html">EVNT03.html</a> / <a class="wire-link" target="_blank" href="../docs/기획/screens/EVNT03_이벤트등록.md">EVNT03.md</a></td>
-          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.03.07</td>
           <td>2026.03.07</td>
@@ -1279,7 +1420,7 @@
           <td></td>
           <td class="task-name">배너 관리</td>
           <td></td>
-          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.04.11</td>
           <td>2026.04.13</td>
@@ -1289,9 +1430,21 @@
           <td>14.1</td>
           <td></td>
           <td>BANR01</td>
-          <td class="task-name l3-indent">배너/팝업 신청 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
+          <td class="task-name l3-indent">배너/팝업 슬롯 현황 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
           <td><a class="wire-link" target="_blank" href="BANR01_배너팝업신청.html">BANR01.html</a> / <a class="wire-link" target="_blank" href="../docs/기획/screens/BANR01_배너팝업신청.md">BANR01.md</a></td>
-          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
+          <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
+          <td>2026.04.11</td>
+          <td>2026.04.13</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>14.2</td>
+          <td></td>
+          <td>BANR02</td>
+          <td class="task-name l3-indent">배너/팝업 등록 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
+          <td><a class="wire-link" target="_blank" href="BANR02_배너팝업등록.html">BANR02.html</a> / <a class="wire-link" target="_blank" href="../docs/기획/screens/BANR02_배너팝업등록.md">BANR02.md</a></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.04.11</td>
           <td>2026.04.13</td>
@@ -1305,7 +1458,7 @@
           <td></td>
           <td class="task-name">정적 페이지</td>
           <td></td>
-          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.04.13</td>
           <td>2026.04.16</td>
@@ -1317,7 +1470,7 @@
           <td>STAT01</td>
           <td class="task-name l3-indent">약관/개인정보/FAQ/문의 정적페이지 화면기획서 + 와이어프레임<span class="deliverable-tag tag-spec">기획</span><span class="deliverable-tag tag-wire">와이어프레임</span></td>
           <td><a class="wire-link" target="_blank" href="STAT01_정적페이지.html">STAT01.html</a> / <a class="wire-link" target="_blank" href="../docs/기획/screens/STAT01_정적페이지.md">STAT01.md</a></td>
-          <td><span class="status status-done"><span class="status-dot"></span>Done</span></td>
+          <td><span class="status status-completed"><span class="status-dot"></span>Completed</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:100%;background:var(--green)"></div></div><span class="progress-text">100%</span></div></td>
           <td>2026.04.13</td>
           <td>2026.04.16</td>
@@ -1336,7 +1489,7 @@
       <div class="phase-title">개발 준비 (기획 완료 후)</div>
       <div class="phase-progress">
         <div class="mini-bar"><div class="mini-fill" style="width:0%;background:var(--green)"></div></div>
-        <span>0/9</span>
+        <span>0/7</span>
         <span class="phase-toggle">&#9660;</span>
       </div>
     </div>
@@ -1489,7 +1642,7 @@
       <div class="phase-title">DB 설계 + API 기초 (Week 1~2)</div>
       <div class="phase-progress">
         <div class="mini-bar"><div class="mini-fill" style="width:0%;background:var(--blue-deep)"></div></div>
-        <span>0/14</span>
+        <span>0/12</span>
         <span class="phase-toggle">&#9660;</span>
       </div>
     </div>
@@ -1573,8 +1726,8 @@
         <tr>
           <td>D1.5</td>
           <td></td>
-          <td>Want</td>
-          <td class="task-name l3-indent">WantPost 테이블 (구함글)<span class="deliverable-tag tag-dev">개발</span></td>
+          <td>Companion</td>
+          <td class="task-name l3-indent">Companion 테이블 (동행 구함)<span class="deliverable-tag tag-dev">개발</span></td>
           <td>schema.prisma</td>
           <td><span class="status status-pending"><span class="status-dot"></span>Pending</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:0%"></div></div><span class="progress-text">0%</span></div></td>
@@ -1693,7 +1846,7 @@
       <div class="phase-title">핵심 비즈니스 API (Week 3~5)</div>
       <div class="phase-progress">
         <div class="mini-bar"><div class="mini-fill" style="width:0%;background:var(--purple)"></div></div>
-        <span>0/20</span>
+        <span>0/15</span>
         <span class="phase-toggle">&#9660;</span>
       </div>
     </div>
@@ -1866,7 +2019,7 @@
           <td>D5</td>
           <td>부가 API</td>
           <td></td>
-          <td class="task-name">구함 / 후기 / 검색 / 찜 / 알림</td>
+          <td class="task-name">동행 / 후기 / 검색 / 찜 / 알림</td>
           <td></td>
           <td><span class="status status-pending"><span class="status-dot"></span>Pending</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:0%"></div></div><span class="progress-text">0%</span></div></td>
@@ -1877,9 +2030,9 @@
         <tr>
           <td>D5.1</td>
           <td></td>
-          <td>구함</td>
-          <td class="task-name l3-indent">구함글 CRUD API<span class="deliverable-tag tag-dev">개발</span></td>
-          <td>want.controller</td>
+          <td>동행</td>
+          <td class="task-name l3-indent">동행 구함 CRUD API<span class="deliverable-tag tag-dev">개발</span></td>
+          <td>companion.controller</td>
           <td><span class="status status-pending"><span class="status-dot"></span>Pending</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:0%"></div></div><span class="progress-text">0%</span></div></td>
           <td>0.5일</td>
@@ -1947,7 +2100,7 @@
       <div class="phase-title">프론트엔드 개발 — Next.js 15 (Week 5~9)</div>
       <div class="phase-progress">
         <div class="mini-bar"><div class="mini-fill" style="width:0%;background:var(--pink)"></div></div>
-        <span>0/26</span>
+        <span>0/21</span>
         <span class="phase-toggle">&#9660;</span>
       </div>
     </div>
@@ -2096,7 +2249,7 @@
           <td>F3.1</td>
           <td></td>
           <td>HOME</td>
-          <td class="task-name l3-indent">메인홈 (카테고리바, 최신교환, 인기공구, 구함, FAB)<span class="deliverable-tag tag-dev">개발</span></td>
+          <td class="task-name l3-indent">메인홈 (카테고리바, 최신교환, 인기공구, 동행, FAB)<span class="deliverable-tag tag-dev">개발</span></td>
           <td>/page.tsx</td>
           <td><span class="status status-pending"><span class="status-dot"></span>Pending</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:0%"></div></div><span class="progress-text">0%</span></div></td>
@@ -2270,7 +2423,7 @@
           <td>F6.4</td>
           <td></td>
           <td>USER</td>
-          <td class="task-name l3-indent">마이페이지 (내 교환/공구/구함 관리, 찜 목록)<span class="deliverable-tag tag-dev">개발</span></td>
+          <td class="task-name l3-indent">마이페이지 (내 교환/공구/동행 관리, 찜 목록)<span class="deliverable-tag tag-dev">개발</span></td>
           <td>/mypage/page.tsx</td>
           <td><span class="status status-pending"><span class="status-dot"></span>Pending</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:0%"></div></div><span class="progress-text">0%</span></div></td>
@@ -2315,7 +2468,7 @@
       <div class="phase-title">관리자 대시보드 + SEO + 정적페이지 (Week 10~11)</div>
       <div class="phase-progress">
         <div class="mini-bar"><div class="mini-fill" style="width:0%;background:var(--amber)"></div></div>
-        <span>0/10</span>
+        <span>0/8</span>
         <span class="phase-toggle">&#9660;</span>
       </div>
     </div>
@@ -2447,9 +2600,9 @@
         <tr>
           <td>S1.4</td>
           <td></td>
-          <td>구함</td>
-          <td class="task-name l3-indent">구함 게시판 페이지 (목록 + 등록)<span class="deliverable-tag tag-dev">개발</span></td>
-          <td>/want/page.tsx</td>
+          <td>동행</td>
+          <td class="task-name l3-indent">동행 구함 페이지 (목록 + 등록)<span class="deliverable-tag tag-dev">개발</span></td>
+          <td>/companion/page.tsx</td>
           <td><span class="status status-pending"><span class="status-dot"></span>Pending</span></td>
           <td><div class="progress-cell"><div class="progress-bar-sm"><div class="fill" style="width:0%"></div></div><span class="progress-text">0%</span></div></td>
           <td>1일</td>
@@ -2469,7 +2622,7 @@
       <div class="phase-title">테스트 + CI/CD + 배포 (Week 11~12)</div>
       <div class="phase-progress">
         <div class="mini-bar"><div class="mini-fill" style="width:0%;background:var(--green)"></div></div>
-        <span>0/10</span>
+        <span>0/9</span>
         <span class="phase-toggle">&#9660;</span>
       </div>
     </div>
@@ -2627,22 +2780,102 @@
   </div>
 
   <div class="footer">
-    애픽 월드 Aepik World &middot; 1인 개발 프로젝트 WBS &middot; 최종 업데이트 2026.03.06
+    애픽 월드 Aepik World &middot; 1인 개발 프로젝트 WBS &middot; 최종 업데이트 2026.03.11 (끌어올리기 500원/회 고정 + 서비스 소개/운영정책(/about) 안내 반영)
   </div>
 </div>
 
+
+
+
+
+
+
+
+
 <script>
-function togglePhase(header) {
-  const table = header.nextElementSibling;
-  const toggle = header.querySelector('.phase-toggle');
-  if (table.style.display === 'none') {
-    table.style.display = '';
-    toggle.innerHTML = '&#9660;';
+// Accordion functionality for L1 rows
+function initAccordion() {
+  const l1Rows = document.querySelectorAll('tr.l1-row');
+  
+  l1Rows.forEach((l1Row, l1Index) => {
+    // Add chevron indicator to first td
+    const firstTd = l1Row.querySelector('td');
+    if (firstTd && !firstTd.querySelector('.chevron')) {
+      const chevron = document.createElement('span');
+      chevron.className = 'chevron';
+      chevron.textContent = '▶';
+      firstTd.insertBefore(chevron, firstTd.firstChild);
+    }
+    
+    // Find all child rows for this L1
+    const childRows = [];
+    let nextRow = l1Row.nextElementSibling;
+    while (nextRow && !nextRow.classList.contains('l1-row')) {
+      childRows.push(nextRow);
+      nextRow = nextRow.nextElementSibling;
+    }
+    
+    // Store children reference and mark them as collapsed by default
+    l1Row.childRows = childRows;
+    l1Row.dataset.l1Index = l1Index;
+    childRows.forEach(row => {
+      row.classList.add('child-hidden');
+    });
+    
+    // Add click handler
+    l1Row.addEventListener('click', function(e) {
+      // Don't toggle if clicking on a link
+      if (e.target.tagName === 'A') return;
+      toggleL1Row(l1Row);
+    });
+  });
+}
+
+function toggleL1Row(l1Row) {
+  const childRows = l1Row.childRows || [];
+  const isExpanded = l1Row.classList.contains('expanded');
+  
+  if (isExpanded) {
+    // Collapse
+    l1Row.classList.remove('expanded');
+    childRows.forEach(row => row.classList.add('child-hidden'));
+    
+    // Update chevron
+    const chevron = l1Row.querySelector('.chevron');
+    if (chevron) chevron.textContent = '▶';
   } else {
-    table.style.display = 'none';
-    toggle.innerHTML = '&#9654;';
+    // Expand
+    l1Row.classList.add('expanded');
+    childRows.forEach(row => row.classList.remove('child-hidden'));
+    
+    // Update chevron
+    const chevron = l1Row.querySelector('.chevron');
+    if (chevron) chevron.textContent = '▼';
   }
 }
+
+// Header accordion toggle
+function initHeaderAccordion() {
+  const header = document.querySelector('.header');
+  const headerTop = document.querySelector('.header-top');
+  const toggleLabel = document.querySelector('.toggle-label');
+  if (!header || !headerTop) return;
+
+  // Default: collapsed (no .expanded class)
+  headerTop.addEventListener('click', function() {
+    header.classList.toggle('expanded');
+    if (toggleLabel) {
+      toggleLabel.textContent = header.classList.contains('expanded') ? '접기' : '상세';
+    }
+  });
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+  initAccordion();
+  initHeaderAccordion();
+});
 </script>
+
 </body>
 </html>

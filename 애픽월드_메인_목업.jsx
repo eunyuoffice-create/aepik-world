@@ -25,6 +25,7 @@ const C = {
 const TAG_STYLES = {
   교환: { bg: "#FFF7ED", color: "#EA580C" },
   공구: { bg: "#EFF6FF", color: "#2563EB" },
+  일반공구: { bg: "#FFF7ED", color: "#EA580C" },
   구함: { bg: "#F0FDF4", color: "#16A34A" },
   세트공구: { bg: "#FAF5FF", color: "#7C3AED" },
   "애니/만화/소설": { bg: "#F5F3FF", color: C.anime },
@@ -162,23 +163,52 @@ const ProductCard = ({ item, onClick }) => {
 const EventMiniCard = ({ event }) => (
   <div
     style={{
-      minWidth: 200,
+      minWidth: 160,
       background: C.white,
       borderRadius: 12,
       border: `1px solid ${C.g200}`,
-      padding: 12,
+      overflow: "hidden",
       flexShrink: 0,
     }}
   >
-    <div style={{ fontSize: 11, color: C.g400, marginBottom: 4 }}>
-      {event.date}
+    <div
+      style={{
+        width: "100%",
+        aspectRatio: "2 / 1",
+        background: event.thumb,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 4,
+        color: C.white,
+        fontSize: 10,
+        fontWeight: 600,
+      }}
+    >
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+        <circle cx="8.5" cy="8.5" r="1.5" />
+        <polyline points="21 15 16 10 5 21" />
+      </svg>
+      배너
     </div>
-    <div style={{ fontSize: 13, fontWeight: 600, color: C.g900, marginBottom: 4 }}>
-      {event.icon} {event.title}
-    </div>
-    <div style={{ fontSize: 12, color: C.g600 }}>📍 {event.location}</div>
-    <div style={{ marginTop: 6 }}>
-      <Tag label={event.category} />
+    <div style={{ padding: "8px 10px 10px" }}>
+      <div style={{ fontSize: 10, color: C.brand, fontWeight: 700, marginBottom: 4 }}>
+        {event.date}
+      </div>
+      <div style={{ fontSize: 12, fontWeight: 600, color: C.g900, marginBottom: 4 }}>
+        {event.title}
+      </div>
+      <div style={{ fontSize: 11, color: C.g600 }}>
+        <svg style={{ display: "inline", verticalAlign: "text-bottom", marginRight: 3 }} width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+          <circle cx="12" cy="10" r="3" />
+        </svg>
+        {event.location}
+      </div>
+      <div style={{ marginTop: 6 }}>
+        <Tag label={event.category} />
+      </div>
     </div>
   </div>
 );
@@ -285,41 +315,47 @@ const GroupBuyCard = ({ item }) => {
   return (
     <div
       style={{
-        minWidth: 220,
+        minWidth: 160,
         background: C.white,
         borderRadius: 12,
         border: `1px solid ${C.g200}`,
-        overflow: "hidden",
+        padding: 10,
         flexShrink: 0,
       }}
     >
       <div
         style={{
-          height: 100,
+          width: "100%",
+          aspectRatio: "1",
+          borderRadius: 8,
           background: `linear-gradient(135deg, ${C.g100}, ${C.g200})`,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontSize: 32,
+          marginBottom: 6,
         }}
       >
-        {item.emoji}
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={C.g600} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+          <circle cx="8.5" cy="8.5" r="1.5" />
+          <polyline points="21 15 16 10 5 21" />
+        </svg>
       </div>
-      <div style={{ padding: 12 }}>
-        <div style={{ marginBottom: 6 }}>
-          <Tag label={item.type === "세트" ? "세트공구" : "공구"} />
+      <div style={{ padding: 0 }}>
+        <div style={{ marginBottom: 4 }}>
+          <Tag label={item.type === "세트" ? "세트공구" : "일반공구"} />
         </div>
         <div
-          style={{ fontSize: 13, fontWeight: 600, color: C.g900, marginBottom: 4 }}
+          style={{ fontSize: 11, fontWeight: 600, color: C.g900, marginBottom: 6 }}
         >
           {item.title}
         </div>
-        <div style={{ fontSize: 12, color: C.g400, marginBottom: 8 }}>
+        <div style={{ fontSize: 10, color: C.g400, marginBottom: 6 }}>
           {item.current}/{item.goal}명 · 마감 D-{item.dday}
         </div>
         <div
           style={{
-            height: 6,
+            height: 4,
             background: C.g100,
             borderRadius: 999,
             overflow: "hidden",
@@ -337,7 +373,7 @@ const GroupBuyCard = ({ item }) => {
         </div>
         <div
           style={{
-            fontSize: 11,
+            fontSize: 10,
             color: pct >= 80 ? C.success : C.g400,
             textAlign: "right",
             marginTop: 4,
@@ -1060,15 +1096,15 @@ const MOCK_ITEMS = [
 ];
 
 const MOCK_EVENTS = [
-  { date: "3/6", icon: "🎂", title: "히나타 쇼요 생일카페", location: "서울 홍대", category: "애니/만화/소설" },
-  { date: "3/9", icon: "🚇", title: "하니 지하철 광고", location: "강남역", category: "아이돌/아티스트" },
-  { date: "3/14", icon: "🎮", title: "원신 팬 미팅", location: "서울 코엑스", category: "게임" },
+  { date: "3/15 (토)", title: "히나타 생일카페", location: "홍대 카페거리", category: "애니/만화/소설", thumb: "linear-gradient(135deg, #71C6EE 0%, #4BA0D4 100%)" },
+  { date: "3/20 (목)", title: "세븐틴 팬미팅", location: "잠실종합운동장", category: "아이돌/아티스트", thumb: "linear-gradient(135deg, #F3AECF 0%, #E67EB1 100%)" },
+  { date: "3/22 (토)", title: "원신 팬이벤트", location: "코엑스", category: "게임", thumb: "linear-gradient(135deg, #81DDE7 0%, #2CB3C7 100%)" },
 ];
 
 const MOCK_GROUPBUYS = [
-  { emoji: "🏐📦", type: "세트", title: "하이큐 아크릴 풀세트", current: 5, goal: 8, dday: 5 },
-  { emoji: "🎤📦", type: "일반", title: "뉴진스 공식 슬로건", current: 18, goal: 20, dday: 3 },
-  { emoji: "⚔️📦", type: "일반", title: "원신 공식 OST LP", current: 7, goal: 15, dday: 12 },
+  { type: "세트", title: "하이큐 아크릴 스탠드 풀세트", current: 5, goal: 8, dday: 5 },
+  { type: "일반", title: "세븐틴 FML 앨범 공구", current: 17, goal: 20, dday: 2 },
+  { type: "세트", title: "원신 캔뱃지 전종 세트", current: 4, goal: 10, dday: 12 },
 ];
 
 const MOCK_WANTED = [
@@ -1077,7 +1113,7 @@ const MOCK_WANTED = [
   { title: "원신 푸리나 피규어 정가에 구매 원합니다", user: "나히다메인", time: "6시간 전" },
 ];
 
-export default function Aepik WorldApp() {
+export default function AepikWorldApp() {
   const [page, setPage] = useState("home");
   const [selectedItem, setSelectedItem] = useState(null);
   const [activeNav, setActiveNav] = useState("home");

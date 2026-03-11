@@ -6,17 +6,17 @@
 <title>CHAT01 — 채팅 목록 와이어프레임</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F7FAFD; color: #163958; }
 
 /* ===== META HEADER ===== */
 .meta-bar {
-  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  background: #fff; border-bottom: 2px solid #2F8EC1; padding: 12px 24px;
   display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
 }
 .meta-item { font-size: 11px; }
-.meta-label { color: #999; }
-.meta-value { font-weight: 600; color: #333; margin-left: 4px; }
-.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+.meta-label { color: #8EA2B7; }
+.meta-value { font-weight: 600; color: #163958; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2F8EC1; margin-right: auto; }
 
 /* ===== MAIN LAYOUT ===== */
 .main-layout { overflow-x: hidden;
@@ -29,7 +29,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   display: flex; justify-content: center; overflow-y: auto;
 }
 .phone-stack { display: flex; flex-direction: column; gap: 24px; align-items: center; }
-.frame-label { font-size: 13px; font-weight: 600; color: #555; margin-bottom: 6px; text-align: center; }
+.frame-label { font-size: 13px; font-weight: 600; color: #45617E; margin-bottom: 6px; text-align: center; }
 .phone-frame {
   width: 375px; background: #fff; border-radius: 16px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative;
@@ -39,43 +39,43 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* ===== DESCRIPTION SIDE ===== */
 .desc-side {
   flex: 1 1 45%; min-width: 0; background: #fff; padding: 24px 28px;
-  overflow-y: auto; border-left: 1px solid #ddd;
+  overflow-y: auto; border-left: 1px solid #DEE8F2;
 }
 .desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-.desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+.desc-subtitle { font-size: 12px; color: #45617E; margin-bottom: 20px; }
 
 .desc-item { margin-bottom: 20px; }
 .desc-num-row {
   display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
 }
 .desc-num {
-  background: #2563EB; color: #fff; width: 22px; height: 22px;
+  background: #2F8EC1; color: #fff; width: 22px; height: 22px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 11px; font-weight: 700; flex-shrink: 0;
 }
-.desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-type { font-size: 10px; color: #8EA2B7; background: #F7FAFD; padding: 2px 6px; border-radius: 3px; }
 .desc-comp-name { font-size: 14px; font-weight: 600; }
 
-.desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
+.desc-body { padding-left: 30px; font-size: 12px; color: #45617E; line-height: 1.7; }
 .desc-body ul { list-style: none; }
 .desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
-.desc-body li::before { content: '\2022'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
-.desc-body .sub { padding-left: 14px; color: #888; }
-.desc-body .sub li::before { content: '\2514'; color: #ccc; }
+.desc-body li::before { content: '\2022'; position: absolute; left: 0; color: #2F8EC1; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #45617E; }
+.desc-body .sub li::before { content: '\2514'; color: #8EA2B7; }
 
-.desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
+.desc-divider { border: none; border-top: 1px dashed #EEF3F8; margin: 16px 0; }
 
 /* ===== State / Related tables ===== */
 .state-table, .related-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 8px; }
-.state-table th, .related-table th { background: #F9FAFB; text-align: left; padding: 6px 8px; font-weight: 600; border-bottom: 1px solid #E5E7EB; }
-.state-table td, .related-table td { padding: 6px 8px; border-bottom: 1px solid #F3F4F6; }
+.state-table th, .related-table th { background: #F7FAFD; text-align: left; padding: 6px 8px; font-weight: 600; border-bottom: 1px solid #DEE8F2; }
+.state-table td, .related-table td { padding: 6px 8px; border-bottom: 1px solid #EEF3F8; }
 
 /* ===== WIREFRAME ELEMENTS ===== */
 .wf-section { position: relative; }
 
 .num-circle {
   position: absolute; z-index: 10;
-  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  background: #2F8EC1; color: #fff; width: 20px; height: 20px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
@@ -83,42 +83,42 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* Header */
 .wf-header {
   display: flex; align-items: center; padding: 12px 16px;
-  border-bottom: 1px solid #eee; position: relative;
+  border-bottom: 1px solid #EEF3F8; position: relative;
 }
-.wf-page-title { font-weight: 700; font-size: 16px; color: #111827; }
+.wf-page-title { font-weight: 700; font-size: 16px; color: #163958; }
 .wf-header-icons { margin-left: auto; display: flex; gap: 12px; }
-.wf-icon-btn { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; color: #6B7280; }
+.wf-icon-btn { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; color: #45617E; }
 .wf-icon-btn svg { width: 20px; height: 20px; }
 
 /* Filter Tabs */
 .wf-filter-tabs {
-  display: flex; border-bottom: 1px solid #F3F4F6; position: relative;
+  display: flex; border-bottom: 1px solid #EEF3F8; position: relative;
 }
 .wf-filter-tab {
   flex: 1; text-align: center; padding: 12px 0; font-size: 13px; font-weight: 500;
-  color: #9CA3AF; position: relative; cursor: pointer;
+  color: #8EA2B7; position: relative; cursor: pointer;
 }
-.wf-filter-tab.active { color: #2563EB; font-weight: 600; }
+.wf-filter-tab.active { color: #2F8EC1; font-weight: 600; }
 .wf-filter-tab.active::after {
   content: ''; position: absolute; bottom: 0; left: 20%; right: 20%;
-  height: 2px; background: #2563EB; border-radius: 1px;
+  height: 2px; background: #2F8EC1; border-radius: 1px;
 }
 .wf-filter-badge {
-  display: inline-block; background: #EF4444; color: #fff; font-size: 9px; font-weight: 700;
+  display: inline-block; background: #EA5D86; color: #fff; font-size: 9px; font-weight: 700;
   padding: 1px 5px; border-radius: 999px; margin-left: 4px; vertical-align: top;
 }
 
 /* Chat Room Item */
 .wf-chat-item {
   display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px;
-  border-bottom: 1px solid #F3F4F6; position: relative;
+  border-bottom: 1px solid #EEF3F8; position: relative;
 }
 .wf-chat-item.unread { background: #F8FAFF; }
 
 .wf-avatar-wrap { position: relative; flex-shrink: 0; }
 .wf-avatar {
-  width: 48px; height: 48px; border-radius: 50%; background: #E5E7EB;
-  display: flex; align-items: center; justify-content: center; color: #9CA3AF; overflow: hidden;
+  width: 48px; height: 48px; border-radius: 50%; background: #DEE8F2;
+  display: flex; align-items: center; justify-content: center; color: #8EA2B7; overflow: hidden;
 }
 .wf-avatar svg { width: 24px; height: 24px; }
 .wf-online-dot {
@@ -128,23 +128,23 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
 .wf-chat-body { flex: 1; min-width: 0; }
 .wf-chat-top { display: flex; align-items: center; gap: 6px; margin-bottom: 2px; }
-.wf-chat-nick { font-size: 14px; font-weight: 600; color: #111827; }
+.wf-chat-nick { font-size: 14px; font-weight: 600; color: #163958; }
 .wf-trade-tag {
   font-size: 9px; padding: 1px 6px; border-radius: 999px; font-weight: 600;
 }
-.wf-trade-tag.exchange { background: #FFF7ED; color: #EA580C; }
-.wf-trade-tag.groupbuy { background: #EFF6FF; color: #2563EB; }
-.wf-chat-product { font-size: 11px; color: #9CA3AF; margin-bottom: 2px; display: flex; align-items: center; gap: 4px; }
+.wf-trade-tag.exchange { background: #ECF7FF; color: #2F8EC1; }
+.wf-trade-tag.groupbuy { background: #E8F4FC; color: #1E6FA8; }
+.wf-chat-product { font-size: 11px; color: #8EA2B7; margin-bottom: 2px; display: flex; align-items: center; gap: 4px; }
 .wf-status-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 .wf-status-dot.active { background: #10B981; }
 .wf-status-dot.pending { background: #F59E0B; }
-.wf-status-dot.done { background: #9CA3AF; }
-.wf-chat-msg { font-size: 12px; color: #6B7280; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wf-status-dot.done { background: #8EA2B7; }
+.wf-chat-msg { font-size: 12px; color: #45617E; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .wf-chat-right { flex-shrink: 0; text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
-.wf-chat-time { font-size: 10px; color: #9CA3AF; }
+.wf-chat-time { font-size: 10px; color: #8EA2B7; }
 .wf-unread-badge {
-  min-width: 18px; height: 18px; border-radius: 999px; background: #EF4444;
+  min-width: 18px; height: 18px; border-radius: 999px; background: #EA5D86;
   color: #fff; font-size: 10px; font-weight: 700; display: flex; align-items: center;
   justify-content: center; padding: 0 5px;
 }
@@ -153,47 +153,47 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 .wf-empty {
   padding: 60px 20px; text-align: center;
 }
-.wf-empty-icon { color: #D1D5DB; margin-bottom: 16px; }
+.wf-empty-icon { color: #DEE8F2; margin-bottom: 16px; }
 .wf-empty-icon svg { width: 48px; height: 48px; opacity: 0.4; }
-.wf-empty-msg { font-size: 14px; color: #9CA3AF; margin-bottom: 6px; }
-.wf-empty-sub { font-size: 12px; color: #D1D5DB; margin-bottom: 16px; line-height: 1.5; }
+.wf-empty-msg { font-size: 14px; color: #8EA2B7; margin-bottom: 6px; }
+.wf-empty-sub { font-size: 12px; color: #DEE8F2; margin-bottom: 16px; line-height: 1.5; }
 .wf-empty-btn {
-  display: inline-block; padding: 10px 24px; border: 1px solid #3B82F6;
-  color: #3B82F6; border-radius: 8px; font-size: 13px; font-weight: 600;
+  display: inline-block; padding: 10px 24px; border: 1px solid #69BFEA;
+  color: #69BFEA; border-radius: 8px; font-size: 13px; font-weight: 600;
 }
 
 /* Bottom Nav */
 .wf-bottom-nav {
-  display: flex; border-top: 1px solid #eee; background: #fff;
+  display: flex; border-top: 1px solid #EEF3F8; background: #fff;
   padding: 8px 0 12px; position: relative;
 }
 .wf-nav-item {
-  flex: 1; text-align: center; font-size: 10px; color: #aaa;
+  flex: 1; text-align: center; font-size: 10px; color: #8EA2B7;
 }
-.wf-nav-item.active { color: #2563EB; }
+.wf-nav-item.active { color: #2F8EC1; }
 .wf-nav-icon { font-size: 16px; margin-bottom: 2px; }
 .wf-nav-item svg { display: block; margin: 0 auto 2px; }
 .wf-nav-badge-wrap { position: relative; display: inline-block; }
 .wf-nav-badge {
   position: absolute; top: -4px; right: -8px; min-width: 14px; height: 14px;
-  background: #EF4444; color: #fff; font-size: 8px; font-weight: 700;
+  background: #EA5D86; color: #fff; font-size: 8px; font-weight: 700;
   border-radius: 999px; display: flex; align-items: center; justify-content: center;
   padding: 0 3px;
 }
 
 /* Revision footer */
 .revision-bar {
-  background: #fff; border-top: 1px solid #eee; padding: 12px 24px;
-  font-size: 11px; color: #999;
+  background: #fff; border-top: 1px solid #EEF3F8; padding: 12px 24px;
+  font-size: 11px; color: #8EA2B7;
 }
 .revision-bar table { width: 100%; border-collapse: collapse; }
-.revision-bar th { text-align: left; font-weight: 600; color: #666; padding: 4px 8px; border-bottom: 1px solid #eee; }
+.revision-bar th { text-align: left; font-weight: 600; color: #45617E; padding: 4px 8px; border-bottom: 1px solid #EEF3F8; }
 .revision-bar td { padding: 4px 8px; }
 
 @media (max-width: 900px) {
   .main-layout { flex-direction: column; }
   .wireframe-side { flex: none; padding: 16px; }
-  .desc-side { flex: none; border-left: none; border-top: 1px solid #ddd; }
+  .desc-side { flex: none; border-left: none; border-top: 1px solid #DEE8F2; }
 }
 @media (max-width: 1200px) {
   .main-layout { gap: 0; }
@@ -251,7 +251,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <div class="num-circle" style="top:4px; left:6px;">2</div>
             <div class="wf-filter-tabs">
               <div class="wf-filter-tab active">전체 <span class="wf-filter-badge">5</span></div>
-              <div class="wf-filter-tab">교환 <span class="wf-filter-badge" style="background:#EA580C;">3</span></div>
+              <div class="wf-filter-tab">교환 <span class="wf-filter-badge" style="background:#2F8EC1;">3</span></div>
               <div class="wf-filter-tab">공구</div>
             </div>
           </div>
@@ -501,7 +501,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
               <li>탭 시 검색 바 확장 > 닉네임/상품명으로 채팅방 필터링</li>
             </ul>
           </li>
-          <li>높이: 48px, 하단 보더 1px `#F3F4F6`</li>
+          <li>높이: 48px, 하단 보더 1px `#EEF3F8`</li>
         </ul>
       </div>
     </div>
@@ -569,7 +569,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <ul>
           <li>5탭: 홈 | 교환 | 이벤트 | 채팅(활성) | 마이</li>
           <li>채팅 탭: Blue 활성 상태 + 안 읽은 수 뱃지</li>
-          <li>아이콘: Lucide SVG 20x20px, 비활성 `#9CA3AF`, 활성 `#2563EB`</li>
+          <li>아이콘: Lucide SVG 20x20px, 비활성 `#8EA2B7`, 활성 `#2F8EC1`</li>
         </ul>
       </div>
     </div>

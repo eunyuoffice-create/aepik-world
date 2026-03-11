@@ -6,100 +6,153 @@
 <title>애픽 월드 (Aepik World) — IA 사이트맵</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F8F9FA; color: #1A1A1A; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F8F9FA; color: #163958; line-height: 1.5; }
 
 .header-bar {
-  background: #fff; border-bottom: 2px solid #3B82F6; padding: 20px 32px;
+  background: #fff; border-bottom: 2px solid #69BFEA; padding: 18px 28px;
   display: flex; justify-content: space-between; align-items: center;
 }
 .header-bar h1 { font-size: 20px; font-weight: 700; }
-.header-bar h1 span { color: #3B82F6; }
-.header-bar .meta { font-size: 12px; color: #888; }
+.header-bar h1 span { color: #69BFEA; }
+.header-bar .meta { font-size: 12px; color: #45617E; }
 
 .legend {
-  display: flex; gap: 16px; padding: 12px 32px; background: #fff;
-  border-bottom: 1px solid #eee; flex-wrap: wrap;
+  display: flex; gap: 16px; padding: 10px 28px; background: #fff;
+  border-bottom: 1px solid #EEF3F8; flex-wrap: wrap;
 }
-.legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #555; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #45617E; }
 .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
 
-.canvas { padding: 32px; overflow-x: auto; }
+.view-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 28px;
+  background: #fff;
+  border-bottom: 1px solid #EEF3F8;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+.toolbar-left, .toolbar-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.tool-btn {
+  border: 1px solid #DEE8F2;
+  background: #fff;
+  color: #45617E;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.tool-btn:hover { border-color: #69BFEA; color: #2F8EC1; }
+.tool-btn.primary { border-color: #69BFEA; color: #2F8EC1; background: #EAF7FF; }
+.search-wrap { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #45617E; }
+.search-input {
+  border: 1px solid #DEE8F2;
+  background: #fff;
+  border-radius: 8px;
+  height: 32px;
+  padding: 0 10px;
+  min-width: 220px;
+  font-size: 12px;
+}
+.search-input:focus { outline: none; border-color: #69BFEA; box-shadow: 0 0 0 3px rgba(105,191,234,0.12); }
+.match-count { font-size: 12px; color: #45617E; }
 
-.sitemap { display: flex; flex-direction: column; gap: 0; min-width: 1400px; }
+.canvas { padding: 24px 20px 32px; overflow-x: auto; }
+
+.sitemap { display: flex; flex-direction: column; gap: 6px; min-width: 1200px; }
 
 /* Root node */
 .root-node {
-  background: linear-gradient(135deg, #3B82F6, #60A5FA);
+  background: linear-gradient(135deg, #69BFEA, #69BFEA);
   color: #fff; padding: 14px 28px; border-radius: 12px;
   font-size: 18px; font-weight: 700; text-align: center;
   width: fit-content; margin: 0 auto 0 auto;
-  box-shadow: 0 4px 12px rgba(59,130,246,0.3);
+  box-shadow: 0 4px 12px rgba(105,191,234,0.3);
 }
 
 /* Level connector */
 .level-connector {
-  width: 2px; height: 24px; background: #ccc; margin: 0 auto;
+  width: 2px; height: 24px; background: #8EA2B7; margin: 0 auto;
 }
 
 /* Section row */
 .section-row {
-  display: flex; gap: 12px; justify-content: center; flex-wrap: nowrap;
-  margin-bottom: 8px; position: relative;
+  display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+  margin-bottom: 8px; position: relative; align-items: flex-start;
 }
 .section-row::before {
   content: ''; position: absolute; top: 0; left: 50%;
   transform: translateX(-50%);
-  width: calc(100% - 160px); height: 2px; background: #ddd;
+  width: calc(100% - 180px); height: 1px; background: #DEE8F2;
 }
 .section-row.no-line::before { display: none; }
 
 /* Section card */
 .section-card {
   background: #fff; border-radius: 10px; border: 2px solid #e0e0e0;
-  min-width: 140px; max-width: 180px; flex-shrink: 0;
+  min-width: 210px; max-width: 270px; flex-shrink: 0;
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   transition: all 0.2s;
   cursor: pointer;
   position: relative;
 }
 .section-card:hover {
-  border-color: #3B82F6; box-shadow: 0 4px 16px rgba(59,130,246,0.15);
+  border-color: #69BFEA; box-shadow: 0 4px 16px rgba(105,191,234,0.15);
   transform: translateY(-2px);
 }
-.section-card.expanded { border-color: #3B82F6; }
+.section-card.expanded { border-color: #69BFEA; }
 
 .section-head {
-  padding: 10px 14px; display: flex; align-items: center; gap: 8px;
-  border-bottom: 1px solid #f0f0f0;
+  padding: 11px 14px; display: flex; align-items: center; gap: 8px;
+  border-bottom: 1px solid #EEF3F8;
 }
-.section-icon { font-size: 16px; }
-.section-name { font-size: 13px; font-weight: 600; }
-.section-route { font-size: 10px; color: #999; padding: 4px 14px 8px; font-family: 'SF Mono', monospace; }
-.section-toggle { font-size: 10px; color: #aaa; margin-left: auto; }
+.section-icon { font-size: 16px; color: #45617E; }
+.section-name { font-size: 14px; font-weight: 700; color: #163958; }
+.section-route {
+  font-size: 11px; color: #45617E; padding: 6px 14px 8px;
+  font-family: 'SF Mono', monospace; background: #F7FAFD;
+}
+.section-toggle { font-size: 11px; color: #8EA2B7; margin-left: auto; font-weight: 700; }
+.section-card.expanded .section-toggle { color: #2F8EC1; }
 
 /* Children */
 .section-children {
   display: none; padding: 0 14px 10px;
-  border-top: 1px dashed #eee;
+  border-top: 1px dashed #EEF3F8;
 }
 .section-card.expanded .section-children { display: block; }
 
 .child-item {
   position:relative;
-  padding: 5px 0 5px 16px; font-size: 11px; color: #555;
-  border-bottom: 1px dotted #f0f0f0;
-  display: flex; gap: 6px;
-  flex-direction: column;
+  padding: 7px 0 7px 16px; font-size: 12px; color: #45617E;
+  border-bottom: 1px dotted #EEF3F8;
+  display: block;
 }
 .child-item:last-child { border-bottom: none; }
-.child-route { font-family: 'SF Mono', monospace; font-size: 9px; color: #aaa; }
+.child-route {
+  display: inline-block;
+  font-family: 'SF Mono', monospace;
+  font-size: 10px;
+  color: #45617E;
+  background: #EEF3F8;
+  border-radius: 6px;
+  padding: 1px 6px;
+  margin-top: 4px;
+}
 .child-dot { position: absolute; left: 0; top: 10px;  width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.hidden-card { display: none !important; }
+body.compact-mode .child-item[style*="padding-left:16px"] { display: none; }
 
 /* Phase colors */
 .phase1 { border-color: #4CAF50; }
 .phase1 .section-head { background: #F0FDF4; }
 .phase15 { border-color: #FF9800; }
-.phase15 .section-head { background: #FFF7ED; }
+.phase15 .section-head { background: #ECF7FF; }
 .phase2 { border-color: #9C27B0; }
 .phase2 .section-head { background: #FAF5FF; }
 
@@ -118,10 +171,10 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   padding: 16px; border-radius: 8px; background: #F8F9FA;
 }
 .summary-card .num { font-size: 28px; font-weight: 700; }
-.summary-card .label { font-size: 12px; color: #888; margin-top: 4px; }
+.summary-card .label { font-size: 12px; color: #45617E; margin-top: 4px; }
 .num-p1 { color: #4CAF50; }
 .num-p15 { color: #FF9800; }
-.num-total { color: #3B82F6; }
+.num-total { color: #69BFEA; }
 .num-comp { color: #2196F3; }
 
 /* Nav table */
@@ -131,21 +184,25 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 }
 .nav-section h3 { font-size: 15px; font-weight: 600; margin-bottom: 12px; }
 .nav-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-.nav-table th { background: #F8F9FA; padding: 8px 12px; text-align: left; font-weight: 600; border-bottom: 2px solid #eee; }
-.nav-table td { padding: 8px 12px; border-bottom: 1px solid #f0f0f0; }
+.nav-table th { background: #F8F9FA; padding: 8px 12px; text-align: left; font-weight: 600; border-bottom: 2px solid #EEF3F8; }
+.nav-table td { padding: 8px 12px; border-bottom: 1px solid #EEF3F8; }
 .nav-table tr:hover { background: #FFFBFB; }
 .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600; }
 .badge-yes { background: #E8F5E9; color: #2E7D32; }
 .badge-no { background: #FFEBEE; color: #C62828; }
 
-.footer { text-align: center; padding: 24px; font-size: 11px; color: #aaa; }
+.footer { text-align: center; padding: 24px; font-size: 11px; color: #8EA2B7; }
 /* Responsive improvements for laptop/small screens */
 @media (max-width: 1200px) {
-  .canvas { padding: 16px; }
+  .canvas { padding: 14px; }
+  .section-card { min-width: 200px; max-width: 240px; }
 }
 @media (max-width: 900px) {
-  .ia-tree { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .header-bar { flex-wrap: wrap; gap: 8px; padding: 8px 12px; }
+  .header-bar { flex-wrap: wrap; gap: 8px; padding: 10px 12px; }
+  .view-toolbar { padding: 10px 12px; position: static; }
+  .search-input { min-width: 160px; }
+  .section-row::before { display: none; }
+  .section-card { min-width: 180px; max-width: 100%; }
 }
 </style>
 </head>
@@ -153,14 +210,29 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
 <div class="header-bar">
   <h1><span>애픽 월드</span> Aepik World — IA 사이트맵</h1>
-  <div class="meta">v1.4 · 기반: PRD v5.0, IA v1.2 · 2026-03-06</div>
+  <div class="meta">v1.12 · 기반: PRD v5.0, IA v1.12 · 2026-03-11</div>
 </div>
 
 <div class="legend">
   <div class="legend-item"><div class="legend-dot" style="background:#4CAF50;"></div>Phase 1 (MVP)</div>
   <div class="legend-item"><div class="legend-dot" style="background:#FF9800;"></div>Phase 1.5</div>
   <div class="legend-item"><div class="legend-dot" style="background:#9C27B0;"></div>Phase 2</div>
-  <div class="legend-item" style="margin-left:auto; font-style:italic; color:#aaa;">카드를 클릭하면 하위 페이지가 펼쳐집니다</div>
+  <div class="legend-item" style="margin-left:auto; font-style:italic; color:#8EA2B7;">카드를 클릭하면 하위 페이지가 펼쳐집니다</div>
+</div>
+
+<div class="view-toolbar">
+  <div class="toolbar-left">
+    <button class="tool-btn primary" id="expandAllBtn" type="button">전체 펼치기</button>
+    <button class="tool-btn" id="collapseAllBtn" type="button">전체 접기</button>
+    <button class="tool-btn" id="compactBtn" type="button">핵심만 보기</button>
+  </div>
+  <div class="toolbar-right">
+    <div class="search-wrap">
+      <label for="iaSearch">섹션 검색</label>
+      <input id="iaSearch" class="search-input" type="text" placeholder="예: 동행, 이벤트, /my">
+    </div>
+    <span class="match-count" id="matchCount"></span>
+  </div>
 </div>
 
 <div class="canvas">
@@ -186,7 +258,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <div class="child-item"><div class="child-dot dot-p1"></div>다가오는 이벤트</div>
           <div class="child-item"><div class="child-dot dot-p1"></div>인기 교환 (그리드)</div>
           <div class="child-item"><div class="child-dot dot-p1"></div>진행 중 공구</div>
-          <div class="child-item"><div class="child-dot dot-p1"></div>구함글 모아보기</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>동행글 모아보기</div>
         </div>
       </div>
 
@@ -201,12 +273,15 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <div class="section-children">
           <div class="child-item"><div class="child-dot dot-p1"></div>교환 목록 <span class="child-route">/exchange</span></div>
           <div class="child-item"><div class="child-dot dot-p1"></div>교환 상세 <span class="child-route">/exchange/[id]</span></div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 교환 제안 (보내기/받기)</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div><strong>EXCH04</strong> 교환 제안 <span class="child-route">/exchange/[id]/proposal</span></div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 제안 방식: 내 교환글 매칭(listing) / 새 제안 등록(manual)</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 거래 구조: 1:1 / 1:N / N:1 + 제공/희망 수량 + 차액(+/-)</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 오늘 직교환(이벤트 근처): 이벤트명/시간대/위치 입력 (당일)</div>
           <div class="child-item"><div class="child-dot dot-p1"></div>교환글 등록 <span class="child-route">/exchange/new</span></div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ Step 1: 보유 굿즈</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ Step 2: 원하는 굿즈</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ Step 3: 거래 방식</div>
-          <div class="child-item"><div class="child-dot dot-p1"></div>교환 제안 신청함 <span class="child-route">/exchange/proposals</span></div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ Step 1: 보유 굿즈</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ Step 2: 원하는 굿즈</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ Step 3: 거래 방식</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div><strong>EXCH05</strong> 교환 제안 신청함 <span class="child-route">/exchange/proposals</span></div>
         </div>
       </div>
 
@@ -222,29 +297,29 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <div class="child-item"><div class="child-dot dot-p1"></div>공구 목록 <span class="child-route">/group-buy</span></div>
           <div class="child-item"><div class="child-dot dot-p1"></div>공구 상세 (일반) <span class="child-route">/group-buy/[id]</span></div>
           <div class="child-item"><div class="child-dot dot-p1"></div>공구 상세 (세트) <span class="child-route">/group-buy/[id]</span></div>
-          <div class="child-item"><div class="child-dot dot-p1"></div>공구 등록 <span class="child-route">/group-buy/new</span></div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 유형 선택 (일반/세트)</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ Step 1: 기본 정보</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ Step 2: 캐릭터 설정 (세트)</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ Step 3: 확인</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>공구 등록/수정 <span class="child-route">/group-buy/new?mode=create|edit</span></div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 유형 선택 (일반/세트)</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ Step 1: 기본 정보</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ Step 2: 캐릭터 설정 (세트)</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ Step 3: 확인</div>
           <div class="child-item"><div class="child-dot dot-p1"></div>공구 관리 (총대) <span class="child-route">/group-buy/manage/[id]</span></div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 진행 결정 (진행/무산)</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 자동 무산 타이머 (D+5)</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 진행 결정 (진행/무산)</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 자동 무산 타이머 (D+5)</div>
         </div>
       </div>
 
-      <!-- 구함 -->
+      <!-- 동행 -->
       <div class="section-card phase1" onclick="this.classList.toggle('expanded')">
         <div class="section-head">
-          <span class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
-          <span class="section-name">구함</span>
+          <span class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+          <span class="section-name">동행 구함</span>
           <span class="section-toggle">▼</span>
         </div>
-        <div class="section-route">/wanted</div>
+        <div class="section-route">/companion</div>
         <div class="section-children">
-          <div class="child-item"><div class="child-dot dot-p1"></div><strong>WANT01</strong> 구함 게시판 <span class="child-route">/wanted</span> — 전체/내 구함 탭, 필터, 카드 리스트</div>
-          <div class="child-item"><div class="child-dot dot-p1"></div>구함 상세 바텀시트 — 매칭 교환글 노출 + 교환 제안/채팅 문의</div>
-          <div class="child-item"><div class="child-dot dot-p1"></div>구함글 등록 바텀시트 — 인라인 폼 (별도 페이지 이동 없음)</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div><strong>WANT01</strong> 동행 구함 <span class="child-route">/companion</span> — 전체/내 동행 탭, 필터, 카드 리스트</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div><strong>WANT02</strong> 동행 상세 <span class="child-route">/companion/[id]</span> — 동행글 정보 + 작성자 프로필 + 신청/채팅</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>동행글 등록/수정 바텀시트 — 인라인 공용 폼 (별도 페이지 이동 없음)</div>
         </div>
       </div>
 
@@ -258,15 +333,15 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <div class="section-route">/events</div>
         <div class="section-children">
           <div class="child-item"><div class="child-dot dot-p15"></div><strong>EVNT01</strong> 이벤트 캘린더 <span class="child-route">/events</span></div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 곧 다가올 이벤트 배너 (D-7 캐러셀)</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 캘린더 뷰 — 모바일: 날짜 스크롤러 / PC: 월간 그리드</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 선택 날짜 리치 카드 (썸네일+유형+장소+시간)</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 리스트 뷰 — 날짜별 그룹핑</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 지도 뷰 — 카카오맵 + 클러스터</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 곧 다가올 이벤트 배너 (D-7 캐러셀)</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 캘린더 뷰 — 모바일: 날짜 스크롤러 / PC: 월간 그리드</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 선택 날짜 리치 카드 (썸네일+유형+장소+시간)</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 리스트 뷰 — 날짜별 그룹핑</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 지도 뷰 — 카카오맵 + 클러스터</div>
           <div class="child-item"><div class="child-dot dot-p15"></div><strong>EVNT03</strong> 이벤트 등록 <span class="child-route">/events/new</span></div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 카테고리 선택 + 이벤트 유형 + 작품/캐릭터 검색 + 날짜/장소/이미지 입력</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 카테고리 선택 + 이벤트 유형 + 작품/캐릭터 검색 + 날짜/장소/이미지 입력</div>
           <div class="child-item"><div class="child-dot dot-p15"></div><strong>EVNT02</strong> 이벤트 상세 <span class="child-route">/events/[id]</span></div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 관련 교환/공구 섹션</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 관련 교환/공구 + 관련 동행 섹션</div>
         </div>
       </div>
 
@@ -280,15 +355,15 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <div class="section-route">/chat</div>
         <div class="section-children">
           <div class="child-item"><div class="child-dot dot-p1"></div>채팅 목록 [CHAT01] <span class="child-route">/chat</span></div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 필터 탭 (전체/교환/공구)</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 채팅방 아이템 (아바타/닉네임/상품/메시지)</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 필터 탭 (전체/교환/공구)</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 채팅방 아이템 (아바타/닉네임/상품/메시지)</div>
           <div class="child-item"><div class="child-dot dot-p1"></div>채팅방 [CHAT02] <span class="child-route">/chat/[roomId]</span></div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 거래 상태 배너 (8개 상태)</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 메시지 영역 (텍스트/이미지/시스템)</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 교환 확정 카드</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 운송장 입력 카드</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 수취 확인 / 완료 카드</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 메시지 입력 바</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 거래 상태 배너 (8개 상태)</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 메시지 영역 (텍스트/이미지/시스템)</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 교환 확정 카드</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 운송장 입력 카드</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 수취 확인 / 완료 카드</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 메시지 입력 바</div>
         </div>
       </div>
 
@@ -324,7 +399,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <div class="section-children">
           <div class="child-item"><div class="child-dot dot-p1"></div><strong>NOTI01</strong> 알림 센터 <span class="child-route">/notifications</span> — 14종 알림 필터 + 날짜 그룹 + 딥링크</div>
           <div class="child-item"><div class="child-dot dot-p1"></div>필터 탭바 (전체/교환/공구/이벤트/시스템) + 모두 읽음</div>
-          <div class="child-item"><div class="child-dot dot-p1"></div>알림 유형: 교환 매칭/제안/키워드/구함/공구/채팅/이벤트/배너/신고/시스템</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>알림 유형: 교환 매칭/제안/키워드/동행/공구/채팅/이벤트/배너/신고/시스템</div>
         </div>
       </div>
 
@@ -338,19 +413,19 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <div class="section-route">/my</div>
         <div class="section-children">
           <div class="child-item"><div class="child-dot dot-p1"></div><strong>마이페이지 [USER01]</strong> <span class="child-route">/my</span></div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ A. 마이페이지 메인 (프로필카드, 퀵카운트, 메뉴리스트, 로그아웃)</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ B. 프로필 편집 (/my/edit — 이미지변경, 닉네임변경, 최애설정, 카테고리변경)</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ A. 마이페이지 메인 (프로필카드, 퀵카운트, 메뉴리스트, 로그아웃)</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ B. 프로필 편집 (/my/edit — 이미지변경, 닉네임변경, 최애설정, 카테고리변경)</div>
           <div class="child-item"><div class="child-dot dot-p1"></div><strong>내 활동 관리 [USER02]</strong></div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ A. 내 교환글 <span class="child-route">/my/exchanges</span></div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ B. 내 공구 <span class="child-route">/my/group-buys</span></div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ C. 내 구함글 <span class="child-route">/my/wanted</span></div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ D. 교환 내역 <span class="child-route">/my/history</span></div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ E. 받은 후기 <span class="child-route">/my/reviews</span></div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ F. 찜 목록 <span class="child-route">/my/wishlist</span></div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ A. 내 교환글 <span class="child-route">/my/exchanges</span></div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ B. 내 공구 <span class="child-route">/my/group-buys</span></div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ C. 내 동행글 <span class="child-route">/my/companion</span></div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ D. 교환 내역 <span class="child-route">/my/history</span></div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ E. 받은 후기 <span class="child-route">/my/reviews</span></div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ F. 찜 목록 <span class="child-route">/my/wishlist</span></div>
           <div class="child-item"><div class="child-dot dot-p1"></div><strong>설정 [USER03]</strong> <span class="child-route">/my/settings</span></div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ A. 설정 메인 (알림설정, 카테고리, 계정관리, 정보)</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ B. 키워드 알림 설정 <span class="child-route">/my/keywords</span></div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ C. 탈퇴 프로세스</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ A. 설정 메인 (알림설정, 카테고리, 계정관리, 정보)</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ B. 키워드 알림 설정 <span class="child-route">/my/keywords</span></div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ C. 탈퇴 프로세스</div>
         </div>
       </div>
 
@@ -364,10 +439,10 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <div class="section-route">/user/[userId]</div>
         <div class="section-children">
           <div class="child-item"><div class="child-dot dot-p1"></div><strong>사용자 프로필 [USER01-C]</strong> <span class="child-route">/user/[userId]</span></div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 프로필 영역 (이미지/닉네임/인증뱃지/신뢰지표/가입일)</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 등록 매물 탭 (교환글/공구/구함글)</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 받은 후기</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 신고하기 (바텀시트)</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 프로필 영역 (이미지/닉네임/인증뱃지/신뢰지표/가입일)</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 등록 매물 탭 (교환글/공구/동행글)</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 받은 후기</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 신고하기 (바텀시트)</div>
         </div>
       </div>
 
@@ -380,9 +455,9 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         </div>
         <div class="section-route">/promotion</div>
         <div class="section-children">
-          <div class="child-item"><div class="child-dot dot-p15"></div><strong>BANR01</strong> 배너/팝업 신청 <span class="child-route">/banner/apply</span> — 유형 선택 + 슬롯 달력 + 이미지 업로드</div>
-          <div class="child-item"><div class="child-dot dot-p15"></div>슬롯 달력 (날짜별 잔여 슬롯 도트: 초록/노랑/빨강/매진)</div>
-          <div class="child-item"><div class="child-dot dot-p15"></div>내 배너/팝업 관리 (마이페이지 연계, 6종 상태별 액션)</div>
+          <div class="child-item"><div class="child-dot dot-p15"></div><strong>BANR01</strong> 배너/팝업 슬롯 현황 <span class="child-route">/banner</span> — 유형별 슬롯 현황 + 진행 중 배너 + 다음 신청 안내</div>
+          <div class="child-item"><div class="child-dot dot-p15"></div><strong>BANR02</strong> 배너/팝업 등록 <span class="child-route">/banner/register</span> — 통이미지 업로드 + 대상 정보 + 슬롯 달력 + 신청</div>
+          <div class="child-item"><div class="child-dot dot-p15"></div>내 배너/팝업 관리 (USER02 연계, 6종 상태별 액션)</div>
         </div>
       </div>
 
@@ -396,16 +471,16 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <div class="section-route">/login · /signup</div>
         <div class="section-children">
           <div class="child-item"><div class="child-dot dot-p1"></div><strong>로그인 [AUTH01]</strong> <span class="child-route">/login</span></div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ A. 로그인 메인 (카카오/이메일)</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ B. 이메일 로그인</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ C. 비밀번호 찾기</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ D. 로그인 유도 바텀시트</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ A. 로그인 메인 (카카오/이메일)</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ B. 이메일 로그인</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ C. 비밀번호 찾기</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ D. 로그인 유도 바텀시트</div>
           <div class="child-item"><div class="child-dot dot-p1"></div><strong>회원가입 [AUTH02]</strong> <span class="child-route">/signup</span></div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ Step 1: 약관 동의</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ Step 2: 계정 정보 (이메일 가입만)</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ Step 3: 프로필 설정</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ Step 4: 관심 카테고리 (선택)</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 가입 완료</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ Step 1: 약관 동의</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ Step 2: 계정 정보 (이메일 가입만)</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ Step 3: 프로필 설정</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ Step 4: 관심 카테고리 (선택)</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 가입 완료</div>
           <div class="child-item"><div class="child-dot dot-p1"></div>본인인증 (모달/바텀시트, Just-in-time)</div>
         </div>
       </div>
@@ -433,8 +508,8 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
     <!-- 공통 디자인 시스템 Row -->
     <div class="section-row no-line">
-      <div class="section-card phase1" onclick="this.classList.toggle('expanded')" style="border-color:#3B82F6;">
-        <div class="section-head" style="background:#EFF6FF;">
+      <div class="section-card phase1" onclick="this.classList.toggle('expanded')" style="border-color:#69BFEA;">
+        <div class="section-head" style="background:#EAF7FF;">
           <span class="section-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="0.5" fill="currentColor"/><circle cx="17.5" cy="10.5" r="0.5" fill="currentColor"/><circle cx="8.5" cy="7.5" r="0.5" fill="currentColor"/><circle cx="6.5" cy="12" r="0.5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></span>
           <span class="section-name">공통 디자인 시스템</span>
           <span class="section-toggle">▼</span>
@@ -442,11 +517,11 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <div class="section-route">COMM</div>
         <div class="section-children">
           <div class="child-item"><div class="child-dot dot-p1"></div>디자인 토큰 레퍼런스 <span class="child-route">COMM01</span></div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 컬러 팔레트 / 타이포 / 간격</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 그림자 / 반응형 / 모션</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 컬러 팔레트 / 타이포 / 간격</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 그림자 / 반응형 / 모션</div>
           <div class="child-item"><div class="child-dot dot-p1"></div>공통 UI 컴포넌트 <span class="child-route">COMM02</span></div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 버튼 / 인풋 / 태그·뱃지</div>
-          <div class="child-item" style="padding-left:16px; color:#999;">└ 팝업·오버레이 / 카드 / 네비</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 버튼 / 인풋 / 태그·뱃지</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 팝업·오버레이 / 카드 / 네비</div>
         </div>
       </div>
     </div>
@@ -485,7 +560,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   <!-- Summary -->
   <div class="summary">
     <div class="summary-card">
-      <div class="num num-p1">24</div>
+      <div class="num num-p1">25</div>
       <div class="label">Phase 1 페이지</div>
     </div>
     <div class="summary-card">
@@ -493,7 +568,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       <div class="label">Phase 1.5 페이지</div>
     </div>
     <div class="summary-card">
-      <div class="num num-total">35</div>
+      <div class="num num-total">36</div>
       <div class="label">전체 페이지</div>
     </div>
     <div class="summary-card">
@@ -528,8 +603,9 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       </thead>
       <tbody>
         <tr><td>공구</td><td><code>/group-buy</code></td><td>Bottom Nav에 없는 메인 섹션</td></tr>
-        <tr><td>구함</td><td><code>/wanted</code></td><td>Bottom Nav에 없는 메인 섹션</td></tr>
-        <tr><td><strong>BANR01</strong> 배너/팝업 신청</td><td><code>/banner/apply</code></td><td>Phase 1.5</td></tr>
+        <tr><td>동행 구함</td><td><code>/companion</code></td><td>Bottom Nav에 없는 메인 섹션</td></tr>
+        <tr><td><strong>BANR01</strong> 배너/팝업 슬롯 현황</td><td><code>/banner</code></td><td>Phase 1.5</td></tr>
+        <tr><td><strong>BANR02</strong> 배너/팝업 등록</td><td><code>/banner/register</code></td><td>Phase 1.5</td></tr>
         <tr><td>서비스 소개</td><td><code>/about</code></td><td></td></tr>
         <tr><td>고객센터</td><td><code>/support</code></td><td></td></tr>
         <tr><td>이용약관</td><td><code>/terms</code></td><td></td></tr>
@@ -547,8 +623,8 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       </thead>
       <tbody>
         <tr><td>교환글 등록</td><td><code>/exchange/new</code></td><td>로그인 + 본인인증</td></tr>
-        <tr><td>공구 등록</td><td><code>/group-buy/new</code></td><td>로그인 + 본인인증 + 진행자 자격</td></tr>
-        <tr><td>구함글 등록</td><td><code>/wanted/new</code></td><td>로그인</td></tr>
+        <tr><td>공구 등록/수정</td><td><code>/group-buy/new?mode=create|edit</code></td><td>로그인 + 본인인증 + 진행자 자격</td></tr>
+        <tr><td>동행글 등록/수정</td><td><code>/companion (inline sheet)</code></td><td>로그인 + 본인인증</td></tr>
       </tbody>
     </table>
   </div>
@@ -556,14 +632,48 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 </div><!-- end canvas -->
 
 <div class="footer">
-  애픽 월드 (Aepik World) IA 사이트맵 v1.4 · 기반: PRD v5.0, IA v1.2 · 2026-03-06
+  애픽 월드 (Aepik World) IA 사이트맵 v1.12 · 기반: PRD v5.0, IA v1.12 · 2026-03-11
 </div>
 
 <script>
-// Auto-expand all on load for overview, then allow toggling
-document.querySelectorAll('.section-card').forEach(card => {
-  card.classList.add('expanded');
+const cards = Array.from(document.querySelectorAll('.section-card'));
+const expandAllBtn = document.getElementById('expandAllBtn');
+const collapseAllBtn = document.getElementById('collapseAllBtn');
+const compactBtn = document.getElementById('compactBtn');
+const searchInput = document.getElementById('iaSearch');
+const matchCount = document.getElementById('matchCount');
+
+function updateCount() {
+  const visible = cards.filter((card) => !card.classList.contains('hidden-card')).length;
+  matchCount.textContent = `표시 ${visible} / 전체 ${cards.length} 섹션`;
+}
+
+expandAllBtn.addEventListener('click', () => {
+  cards.forEach((card) => card.classList.add('expanded'));
 });
+
+collapseAllBtn.addEventListener('click', () => {
+  cards.forEach((card) => card.classList.remove('expanded'));
+});
+
+compactBtn.addEventListener('click', () => {
+  document.body.classList.toggle('compact-mode');
+  compactBtn.textContent = document.body.classList.contains('compact-mode') ? '전체 보기' : '핵심만 보기';
+});
+
+searchInput.addEventListener('input', (e) => {
+  const query = e.target.value.trim().toLowerCase();
+  cards.forEach((card) => {
+    const matched = !query || card.textContent.toLowerCase().includes(query);
+    card.classList.toggle('hidden-card', !matched);
+    if (matched && query) {
+      card.classList.add('expanded');
+    }
+  });
+  updateCount();
+});
+
+updateCount();
 </script>
 
 </body>

@@ -6,17 +6,17 @@
 <title>GRPB04 — 공구 관리 와이어프레임</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F7FAFD; color: #163958; }
 
 /* ===== META HEADER ===== */
 .meta-bar {
-  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  background: #fff; border-bottom: 2px solid #2F8EC1; padding: 12px 24px;
   display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
 }
 .meta-item { font-size: 11px; }
-.meta-label { color: #999; }
-.meta-value { font-weight: 600; color: #333; margin-left: 4px; }
-.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+.meta-label { color: #8EA2B7; }
+.meta-value { font-weight: 600; color: #163958; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2F8EC1; margin-right: auto; }
 
 /* ===== MAIN LAYOUT ===== */
 .main-layout { overflow-x: hidden;
@@ -36,31 +36,31 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* ===== DESCRIPTION SIDE ===== */
 .desc-side {
   flex: 1 1 45%; min-width: 0; background: #fff; padding: 24px 28px;
-  overflow-y: auto; border-left: 1px solid #ddd;
+  overflow-y: auto; border-left: 1px solid #DEE8F2;
 }
 .desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-.desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+.desc-subtitle { font-size: 12px; color: #45617E; margin-bottom: 20px; }
 
 .desc-item { margin-bottom: 20px; }
 .desc-num-row {
   display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
 }
 .desc-num {
-  background: #2563EB; color: #fff; width: 22px; height: 22px;
+  background: #2F8EC1; color: #fff; width: 22px; height: 22px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 11px; font-weight: 700; flex-shrink: 0;
 }
-.desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-type { font-size: 10px; color: #8EA2B7; background: #F7FAFD; padding: 2px 6px; border-radius: 3px; }
 .desc-comp-name { font-size: 14px; font-weight: 600; }
 
-.desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
+.desc-body { padding-left: 30px; font-size: 12px; color: #45617E; line-height: 1.7; }
 .desc-body ul { list-style: none; }
 .desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
-.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
-.desc-body .sub { padding-left: 14px; color: #888; }
-.desc-body .sub li::before { content: '└'; color: #ccc; }
+.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2F8EC1; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #45617E; }
+.desc-body .sub li::before { content: '└'; color: #8EA2B7; }
 
-.desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
+.desc-divider { border: none; border-top: 1px dashed #EEF3F8; margin: 16px 0; }
 
 /* ===== WIREFRAME ELEMENTS ===== */
 .wf-section { position: relative; }
@@ -68,7 +68,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* Number circle overlay */
 .num-circle {
   position: absolute; z-index: 10;
-  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  background: #2F8EC1; color: #fff; width: 20px; height: 20px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
@@ -76,37 +76,37 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* Header */
 .wf-header {
   display: flex; align-items: center; padding: 12px 16px;
-  border-bottom: 1px solid #eee; position: relative;
+  border-bottom: 1px solid #EEF3F8; position: relative;
 }
-.wf-back-btn { width: 20px; height: 20px; background: #ddd; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #888; }
+.wf-back-btn { width: 20px; height: 20px; background: #DEE8F2; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #45617E; }
 .wf-header-title { flex: 1; margin-left: 12px; font-weight: 600; font-size: 14px; }
 .wf-header-icons { display: flex; gap: 12px; }
-.wf-icon { width: 20px; height: 20px; background: #ddd; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #888; }
+.wf-icon { width: 20px; height: 20px; background: #DEE8F2; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #45617E; }
 
 /* Summary card */
 .wf-summary-card {
-  margin: 12px 16px; padding: 12px; background: #FAFAFA;
-  border: 1px solid #eee; border-radius: 8px;
+  margin: 12px 16px; padding: 12px; background: #F7FAFD;
+  border: 1px solid #EEF3F8; border-radius: 8px;
 }
 .wf-summary-title { font-size: 12px; font-weight: 600; margin-bottom: 6px; }
 .wf-summary-tags { display: flex; gap: 4px; margin-bottom: 6px; }
-.wf-tag { font-size: 9px; padding: 1px 5px; border-radius: 3px; background: #EFF6FF; color: #2563EB; }
-.wf-summary-meta { font-size: 11px; color: #999; margin-bottom: 4px; }
-.wf-progress-bar { height: 4px; background: #eee; border-radius: 2px; overflow: hidden; margin-bottom: 4px; }
-.wf-progress-fill { height: 100%; background: #2563EB; border-radius: 2px; }
-.wf-status-badge { display: inline-block; font-size: 9px; padding: 2px 6px; border-radius: 3px; background: #EFF6FF; color: #2563EB; }
+.wf-tag { font-size: 9px; padding: 1px 5px; border-radius: 3px; background: #E8F4FC; color: #1E6FA8; }
+.wf-summary-meta { font-size: 11px; color: #8EA2B7; margin-bottom: 4px; }
+.wf-progress-bar { height: 4px; background: #EEF3F8; border-radius: 2px; overflow: hidden; margin-bottom: 4px; }
+.wf-progress-fill { height: 100%; background: #2F8EC1; border-radius: 2px; }
+.wf-status-badge { display: inline-block; font-size: 9px; padding: 2px 6px; border-radius: 3px; background: #E8F4FC; color: #1E6FA8; }
 
 /* Alert panel */
 .wf-alert-panel {
   margin: 12px 16px; padding: 10px 12px; background: #FFFBEB;
   border-left: 3px solid #F59E0B; border-radius: 4px;
 }
-.wf-alert-text { font-size: 11px; color: #555; margin-bottom: 8px; line-height: 1.5; }
+.wf-alert-text { font-size: 11px; color: #45617E; margin-bottom: 8px; line-height: 1.5; }
 .wf-alert-buttons { display: flex; gap: 6px; }
 .wf-btn { font-size: 10px; padding: 4px 8px; border-radius: 4px; border: none; font-weight: 600; }
-.wf-btn.primary { background: #2563EB; color: #fff; }
-.wf-btn.secondary { background: #fff; color: #dc2626; border: 1px solid #dc2626; }
-.wf-btn.danger { background: #dc2626; color: #fff; }
+.wf-btn.primary { background: #2F8EC1; color: #fff; }
+.wf-btn.secondary { background: #fff; color: #EA5D86; border: 1px solid #EA5D86; }
+.wf-btn.danger { background: #EA5D86; color: #fff; }
 
 /* Section header */
 .wf-sec-header {
@@ -118,72 +118,72 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* Notice area */
 .wf-notice-input {
   margin: 12px 16px; padding: 10px; background: #fff;
-  border: 1px solid #eee; border-radius: 6px; font-size: 11px;
-  color: #999; min-height: 40px; resize: none;
+  border: 1px solid #EEF3F8; border-radius: 6px; font-size: 11px;
+  color: #8EA2B7; min-height: 40px; resize: none;
 }
-.wf-notice-btn { margin: 0 16px 8px; padding: 6px 12px; background: #2563EB; color: #fff; font-size: 10px; border: none; border-radius: 4px; font-weight: 600; }
+.wf-notice-btn { margin: 0 16px 8px; padding: 6px 12px; background: #2F8EC1; color: #fff; font-size: 10px; border: none; border-radius: 4px; font-weight: 600; }
 .wf-notice-list { padding: 8px 16px; }
 .wf-notice-item {
-  padding: 8px 0; border-bottom: 1px solid #f0f0f0;
+  padding: 8px 0; border-bottom: 1px solid #EEF3F8;
 }
-.wf-notice-date { font-size: 10px; color: #999; }
+.wf-notice-date { font-size: 10px; color: #8EA2B7; }
 .wf-notice-content { font-size: 11px; margin: 4px 0; line-height: 1.4; }
-.wf-notice-more { font-size: 10px; color: #2563EB; }
+.wf-notice-more { font-size: 10px; color: #2F8EC1; }
 
 /* Participant table header */
 .wf-table-header {
-  display: flex; padding: 10px 16px; background: #f5f5f5;
-  border-bottom: 1px solid #eee; font-size: 10px; font-weight: 600;
-  color: #666;
+  display: flex; padding: 10px 16px; background: #F7FAFD;
+  border-bottom: 1px solid #EEF3F8; font-size: 10px; font-weight: 600;
+  color: #45617E;
 }
 .wf-table-col { flex: 1; }
 
 /* Participant item */
 .wf-participant-item {
-  display: flex; padding: 10px 16px; border-bottom: 1px solid #f0f0f0;
+  display: flex; padding: 10px 16px; border-bottom: 1px solid #EEF3F8;
   align-items: center; font-size: 11px;
 }
-.wf-participant-avatar { width: 28px; height: 28px; background: #ddd; border-radius: 50%; margin-right: 8px; flex-shrink: 0; }
+.wf-participant-avatar { width: 28px; height: 28px; background: #DEE8F2; border-radius: 50%; margin-right: 8px; flex-shrink: 0; }
 .wf-participant-info { flex: 1; }
 .wf-participant-name { font-weight: 600; margin-bottom: 2px; }
-.wf-participant-meta { font-size: 10px; color: #999; }
+.wf-participant-meta { font-size: 10px; color: #8EA2B7; }
 .wf-participant-col { flex: 0.8; text-align: center; }
-.wf-status-toggle { width: 28px; height: 16px; background: #e5e5e5; border-radius: 8px; display: inline-block; position: relative; }
-.wf-status-toggle.active { background: #2563EB; }
+.wf-status-toggle { width: 28px; height: 16px; background: #DEE8F2; border-radius: 8px; display: inline-block; position: relative; }
+.wf-status-toggle.active { background: #2F8EC1; }
 .wf-participant-actions { flex: 0.6; text-align: center; }
 .wf-action-icon { font-size: 11px; }
 
 /* Action bar */
 .wf-action-bar {
-  padding: 12px 16px; display: flex; gap: 8px; border-top: 1px solid #eee;
+  padding: 12px 16px; display: flex; gap: 8px; border-top: 1px solid #EEF3F8;
 }
 .wf-action-btn { flex: 1; padding: 8px; font-size: 10px; border: none; border-radius: 4px; font-weight: 600; }
-.wf-action-btn.blue { background: #2563EB; color: #fff; }
+.wf-action-btn.blue { background: #2F8EC1; color: #fff; }
 .wf-action-btn.amber { background: #F59E0B; color: #fff; }
-.wf-action-btn.red { background: #fff; color: #dc2626; border: 1px solid #dc2626; }
-.wf-action-btn.gray { background: #e5e5e5; color: #999; }
+.wf-action-btn.red { background: #fff; color: #EA5D86; border: 1px solid #EA5D86; }
+.wf-action-btn.gray { background: #DEE8F2; color: #8EA2B7; }
 
 /* Filter tabs */
 .wf-filter-tabs {
-  display: flex; padding: 8px 16px; gap: 8px; border-bottom: 1px solid #eee;
+  display: flex; padding: 8px 16px; gap: 8px; border-bottom: 1px solid #EEF3F8;
   overflow-x: auto;
 }
-.wf-tab { font-size: 10px; padding: 6px 8px; background: #f5f5f5; border-radius: 4px; white-space: nowrap; }
-.wf-tab.active { background: #2563EB; color: #fff; font-weight: 600; }
+.wf-tab { font-size: 10px; padding: 6px 8px; background: #F7FAFD; border-radius: 4px; white-space: nowrap; }
+.wf-tab.active { background: #2F8EC1; color: #fff; font-weight: 600; }
 
 /* Revision footer */
 .revision-bar {
-  background: #fff; border-top: 1px solid #eee; padding: 12px 24px;
-  font-size: 11px; color: #999;
+  background: #fff; border-top: 1px solid #EEF3F8; padding: 12px 24px;
+  font-size: 11px; color: #8EA2B7;
 }
 .revision-bar table { width: 100%; border-collapse: collapse; }
-.revision-bar th { text-align: left; font-weight: 600; color: #666; padding: 4px 8px; border-bottom: 1px solid #eee; }
+.revision-bar th { text-align: left; font-weight: 600; color: #45617E; padding: 4px 8px; border-bottom: 1px solid #EEF3F8; }
 .revision-bar td { padding: 4px 8px; }
 
 @media (max-width: 900px) {
   .main-layout { flex-direction: column; }
   .wireframe-side { flex: none; padding: 16px; }
-  .desc-side { flex: none; border-left: none; border-top: 1px solid #ddd; }
+  .desc-side { flex: none; border-left: none; border-top: 1px solid #DEE8F2; }
 }
 /* Responsive improvements for laptop/small screens */
 .meta-bar { flex-wrap: wrap; gap: 8px; }
@@ -210,7 +210,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">공구 관리 (총대)</span></span>
   <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/groupbuy/[id]/manage</span></span>
   <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
-  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.1</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.2</span></span>
   <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
   <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-06</span></span>
 </div>
@@ -244,7 +244,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           </div>
           <div class="wf-summary-meta">참여 인원: 18/30명 · 마감 D-7</div>
           <div class="wf-progress-bar"><div class="wf-progress-fill" style="width:60%;"></div></div>
-          <div style="font-size:10px; color:#555;">
+          <div style="font-size:10px; color:#45617E;">
             <span class="wf-status-badge">모집중</span>
           </div>
         </div>
@@ -254,15 +254,23 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       <div class="wf-section" style="padding: 12px 16px; font-size:10px;">
         <div class="num-circle" style="top:4px; left:6px;">3</div>
         <div style="display:flex; gap:4px; align-items:center;">
-          <div style="background:#2563EB; color:#fff; padding:4px 6px; border-radius:3px;">1.모집</div>
-          <div style="color:#ccc;">→</div>
-          <div style="background:#ddd; color:#999; padding:4px 6px; border-radius:3px;">2.결정</div>
-          <div style="color:#ccc;">→</div>
-          <div style="background:#ddd; color:#999; padding:4px 6px; border-radius:3px;">3.확정</div>
-          <div style="color:#ccc;">→</div>
-          <div style="background:#ddd; color:#999; padding:4px 6px; border-radius:3px;">4.배송</div>
-          <div style="color:#ccc;">→</div>
-          <div style="background:#ddd; color:#999; padding:4px 6px; border-radius:3px;">5.완료</div>
+          <div style="background:#2F8EC1; color:#fff; padding:4px 6px; border-radius:3px;">1.모집</div>
+          <div style="color:#8EA2B7;">→</div>
+          <div style="background:#DEE8F2; color:#8EA2B7; padding:4px 6px; border-radius:3px;">2.결정</div>
+          <div style="color:#8EA2B7;">→</div>
+          <div style="background:#DEE8F2; color:#8EA2B7; padding:4px 6px; border-radius:3px;">3.확정</div>
+          <div style="color:#8EA2B7;">→</div>
+          <div style="background:#DEE8F2; color:#8EA2B7; padding:4px 6px; border-radius:3px;">4.배송</div>
+          <div style="color:#8EA2B7;">→</div>
+          <div style="background:#DEE8F2; color:#8EA2B7; padding:4px 6px; border-radius:3px;">5.완료</div>
+        </div>
+      </div>
+
+      <!-- ③-B Edit Lock Guide -->
+      <div class="wf-section" style="padding: 0 16px 12px;">
+        <div style="padding:10px 12px; border:1px solid #FBCFE8; background:#FFF1F2; border-radius:8px;">
+          <div style="font-size:11px; font-weight:700; color:#BE185D;">핵심 수정 잠금 안내</div>
+          <div style="font-size:10px; color:#9D174D; margin-top:4px;">참여/입금 이력이 있으면 가격·인원·마감일·구성은 수정할 수 없습니다.</div>
         </div>
       </div>
 
@@ -319,7 +327,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <div class="wf-participant-col">
             <div class="wf-status-toggle active"></div>
           </div>
-          <div class="wf-participant-col" style="font-size:9px; color:#999;">대기중</div>
+          <div class="wf-participant-col" style="font-size:9px; color:#8EA2B7;">대기중</div>
           <div class="wf-participant-actions">
             <span class="wf-action-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
             <span class="wf-action-icon">▶</span>
@@ -335,7 +343,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <div class="wf-participant-col">
             <div class="wf-status-toggle"></div>
           </div>
-          <div class="wf-participant-col" style="font-size:9px; color:#999;">대기중</div>
+          <div class="wf-participant-col" style="font-size:9px; color:#8EA2B7;">대기중</div>
           <div class="wf-participant-actions">
             <span class="wf-action-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
             <span class="wf-action-icon">▶</span>
@@ -351,7 +359,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <div class="wf-participant-col">
             <div class="wf-status-toggle active"></div>
           </div>
-          <div class="wf-participant-col" style="font-size:9px; color:#999;">발송완료</div>
+          <div class="wf-participant-col" style="font-size:9px; color:#8EA2B7;">발송완료</div>
           <div class="wf-participant-actions">
             <span class="wf-action-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
             <span class="wf-action-icon">▶</span>
@@ -425,6 +433,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <li>무산 경로는 분기로 표시</li>
           <li>현재 상태: 파랑(활성), 이전 상태: 회색(비활성)</li>
           <li>진행 결정 단계에서 "무산" 옵션 선택 가능</li>
+          <li>참여/입금 이력 발생 후에는 핵심 조건 수정이 잠금되며, 공지 작성으로 대체 안내</li>
         </ul>
       </div>
     </div>
@@ -526,13 +535,14 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
     <!-- States -->
     <div style="margin-top:16px;">
-      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">화면 상태</div>
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2F8EC1;">화면 상태</div>
       <div class="desc-body" style="padding-left:0;">
         <ul>
           <li><strong>모집중 상태</strong>: 조기 마감 버튼 활성, 일괄 발송처리 비활성</li>
           <li><strong>진행 결정 대기</strong>: 진행 확정/무산 처리 버튼 활성, 자동 무산 타이머 표시</li>
           <li><strong>진행 확정 상태</strong>: 일괄 발송처리 활성, 공구 취소 가능</li>
           <li><strong>배송중/완료</strong>: 미발송 건이 있을 때만 일괄 발송처리 활성</li>
+          <li><strong>수정 잠금 상태</strong>: 핵심 조건 수정 불가, 공지/상세설명 안내만 가능</li>
           <li><strong>진행자 미접근</strong>: 권한 없음 오류 메시지</li>
         </ul>
       </div>
@@ -540,14 +550,14 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
     <!-- Connected screens -->
     <div style="margin-top:16px;">
-      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">연관 화면</div>
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2F8EC1;">연관 화면</div>
       <div class="desc-body" style="padding-left:0;">
         <table style="width:100%; font-size:11px; border-collapse:collapse;">
           <thead>
-            <tr style="border-bottom:1px solid #eee;">
-              <th style="text-align:left; padding:4px 8px; color:#888;">이동 대상</th>
-              <th style="text-align:left; padding:4px 8px; color:#888;">조건</th>
-              <th style="text-align:left; padding:4px 8px; color:#888;">화면코드</th>
+            <tr style="border-bottom:1px solid #EEF3F8;">
+              <th style="text-align:left; padding:4px 8px; color:#45617E;">이동 대상</th>
+              <th style="text-align:left; padding:4px 8px; color:#45617E;">조건</th>
+              <th style="text-align:left; padding:4px 8px; color:#45617E;">화면코드</th>
             </tr>
           </thead>
           <tbody>
@@ -571,6 +581,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
     </thead>
     <tbody>
       <tr><td>2026-03-06</td><td>0.1</td><td>초안 작성 - HOME01 패턴 표준화</td><td>AI (Claude)</td></tr>
+      <tr><td>2026-03-10</td><td>0.2</td><td>수정 잠금 안내 패널 및 상태 설명 추가</td><td>AI (Codex)</td></tr>
     </tbody>
   </table>
 </div>

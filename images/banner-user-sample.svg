@@ -1,0 +1,38 @@
+<svg width="1200" height="300" viewBox="0 0 1200 300" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="사용자 등록 배너 샘플">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="300" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6CC5EE"/>
+      <stop offset="0.58" stop-color="#8FD0F0"/>
+      <stop offset="1" stop-color="#F3A8CD"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(920 110) rotate(90) scale(130 170)">
+      <stop stop-color="#FFFFFF" stop-opacity="0.44"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(320 60) rotate(90) scale(88 132)">
+      <stop stop-color="#FFFFFF" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="300" fill="url(#bg)"/>
+  <rect width="1200" height="300" fill="url(#glow1)"/>
+  <rect width="1200" height="300" fill="url(#glow2)"/>
+
+  <circle cx="160" cy="70" r="7" fill="#FFFFFF" fill-opacity="0.36"/>
+  <circle cx="220" cy="95" r="4" fill="#FFFFFF" fill-opacity="0.36"/>
+  <circle cx="1020" cy="220" r="8" fill="#FFFFFF" fill-opacity="0.32"/>
+  <circle cx="950" cy="240" r="5" fill="#FFFFFF" fill-opacity="0.32"/>
+
+  <g fill="#FFFFFF" fill-opacity="0.26">
+    <path d="M930 78c10-12 28-13 40-2 10 9 12 25 4 36-9 12-25 18-40 21-15-3-31-9-40-21-8-11-6-27 4-36 12-11 30-10 40 2z"/>
+    <path d="M1010 158c8-10 23-10 31-1 8 8 8 21 1 30-7 9-19 14-32 16-12-2-24-7-31-16-7-9-7-22 1-30 8-9 23-9 30 1z"/>
+  </g>
+
+  <g stroke="#FFFFFF" stroke-opacity="0.62" stroke-width="4" stroke-linecap="round">
+    <path d="M104 224h32"/>
+    <path d="M120 208v32"/>
+    <path d="M1060 72h24"/>
+    <path d="M1072 60v24"/>
+  </g>
+</svg>

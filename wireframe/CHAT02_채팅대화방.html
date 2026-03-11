@@ -6,17 +6,17 @@
 <title>CHAT02 — 채팅 대화방 와이어프레임</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F7FAFD; color: #163958; }
 
 /* ===== META HEADER ===== */
 .meta-bar {
-  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  background: #fff; border-bottom: 2px solid #2F8EC1; padding: 12px 24px;
   display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
 }
 .meta-item { font-size: 11px; }
-.meta-label { color: #999; }
-.meta-value { font-weight: 600; color: #333; margin-left: 4px; }
-.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+.meta-label { color: #8EA2B7; }
+.meta-value { font-weight: 600; color: #163958; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2F8EC1; margin-right: auto; }
 
 /* ===== MAIN LAYOUT ===== */
 .main-layout { overflow-x: hidden;
@@ -29,7 +29,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   display: flex; justify-content: center; overflow-y: auto;
 }
 .phone-stack { display: flex; flex-direction: column; gap: 24px; align-items: center; }
-.frame-label { font-size: 13px; font-weight: 600; color: #555; margin-bottom: 6px; text-align: center; }
+.frame-label { font-size: 13px; font-weight: 600; color: #45617E; margin-bottom: 6px; text-align: center; }
 .phone-frame {
   width: 375px; background: #fff; border-radius: 16px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative;
@@ -39,43 +39,43 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* ===== DESCRIPTION SIDE ===== */
 .desc-side {
   flex: 1 1 45%; min-width: 0; background: #fff; padding: 24px 28px;
-  overflow-y: auto; border-left: 1px solid #ddd;
+  overflow-y: auto; border-left: 1px solid #DEE8F2;
 }
 .desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-.desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+.desc-subtitle { font-size: 12px; color: #45617E; margin-bottom: 20px; }
 
 .desc-item { margin-bottom: 20px; }
 .desc-num-row {
   display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
 }
 .desc-num {
-  background: #2563EB; color: #fff; width: 22px; height: 22px;
+  background: #2F8EC1; color: #fff; width: 22px; height: 22px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 11px; font-weight: 700; flex-shrink: 0;
 }
-.desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-type { font-size: 10px; color: #8EA2B7; background: #F7FAFD; padding: 2px 6px; border-radius: 3px; }
 .desc-comp-name { font-size: 14px; font-weight: 600; }
 
-.desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
+.desc-body { padding-left: 30px; font-size: 12px; color: #45617E; line-height: 1.7; }
 .desc-body ul { list-style: none; }
 .desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
-.desc-body li::before { content: '\2022'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
-.desc-body .sub { padding-left: 14px; color: #888; }
-.desc-body .sub li::before { content: '\2514'; color: #ccc; }
+.desc-body li::before { content: '\2022'; position: absolute; left: 0; color: #2F8EC1; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #45617E; }
+.desc-body .sub li::before { content: '\2514'; color: #8EA2B7; }
 
-.desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
+.desc-divider { border: none; border-top: 1px dashed #EEF3F8; margin: 16px 0; }
 
 /* ===== State / Related tables ===== */
 .state-table, .related-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 8px; }
-.state-table th, .related-table th { background: #F9FAFB; text-align: left; padding: 6px 8px; font-weight: 600; border-bottom: 1px solid #E5E7EB; }
-.state-table td, .related-table td { padding: 6px 8px; border-bottom: 1px solid #F3F4F6; }
+.state-table th, .related-table th { background: #F7FAFD; text-align: left; padding: 6px 8px; font-weight: 600; border-bottom: 1px solid #DEE8F2; }
+.state-table td, .related-table td { padding: 6px 8px; border-bottom: 1px solid #EEF3F8; }
 
 /* ===== WIREFRAME ELEMENTS ===== */
 .wf-section { position: relative; }
 
 .num-circle {
   position: absolute; z-index: 10;
-  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  background: #2F8EC1; color: #fff; width: 20px; height: 20px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
@@ -83,17 +83,17 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* Chat Sub Header */
 .wf-chat-header {
   display: flex; align-items: center; gap: 10px; padding: 10px 16px;
-  border-bottom: 1px solid #F3F4F6; position: relative;
+  border-bottom: 1px solid #EEF3F8; position: relative;
 }
-.wf-back-btn { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; color: #111827; flex-shrink: 0; }
+.wf-back-btn { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; color: #163958; flex-shrink: 0; }
 .wf-back-btn svg { width: 20px; height: 20px; }
-.wf-chat-header-avatar { width: 32px; height: 32px; border-radius: 50%; background: #E5E7EB; display: flex; align-items: center; justify-content: center; color: #9CA3AF; flex-shrink: 0; position: relative; }
+.wf-chat-header-avatar { width: 32px; height: 32px; border-radius: 50%; background: #DEE8F2; display: flex; align-items: center; justify-content: center; color: #8EA2B7; flex-shrink: 0; position: relative; }
 .wf-chat-header-avatar svg { width: 16px; height: 16px; }
 .wf-header-online-dot { position: absolute; bottom: 0; right: 0; width: 8px; height: 8px; border-radius: 50%; background: #10B981; border: 1.5px solid #fff; }
 .wf-chat-header-info { flex: 1; min-width: 0; }
-.wf-chat-header-nick { font-size: 14px; font-weight: 600; color: #111827; }
-.wf-chat-header-product { font-size: 11px; color: #6B7280; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.wf-more-btn { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; color: #6B7280; flex-shrink: 0; }
+.wf-chat-header-nick { font-size: 14px; font-weight: 600; color: #163958; }
+.wf-chat-header-product { font-size: 11px; color: #45617E; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wf-more-btn { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; color: #45617E; flex-shrink: 0; }
 .wf-more-btn svg { width: 20px; height: 20px; }
 
 /* Trade Status Banner */
@@ -102,16 +102,16 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   font-size: 12px; position: relative;
 }
 .wf-trade-banner svg { width: 16px; height: 16px; flex-shrink: 0; }
-.wf-trade-banner.negotiating { background: #EFF6FF; color: #2563EB; }
+.wf-trade-banner.negotiating { background: #EAF7FF; color: #2F8EC1; }
 .wf-trade-banner.confirm-wait { background: #FEF3C7; color: #B45309; }
 .wf-trade-banner.confirmed { background: #D1FAE5; color: #059669; }
-.wf-trade-banner.shipped { background: #DBEAFE; color: #2563EB; }
+.wf-trade-banner.shipped { background: #EAF7FF; color: #2F8EC1; }
 .wf-trade-banner.both-shipped { background: #D1FAE5; color: #059669; }
-.wf-trade-banner.completed { background: #F3F4F6; color: #6B7280; }
+.wf-trade-banner.completed { background: #EEF3F8; color: #45617E; }
 
 /* Messages Area */
 .wf-messages {
-  padding: 12px 16px; min-height: 340px; background: #FAFAFA;
+  padding: 12px 16px; min-height: 340px; background: #F7FAFD;
   display: flex; flex-direction: column; gap: 6px; position: relative;
 }
 
@@ -120,16 +120,16 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   display: flex; align-items: center; gap: 8px; padding: 8px 0;
 }
 .wf-date-divider::before, .wf-date-divider::after {
-  content: ''; flex: 1; border-top: 1px dashed #D1D5DB;
+  content: ''; flex: 1; border-top: 1px dashed #DEE8F2;
 }
-.wf-date-text { font-size: 11px; color: #9CA3AF; white-space: nowrap; }
+.wf-date-text { font-size: 11px; color: #8EA2B7; white-space: nowrap; }
 
 /* System Message */
 .wf-system-msg {
   text-align: center; padding: 4px 0;
 }
 .wf-system-msg span {
-  display: inline-block; background: #F3F4F6; color: #6B7280;
+  display: inline-block; background: #EEF3F8; color: #45617E;
   font-size: 11px; padding: 4px 14px; border-radius: 999px;
 }
 
@@ -137,24 +137,24 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 .wf-msg-received {
   display: flex; align-items: flex-end; gap: 6px; max-width: 80%;
 }
-.wf-msg-avatar { width: 32px; height: 32px; border-radius: 50%; background: #E5E7EB; display: flex; align-items: center; justify-content: center; color: #9CA3AF; flex-shrink: 0; }
+.wf-msg-avatar { width: 32px; height: 32px; border-radius: 50%; background: #DEE8F2; display: flex; align-items: center; justify-content: center; color: #8EA2B7; flex-shrink: 0; }
 .wf-msg-avatar svg { width: 16px; height: 16px; }
 .wf-msg-col { display: flex; flex-direction: column; gap: 2px; }
-.wf-msg-nick { font-size: 11px; color: #6B7280; font-weight: 500; }
+.wf-msg-nick { font-size: 11px; color: #45617E; font-weight: 500; }
 .wf-msg-bubble-row { display: flex; align-items: flex-end; gap: 4px; }
 .wf-bubble-received {
-  background: #F3F4F6; color: #111827; font-size: 13px; padding: 8px 12px;
+  background: #EEF3F8; color: #163958; font-size: 13px; padding: 8px 12px;
   border-radius: 16px 16px 16px 4px; line-height: 1.4; max-width: 220px;
   word-break: break-word;
 }
-.wf-bubble-time-r { font-size: 10px; color: #9CA3AF; white-space: nowrap; flex-shrink: 0; }
+.wf-bubble-time-r { font-size: 10px; color: #8EA2B7; white-space: nowrap; flex-shrink: 0; }
 
 /* Sent Message (right) */
 .wf-msg-sent {
   display: flex; justify-content: flex-end; align-items: flex-end; gap: 4px; max-width: 80%; align-self: flex-end;
 }
 .wf-bubble-sent {
-  background: #3B82F6; color: #fff; font-size: 13px; padding: 8px 12px;
+  background: #69BFEA; color: #fff; font-size: 13px; padding: 8px 12px;
   border-radius: 16px 16px 4px 16px; line-height: 1.4; max-width: 220px;
   word-break: break-word;
 }
@@ -167,33 +167,33 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
 /* Image Message */
 .wf-img-msg {
-  width: 160px; height: 120px; border-radius: 12px; background: #E5E7EB;
-  display: flex; align-items: center; justify-content: center; color: #9CA3AF;
+  width: 160px; height: 120px; border-radius: 12px; background: #DEE8F2;
+  display: flex; align-items: center; justify-content: center; color: #8EA2B7;
 }
 .wf-img-msg svg { width: 32px; height: 32px; }
 
 /* Exchange Confirm Card */
 .wf-trade-card {
-  border: 1px solid #E5E7EB; border-radius: 12px; padding: 12px;
+  border: 1px solid #DEE8F2; border-radius: 12px; padding: 12px;
   margin: 4px 0; background: #fff; max-width: 280px;
 }
 .wf-trade-card-top { display: flex; gap: 10px; margin-bottom: 10px; }
-.wf-trade-card-img { width: 56px; height: 56px; border-radius: 8px; background: #F3F4F6; display: flex; align-items: center; justify-content: center; color: #D1D5DB; flex-shrink: 0; }
+.wf-trade-card-img { width: 56px; height: 56px; border-radius: 8px; background: #EEF3F8; display: flex; align-items: center; justify-content: center; color: #DEE8F2; flex-shrink: 0; }
 .wf-trade-card-img svg { width: 24px; height: 24px; }
 .wf-trade-card-info { flex: 1; min-width: 0; }
-.wf-trade-card-name { font-size: 13px; font-weight: 600; color: #111827; margin-bottom: 2px; }
-.wf-trade-card-desc { font-size: 11px; color: #6B7280; }
+.wf-trade-card-name { font-size: 13px; font-weight: 600; color: #163958; margin-bottom: 2px; }
+.wf-trade-card-desc { font-size: 11px; color: #45617E; }
 .wf-trade-card-btns { display: flex; gap: 8px; }
 .wf-btn-primary {
-  flex: 1; padding: 8px 0; background: #3B82F6; color: #fff; border-radius: 8px;
+  flex: 1; padding: 8px 0; background: #69BFEA; color: #fff; border-radius: 8px;
   font-size: 12px; font-weight: 600; text-align: center;
 }
 .wf-btn-ghost {
-  flex: 0 0 auto; padding: 8px 14px; background: transparent; color: #6B7280;
-  border: 1px solid #E5E7EB; border-radius: 8px; font-size: 12px; text-align: center;
+  flex: 0 0 auto; padding: 8px 14px; background: transparent; color: #45617E;
+  border: 1px solid #DEE8F2; border-radius: 8px; font-size: 12px; text-align: center;
 }
 .wf-btn-disabled {
-  flex: 1; padding: 8px 0; background: #F3F4F6; color: #9CA3AF; border-radius: 8px;
+  flex: 1; padding: 8px 0; background: #EEF3F8; color: #8EA2B7; border-radius: 8px;
   font-size: 12px; font-weight: 600; text-align: center;
 }
 .wf-confirmed-badge {
@@ -203,33 +203,33 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
 /* Tracking Card */
 .wf-tracking-card {
-  border: 1px solid #E5E7EB; border-radius: 12px; padding: 12px;
+  border: 1px solid #DEE8F2; border-radius: 12px; padding: 12px;
   margin: 4px 0; background: #fff; max-width: 280px;
 }
-.wf-tracking-title { font-size: 12px; font-weight: 600; color: #111827; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-.wf-tracking-title svg { width: 14px; height: 14px; color: #3B82F6; }
+.wf-tracking-title { font-size: 12px; font-weight: 600; color: #163958; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.wf-tracking-title svg { width: 14px; height: 14px; color: #69BFEA; }
 .wf-tracking-select {
-  width: 100%; padding: 8px 10px; border: 1px solid #E5E7EB; border-radius: 8px;
-  font-size: 12px; color: #6B7280; margin-bottom: 6px; background: #fff;
+  width: 100%; padding: 8px 10px; border: 1px solid #DEE8F2; border-radius: 8px;
+  font-size: 12px; color: #45617E; margin-bottom: 6px; background: #fff;
 }
 .wf-tracking-input {
-  width: 100%; padding: 8px 10px; border: 1px solid #E5E7EB; border-radius: 8px;
-  font-size: 12px; color: #111827; margin-bottom: 8px; background: #fff;
+  width: 100%; padding: 8px 10px; border: 1px solid #DEE8F2; border-radius: 8px;
+  font-size: 12px; color: #163958; margin-bottom: 8px; background: #fff;
 }
 .wf-tracking-done {
-  font-size: 12px; color: #111827; display: flex; align-items: center; gap: 6px; margin-bottom: 4px;
+  font-size: 12px; color: #163958; display: flex; align-items: center; gap: 6px; margin-bottom: 4px;
 }
 .wf-tracking-done .carrier { font-weight: 600; }
-.wf-tracking-link { font-size: 11px; color: #3B82F6; text-decoration: underline; }
+.wf-tracking-link { font-size: 11px; color: #69BFEA; text-decoration: underline; }
 
 /* Receipt / Completion Card */
 .wf-receipt-card {
-  border: 1px solid #E5E7EB; border-radius: 12px; padding: 12px;
+  border: 1px solid #DEE8F2; border-radius: 12px; padding: 12px;
   margin: 4px 0; background: #fff; max-width: 280px;
 }
-.wf-receipt-title { font-size: 12px; font-weight: 600; color: #111827; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+.wf-receipt-title { font-size: 12px; font-weight: 600; color: #163958; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
 .wf-receipt-title svg { width: 14px; height: 14px; color: #059669; }
-.wf-receipt-desc { font-size: 11px; color: #6B7280; margin-bottom: 8px; }
+.wf-receipt-desc { font-size: 11px; color: #45617E; margin-bottom: 8px; }
 
 /* Completion CTA */
 .wf-complete-cta {
@@ -242,37 +242,37 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* Message Input Bar */
 .wf-input-bar {
   display: flex; align-items: flex-end; gap: 8px; padding: 10px 12px;
-  border-top: 1px solid #F3F4F6; background: #fff; position: relative;
+  border-top: 1px solid #EEF3F8; background: #fff; position: relative;
 }
-.wf-input-plus { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: #6B7280; flex-shrink: 0; }
+.wf-input-plus { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: #45617E; flex-shrink: 0; }
 .wf-input-plus svg { width: 20px; height: 20px; }
 .wf-input-field {
-  flex: 1; padding: 8px 14px; background: #F3F4F6; border-radius: 20px;
-  font-size: 13px; color: #9CA3AF; min-height: 36px; display: flex; align-items: center;
+  flex: 1; padding: 8px 14px; background: #EEF3F8; border-radius: 20px;
+  font-size: 13px; color: #8EA2B7; min-height: 36px; display: flex; align-items: center;
 }
-.wf-input-send { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: #D1D5DB; flex-shrink: 0; }
+.wf-input-send { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: #DEE8F2; flex-shrink: 0; }
 .wf-input-send svg { width: 20px; height: 20px; }
-.wf-input-send.active { color: #3B82F6; }
+.wf-input-send.active { color: #69BFEA; }
 
 /* Disabled Input */
 .wf-input-disabled {
-  padding: 12px 16px; border-top: 1px solid #F3F4F6; background: #F9FAFB;
-  text-align: center; font-size: 12px; color: #9CA3AF;
+  padding: 12px 16px; border-top: 1px solid #EEF3F8; background: #F7FAFD;
+  text-align: center; font-size: 12px; color: #8EA2B7;
 }
 
 /* Revision footer */
 .revision-bar {
-  background: #fff; border-top: 1px solid #eee; padding: 12px 24px;
-  font-size: 11px; color: #999;
+  background: #fff; border-top: 1px solid #EEF3F8; padding: 12px 24px;
+  font-size: 11px; color: #8EA2B7;
 }
 .revision-bar table { width: 100%; border-collapse: collapse; }
-.revision-bar th { text-align: left; font-weight: 600; color: #666; padding: 4px 8px; border-bottom: 1px solid #eee; }
+.revision-bar th { text-align: left; font-weight: 600; color: #45617E; padding: 4px 8px; border-bottom: 1px solid #EEF3F8; }
 .revision-bar td { padding: 4px 8px; }
 
 @media (max-width: 900px) {
   .main-layout { flex-direction: column; }
   .wireframe-side { flex: none; padding: 16px; }
-  .desc-side { flex: none; border-left: none; border-top: 1px solid #ddd; }
+  .desc-side { flex: none; border-left: none; border-top: 1px solid #DEE8F2; }
 }
 @media (max-width: 1200px) {
   .main-layout { gap: 0; }
@@ -515,7 +515,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
                   운송장 입력
                 </div>
                 <div class="wf-tracking-select">CJ대한통운</div>
-                <div class="wf-tracking-input" style="color:#9CA3AF;">운송장 번호를 입력하세요</div>
+                <div class="wf-tracking-input" style="color:#8EA2B7;">운송장 번호를 입력하세요</div>
                 <div class="wf-btn-primary" style="text-align:center;">발송 완료</div>
               </div>
             </div>
@@ -545,7 +545,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
                   수취 확인
                 </div>
-                <div class="wf-receipt-desc">상품을 수령하셨나요? 확인 후 교환이 완료됩니다.<br><span style="font-size:10px;color:#9CA3AF;">한쪽만 확인 시 5일 후 자동 완료</span></div>
+                <div class="wf-receipt-desc">상품을 수령하셨나요? 확인 후 교환이 완료됩니다.<br><span style="font-size:10px;color:#8EA2B7;">한쪽만 확인 시 5일 후 자동 완료</span></div>
                 <div class="wf-btn-primary" style="text-align:center;">수취 확인</div>
               </div>
             </div>
@@ -646,12 +646,12 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <div class="wf-back-btn">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
             </div>
-            <div class="wf-chat-header-avatar" style="background:#EFF6FF;">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <div class="wf-chat-header-avatar" style="background:#EAF7FF;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#2F8EC1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             </div>
             <div class="wf-chat-header-info">
               <div class="wf-chat-header-nick">나히다 아크릴 공구</div>
-              <div class="wf-chat-header-product" style="color:#2563EB;">참여자 3/5명</div>
+              <div class="wf-chat-header-product" style="color:#2F8EC1;">참여자 3/5명</div>
             </div>
             <div class="wf-more-btn">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
@@ -672,11 +672,11 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
             <!-- Host message -->
             <div class="wf-msg-received">
-              <div class="wf-msg-avatar" style="background:#FFF7ED;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <div class="wf-msg-avatar" style="background:#ECF7FF;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#2F8EC1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
               </div>
               <div class="wf-msg-col">
-                <span class="wf-msg-nick" style="color:#EA580C;">원신공구장 (주최자)</span>
+                <span class="wf-msg-nick" style="color:#2F8EC1;">원신공구장 (주최자)</span>
                 <div class="wf-msg-bubble-row">
                   <div class="wf-bubble-received">참여해주셔서 감사합니다! 5명 모이면 바로 주문 넣을게요</div>
                   <span class="wf-bubble-time-r">오전 10:30</span>
@@ -706,11 +706,11 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
             <!-- Host reply -->
             <div class="wf-msg-received">
-              <div class="wf-msg-avatar" style="background:#FFF7ED;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <div class="wf-msg-avatar" style="background:#ECF7FF;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#2F8EC1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
               </div>
               <div class="wf-msg-col">
-                <span class="wf-msg-nick" style="color:#EA580C;">원신공구장 (주최자)</span>
+                <span class="wf-msg-nick" style="color:#2F8EC1;">원신공구장 (주최자)</span>
                 <div class="wf-msg-bubble-row">
                   <div class="wf-bubble-received">배송비 포함이에요~ 걱정 마세요!</div>
                   <span class="wf-bubble-time-r">오전 10:42</span>
@@ -761,9 +761,9 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
               <li>공구 채팅방: 공구명 + "참여자 N/M명" 표시</li>
             </ul>
           </li>
-          <li>상품명 12px `#6B7280` — 탭 시 교환/공구 상세로 이동</li>
+          <li>상품명 12px `#45617E` — 탭 시 교환/공구 상세로 이동</li>
           <li>우측: 더보기 아이콘 (`MoreVertical`) > 신고/알림 끄기/나가기</li>
-          <li>높이 56px, 하단 보더 1px `#F3F4F6`</li>
+          <li>높이 56px, 하단 보더 1px `#EEF3F8`</li>
         </ul>
       </div>
     </div>
@@ -781,13 +781,13 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <li>채팅방 상단 고정, 현재 거래 진행 상태 표시</li>
           <li>8개 상태 변형:
             <ul class="sub">
-              <li>교환 협의 중 — 배경 `#EFF6FF`, Blue</li>
+              <li>교환 협의 중 — 배경 `#EAF7FF`, Blue</li>
               <li>교환 확정 요청 — 배경 `#FEF3C7`, Amber</li>
               <li>교환 확정 완료 — 배경 `#D1FAE5`, Green</li>
-              <li>발송 완료(내가) — 배경 `#DBEAFE`, Blue</li>
+              <li>발송 완료(내가) — 배경 `#EAF7FF`, Blue</li>
               <li>양쪽 발송 완료 — 배경 `#D1FAE5`, Green</li>
-              <li>교환 완료 — 배경 `#F3F4F6`, Gray</li>
-              <li>공구 모집중 — 배경 `#EFF6FF`, Blue</li>
+              <li>교환 완료 — 배경 `#EEF3F8`, Gray</li>
+              <li>공구 모집중 — 배경 `#EAF7FF`, Blue</li>
               <li>공구 진행확정 — 배경 `#D1FAE5`, Green</li>
             </ul>
           </li>
@@ -806,9 +806,9 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       </div>
       <div class="desc-body">
         <ul>
-          <li>보낸 메시지 (우측): 배경 `#3B82F6`, white 텍스트, 라운딩 16/16/4/16, 최대 너비 70%</li>
-          <li>받은 메시지 (좌측): 배경 `#F3F4F6`, `#111827` 텍스트, 라운딩 16/16/16/4, 32px 아바타</li>
-          <li>시스템 메시지: 중앙 정렬, 배경 `#F3F4F6`, 라운딩 999px, 12px `#6B7280`</li>
+          <li>보낸 메시지 (우측): 배경 `#69BFEA`, white 텍스트, 라운딩 16/16/4/16, 최대 너비 70%</li>
+          <li>받은 메시지 (좌측): 배경 `#EEF3F8`, `#163958` 텍스트, 라운딩 16/16/16/4, 32px 아바타</li>
+          <li>시스템 메시지: 중앙 정렬, 배경 `#EEF3F8`, 라운딩 999px, 12px `#45617E`</li>
           <li>이미지 메시지: 최대 200px 썸네일, 라운딩 12px, 탭 시 전체화면 뷰어</li>
           <li>날짜 구분선: "2026년 3월 6일 목요일" 형식, 좌우 점선</li>
           <li>메시지 그룹핑: 동일 발신자 연속 시 첫 메시지만 아바타+닉네임, 5분 이내 연속 시 마지막만 타임스탬프</li>
@@ -827,7 +827,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       </div>
       <div class="desc-body">
         <ul>
-          <li>인라인 카드: 보더 1px `#E5E7EB`, 라운딩 12px, 패딩 16px</li>
+          <li>인라인 카드: 보더 1px `#DEE8F2`, 라운딩 12px, 패딩 16px</li>
           <li>상품 이미지 60x60px + 상품명 + 교환 조건 요약 ("내 OO &lt;&gt; 상대 OO")</li>
           <li>확정 버튼 (Primary) + 거절 버튼 (Ghost)
             <ul class="sub">
@@ -849,7 +849,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       </div>
       <div class="desc-body">
         <ul>
-          <li>교환 확정 후 표시, 보더 1px `#E5E7EB`, 라운딩 12px</li>
+          <li>교환 확정 후 표시, 보더 1px `#DEE8F2`, 라운딩 12px</li>
           <li>택배사 선택 (셀렉트): CJ대한통운/한진/롯데/우체국/기타</li>
           <li>운송장 번호 인풋: 숫자 키보드</li>
           <li>"발송 완료" Primary 버튼</li>
@@ -890,8 +890,8 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       <div class="desc-body">
         <ul>
           <li>좌측: + 버튼 > 이미지 첨부 바텀시트 (카메라/앨범, 최대 3장)</li>
-          <li>중앙: 인풋 필드 (라운딩 20px, 배경 `#F3F4F6`, 멀티라인 최대 5줄)</li>
-          <li>우측: 전송 버튼 (`Send`) — 비활성 `#D1D5DB`, 활성 `#3B82F6`</li>
+          <li>중앙: 인풋 필드 (라운딩 20px, 배경 `#EEF3F8`, 멀티라인 최대 5줄)</li>
+          <li>우측: 전송 버튼 (`Send`) — 비활성 `#DEE8F2`, 활성 `#69BFEA`</li>
           <li>높이 auto (최소 48px), safe-area 대응</li>
           <li>거래 완료 후: 입력 비활성 → "거래가 완료되어 메시지를 보낼 수 없어요"</li>
         </ul>

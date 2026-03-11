@@ -6,17 +6,17 @@
 <title>SRCH01 — 검색 와이어프레임</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F7FAFD; color: #163958; }
 
 /* ===== META HEADER ===== */
 .meta-bar {
-  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  background: #fff; border-bottom: 2px solid #2F8EC1; padding: 12px 24px;
   display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
 }
 .meta-item { font-size: 11px; }
-.meta-label { color: #999; }
-.meta-value { font-weight: 600; color: #333; margin-left: 4px; }
-.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+.meta-label { color: #8EA2B7; }
+.meta-value { font-weight: 600; color: #163958; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2F8EC1; margin-right: auto; }
 
 /* ===== MAIN LAYOUT ===== */
 .main-layout { overflow-x: hidden;
@@ -40,31 +40,31 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* ===== DESCRIPTION SIDE ===== */
 .desc-side {
   flex: 1 1 45%; min-width: 0; background: #fff; padding: 24px 28px;
-  overflow-y: auto; border-left: 1px solid #ddd;
+  overflow-y: auto; border-left: 1px solid #DEE8F2;
 }
 .desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-.desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+.desc-subtitle { font-size: 12px; color: #45617E; margin-bottom: 20px; }
 
 .desc-item { margin-bottom: 20px; }
 .desc-num-row {
   display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
 }
 .desc-num {
-  background: #2563EB; color: #fff; width: 22px; height: 22px;
+  background: #2F8EC1; color: #fff; width: 22px; height: 22px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 11px; font-weight: 700; flex-shrink: 0;
 }
-.desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-type { font-size: 10px; color: #8EA2B7; background: #F7FAFD; padding: 2px 6px; border-radius: 3px; }
 .desc-comp-name { font-size: 14px; font-weight: 600; }
 
-.desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
+.desc-body { padding-left: 30px; font-size: 12px; color: #45617E; line-height: 1.7; }
 .desc-body ul { list-style: none; }
 .desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
-.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
-.desc-body .sub { padding-left: 14px; color: #888; }
-.desc-body .sub li::before { content: '└'; color: #ccc; }
+.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2F8EC1; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #45617E; }
+.desc-body .sub li::before { content: '└'; color: #8EA2B7; }
 
-.desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
+.desc-divider { border: none; border-top: 1px dashed #EEF3F8; margin: 16px 0; }
 
 /* ===== WIREFRAME ELEMENTS ===== */
 .wf-section { position: relative; }
@@ -72,7 +72,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* Number circle overlay */
 .num-circle {
   position: absolute; z-index: 10;
-  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  background: #2F8EC1; color: #fff; width: 20px; height: 20px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
@@ -80,40 +80,40 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* Header */
 .wf-header {
   display: flex; align-items: center; padding: 8px 16px;
-  border-bottom: 1px solid #eee; gap: 8px;
+  border-bottom: 1px solid #EEF3F8; gap: 8px;
 }
-.wf-back-btn { width: 32px; height: 32px; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #374151; }
+.wf-back-btn { width: 32px; height: 32px; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #45617E; }
 .wf-search-input {
-  flex: 1; padding: 10px 14px; background: #F3F4F6;
-  border-radius: 8px; border: 1px solid #E5E7EB; font-size: 13px;
-  color: #1F2937; display: flex; align-items: center; gap: 8px;
+  flex: 1; padding: 10px 14px; background: #EEF3F8;
+  border-radius: 8px; border: 1px solid #DEE8F2; font-size: 13px;
+  color: #163958; display: flex; align-items: center; gap: 8px;
   position: relative;
 }
-.wf-search-input-icon { color: #9CA3AF; font-size: 14px; }
-.wf-search-input-text { color: #6B7280; flex: 1; }
-.wf-search-input-clear { width: 24px; height: 24px; background: transparent; border: none; cursor: pointer; color: #9CA3AF; font-size: 14px; }
+.wf-search-input-icon { color: #8EA2B7; font-size: 14px; }
+.wf-search-input-text { color: #45617E; flex: 1; }
+.wf-search-input-clear { width: 24px; height: 24px; background: transparent; border: none; cursor: pointer; color: #8EA2B7; font-size: 14px; }
 
 /* Autocomplete dropdown */
 .wf-autocomplete {
   position: absolute; top: 100%; left: 16px; right: 16px; z-index: 20;
-  background: #fff; border: 1px solid #E5E7EB; border-radius: 10px;
+  background: #fff; border: 1px solid #DEE8F2; border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-top: 8px;
 }
 .wf-autocomplete-item {
-  padding: 12px 14px; font-size: 13px; border-bottom: 1px solid #F3F4F6;
+  padding: 12px 14px; font-size: 13px; border-bottom: 1px solid #EEF3F8;
   display: flex; align-items: center; gap: 8px; height: 44px;
   cursor: pointer;
 }
 .wf-autocomplete-item:last-child { border-bottom: none; }
-.wf-autocomplete-item-icon { color: #D1D5DB; font-size: 14px; }
-.wf-autocomplete-item-text { color: #1F2937; }
+.wf-autocomplete-item-icon { color: #DEE8F2; font-size: 14px; }
+.wf-autocomplete-item-text { color: #163958; }
 
 /* Recent searches section */
 .wf-section-header {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 16px 12px; font-size: 13px; font-weight: 600; color: #1F2937;
+  padding: 16px 16px 12px; font-size: 13px; font-weight: 600; color: #163958;
 }
-.wf-section-action { font-size: 12px; color: #9CA3AF; cursor: pointer; }
+.wf-section-action { font-size: 12px; color: #8EA2B7; cursor: pointer; }
 
 /* Search chips (recent, popular, filter) */
 .wf-chips-row {
@@ -121,65 +121,65 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 }
 .wf-chip {
   padding: 6px 12px; border-radius: 999px; font-size: 12px;
-  background: #F3F4F6; color: #374151; border: 1px solid #E5E7EB;
+  background: #EEF3F8; color: #45617E; border: 1px solid #DEE8F2;
   display: inline-flex; align-items: center; gap: 4px; cursor: pointer;
 }
-.wf-chip-remove { color: #9CA3AF; cursor: pointer; font-size: 14px; }
-.wf-chip.popular { background: #EFF6FF; color: #2563EB; border: 1px solid transparent; }
-.wf-chip.popular .wf-chip-remove { color: #9CA3AF; }
+.wf-chip-remove { color: #8EA2B7; cursor: pointer; font-size: 14px; }
+.wf-chip.popular { background: #EAF7FF; color: #2F8EC1; border: 1px solid transparent; }
+.wf-chip.popular .wf-chip-remove { color: #8EA2B7; }
 
 /* Empty state */
 .wf-empty-state {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   padding: 48px 16px; text-align: center;
 }
-.wf-empty-icon { font-size: 40px; color: #D1D5DB; margin-bottom: 12px; }
-.wf-empty-title { font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 8px; }
-.wf-empty-desc { font-size: 12px; color: #9CA3AF; margin-bottom: 20px; }
+.wf-empty-icon { font-size: 40px; color: #DEE8F2; margin-bottom: 12px; }
+.wf-empty-title { font-size: 14px; font-weight: 600; color: #45617E; margin-bottom: 8px; }
+.wf-empty-desc { font-size: 12px; color: #8EA2B7; margin-bottom: 20px; }
 .wf-empty-btn {
-  padding: 8px 16px; background: #F3F4F6; border: 1px solid #D1D5DB;
-  border-radius: 6px; font-size: 12px; color: #374151; cursor: pointer;
+  padding: 8px 16px; background: #EEF3F8; border: 1px solid #DEE8F2;
+  border-radius: 6px; font-size: 12px; color: #45617E; cursor: pointer;
 }
 
 /* Tabs */
 .wf-tabs {
-  display: flex; border-bottom: 1px solid #E5E7EB; position: relative;
+  display: flex; border-bottom: 1px solid #DEE8F2; position: relative;
   padding: 0 16px;
 }
 .wf-tab {
-  flex: 1; padding: 12px 8px; font-size: 13px; color: #9CA3AF;
+  flex: 1; padding: 12px 8px; font-size: 13px; color: #8EA2B7;
   text-align: center; cursor: pointer; position: relative; font-weight: 500;
 }
 .wf-tab.active {
-  color: #2563EB; font-weight: 600;
+  color: #2F8EC1; font-weight: 600;
 }
 .wf-tab.active::after {
   content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
-  height: 2px; background: #2563EB;
+  height: 2px; background: #2F8EC1;
 }
 
 /* Filter bar */
 .wf-filter-bar {
-  display: flex; gap: 8px; padding: 8px 16px; overflow-x: auto; border-bottom: 1px solid #E5E7EB;
+  display: flex; gap: 8px; padding: 8px 16px; overflow-x: auto; border-bottom: 1px solid #DEE8F2;
   scroll-behavior: smooth;
 }
 .wf-filter-chip {
   padding: 6px 12px; border-radius: 6px; font-size: 12px;
-  background: #fff; color: #374151; border: 1px solid #E5E7EB;
+  background: #fff; color: #45617E; border: 1px solid #DEE8F2;
   white-space: nowrap; cursor: pointer; flex-shrink: 0;
   display: flex; align-items: center; gap: 4px;
 }
 .wf-filter-chip.active {
-  background: #EFF6FF; color: #2563EB; border: 1px solid #2563EB;
+  background: #EAF7FF; color: #2F8EC1; border: 1px solid #2F8EC1;
 }
 .wf-filter-chip.primary {
-  background: transparent; border: none; color: #2563EB;
+  background: transparent; border: none; color: #2F8EC1;
   font-weight: 600; padding: 6px 4px;
 }
 
 /* Result count */
 .wf-result-count {
-  padding: 12px 16px; font-size: 12px; color: #6B7280;
+  padding: 12px 16px; font-size: 12px; color: #45617E;
 }
 
 /* Search result card list */
@@ -187,13 +187,13 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   padding: 8px 16px;
 }
 .wf-result-card {
-  display: flex; gap: 8px; padding: 8px 0; border-bottom: 1px solid #F0F0F0;
+  display: flex; gap: 8px; padding: 8px 0; border-bottom: 1px solid #EEF3F8;
 }
 .wf-result-card:last-child { border-bottom: none; }
 .wf-result-img {
-  width: 80px; height: 80px; background: #E5E5E5;
+  width: 80px; height: 80px; background: #DEE8F2;
   border-radius: 8px; flex-shrink: 0; display: flex;
-  align-items: center; justify-content: center; font-size: 11px; color: #bbb;
+  align-items: center; justify-content: center; font-size: 11px; color: #8EA2B7;
 }
 .wf-result-body { flex: 1; }
 .wf-result-tags {
@@ -201,44 +201,44 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 }
 .wf-result-tag {
   font-size: 9px; padding: 2px 6px; border-radius: 3px;
-  background: #F3F4F6; color: #6B7280;
+  background: #EEF3F8; color: #45617E;
 }
-.wf-result-tag.exchange { background: #FFF7ED; color: #EA580C; }
+.wf-result-tag.exchange { background: #ECF7FF; color: #2F8EC1; }
 .wf-result-tag.anime { background: #F5F3FF; color: #7C3AED; }
 .wf-result-tag.idol { background: #FDF2F8; color: #DB2777; }
 .wf-result-tag.actor { background: #FFFBEB; color: #F59E0B; }
 .wf-result-tag.game { background: #ECFEFF; color: #0891B2; }
 .wf-result-name {
-  font-size: 13px; font-weight: 600; color: #1F2937;
+  font-size: 13px; font-weight: 600; color: #163958;
   line-height: 1.3; margin-bottom: 2px; overflow: hidden;
   text-overflow: ellipsis; white-space: nowrap;
 }
-.wf-result-meta { font-size: 11px; color: #9CA3AF; }
+.wf-result-meta { font-size: 11px; color: #8EA2B7; }
 
 /* Bottom sheet */
 .wf-bottom-sheet {
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 30;
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 30;
   background: #fff; border-radius: 16px 16px 0 0;
-  max-height: 80vh; overflow-y: auto;
+  max-height: calc(100% - 16px); overflow-y: auto;
   box-shadow: 0 -4px 24px rgba(0,0,0,0.1);
 }
 .wf-bottom-sheet-drag {
-  width: 40px; height: 4px; background: #D1D5DB;
+  width: 40px; height: 4px; background: #DEE8F2;
   border-radius: 2px; margin: 8px auto;
 }
 .wf-bottom-sheet-header {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 12px 16px; border-bottom: 1px solid #E5E7EB;
+  padding: 12px 16px; border-bottom: 1px solid #DEE8F2;
 }
-.wf-bottom-sheet-title { font-size: 16px; font-weight: 700; color: #1F2937; }
-.wf-bottom-sheet-reset { font-size: 13px; color: #6B7280; cursor: pointer; }
+.wf-bottom-sheet-title { font-size: 16px; font-weight: 700; color: #163958; }
+.wf-bottom-sheet-reset { font-size: 13px; color: #45617E; cursor: pointer; }
 
 /* Filter groups */
 .wf-filter-group {
-  padding: 16px; border-bottom: 1px solid #F0F0F0;
+  padding: 16px; border-bottom: 1px solid #EEF3F8;
 }
 .wf-filter-group-title {
-  font-size: 12px; font-weight: 700; color: #374151;
+  font-size: 12px; font-weight: 700; color: #45617E;
   margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px;
 }
 .wf-filter-options {
@@ -246,11 +246,11 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 }
 .wf-filter-option {
   padding: 6px 12px; border-radius: 6px; font-size: 12px;
-  background: #F3F4F6; color: #374151; border: 1px solid #E5E7EB;
+  background: #EEF3F8; color: #45617E; border: 1px solid #DEE8F2;
   cursor: pointer; transition: all 0.2s;
 }
 .wf-filter-option.selected {
-  border: 1px solid #2563EB; background: #EFF6FF; color: #2563EB; font-weight: 600;
+  border: 1px solid #2F8EC1; background: #EAF7FF; color: #2F8EC1; font-weight: 600;
 }
 .wf-filter-option.selected.anime { border-color: #7C3AED; background: #F5F3FF; color: #7C3AED; }
 .wf-filter-option.selected.idol { border-color: #DB2777; background: #FDF2F8; color: #DB2777; }
@@ -262,15 +262,15 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   display: flex; align-items: center; gap: 8px; padding: 8px 0; cursor: pointer;
 }
 .wf-checkbox {
-  width: 18px; height: 18px; border: 1px solid #D1D5DB; border-radius: 3px;
+  width: 18px; height: 18px; border: 1px solid #DEE8F2; border-radius: 3px;
   background: #fff; flex-shrink: 0;
 }
-.wf-checkbox.checked { background: #2563EB; border-color: #2563EB; }
-.wf-checkbox-label { font-size: 12px; color: #374151; cursor: pointer; }
+.wf-checkbox.checked { background: #2F8EC1; border-color: #2F8EC1; }
+.wf-checkbox-label { font-size: 12px; color: #45617E; cursor: pointer; }
 
 /* Bottom sheet buttons */
 .wf-sheet-buttons {
-  display: flex; gap: 8px; padding: 16px; border-top: 1px solid #E5E7EB;
+  display: flex; gap: 8px; padding: 16px; border-top: 1px solid #DEE8F2;
   background: #fff;
 }
 .wf-btn {
@@ -278,33 +278,33 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   border: none; cursor: pointer; flex: 1; text-align: center;
 }
 .wf-btn-reset {
-  background: #F3F4F6; color: #374151; border: 1px solid #D1D5DB;
+  background: #EEF3F8; color: #45617E; border: 1px solid #DEE8F2;
 }
 .wf-btn-apply {
-  background: #2563EB; color: #fff;
+  background: #2F8EC1; color: #fff;
 }
 
 /* Frame labels */
 .frame-label {
   position: absolute; top: 4px; left: 4px; z-index: 5;
-  background: #374151; color: #fff; padding: 2px 6px;
+  background: #45617E; color: #fff; padding: 2px 6px;
   border-radius: 3px; font-size: 10px; font-weight: 600;
 }
 
 /* Revision footer */
 .revision-bar {
-  background: #fff; border-top: 1px solid #eee; padding: 12px 24px;
-  font-size: 11px; color: #999;
+  background: #fff; border-top: 1px solid #EEF3F8; padding: 12px 24px;
+  font-size: 11px; color: #8EA2B7;
 }
 .revision-bar table { width: 100%; border-collapse: collapse; }
-.revision-bar th { text-align: left; font-weight: 600; color: #666; padding: 4px 8px; border-bottom: 1px solid #eee; }
+.revision-bar th { text-align: left; font-weight: 600; color: #45617E; padding: 4px 8px; border-bottom: 1px solid #EEF3F8; }
 .revision-bar td { padding: 4px 8px; }
 
 @media (max-width: 900px) {
   .main-layout { flex-direction: column; }
   .wireframe-side { flex: none; padding: 16px; }
   .phone-stack { justify-content: center; }
-  .desc-side { flex: none; border-left: none; border-top: 1px solid #ddd; }
+  .desc-side { flex: none; border-left: none; border-top: 1px solid #DEE8F2; }
 }
 /* Responsive improvements for laptop/small screens */
 .meta-bar { flex-wrap: wrap; gap: 8px; }
@@ -331,7 +331,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">검색</span></span>
   <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/search</span></span>
   <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
-  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.1</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.2</span></span>
   <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
   <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-06</span></span>
 </div>
@@ -426,10 +426,10 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <div class="wf-section">
           <div class="num-circle" style="top:8px; left:6px;">2</div>
           <div class="wf-tabs">
-            <div class="wf-tab active">전체<br><span style="font-size:10px; color:#9CA3AF;">(24)</span></div>
-            <div class="wf-tab">교환<br><span style="font-size:10px; color:#9CA3AF;">(12)</span></div>
-            <div class="wf-tab">공구<br><span style="font-size:10px; color:#9CA3AF;">(8)</span></div>
-            <div class="wf-tab">구함<br><span style="font-size:10px; color:#9CA3AF;">(4)</span></div>
+            <div class="wf-tab active">전체<br><span style="font-size:10px; color:#8EA2B7;">(24)</span></div>
+            <div class="wf-tab">교환<br><span style="font-size:10px; color:#8EA2B7;">(12)</span></div>
+            <div class="wf-tab">공구<br><span style="font-size:10px; color:#8EA2B7;">(8)</span></div>
+            <div class="wf-tab">동행<br><span style="font-size:10px; color:#8EA2B7;">(4)</span></div>
           </div>
         </div>
 
@@ -484,7 +484,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
               <div class="wf-result-img">IMG</div>
               <div class="wf-result-body">
                 <div class="wf-result-tags">
-                  <span class="wf-result-tag" style="background:#FFF7ED; color:#EA580C;">공구</span>
+                  <span class="wf-result-tag" style="background:#ECF7FF; color:#2F8EC1;">공구</span>
                   <span class="wf-result-tag anime">애니/만화</span>
                 </div>
                 <div class="wf-result-name">하이큐 아크릴 스탠드 풀세트</div>
@@ -505,7 +505,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 25;"></div>
 
         <!-- ⑥ 바텀시트 본체 -->
-        <div class="wf-section" style="position: relative; z-index: 30;">
+        <div class="wf-section" style="position: absolute; inset: 0; z-index: 30;">
           <div class="num-circle" style="top:8px; left:6px;">6</div>
           <div class="wf-bottom-sheet">
             <div class="wf-bottom-sheet-drag"></div>
@@ -613,8 +613,8 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <li>중앙: 검색 입력 필드
             <ul class="sub">
               <li>placeholder: "작품, 캐릭터, 굿즈 검색"</li>
-              <li>높이 44px, border-radius 10px, 배경 #F3F4F6</li>
-              <li>포커스 시: border 2px #2563EB + ring 2px</li>
+              <li>높이 44px, border-radius 10px, 배경 #EEF3F8</li>
+              <li>포커스 시: border 2px #2F8EC1 + ring 2px</li>
               <li>입력값 있을 때: 우측 X 클리어 버튼 노출</li>
             </ul>
           </li>
@@ -636,7 +636,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <ul>
           <li>입력값 없을 때만 표시 (결과 모드에서는 숨김)</li>
           <li>섹션 헤더: "최근 검색어" + 우측 "전체 삭제" 버튼</li>
-          <li>칩 형태: pill (border-radius 999px), 배경 #F3F4F6</li>
+          <li>칩 형태: pill (border-radius 999px), 배경 #EEF3F8</li>
           <li>각 칩 우측: X 삭제 아이콘 (개별 삭제)</li>
           <li>저장: 로컬 스토리지 (FIFO, 최대 10개)</li>
           <li>로그인 시 서버 동기화</li>
@@ -657,7 +657,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <ul>
           <li>입력값 없을 때만 표시</li>
           <li>섹션 헤더: "인기 검색어" + 우측 갱신 시각 (예: "방금 갱신")</li>
-          <li>칩 형태: pill, 배경 #EFF6FF, 텍스트 #2563EB</li>
+          <li>칩 형태: pill, 배경 #EAF7FF, 텍스트 #2F8EC1</li>
           <li>순위 번호 포함 (1~10)</li>
           <li>데이터: 서버 집계 (24시간 기준)</li>
           <li>칩 탭 시: 해당 검색어로 즉시 검색 실행</li>
@@ -676,9 +676,9 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       </div>
       <div class="desc-body">
         <ul>
-          <li>표시: 전체(N) | 교환(N) | 공구(N) | 구함(N)</li>
-          <li>활성 탭: #2563EB 텍스트 + 하단 2px 인디케이터</li>
-          <li>비활성 탭: #9CA3AF 텍스트</li>
+          <li>표시: 전체(N) | 교환(N) | 공구(N) | 동행(N)</li>
+          <li>활성 탭: #2F8EC1 텍스트 + 하단 2px 인디케이터</li>
+          <li>비활성 탭: #8EA2B7 텍스트</li>
           <li>탭 전환 시 인디케이터 슬라이드 애니메이션</li>
           <li>각 탭 내 건수 표시 (결과 모드에서만 노출)</li>
           <li>탭 전환 시: 해당 유형 결과만 필터링 (다른 필터는 유지)</li>
@@ -702,7 +702,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
               <li>이미지 썸네일 (80×80px, border-radius 8px, object-fit: cover)</li>
               <li>태그: [거래유형] + [카테고리]</li>
               <li>상품명 (13px Bold, 1줄 ellipsis)</li>
-              <li>작품명 · 캐릭터명 (11px #9CA3AF)</li>
+              <li>작품명 · 캐릭터명 (11px #8EA2B7)</li>
               <li>등록 시간 / 조회수 또는 공구 진행률</li>
             </ul>
           </li>
@@ -726,8 +726,8 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <li>진입: "필터" 칩 탭 시, 300ms translateY 애니메이션</li>
           <li>UI 요소:
             <ul class="sub">
-              <li>드래그 핸들: 40×4px, #D1D5DB (중앙)</li>
-              <li>헤더: "필터" (18px Bold) + 우측 "초기화" (13px #6B7280)</li>
+              <li>드래그 핸들: 40×4px, #DEE8F2 (중앙)</li>
+              <li>헤더: "필터" (18px Bold) + 우측 "초기화" (13px #45617E)</li>
               <li>필터 그룹: 6개 (카테고리, 굿즈 타입, 상품 상태, 거래 방법, 정렬, 추가 옵션)</li>
               <li>하단 버튼: [초기화] (Ghost) + [N건 보기] (Primary)</li>
             </ul>
@@ -741,7 +741,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
     <hr class="desc-divider">
 
     <div style="margin-top:16px;">
-      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">화면 상태</div>
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2F8EC1;">화면 상태</div>
       <div class="desc-body" style="padding-left:0;">
         <ul>
           <li><strong>초기 진입</strong>: 검색 입력 모드, 최근/인기 검색어 표시, 키보드 올라옴</li>
@@ -757,14 +757,14 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
     <!-- Connected screens -->
     <div style="margin-top:16px;">
-      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">연관 화면</div>
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2F8EC1;">연관 화면</div>
       <div class="desc-body" style="padding-left:0;">
         <table style="width:100%; font-size:11px; border-collapse:collapse;">
           <thead>
-            <tr style="border-bottom:1px solid #eee;">
-              <th style="text-align:left; padding:4px 8px; color:#888;">이동 대상</th>
-              <th style="text-align:left; padding:4px 8px; color:#888;">조건</th>
-              <th style="text-align:left; padding:4px 8px; color:#888;">화면코드</th>
+            <tr style="border-bottom:1px solid #EEF3F8;">
+              <th style="text-align:left; padding:4px 8px; color:#45617E;">이동 대상</th>
+              <th style="text-align:left; padding:4px 8px; color:#45617E;">조건</th>
+              <th style="text-align:left; padding:4px 8px; color:#45617E;">화면코드</th>
             </tr>
           </thead>
           <tbody>
@@ -772,7 +772,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <tr><td style="padding:4px 8px;">이전 화면</td><td style="padding:4px 8px;">뒤로 버튼 (입력 모드)</td><td style="padding:4px 8px;">-</td></tr>
             <tr><td style="padding:4px 8px;">교환 상세</td><td style="padding:4px 8px;">교환 카드 탭</td><td style="padding:4px 8px;">EXCH02</td></tr>
             <tr><td style="padding:4px 8px;">공구 상세</td><td style="padding:4px 8px;">공구 카드 탭</td><td style="padding:4px 8px;">GRPB02/03</td></tr>
-            <tr><td style="padding:4px 8px;">구함 상세</td><td style="padding:4px 8px;">구함 카드 탭</td><td style="padding:4px 8px;">WANT02</td></tr>
+            <tr><td style="padding:4px 8px;">동행 상세</td><td style="padding:4px 8px;">동행 카드 탭</td><td style="padding:4px 8px;">WANT02</td></tr>
           </tbody>
         </table>
       </div>
@@ -790,6 +790,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
     </thead>
     <tbody>
       <tr><td>2026-03-06</td><td>0.1</td><td>초안 작성 -- 검색 입력/결과/필터 바텀시트 3개 모드 와이어프레임 완성</td><td>AI (Claude)</td></tr>
+      <tr><td>2026-03-10</td><td>0.2</td><td>동행 타입값 companion 정합화 반영</td><td>-</td></tr>
     </tbody>
   </table>
 </div>

@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BANR02 — 배너/팝업 등록 와이어프레임</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F7FAFD; color: #163958; }
+
+/* ===== META HEADER ===== */
+.meta-bar {
+  background: #fff; border-bottom: 2px solid #2F8EC1; padding: 12px 24px;
+  display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
+}
+.meta-item { font-size: 11px; }
+.meta-label { color: #8EA2B7; }
+.meta-value { font-weight: 600; color: #163958; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2F8EC1; margin-right: auto; }
+
+/* ===== MAIN LAYOUT ===== */
+.main-layout { overflow-x: hidden; display: flex; min-height: calc(100vh - 48px); }
+
+.wireframe-side {
+  flex: 1 1 55%; min-width: 0; background: #EAEAEA; padding: 32px;
+  display: flex; justify-content: center; overflow-y: auto;
+}
+.phone-stack { display: flex; flex-direction: column; gap: 24px; }
+.phone-frame {
+  width: 375px; background: #fff; border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative; overflow: hidden;
+}
+.frame-label { font-size: 12px; font-weight: 600; color: #45617E; margin-top: 8px; text-align: center; }
+
+.desc-side {
+  flex: 1 1 45%; min-width: 0; background: #fff; padding: 24px 28px;
+  overflow-y: auto; border-left: 1px solid #DEE8F2;
+}
+.desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.desc-subtitle { font-size: 12px; color: #45617E; margin-bottom: 20px; }
+
+.desc-item { margin-bottom: 20px; }
+.desc-num-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.desc-num {
+  background: #2F8EC1; color: #fff; width: 22px; height: 22px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0;
+}
+.desc-comp-type { font-size: 10px; color: #8EA2B7; background: #F7FAFD; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-name { font-size: 14px; font-weight: 600; }
+
+.desc-body { padding-left: 30px; font-size: 12px; color: #45617E; line-height: 1.7; }
+.desc-body ul { list-style: none; }
+.desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
+.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2F8EC1; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #45617E; }
+.desc-body .sub li::before { content: '└'; color: #8EA2B7; }
+
+.desc-divider { border: none; border-top: 1px dashed #EEF3F8; margin: 16px 0; }
+
+.desc-section-title {
+  font-size: 13px; font-weight: 700; color: #163958;
+  padding: 12px 0; border-bottom: 2px solid #2F8EC1;
+  margin-top: 24px; margin-bottom: 16px;
+}
+.desc-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 24px; }
+.desc-table th { background: #EEF3F8; border: 1px solid #DEE8F2; padding: 8px; font-weight: 600; color: #163958; text-align: left; }
+.desc-table td { border: 1px solid #DEE8F2; padding: 8px; color: #45617E; }
+
+/* ===== WIREFRAME ELEMENTS ===== */
+.wf-section { position: relative; }
+.num-circle {
+  position: absolute; z-index: 10;
+  background: #2F8EC1; color: #fff; width: 20px; height: 20px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+/* Header */
+.wf-header {
+  display: flex; align-items: center; padding: 12px 16px;
+  border-bottom: 1px solid #EEF3F8; position: relative;
+}
+.wf-header-back { color: #163958; }
+.wf-header-title { flex: 1; text-align: center; font-size: 15px; font-weight: 600; color: #163958; }
+.wf-header-spacer { width: 24px; }
+
+/* Phone scroll */
+.wf-scroll { padding: 16px; }
+
+/* Type info card (read-only) */
+.wf-type-info {
+  padding: 12px; background: #F8FAFC; border: 1px solid #E2E8F0;
+  border-radius: 10px; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.wf-type-info-icon {
+  width: 40px; height: 40px; border-radius: 8px; background: #2F8EC1;
+  display: flex; align-items: center; justify-content: center; color: #fff; flex-shrink: 0;
+}
+.wf-type-info-body { flex: 1; }
+.wf-type-info-name { font-size: 13px; font-weight: 600; color: #163958; }
+.wf-type-info-desc { font-size: 10px; color: #45617E; margin-top: 2px; }
+.wf-type-info-slot { font-size: 10px; color: #16A34A; font-weight: 600; margin-top: 2px; }
+
+/* Section title */
+.wf-sec-title-bar {
+  font-size: 12px; font-weight: 700; color: #163958; margin-bottom: 10px;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+
+/* Form elements */
+.wf-form-group { margin-bottom: 14px; }
+.wf-form-label {
+  display: block; font-size: 11px; font-weight: 600; color: #163958; margin-bottom: 5px;
+}
+.wf-form-label .req { color: #EA5D86; margin-left: 2px; }
+.wf-form-input, .wf-form-select {
+  width: 100%; padding: 9px 12px; border: 1px solid #DEE8F2; border-radius: 8px;
+  font-size: 12px; color: #163958; background: #fff; font-family: inherit;
+}
+.wf-form-hint { font-size: 10px; color: #8EA2B7; margin-top: 3px; }
+.wf-form-placeholder { color: #8EA2B7; }
+
+/* Chips */
+.wf-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.wf-chip {
+  padding: 6px 10px; border: 1px solid #DEE8F2; border-radius: 16px;
+  font-size: 11px; color: #45617E; background: #fff;
+}
+.wf-chip.selected { background: #2F8EC1; color: #fff; border-color: #2F8EC1; }
+
+/* Calendar */
+.wf-calendar {
+  background: #F8FAFC; border-radius: 10px; padding: 12px; margin-bottom: 14px;
+}
+.wf-cal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px;
+}
+.wf-cal-nav { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; }
+.wf-cal-nav-btn {
+  width: 22px; height: 22px; background: #E2E8F0; border: none; border-radius: 4px;
+  display: flex; align-items: center; justify-content: center; font-size: 11px; color: #45617E;
+}
+.wf-cal-today {
+  padding: 3px 8px; border: 1px solid #DEE8F2; background: #fff; border-radius: 4px;
+  font-size: 10px; color: #2F8EC1;
+}
+.wf-cal-grid {
+  display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; margin-bottom: 8px;
+}
+.wf-cal-weekday { text-align: center; font-size: 9px; font-weight: 600; color: #8EA2B7; padding: 3px 0; }
+.wf-cal-day {
+  aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  border-radius: 6px; font-size: 11px; background: #fff; position: relative;
+}
+.wf-cal-day.other { color: #8EA2B7; }
+.wf-cal-day.selected { background: #2F8EC1; color: #fff; font-weight: 600; }
+.wf-cal-day.range { background: #EAF7FF; color: #2F8EC1; }
+.wf-cal-day.disabled { background: #F1F5F9; color: #DEE8F2; }
+.wf-cal-dot {
+  width: 4px; height: 4px; border-radius: 50%; margin-top: 1px;
+}
+.wf-cal-dot.green { background: #16A34A; }
+.wf-cal-dot.yellow { background: #F59E0B; }
+.wf-cal-dot.red { background: #EA5D86; }
+.wf-cal-summary {
+  text-align: center; font-size: 11px; color: #334155;
+  padding: 8px; background: #fff; border-radius: 6px;
+}
+.wf-cal-cost { font-size: 10px; color: #16A34A; font-weight: 600; margin-top: 3px; }
+
+/* Upload */
+.wf-upload {
+  border: 2px dashed #DEE8F2; border-radius: 10px; padding: 20px;
+  text-align: center; background: #F7FAFD; margin-bottom: 10px;
+}
+.wf-upload-icon { margin-bottom: 6px; color: #8EA2B7; }
+.wf-upload-text { font-size: 11px; color: #45617E; }
+.wf-upload-size { font-size: 10px; color: #8EA2B7; margin-top: 3px; }
+
+/* Guideline box */
+.wf-guideline {
+  background: #FFFBEB; border-left: 3px solid #F59E0B; border-radius: 6px;
+  padding: 10px 12px; font-size: 10px; color: #45617E; line-height: 1.6;
+  margin-bottom: 14px;
+}
+.wf-guideline-title { font-weight: 600; color: #163958; margin-bottom: 4px; font-size: 11px; }
+.wf-guideline-ok { color: #16A34A; font-weight: 600; }
+.wf-guideline-ng { color: #EA5D86; font-weight: 600; }
+
+/* Cost box */
+.wf-cost-box {
+  background: #F0FDF4; border-left: 3px solid #16A34A; border-radius: 6px;
+  padding: 10px 12px; margin-bottom: 14px;
+}
+.wf-cost-title { font-size: 12px; font-weight: 600; color: #163958; }
+.wf-cost-desc { font-size: 10px; color: #45617E; margin-top: 3px; }
+
+/* Checkbox */
+.wf-checkbox-row {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+}
+.wf-checkbox {
+  width: 16px; height: 16px; border: 2px solid #DEE8F2; border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; color: #2F8EC1; font-weight: 700; flex-shrink: 0;
+}
+.wf-checkbox.checked { background: #2F8EC1; border-color: #2F8EC1; color: #fff; }
+.wf-checkbox-label { font-size: 11px; color: #45617E; }
+
+/* CTA button */
+.wf-btn-primary {
+  width: 100%; padding: 12px; background: #2F8EC1; color: #fff;
+  border: none; border-radius: 8px; font-size: 14px; font-weight: 600;
+  text-align: center;
+}
+.wf-btn-primary.disabled { background: #DEE8F2; color: #8EA2B7; }
+
+/* Completion popup */
+.wf-completion {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: #fff; border-top-left-radius: 16px; border-top-right-radius: 16px;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.15); padding: 24px 16px 16px;
+  z-index: 20; text-align: center;
+}
+.wf-completion-icon { margin-bottom: 8px; color: #16A34A; }
+.wf-completion-title { font-size: 15px; font-weight: 600; color: #163958; margin-bottom: 4px; }
+.wf-completion-desc { font-size: 12px; color: #45617E; margin-bottom: 16px; }
+.wf-completion-btns { display: flex; gap: 8px; }
+.wf-completion-btn {
+  flex: 1; padding: 10px; border-radius: 8px; font-size: 12px; font-weight: 600;
+  text-align: center; border: none;
+}
+.wf-completion-btn.secondary { background: #F1F5F9; color: #334155; }
+.wf-completion-btn.primary { background: #2F8EC1; color: #fff; }
+
+/* Overlay dim */
+.wf-overlay {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.3); z-index: 15;
+}
+
+/* ===== Revision Bar ===== */
+.revision-bar { background: #fff; border-top: 1px solid #EEF3F8; padding: 24px; }
+.revision-bar table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.revision-bar th { background: #EEF3F8; border: 1px solid #DEE8F2; padding: 8px; font-weight: 600; color: #163958; text-align: left; }
+.revision-bar td { border: 1px solid #DEE8F2; padding: 8px; color: #45617E; }
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .main-layout { flex-direction: column; }
+  .wireframe-side { flex: none; padding: 16px; }
+  .desc-side { flex: none; border-left: none; border-top: 1px solid #DEE8F2; }
+}
+</style>
+</head>
+<body>
+
+<!-- Meta Bar -->
+<div class="meta-bar">
+  <span class="title">BANR02</span>
+  <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">배너/팝업 등록</span></span>
+  <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/banner/register</span></span>
+  <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">PC / Mobile</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.1</span></span>
+  <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
+  <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-09</span></span>
+</div>
+
+<!-- Main Layout -->
+<div class="main-layout">
+  <!-- Wireframe Side -->
+  <div class="wireframe-side">
+    <div class="phone-stack">
+
+      <!-- Frame 1: 등록 폼 상단 (유형 정보 + 대상 정보 + 달력) -->
+      <div class="phone-frame">
+        <!-- (1) Header -->
+        <div class="wf-section wf-header" style="position:relative;">
+          <div class="num-circle" style="top:-6px;left:4px;">1</div>
+          <div class="wf-header-back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="15 18 9 12 15 6"/></svg>
+          </div>
+          <div class="wf-header-title">메인 배너 등록</div>
+          <div class="wf-header-spacer"></div>
+        </div>
+
+        <div class="wf-scroll">
+          <!-- (2) 유형 정보 카드 -->
+          <div class="wf-section" style="position:relative;">
+            <div class="num-circle" style="top:-8px;left:-4px;">2</div>
+            <div class="wf-type-info">
+              <div class="wf-type-info-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              <div class="wf-type-info-body">
+                <div class="wf-type-info-name">메인 배너</div>
+                <div class="wf-type-info-desc">홈 캐러셀 | 1200x300px 통이미지</div>
+                <div class="wf-type-info-slot">3슬롯 남음</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- (3) 대상 정보 -->
+          <div class="wf-section" style="position:relative;">
+            <div class="num-circle" style="top:-8px;left:-4px;">3</div>
+            <div class="wf-sec-title-bar">대상 정보</div>
+
+            <div class="wf-form-group">
+              <label class="wf-form-label">작품/아이돌 선택 <span class="req">*</span></label>
+              <select class="wf-form-select">
+                <option class="wf-form-placeholder">선택해주세요</option>
+                <option selected>쿠로코의 농구 (애니)</option>
+              </select>
+            </div>
+
+            <div class="wf-form-group">
+              <label class="wf-form-label">캐릭터/멤버 선택 <span class="req">*</span></label>
+              <select class="wf-form-select">
+                <option class="wf-form-placeholder">선택해주세요</option>
+                <option selected>쿠로코 테츠야</option>
+              </select>
+            </div>
+
+            <div class="wf-form-group">
+              <label class="wf-form-label">이벤트 종류 <span class="req">*</span></label>
+              <div class="wf-chips">
+                <div class="wf-chip selected">생일카페</div>
+                <div class="wf-chip">데뷔 기념</div>
+                <div class="wf-chip">콘서트</div>
+                <div class="wf-chip">팬미팅</div>
+                <div class="wf-chip">전시</div>
+                <div class="wf-chip">기타</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- (4) 게시 기간 선택 -->
+          <div class="wf-section" style="position:relative;">
+            <div class="num-circle" style="top:-8px;left:-4px;">4</div>
+            <div class="wf-sec-title-bar">게시 기간</div>
+            <div class="wf-calendar">
+              <div class="wf-cal-header">
+                <div class="wf-cal-nav">
+                  <div class="wf-cal-nav-btn">&lt;</div>
+                  <span>2026년 3월</span>
+                  <div class="wf-cal-nav-btn">&gt;</div>
+                </div>
+                <div class="wf-cal-today">오늘</div>
+              </div>
+
+              <div class="wf-cal-grid">
+                <div class="wf-cal-weekday">일</div>
+                <div class="wf-cal-weekday">월</div>
+                <div class="wf-cal-weekday">화</div>
+                <div class="wf-cal-weekday">수</div>
+                <div class="wf-cal-weekday">목</div>
+                <div class="wf-cal-weekday">금</div>
+                <div class="wf-cal-weekday">토</div>
+
+                <div class="wf-cal-day other">1</div>
+                <div class="wf-cal-day other">2</div>
+                <div class="wf-cal-day other">3</div>
+                <div class="wf-cal-day other">4</div>
+                <div class="wf-cal-day other">5</div>
+                <div class="wf-cal-day other">6</div>
+                <div class="wf-cal-day">7<span class="wf-cal-dot green"></span></div>
+
+                <div class="wf-cal-day selected">8<span class="wf-cal-dot green"></span></div>
+                <div class="wf-cal-day range">9<span class="wf-cal-dot green"></span></div>
+                <div class="wf-cal-day selected">10<span class="wf-cal-dot yellow"></span></div>
+                <div class="wf-cal-day">11<span class="wf-cal-dot red"></span></div>
+                <div class="wf-cal-day">12</div>
+                <div class="wf-cal-day disabled">13</div>
+                <div class="wf-cal-day">14<span class="wf-cal-dot green"></span></div>
+
+                <div class="wf-cal-day">15</div>
+                <div class="wf-cal-day">16</div>
+                <div class="wf-cal-day">17</div>
+                <div class="wf-cal-day">18</div>
+                <div class="wf-cal-day">19</div>
+                <div class="wf-cal-day">20</div>
+                <div class="wf-cal-day">21</div>
+
+                <div class="wf-cal-day">22</div>
+                <div class="wf-cal-day">23</div>
+                <div class="wf-cal-day">24</div>
+                <div class="wf-cal-day">25</div>
+                <div class="wf-cal-day">26</div>
+                <div class="wf-cal-day">27</div>
+                <div class="wf-cal-day">28</div>
+
+                <div class="wf-cal-day">29</div>
+                <div class="wf-cal-day">30</div>
+                <div class="wf-cal-day">31</div>
+                <div class="wf-cal-day other">1</div>
+                <div class="wf-cal-day other">2</div>
+                <div class="wf-cal-day other">3</div>
+                <div class="wf-cal-day other">4</div>
+              </div>
+
+              <div class="wf-cal-summary">
+                3월 8일 ~ 3월 10일 (3일간)
+                <div class="wf-cal-cost">Phase 1: 무료</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="frame-label">Frame 1: 유형 정보 + 대상 정보 + 게시 기간</div>
+
+      <!-- Frame 2: 이미지 업로드 + 부가 정보 + 비용 + 신청 -->
+      <div class="phone-frame">
+        <div class="wf-header">
+          <div class="wf-header-back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="15 18 9 12 15 6"/></svg>
+          </div>
+          <div class="wf-header-title">메인 배너 등록</div>
+          <div class="wf-header-spacer"></div>
+        </div>
+
+        <div class="wf-scroll">
+          <!-- (5) 이미지 업로드 -->
+          <div class="wf-section" style="position:relative;">
+            <div class="num-circle" style="top:-8px;left:-4px;">5</div>
+            <div class="wf-sec-title-bar">이미지 업로드</div>
+
+            <div class="wf-upload">
+              <div class="wf-upload-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              </div>
+              <div class="wf-upload-text">통이미지를 업로드해주세요</div>
+              <div class="wf-upload-size">1200x300px | JPG, PNG, WebP (최대 5MB)</div>
+            </div>
+
+            <div class="wf-guideline">
+              <div class="wf-guideline-title">저작권 가이드라인</div>
+              <span class="wf-guideline-ok">O</span> 팬아트, 이름 기반 디자인, 2차 창작<br>
+              <span class="wf-guideline-ng">X</span> 공식 사진, 앨범 이미지, 타인 팬아트 도용
+            </div>
+          </div>
+
+          <!-- (6) 부가 정보 -->
+          <div class="wf-section" style="position:relative;">
+            <div class="num-circle" style="top:-8px;left:-4px;">6</div>
+            <div class="wf-sec-title-bar">부가 정보</div>
+
+            <div class="wf-form-group">
+              <label class="wf-form-label">이미지 설명 (alt 텍스트) <span class="req">*</span></label>
+              <input type="text" class="wf-form-input" placeholder="쿠로코의 농구 쿠로코 생일 축하 카페 in 홍대" value="쿠로코의 농구 쿠로코 생일 축하 카페 in 홍대">
+              <div class="wf-form-hint">화면에 노출되지 않으며, 접근성(alt)을 위해 사용됩니다 (최대 100자)</div>
+            </div>
+
+            <div class="wf-form-group">
+              <label class="wf-form-label">외부 링크 (선택)</label>
+              <input type="url" class="wf-form-input" placeholder="https://twitter.com/...">
+            </div>
+
+            <div class="wf-form-group">
+              <label class="wf-form-label">관련 이벤트 연결 (선택)</label>
+              <select class="wf-form-select">
+                <option>이벤트를 선택해주세요</option>
+                <option selected>쿠로코 생일카페 in 홍대 (3/8~3/14)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- (7) 비용 안내 -->
+          <div class="wf-section" style="position:relative;">
+            <div class="num-circle" style="top:-8px;left:-4px;">7</div>
+            <div class="wf-cost-box">
+              <div class="wf-cost-title">현재 무료 기간입니다</div>
+              <div class="wf-cost-desc">Phase 1 배너 신청은 무료로 진행됩니다</div>
+            </div>
+          </div>
+
+          <!-- (8) 동의 및 신청 -->
+          <div class="wf-section" style="position:relative;">
+            <div class="num-circle" style="top:-8px;left:-4px;">8</div>
+            <div class="wf-checkbox-row">
+              <div class="wf-checkbox checked">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="wf-checkbox-label">저작권 가이드라인을 확인했으며 동의합니다</span>
+            </div>
+            <div class="wf-btn-primary">신청하기</div>
+          </div>
+        </div>
+      </div>
+      <div class="frame-label">Frame 2: 이미지 업로드 + 부가 정보 + 비용 + 신청</div>
+
+      <!-- Frame 3: 신청 완료 상태 -->
+      <div class="phone-frame" style="position:relative;">
+        <div class="wf-header">
+          <div class="wf-header-back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="15 18 9 12 15 6"/></svg>
+          </div>
+          <div class="wf-header-title">메인 배너 등록</div>
+          <div class="wf-header-spacer"></div>
+        </div>
+
+        <div class="wf-scroll" style="min-height: 400px;">
+          <!-- dimmed form area -->
+          <div style="opacity:0.3;">
+            <div class="wf-type-info">
+              <div class="wf-type-info-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><rect x="2" y="3" width="20" height="14" rx="2"/></svg>
+              </div>
+              <div class="wf-type-info-body">
+                <div class="wf-type-info-name">메인 배너</div>
+                <div class="wf-type-info-desc">홈 캐러셀 | 1200x300px</div>
+              </div>
+            </div>
+            <div style="height:80px;background:#F1F5F9;border-radius:8px;margin-bottom:12px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#8EA2B7;">
+              (입력된 폼 내용)
+            </div>
+          </div>
+        </div>
+
+        <!-- Overlay + Completion bottom sheet -->
+        <div class="wf-overlay"></div>
+        <div class="wf-completion">
+          <div class="wf-completion-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="40" height="40"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="wf-completion-title">신청이 완료되었습니다</div>
+          <div class="wf-completion-desc">관리자 검수 후 게시됩니다 (24시간 이내)</div>
+          <div class="wf-completion-btns">
+            <div class="wf-completion-btn secondary">내 신청 관리</div>
+            <div class="wf-completion-btn primary">확인</div>
+          </div>
+        </div>
+      </div>
+      <div class="frame-label">Frame 3: 신청 완료 모달</div>
+
+    </div>
+  </div>
+
+  <!-- Description Side -->
+  <div class="desc-side">
+    <div class="desc-title">BANR02 배너/팝업 등록</div>
+    <div class="desc-subtitle">선택한 유형에 맞는 통이미지 업로드와 부가 정보를 입력하여 배너/팝업 신청</div>
+
+    <!-- 1. Header -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">1</div>
+        <span class="desc-comp-type">[Header]</span>
+        <span class="desc-comp-name">앱 헤더</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>좌측: `ChevronLeft` 뒤로가기 (BANR01로)</li>
+          <li>중앙: 유형별 타이틀 ("메인 배너 등록" / "피드 배너 등록" / "팝업 등록")</li>
+          <li>우측: 없음</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- 2. 유형 정보 카드 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">2</div>
+        <span class="desc-comp-type">[Info]</span>
+        <span class="desc-comp-name">유형 정보 카드 (읽기 전용)</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>BANR01에서 전달받은 유형 요약 (변경 불가)</li>
+          <li>유형 아이콘 + 유형명 + 노출 위치 + 이미지 규격</li>
+          <li>잔여 슬롯 표시 ("3슬롯 남음", Green)</li>
+          <li>가격 안내 (Phase 1.5~)</li>
+          <li>유형 변경하려면 뒤로가기로 BANR01 복귀 필요</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- 3. 대상 정보 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">3</div>
+        <span class="desc-comp-type">[Form]</span>
+        <span class="desc-comp-name">대상 정보</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>작품/아이돌 선택 (필수, 드롭다운): 이벤트 캘린더와 동일 DB</li>
+          <li>캐릭터/멤버 선택 (필수, 드롭다운): 작품 선택 시 동적 로드</li>
+          <li>이벤트 종류 (필수, 칩 그룹): 생일카페/데뷔 기념/콘서트/팬미팅/전시/기타</li>
+          <li>단일 선택만 허용</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- 4. 게시 기간 선택 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">4</div>
+        <span class="desc-comp-type">[Calendar]</span>
+        <span class="desc-comp-name">게시 기간 선택</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>슬롯 달력: 날짜별 잔여 슬롯 상태 시각화
+            <ul class="sub">
+              <li>초록 점: 여유 (>50% 잔여)</li>
+              <li>노랑 점: 보통 (25~50% 잔여)</li>
+              <li>빨강 점: 거의 매진 (1~2 슬롯)</li>
+              <li>회색 비활성: 매진 (0슬롯, 선택 불가)</li>
+            </ul>
+          </li>
+          <li>시작일~종료일 범위 선택 (연속 날짜만 가능)</li>
+          <li>선택 기간 요약 + 예상 비용 (Phase 1.5~)</li>
+          <li>Phase 1: "무료" 표시</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- 5. 이미지 업로드 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">5</div>
+        <span class="desc-comp-type">[Upload]</span>
+        <span class="desc-comp-name">이미지 업로드</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>통이미지 업로드: Drag-and-drop 또는 탭</li>
+          <li>유형별 권장 크기:
+            <ul class="sub">
+              <li>메인 배너: 1200x300px</li>
+              <li>피드 배너: 카드너비x180px</li>
+              <li>팝업: 320x400px</li>
+            </ul>
+          </li>
+          <li>파일 포맷: JPG, PNG, WebP (최대 5MB)</li>
+          <li>업로드 시 실제 비율 미리보기 표시</li>
+          <li>저작권 가이드라인 (노란 박스):
+            <ul class="sub">
+              <li>O 팬아트, 이름 기반 디자인, 2차 창작</li>
+              <li>X 공식 사진, 앨범 이미지, 타인 팬아트 도용</li>
+            </ul>
+          </li>
+          <li>통이미지 정책: 텍스트 오버레이 없이 이미지 1장으로만 구성</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- 6. 부가 정보 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">6</div>
+        <span class="desc-comp-type">[Form]</span>
+        <span class="desc-comp-name">부가 정보</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>이미지 설명 (필수): img alt 속성에 들어갈 텍스트 (최대 100자)
+            <ul class="sub">
+              <li>안내: "화면에 노출되지 않으며, 접근성(alt)을 위해 사용됩니다"</li>
+              <li>이미지에 텍스트가 들어가지 않으므로 설명 용도로만 사용</li>
+            </ul>
+          </li>
+          <li>외부 링크 (선택): SNS 등 홍보 URL</li>
+          <li>관련 이벤트 연결 (선택): 이벤트 캘린더 연동
+            <ul class="sub">
+              <li>내가 등록한 이벤트 목록에서 선택</li>
+              <li>미연결 시 배너 탭해도 이미지만 풀뷰</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- 7. 비용 안내 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">7</div>
+        <span class="desc-comp-type">[Info]</span>
+        <span class="desc-comp-name">비용 안내</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>Phase 1: 무료 (초록 배경 안내)</li>
+          <li>Phase 1.5~: 유형별 일가격 x 일수 = 총 비용</li>
+          <li>결제 수단: 카카오페이, 토스페이, 카드 (PortOne)</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- 8. 동의 및 신청 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">8</div>
+        <span class="desc-comp-type">[CTA]</span>
+        <span class="desc-comp-name">동의 및 신청</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>저작권 동의 체크박스 (필수)</li>
+          <li>[신청하기] Primary 버튼 (full-width)</li>
+          <li>필수 미입력 시: 비활성 + 미입력 필드 하이라이트</li>
+          <li>신청 시: 확인 바텀시트 -> 요약 + [신청] / [취소]</li>
+          <li>완료 모달:
+            <ul class="sub">
+              <li>"신청이 완료되었습니다" + "관리자 검수 후 게시 (24시간 이내)"</li>
+              <li>[내 신청 관리] -> USER02</li>
+              <li>[확인] -> BANR01 복귀</li>
+            </ul>
+          </li>
+          <li>신청 상태 흐름: 대기중 -> 검수중 -> 승인/수정요청/반려</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- 화면 상태 -->
+    <div class="desc-section-title">화면 상태</div>
+    <table class="desc-table">
+      <thead>
+        <tr><th>상태</th><th>조건</th><th>표시</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>정상</td><td>폼 로드 완료</td><td>전체 폼 활성 (Frame 1~2)</td></tr>
+        <tr><td>슬롯 부족</td><td>선택 기간 내 매진 존재</td><td>"선택한 기간에 매진된 날짜가 있습니다" 경고</td></tr>
+        <tr><td>이미지 검증 실패</td><td>규격 불일치</td><td>"이미지 크기가 맞지 않습니다" 에러</td></tr>
+        <tr><td>필수 미입력</td><td>필수 항목 비어 있음</td><td>빨간 테두리 + 안내 메시지</td></tr>
+        <tr><td>신청 완료</td><td>신청 성공</td><td>완료 모달 (Frame 3)</td></tr>
+        <tr><td>비로그인</td><td>미로그인</td><td>AUTH01 리다이렉트</td></tr>
+        <tr><td>에러</td><td>API 실패</td><td>"잠시 후 다시 시도해주세요" + 재시도</td></tr>
+      </tbody>
+    </table>
+
+    <!-- 연관 화면 -->
+    <div class="desc-section-title">연관 화면</div>
+    <table class="desc-table">
+      <thead>
+        <tr><th>이동 대상</th><th>조건</th><th>화면코드</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>배너/팝업 슬롯 현황</td><td>뒤로가기, 신청 완료 [확인]</td><td>BANR01</td></tr>
+        <tr><td>내 활동 관리</td><td>신청 완료 [내 신청 관리]</td><td>USER02</td></tr>
+        <tr><td>로그인</td><td>비로그인 상태</td><td>AUTH01</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Revision -->
+    <div class="revision-bar">
+      <table>
+        <thead>
+          <tr><th>날짜</th><th>버전</th><th>내용</th><th>작성자</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>2026-03-09</td><td>0.1</td><td>초안 작성 (BANR01에서 등록 폼 분리). 통이미지 정책 반영</td><td>AI (Claude)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

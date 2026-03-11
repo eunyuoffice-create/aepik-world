@@ -6,17 +6,17 @@
 <title>AUTH01 — 로그인 와이어프레임</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F7FAFD; color: #163958; }
 
 /* ===== META HEADER ===== */
 .meta-bar {
-  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  background: #fff; border-bottom: 2px solid #2F8EC1; padding: 12px 24px;
   display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
 }
 .meta-item { font-size: 11px; }
-.meta-label { color: #999; }
-.meta-value { font-weight: 600; color: #333; margin-left: 4px; }
-.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+.meta-label { color: #8EA2B7; }
+.meta-value { font-weight: 600; color: #163958; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2F8EC1; margin-right: auto; }
 
 /* ===== MAIN LAYOUT ===== */
 .main-layout { overflow-x: hidden;
@@ -38,37 +38,37 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   overflow: hidden; }
 .frame-label {
   margin-top: 8px; text-align: center; font-size: 12px;
-  color: #666; font-weight: 500;
+  color: #45617E; font-weight: 500;
 }
 
 /* ===== DESCRIPTION SIDE ===== */
 .desc-side {
   flex: 1 1 45%; min-width: 0; background: #fff; padding: 24px 28px;
-  overflow-y: auto; border-left: 1px solid #ddd;
+  overflow-y: auto; border-left: 1px solid #DEE8F2;
 }
 .desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-.desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+.desc-subtitle { font-size: 12px; color: #45617E; margin-bottom: 20px; }
 
 .desc-item { margin-bottom: 20px; }
 .desc-num-row {
   display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
 }
 .desc-num {
-  background: #2563EB; color: #fff; width: 22px; height: 22px;
+  background: #2F8EC1; color: #fff; width: 22px; height: 22px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 11px; font-weight: 700; flex-shrink: 0;
 }
-.desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-type { font-size: 10px; color: #8EA2B7; background: #F7FAFD; padding: 2px 6px; border-radius: 3px; }
 .desc-comp-name { font-size: 14px; font-weight: 600; }
 
-.desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
+.desc-body { padding-left: 30px; font-size: 12px; color: #45617E; line-height: 1.7; }
 .desc-body ul { list-style: none; }
 .desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
-.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
-.desc-body .sub { padding-left: 14px; color: #888; }
-.desc-body .sub li::before { content: '└'; color: #ccc; }
+.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2F8EC1; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #45617E; }
+.desc-body .sub li::before { content: '└'; color: #8EA2B7; }
 
-.desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
+.desc-divider { border: none; border-top: 1px dashed #EEF3F8; margin: 16px 0; }
 
 /* ===== WIREFRAME ELEMENTS ===== */
 .wf-section { position: relative; }
@@ -76,7 +76,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* Number circle overlay */
 .num-circle {
   position: absolute; z-index: 10;
-  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  background: #2F8EC1; color: #fff; width: 20px; height: 20px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
@@ -89,10 +89,10 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   padding: 60px 20px 40px; text-align: center;
 }
 .wf-logo-text {
-  font-size: 20px; font-weight: 700; color: #2563EB; margin-bottom: 8px;
+  font-size: 20px; font-weight: 700; color: #2F8EC1; margin-bottom: 8px;
 }
 .wf-slogan {
-  font-size: 14px; color: #666; line-height: 1.4;
+  font-size: 14px; color: #45617E; line-height: 1.4;
   max-width: 300px;
 }
 
@@ -106,17 +106,17 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   transition: all 0.2s ease;
 }
 .wf-btn-primary {
-  background: #2563EB; color: #fff;
+  background: #2F8EC1; color: #fff;
 }
 .wf-btn-kakao {
   background: #FEE500; color: #000; display: flex;
   align-items: center; justify-content: center; gap: 8px;
 }
 .wf-btn-ghost {
-  background: #F5F5F5; color: #333; border: 1px solid #ddd;
+  background: #F7FAFD; color: #163958; border: 1px solid #DEE8F2;
 }
 .wf-btn-ghost:hover {
-  background: #FAFAFA;
+  background: #F7FAFD;
 }
 .wf-btn-disabled {
   opacity: 0.5; cursor: not-allowed;
@@ -124,7 +124,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
 /* Icon placeholder */
 .wf-icon-inline {
-  width: 18px; height: 18px; background: #ddd;
+  width: 18px; height: 18px; background: #DEE8F2;
   border-radius: 3px; display: inline-flex;
   align-items: center; justify-content: center;
   font-size: 10px;
@@ -136,11 +136,11 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   padding: 20px; text-align: center;
 }
 .wf-link {
-  font-size: 12px; color: #2563EB; text-decoration: none;
+  font-size: 12px; color: #2F8EC1; text-decoration: none;
   font-weight: 500;
 }
 .wf-link-text {
-  font-size: 11px; color: #999;
+  font-size: 11px; color: #8EA2B7;
 }
 
 /* Form section */
@@ -151,17 +151,17 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   display: flex; flex-direction: column; gap: 4px;
 }
 .wf-input-label {
-  font-size: 12px; font-weight: 500; color: #333;
+  font-size: 12px; font-weight: 500; color: #163958;
 }
 .wf-input {
-  padding: 10px 12px; border: 1px solid #ddd; border-radius: 6px;
+  padding: 10px 12px; border: 1px solid #DEE8F2; border-radius: 6px;
   font-size: 13px; background: #fff;
 }
 .wf-input:focus {
-  outline: none; border-color: #2563EB; box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+  outline: none; border-color: #2F8EC1; box-shadow: 0 0 0 3px rgba(47,142,193,0.1);
 }
 .wf-input.error {
-  border-color: #EF4444;
+  border-color: #EA5D86;
 }
 
 /* Password toggle */
@@ -171,15 +171,15 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 .wf-toggle-icon {
   position: absolute; right: 12px; top: 50%;
   transform: translateY(-50%); cursor: pointer;
-  width: 18px; height: 18px; background: #ddd;
+  width: 18px; height: 18px; background: #DEE8F2;
   border-radius: 3px; display: flex;
   align-items: center; justify-content: center;
-  font-size: 10px; color: #666;
+  font-size: 10px; color: #45617E;
 }
 
 /* Error message */
 .wf-error-msg {
-  font-size: 11px; color: #EF4444; padding: 8px 0;
+  font-size: 11px; color: #EA5D86; padding: 8px 0;
 }
 
 /* Success message */
@@ -191,7 +191,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* Back header */
 .wf-back-header {
   display: flex; align-items: center; padding: 12px 16px;
-  border-bottom: 1px solid #eee; position: relative;
+  border-bottom: 1px solid #EEF3F8; position: relative;
   gap: 12px;
 }
 .wf-back-icon {
@@ -200,12 +200,12 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   cursor: pointer;
 }
 .wf-header-title {
-  font-size: 16px; font-weight: 600; color: #333;
+  font-size: 16px; font-weight: 600; color: #163958;
 }
 
 /* Description text */
 .wf-desc-text {
-  font-size: 12px; color: #666; padding: 20px;
+  font-size: 12px; color: #45617E; padding: 20px;
   line-height: 1.5;
 }
 
@@ -221,44 +221,44 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   flex-direction: column; gap: 12px;
 }
 .wf-sheet-handle {
-  width: 40px; height: 4px; background: #ddd;
+  width: 40px; height: 4px; background: #DEE8F2;
   border-radius: 2px; margin: 0 auto 8px;
 }
 .wf-sheet-icon {
-  width: 40px; height: 40px; background: #F0F0F0;
+  width: 40px; height: 40px; background: #EEF3F8;
   border-radius: 50%; display: flex;
   align-items: center; justify-content: center;
   margin: 0 auto 8px; font-size: 20px;
 }
 .wf-sheet-title {
   font-size: 16px; font-weight: 700; text-align: center;
-  color: #333; margin-bottom: 4px;
+  color: #163958; margin-bottom: 4px;
 }
 .wf-sheet-desc {
-  font-size: 13px; color: #666; text-align: center;
+  font-size: 13px; color: #45617E; text-align: center;
   line-height: 1.4; margin-bottom: 12px;
 }
 
 /* Terms notice */
 .wf-terms-notice {
-  font-size: 10px; color: #999; padding: 16px 20px 0;
+  font-size: 10px; color: #8EA2B7; padding: 16px 20px 0;
   text-align: center; line-height: 1.4;
 }
 
 /* Revision footer */
 .revision-bar {
-  background: #fff; border-top: 1px solid #eee; padding: 12px 24px;
-  font-size: 11px; color: #999;
+  background: #fff; border-top: 1px solid #EEF3F8; padding: 12px 24px;
+  font-size: 11px; color: #8EA2B7;
 }
 .revision-bar table { width: 100%; border-collapse: collapse; }
-.revision-bar th { text-align: left; font-weight: 600; color: #666; padding: 4px 8px; border-bottom: 1px solid #eee; }
+.revision-bar th { text-align: left; font-weight: 600; color: #45617E; padding: 4px 8px; border-bottom: 1px solid #EEF3F8; }
 .revision-bar td { padding: 4px 8px; }
 
 /* Responsive */
 @media (max-width: 900px) {
   .main-layout { flex-direction: column; }
   .wireframe-side { flex: none; padding: 16px; }
-  .desc-side { flex: none; border-left: none; border-top: 1px solid #ddd; }
+  .desc-side { flex: none; border-left: none; border-top: 1px solid #DEE8F2; }
 }
 /* Responsive improvements for laptop/small screens */
 .meta-bar { flex-wrap: wrap; gap: 8px; }
@@ -417,7 +417,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <div class="num-circle" style="top:270px; left:12px;">10</div>
             <div class="wf-login-helpers">
               <a class="wf-link">비밀번호를 잊으셨나요?</a>
-              <span style="color: #ddd; font-size: 11px;">·</span>
+              <span style="color: #DEE8F2; font-size: 11px;">·</span>
               <a class="wf-link">회원가입</a>
             </div>
           </div>
@@ -569,7 +569,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       </div>
       <div class="desc-body">
         <ul>
-          <li>상단 로고: 애픽 월드 (Brand Blue #2563EB, 20px weight 700)</li>
+          <li>상단 로고: 애픽 월드 (Brand Blue #2F8EC1, 20px weight 700)</li>
           <li>슬로건: "내 최애 굿즈, 교환하고 함께 사자" (14px Gray 600, 중앙 정렬, 최대 너비 300px)</li>
           <li>CTA 버튼 영역 (gap 10px):
             <ul class="sub">
@@ -616,7 +616,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       <div class="desc-body">
         <ul>
           <li>Secondary CTA (Ghost style)</li>
-          <li>배경: #F5F5F5 + 테두리: 1px #ddd, 텍스트: #333</li>
+          <li>배경: #F7FAFD + 테두리: 1px #DEE8F2, 텍스트: #163958</li>
           <li>너비: 100%, 높이: 44px, border-radius: 8px</li>
           <li>탭 시: Frame B (이메일 로그인 모드) 전환 또는 EXCH02 이동</li>
         </ul>
@@ -633,7 +633,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       </div>
       <div class="desc-body">
         <ul>
-          <li>텍스트 링크, Blue #2563EB, 12px 500 weight</li>
+          <li>텍스트 링크, Blue #2F8EC1, 12px 500 weight</li>
           <li>탭 시:
             <ul class="sub">
               <li>비로그인 세션 쿠키 생성 (로컬 스토리지 시간제한 없음)</li>
@@ -678,7 +678,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <li>비밀번호 입력 필드 (마스킹, 눈 아이콘 토글)</li>
           <li>로그인 버튼 (초기 상태: disabled, 두 필드 모두 입력 시 활성화)</li>
           <li>보조 링크: "비밀번호를 잊으셨나요?" + "회원가입" (중앙 정렬)</li>
-          <li>에러 메시지 영역 (인라인, 빨강 #EF4444)</li>
+          <li>에러 메시지 영역 (인라인, 빨강 #EA5D86)</li>
         </ul>
       </div>
     </div>
@@ -694,9 +694,9 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       <div class="desc-body">
         <ul>
           <li>높이: 40px, border-radius: 6px, padding: 10px 12px</li>
-          <li>테두리: 1px #ddd (기본), 1px #2563EB (포커스)</li>
-          <li>포커스 시: box-shadow 0 0 0 3px rgba(37,99,235,0.1) 추가</li>
-          <li>에러 시: 테두리 1px #EF4444</li>
+          <li>테두리: 1px #DEE8F2 (기본), 1px #2F8EC1 (포커스)</li>
+          <li>포커스 시: box-shadow 0 0 0 3px rgba(47,142,193,0.1) 추가</li>
+          <li>에러 시: 테두리 1px #EA5D86</li>
           <li>이메일 필드:
             <ul class="sub">
               <li>플레이스홀더: "user@example.com"</li>
@@ -724,7 +724,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       </div>
       <div class="desc-body">
         <ul>
-          <li>Primary 스타일 (#2563EB), 너비 100%, 높이 44px</li>
+          <li>Primary 스타일 (#2F8EC1), 너비 100%, 높이 44px</li>
           <li>상태:
             <ul class="sub">
               <li>비활성: opacity 0.5, cursor not-allowed (두 필드 미입력 시)</li>
@@ -755,7 +755,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <ul>
           <li>좌측 "비밀번호를 잊으셨나요?" → Frame C (비밀번호 찾기) 이동</li>
           <li>우측 "회원가입" → AUTH02 (회원가입) 이동</li>
-          <li>스타일: 12px Blue #2563EB 500 weight</li>
+          <li>스타일: 12px Blue #2F8EC1 500 weight</li>
           <li>중앙 구분점 (·)</li>
         </ul>
       </div>
@@ -795,7 +795,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <ul class="sub">
               <li>Dimmed 배경: rgba(0,0,0,0.4)</li>
               <li>Bottom sheet (border-radius 16px 16px 0 0, padding 20px)</li>
-              <li>Drag handle (40×4px, #ddd)</li>
+              <li>Drag handle (40×4px, #DEE8F2)</li>
               <li>Lock 아이콘 (40×40px 원형, Gray 배경)</li>
               <li>제목: "로그인이 필요한 기능입니다" (16px 700 weight)</li>
               <li>설명: "교환 신청, 공구 참여, 채팅 등의 기능은 로그인 후 이용할 수 있습니다."</li>
@@ -813,24 +813,24 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
     <!-- Business Logic -->
     <div style="margin-top: 16px;">
-      <div style="font-size: 13px; font-weight: 600; margin-bottom: 8px; color: #2563EB;">비즈니스 로직</div>
+      <div style="font-size: 13px; font-weight: 600; margin-bottom: 8px; color: #2F8EC1;">비즈니스 로직</div>
       <div class="desc-body" style="padding-left: 0;">
         <table style="width: 100%; font-size: 11px; border-collapse: collapse;">
           <thead>
-            <tr style="border-bottom: 1px solid #eee;">
-              <th style="text-align: left; padding: 4px 8px; color: #888;">항목</th>
-              <th style="text-align: left; padding: 4px 8px; color: #888;">처리 방식</th>
+            <tr style="border-bottom: 1px solid #EEF3F8;">
+              <th style="text-align: left; padding: 4px 8px; color: #45617E;">항목</th>
+              <th style="text-align: left; padding: 4px 8px; color: #45617E;">처리 방식</th>
             </tr>
           </thead>
           <tbody>
-            <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 4px 8px;">이메일 중복 검사</td><td style="padding: 4px 8px;">실시간 (입력 후 1초 딜레이)</td></tr>
-            <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 4px 8px;">로그인 실패 횟수</td><td style="padding: 4px 8px;">5회 연속 실패 시 30분 계정 잠금 (IP 기반)</td></tr>
-            <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 4px 8px;">JWT 토큰 유효기간</td><td style="padding: 4px 8px;">Access: 30분, Refresh: 14일</td></tr>
-            <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 4px 8px;">OAuth 에러</td><td style="padding: 4px 8px;">에러 팝업 + 이메일 로그인 자동 제안</td></tr>
-            <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 4px 8px;">휴면 계정 (6개월 미접속)</td><td style="padding: 4px 8px;">휴면 해제 팝업 → "동의" 탭 시 비밀번호 확인 → 해제</td></tr>
-            <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 4px 8px;">정지 계정</td><td style="padding: 4px 8px;">로그인 불가, "계정 정지" 안내 + 사유 + 해제 예정일</td></tr>
-            <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 4px 8px;">비밀번호 재설정 링크</td><td style="padding: 4px 8px;">이메일 발송, 유효기간 1시간</td></tr>
-            <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 4px 8px;">비로그인 세션</td><td style="padding: 4px 8px;">로컬 스토리지 쿠키, 만료 없음 (브라우저 닫기 시 유지)</td></tr>
+            <tr style="border-bottom: 1px solid #EEF3F8;"><td style="padding: 4px 8px;">이메일 중복 검사</td><td style="padding: 4px 8px;">실시간 (입력 후 1초 딜레이)</td></tr>
+            <tr style="border-bottom: 1px solid #EEF3F8;"><td style="padding: 4px 8px;">로그인 실패 횟수</td><td style="padding: 4px 8px;">5회 연속 실패 시 30분 계정 잠금 (IP 기반)</td></tr>
+            <tr style="border-bottom: 1px solid #EEF3F8;"><td style="padding: 4px 8px;">JWT 토큰 유효기간</td><td style="padding: 4px 8px;">Access: 30분, Refresh: 14일</td></tr>
+            <tr style="border-bottom: 1px solid #EEF3F8;"><td style="padding: 4px 8px;">OAuth 에러</td><td style="padding: 4px 8px;">에러 팝업 + 이메일 로그인 자동 제안</td></tr>
+            <tr style="border-bottom: 1px solid #EEF3F8;"><td style="padding: 4px 8px;">휴면 계정 (6개월 미접속)</td><td style="padding: 4px 8px;">휴면 해제 팝업 → "동의" 탭 시 비밀번호 확인 → 해제</td></tr>
+            <tr style="border-bottom: 1px solid #EEF3F8;"><td style="padding: 4px 8px;">정지 계정</td><td style="padding: 4px 8px;">로그인 불가, "계정 정지" 안내 + 사유 + 해제 예정일</td></tr>
+            <tr style="border-bottom: 1px solid #EEF3F8;"><td style="padding: 4px 8px;">비밀번호 재설정 링크</td><td style="padding: 4px 8px;">이메일 발송, 유효기간 1시간</td></tr>
+            <tr style="border-bottom: 1px solid #EEF3F8;"><td style="padding: 4px 8px;">비로그인 세션</td><td style="padding: 4px 8px;">로컬 스토리지 쿠키, 만료 없음 (브라우저 닫기 시 유지)</td></tr>
           </tbody>
         </table>
       </div>
@@ -840,11 +840,11 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
     <!-- States -->
     <div style="margin-top: 16px;">
-      <div style="font-size: 13px; font-weight: 600; margin-bottom: 8px; color: #2563EB;">화면 상태</div>
+      <div style="font-size: 13px; font-weight: 600; margin-bottom: 8px; color: #2F8EC1;">화면 상태</div>
       <div class="desc-body" style="padding-left: 0;">
         <ul>
           <li><strong>로딩 상태</strong>: 버튼 텍스트 "로그인 중..." + 좌측 스피너, 버튼 비활성화</li>
-          <li><strong>로그인 실패</strong>: 인라인 에러 메시지 (빨강 #EF4444) "이메일 또는 비밀번호가 일치하지 않습니다"</li>
+          <li><strong>로그인 실패</strong>: 인라인 에러 메시지 (빨강 #EA5D86) "이메일 또는 비밀번호가 일치하지 않습니다"</li>
           <li><strong>계정 잠금</strong>: "로그인 시도 초과. 30분 후 다시 시도해주세요" 에러 팝업</li>
           <li><strong>OAuth 에러</strong>: 에러 팝업 + "다시 시도" 또는 "이메일 로그인" 버튼</li>
           <li><strong>휴면 계정</strong>: "휴면 계정입니다. 휴면을 해제하시겠습니까?" 팝업 → 비밀번호 확인</li>
@@ -858,21 +858,21 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
     <!-- Connected screens -->
     <div style="margin-top: 16px;">
-      <div style="font-size: 13px; font-weight: 600; margin-bottom: 8px; color: #2563EB;">연관 화면</div>
+      <div style="font-size: 13px; font-weight: 600; margin-bottom: 8px; color: #2F8EC1;">연관 화면</div>
       <div class="desc-body" style="padding-left: 0;">
         <table style="width: 100%; font-size: 11px; border-collapse: collapse;">
           <thead>
-            <tr style="border-bottom: 1px solid #eee;">
-              <th style="text-align: left; padding: 4px 8px; color: #888;">이동 대상</th>
-              <th style="text-align: left; padding: 4px 8px; color: #888;">조건</th>
-              <th style="text-align: left; padding: 4px 8px; color: #888;">화면코드</th>
+            <tr style="border-bottom: 1px solid #EEF3F8;">
+              <th style="text-align: left; padding: 4px 8px; color: #45617E;">이동 대상</th>
+              <th style="text-align: left; padding: 4px 8px; color: #45617E;">조건</th>
+              <th style="text-align: left; padding: 4px 8px; color: #45617E;">화면코드</th>
             </tr>
           </thead>
           <tbody>
-            <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 4px 8px;">메인 홈</td><td style="padding: 4px 8px;">로그인 성공 또는 둘러보기</td><td style="padding: 4px 8px;">HOME01</td></tr>
-            <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 4px 8px;">회원가입</td><td style="padding: 4px 8px;">신규 회원가입 또는 "회원가입" 링크</td><td style="padding: 4px 8px;">AUTH02</td></tr>
-            <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 4px 8px;">이용약관</td><td style="padding: 4px 8px;">약관 텍스트 탭</td><td style="padding: 4px 8px;">STAT01</td></tr>
-            <tr style="border-bottom: 1px solid #f0f0f0;"><td style="padding: 4px 8px;">마이페이지</td><td style="padding: 4px 8px;">로그인 후 로그아웃 후 재접속</td><td style="padding: 4px 8px;">USER01</td></tr>
+            <tr style="border-bottom: 1px solid #EEF3F8;"><td style="padding: 4px 8px;">메인 홈</td><td style="padding: 4px 8px;">로그인 성공 또는 둘러보기</td><td style="padding: 4px 8px;">HOME01</td></tr>
+            <tr style="border-bottom: 1px solid #EEF3F8;"><td style="padding: 4px 8px;">회원가입</td><td style="padding: 4px 8px;">신규 회원가입 또는 "회원가입" 링크</td><td style="padding: 4px 8px;">AUTH02</td></tr>
+            <tr style="border-bottom: 1px solid #EEF3F8;"><td style="padding: 4px 8px;">이용약관</td><td style="padding: 4px 8px;">약관 텍스트 탭</td><td style="padding: 4px 8px;">STAT01</td></tr>
+            <tr style="border-bottom: 1px solid #EEF3F8;"><td style="padding: 4px 8px;">마이페이지</td><td style="padding: 4px 8px;">로그인 후 로그아웃 후 재접속</td><td style="padding: 4px 8px;">USER01</td></tr>
           </tbody>
         </table>
       </div>

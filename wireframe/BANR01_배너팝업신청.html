@@ -1,1405 +1,857 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BANR01 배너/팝업 신청</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-      background: #fafafa;
-      color: #333;
-    }
-
-    /* ====== Meta Bar ====== */
-    .meta-bar {
-      background: #fff;
-      border-bottom: 2px solid #2563EB;
-      padding: 12px 24px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      font-size: 13px;
-    }
-
-    .meta-bar .title {
-      font-weight: 700;
-      font-size: 14px;
-      color: #1e40af;
-    }
-
-    .meta-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .meta-label {
-      font-weight: 600;
-      color: #666;
-      min-width: 50px;
-    }
-
-    .meta-value {
-      color: #333;
-    }
-
-    /* ====== Main Layout ====== */
-    .main-layout {
-      display: flex;
-      min-height: calc(100vh - 48px);
-    }
-
-    .wireframe-side {
-      flex: 0 0 55%;
-      background: #eaeaea;
-      padding: 32px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 24px;
-      overflow-y: auto;
-    }
-
-    .desc-side {
-      flex: 0 0 45%;
-      background: #fff;
-      padding: 24px 28px;
-      border-left: 1px solid #ddd;
-      overflow-y: auto;
-    }
-
-    /* ====== Phone Frame ====== */
-    .phone-frame {
-      width: 375px;
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
-      overflow: hidden;
-      position: relative;
-    }
-
-    .phone-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      width: 100%;
-    }
-
-    .frame-label {
-      font-size: 12px;
-      font-weight: 600;
-      color: #666;
-      margin-top: 12px;
-      text-align: center;
-    }
-
-    /* ====== Phone Content ====== */
-    .phone-content {
-      width: 100%;
-      max-height: 667px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Header */
-    .phone-header {
-      background: linear-gradient(135deg, #2563EB 0%, #1e40af 100%);
-      color: #fff;
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 600;
-      font-size: 16px;
-      position: relative;
-    }
-
-    .phone-header-icon {
-      width: 24px;
-      height: 24px;
-      cursor: pointer;
-    }
-
-    .phone-header-icon svg {
-      width: 100%;
-      height: 100%;
-      stroke: #fff;
-      fill: none;
-    }
-
-    .phone-header-title {
-      flex: 1;
-      text-align: center;
-    }
-
-    .phone-header-spacer {
-      width: 24px;
-    }
-
-    /* Scrollable Content */
-    .phone-scroll {
-      flex: 1;
-      overflow-y: auto;
-      padding: 16px;
-    }
-
-    /* ====== Wireframe Sections ====== */
-    .wf-section {
-      position: relative;
-      margin-bottom: 16px;
-    }
-
-    .wf-section-title {
-      font-size: 12px;
-      font-weight: 700;
-      color: #666;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-      letter-spacing: 0.5px;
-    }
-
-    .num-circle {
-      position: absolute;
-      z-index: 10;
-      background: #2563EB;
-      color: #fff;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      font-weight: 700;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-      top: -8px;
-      left: 8px;
-    }
-
-    /* ====== Type Cards ====== */
-    .type-cards {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .type-card {
-      border: 2px solid #E5E5E5;
-      border-radius: 12px;
-      padding: 12px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      position: relative;
-    }
-
-    .type-card.selected {
-      border-color: #2563EB;
-      background: #EFF6FF;
-    }
-
-    .type-card-check {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: #2563EB;
-      color: #fff;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .type-card.selected .type-card-check {
-      display: flex;
-    }
-
-    .type-card-preview {
-      width: 100%;
-      height: 60px;
-      background: linear-gradient(135deg, #f3e8ff 0%, #fce7f3 100%);
-      border-radius: 8px;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      color: #666;
-    }
-
-    .type-card-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 4px;
-    }
-
-    .type-card-info {
-      font-size: 11px;
-      color: #666;
-      line-height: 1.4;
-    }
-
-    .type-card-info-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 2px;
-    }
-
-    /* ====== Form Elements ====== */
-    .form-group {
-      margin-bottom: 16px;
-    }
-
-    .form-label {
-      display: block;
-      font-size: 12px;
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 6px;
-    }
-
-    .form-label .required {
-      color: #ef4444;
-      margin-left: 2px;
-    }
-
-    .form-input, .form-select {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid #E5E5E5;
-      border-radius: 8px;
-      font-size: 13px;
-      color: #333;
-      font-family: inherit;
-      background: #fff;
-    }
-
-    .form-input:focus, .form-select:focus {
-      outline: none;
-      border-color: #2563EB;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-    }
-
-    .form-input::placeholder {
-      color: #999;
-    }
-
-    /* ====== Chips ====== */
-    .chips-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .chip {
-      padding: 8px 12px;
-      border: 1px solid #E5E5E5;
-      border-radius: 20px;
-      font-size: 12px;
-      color: #666;
-      background: #fff;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .chip.selected {
-      background: #2563EB;
-      color: #fff;
-      border-color: #2563EB;
-    }
-
-    /* ====== Calendar ====== */
-    .calendar-container {
-      background: #f9f9f9;
-      border-radius: 8px;
-      padding: 12px;
-    }
-
-    .calendar-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    .calendar-nav {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .calendar-nav-btn {
-      width: 24px;
-      height: 24px;
-      border: none;
-      background: #f0f0f0;
-      border-radius: 4px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      color: #666;
-    }
-
-    .calendar-today-btn {
-      padding: 4px 8px;
-      border: 1px solid #E5E5E5;
-      background: #fff;
-      border-radius: 4px;
-      font-size: 11px;
-      color: #2563EB;
-      cursor: pointer;
-    }
-
-    .calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 4px;
-      margin-bottom: 12px;
-    }
-
-    .calendar-weekday {
-      text-align: center;
-      font-size: 10px;
-      font-weight: 600;
-      color: #999;
-      padding: 4px 0;
-    }
-
-    .calendar-day {
-      aspect-ratio: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 6px;
-      font-size: 12px;
-      position: relative;
-      cursor: pointer;
-      background: #fff;
-    }
-
-    .calendar-day.other-month {
-      color: #ccc;
-    }
-
-    .calendar-day.selected {
-      background: #2563EB;
-      color: #fff;
-      font-weight: 600;
-    }
-
-    .calendar-day.disabled {
-      background: #f0f0f0;
-      color: #ccc;
-      cursor: not-allowed;
-    }
-
-    .calendar-day-dot {
-      position: absolute;
-      bottom: 2px;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      font-size: 0;
-    }
-
-    .calendar-day-dot.green {
-      background: #10b981;
-    }
-
-    .calendar-day-dot.yellow {
-      background: #f59e0b;
-    }
-
-    .calendar-day-dot.red {
-      background: #ef4444;
-    }
-
-    .calendar-info {
-      font-size: 12px;
-      color: #666;
-      padding: 8px;
-      background: #fff;
-      border-radius: 6px;
-      text-align: center;
-    }
-
-    .calendar-cost {
-      font-size: 11px;
-      color: #999;
-      margin-top: 4px;
-    }
-
-    /* ====== Upload Area ====== */
-    .upload-area {
-      border: 2px dashed #D1D5DB;
-      border-radius: 8px;
-      padding: 20px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      background: #fafafa;
-    }
-
-    .upload-area:hover {
-      border-color: #2563EB;
-      background: #EFF6FF;
-    }
-
-    .upload-icon {
-      width: 32px;
-      height: 32px;
-      margin: 0 auto 8px;
-      color: #999;
-    }
-
-    .upload-icon svg {
-      width: 100%;
-      height: 100%;
-      stroke: currentColor;
-      fill: none;
-    }
-
-    .upload-text {
-      font-size: 12px;
-      color: #666;
-    }
-
-    .upload-size {
-      font-size: 10px;
-      color: #999;
-      margin-top: 4px;
-    }
-
-    /* ====== Guideline Box ====== */
-    .guideline-box {
-      background: #FFFBEB;
-      border-left: 3px solid #F59E0B;
-      border-radius: 6px;
-      padding: 12px;
-      font-size: 11px;
-      color: #666;
-      line-height: 1.5;
-    }
-
-    .guideline-box-title {
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 6px;
-    }
-
-    .guideline-list {
-      list-style: none;
-    }
-
-    .guideline-list li {
-      margin-bottom: 4px;
-      padding-left: 16px;
-      position: relative;
-    }
-
-    .guideline-list li:before {
-      content: "O";
-      position: absolute;
-      left: 0;
-      color: #10b981;
-      font-weight: 700;
-    }
-
-    .guideline-list li.reject:before {
-      content: "X";
-      color: #ef4444;
-    }
-
-    /* ====== Cost Box ====== */
-    .cost-box {
-      background: #F0FDF4;
-      border-left: 3px solid #10b981;
-      border-radius: 6px;
-      padding: 12px;
-      font-size: 12px;
-      color: #333;
-    }
-
-    .cost-box-title {
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .cost-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 4px;
-      font-size: 12px;
-    }
-
-    .cost-row.total {
-      font-weight: 600;
-      border-top: 1px solid rgba(16, 185, 129, 0.3);
-      padding-top: 6px;
-      margin-top: 6px;
-    }
-
-    /* ====== Checkbox ====== */
-    .checkbox-group {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .checkbox-input {
-      width: 18px;
-      height: 18px;
-      cursor: pointer;
-    }
-
-    .checkbox-label {
-      font-size: 12px;
-      color: #666;
-      flex: 1;
-    }
-
-    /* ====== Button ====== */
-    .btn {
-      width: 100%;
-      padding: 12px 16px;
-      border: none;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .btn-primary {
-      background: #2563EB;
-      color: #fff;
-    }
-
-    .btn-primary:hover {
-      background: #1e40af;
-    }
-
-    .btn-secondary {
-      background: #f3f4f6;
-      color: #333;
-      border: 1px solid #E5E5E5;
-    }
-
-    /* ====== Popup ====== */
-    .completion-popup {
-      position: absolute;
-      bottom: 16px;
-      left: 16px;
-      right: 16px;
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 12px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      z-index: 100;
-    }
-
-    .completion-popup-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 4px;
-    }
-
-    .completion-popup-desc {
-      font-size: 11px;
-      color: #666;
-      margin-bottom: 8px;
-    }
-
-    .completion-popup-btn {
-      width: 100%;
-      padding: 8px;
-      background: #2563EB;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    /* ====== Description ====== */
-    .desc-item {
-      margin-bottom: 24px;
-    }
-
-    .desc-num-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-
-    .desc-num {
-      min-width: 22px;
-      height: 22px;
-      background: #2563EB;
-      color: #fff;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .desc-comp-type {
-      display: inline-block;
-      background: #f3f4f6;
-      color: #666;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 10px;
-      font-weight: 600;
-      text-transform: uppercase;
-    }
-
-    .desc-comp-name {
-      font-size: 14px;
-      font-weight: 600;
-      color: #333;
-    }
-
-    .desc-body {
-      padding-left: 30px;
-      font-size: 12px;
-      color: #555;
-      line-height: 1.7;
-    }
-
-    .desc-body ul {
-      list-style: none;
-    }
-
-    .desc-body li {
-      margin-bottom: 6px;
-    }
-
-    .desc-body li:before {
-      content: "•";
-      color: #2563EB;
-      margin-right: 8px;
-      font-weight: 700;
-    }
-
-    .desc-body .sub li:before {
-      content: "└";
-      color: #ccc;
-      margin-right: 8px;
-    }
-
-    .desc-divider {
-      border: none;
-      border-top: 1px dashed #eee;
-      margin: 16px 0;
-    }
-
-    /* ====== Description Section ====== */
-    .desc-section-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: #333;
-      padding: 12px 0;
-      border-bottom: 2px solid #2563EB;
-      margin-top: 24px;
-      margin-bottom: 16px;
-    }
-
-    .desc-section-title:first-child {
-      margin-top: 0;
-    }
-
-    .desc-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12px;
-      margin-bottom: 24px;
-    }
-
-    .desc-table th {
-      background: #f3f4f6;
-      border: 1px solid #E5E5E5;
-      padding: 8px;
-      font-weight: 600;
-      color: #333;
-      text-align: left;
-    }
-
-    .desc-table td {
-      border: 1px solid #E5E5E5;
-      padding: 8px;
-      color: #555;
-    }
-
-    /* ====== Revision Bar ====== */
-    .revision-bar {
-      background: #fff;
-      border-top: 1px solid #eee;
-      padding: 24px;
-      margin-top: 32px;
-    }
-
-    .revision-bar table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12px;
-    }
-
-    .revision-bar th {
-      background: #f3f4f6;
-      border: 1px solid #E5E5E5;
-      padding: 8px;
-      font-weight: 600;
-      color: #333;
-      text-align: left;
-    }
-
-    .revision-bar td {
-      border: 1px solid #E5E5E5;
-      padding: 8px;
-      color: #555;
-    }
-
-    /* ====== Responsive ====== */
-    @media (max-width: 900px) {
-      .main-layout {
-        flex-direction: column;
-      }
-
-      .wireframe-side {
-        flex: none;
-        padding: 16px;
-      }
-
-      .desc-side {
-        flex: none;
-        border-left: none;
-        border-top: 1px solid #ddd;
-        padding: 16px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BANR01 — 배너/팝업 슬롯 현황 와이어프레임</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F7FAFD; color: #163958; }
+
+/* ===== META HEADER ===== */
+.meta-bar {
+  background: #fff; border-bottom: 2px solid #2F8EC1; padding: 12px 24px;
+  display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
+}
+.meta-item { font-size: 11px; }
+.meta-label { color: #8EA2B7; }
+.meta-value { font-weight: 600; color: #163958; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2F8EC1; margin-right: auto; }
+
+/* ===== MAIN LAYOUT ===== */
+.main-layout {
+  overflow-x: hidden;
+  display: flex; min-height: calc(100vh - 48px);
+}
+
+/* ===== WIREFRAME SIDE ===== */
+.wireframe-side {
+  flex: 1 1 55%; min-width: 0; background: #EAEAEA; padding: 32px;
+  display: flex; justify-content: center; overflow-y: auto;
+}
+.phone-stack {
+  display: flex; flex-direction: column; gap: 24px;
+}
+.phone-frame {
+  width: 375px; background: #fff; border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative;
+  overflow: hidden;
+}
+.frame-label {
+  font-size: 12px; font-weight: 600; color: #45617E;
+  margin-top: 8px; text-align: center;
+}
+
+/* ===== DESCRIPTION SIDE ===== */
+.desc-side {
+  flex: 1 1 45%; min-width: 0; background: #fff; padding: 24px 28px;
+  overflow-y: auto; border-left: 1px solid #DEE8F2;
+}
+.desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.desc-subtitle { font-size: 12px; color: #45617E; margin-bottom: 20px; }
+
+.desc-item { margin-bottom: 20px; }
+.desc-num-row {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+}
+.desc-num {
+  background: #2F8EC1; color: #fff; width: 22px; height: 22px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0;
+}
+.desc-comp-type { font-size: 10px; color: #8EA2B7; background: #F7FAFD; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-name { font-size: 14px; font-weight: 600; }
+
+.desc-body { padding-left: 30px; font-size: 12px; color: #45617E; line-height: 1.7; }
+.desc-body ul { list-style: none; }
+.desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
+.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2F8EC1; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #45617E; }
+.desc-body .sub li::before { content: '└'; color: #8EA2B7; }
+
+.desc-divider { border: none; border-top: 1px dashed #EEF3F8; margin: 16px 0; }
+
+.desc-section-title {
+  font-size: 13px; font-weight: 700; color: #163958;
+  padding: 12px 0; border-bottom: 2px solid #2F8EC1;
+  margin-top: 24px; margin-bottom: 16px;
+}
+.desc-table {
+  width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 24px;
+}
+.desc-table th {
+  background: #EEF3F8; border: 1px solid #DEE8F2; padding: 8px;
+  font-weight: 600; color: #163958; text-align: left;
+}
+.desc-table td {
+  border: 1px solid #DEE8F2; padding: 8px; color: #45617E;
+}
+
+/* ===== WIREFRAME ELEMENTS ===== */
+.wf-section { position: relative; }
+
+/* Number circle overlay */
+.num-circle {
+  position: absolute; z-index: 10;
+  background: #2F8EC1; color: #fff; width: 20px; height: 20px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+/* Header */
+.wf-header {
+  display: flex; align-items: center; padding: 12px 16px;
+  border-bottom: 1px solid #EEF3F8; position: relative;
+}
+.wf-header-back { color: #163958; }
+.wf-header-title {
+  flex: 1; text-align: center; font-size: 15px; font-weight: 600; color: #163958;
+}
+.wf-header-spacer { width: 24px; }
+
+/* Section header */
+.wf-sec-header {
+  display: flex; align-items: center; padding: 14px 16px 6px; position: relative;
+}
+.wf-sec-title { font-size: 14px; font-weight: 600; }
+.wf-sec-badge {
+  margin-left: 6px; background: #2F8EC1; color: #fff; font-size: 10px;
+  padding: 1px 6px; border-radius: 10px; font-weight: 600;
+}
+.wf-sec-more { margin-left: auto; font-size: 11px; color: #8EA2B7; }
+
+/* ===== Active Banners Horizontal Scroll ===== */
+.wf-hscroll {
+  display: flex; gap: 10px; padding: 8px 16px; overflow-x: hidden;
+}
+.wf-active-card {
+  min-width: 140px; max-width: 140px; background: #fff;
+  border: 1px solid #EEF3F8; border-radius: 10px; overflow: hidden; flex-shrink: 0;
+}
+.wf-active-card-img {
+  width: 100%; height: 56px; background: #DEE8F2;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; color: #8EA2B7; position: relative;
+}
+.wf-active-card-body { padding: 8px; }
+.wf-active-card-title {
+  font-size: 11px; font-weight: 600; color: #163958;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.wf-active-card-date { font-size: 10px; color: #8EA2B7; margin-top: 2px; }
+.wf-active-card-badges { display: flex; gap: 4px; margin-top: 4px; align-items: center; }
+.wf-type-pill {
+  font-size: 9px; padding: 1px 6px; border-radius: 8px;
+  font-weight: 600; white-space: nowrap;
+}
+.wf-type-pill.main { background: #EAF7FF; color: #2F8EC1; }
+.wf-type-pill.feed { background: #E0E7FF; color: #4338CA; }
+.wf-type-pill.popup { background: #FEF3C7; color: #92400E; }
+.wf-cat-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+}
+.wf-cat-dot.purple { background: #8B5CF6; }
+.wf-cat-dot.pink { background: #EC4899; }
+.wf-cat-dot.amber { background: #F59E0B; }
+.wf-cat-dot.cyan { background: #06B6D4; }
+
+/* ===== Slot Status Cards ===== */
+.wf-slot-card {
+  margin: 0 16px 12px; padding: 14px;
+  border: 1px solid #DEE8F2; border-radius: 12px;
+  background: #fff; position: relative;
+}
+.wf-slot-card-header {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+}
+.wf-slot-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; color: #fff;
+}
+.wf-slot-icon.main-banner { background: #2F8EC1; }
+.wf-slot-icon.feed-banner { background: #4F46E5; }
+.wf-slot-icon.popup { background: #F3A34B; }
+.wf-slot-card-name { font-size: 14px; font-weight: 600; color: #163958; }
+.wf-slot-card-desc { font-size: 10px; color: #8EA2B7; margin-top: 1px; }
+
+/* Progress bar */
+.wf-progress-wrap { margin-bottom: 8px; }
+.wf-progress-label {
+  display: flex; justify-content: space-between; font-size: 10px; color: #8EA2B7; margin-bottom: 4px;
+}
+.wf-progress-bar {
+  width: 100%; height: 8px; background: #F1F5F9; border-radius: 4px; overflow: hidden;
+}
+.wf-progress-fill {
+  height: 100%; border-radius: 4px; transition: width 0.3s;
+}
+.wf-progress-fill.green { background: #16A34A; }
+.wf-progress-fill.amber { background: #F59E0B; }
+.wf-progress-fill.red { background: #EA5D86; }
+
+/* Slot status text */
+.wf-slot-status {
+  font-size: 11px; font-weight: 600; margin-bottom: 6px;
+}
+.wf-slot-status.green { color: #16A34A; }
+.wf-slot-status.amber { color: #F3A34B; }
+.wf-slot-status.red { color: #EA5D86; }
+
+/* Slot info row */
+.wf-slot-info-row {
+  display: flex; gap: 12px; font-size: 10px; color: #45617E; margin-bottom: 4px;
+}
+.wf-slot-info-item {
+  display: flex; align-items: center; gap: 3px;
+}
+
+/* Apply button */
+.wf-slot-btn {
+  margin-top: 10px; width: 100%; padding: 10px;
+  border: none; border-radius: 8px; font-size: 13px; font-weight: 600;
+  text-align: center;
+}
+.wf-slot-btn.primary { background: #2F8EC1; color: #fff; }
+.wf-slot-btn.disabled { background: #E2E8F0; color: #8EA2B7; }
+
+/* ===== Next Application Info ===== */
+.wf-next-info {
+  margin: 4px 16px 12px; padding: 14px;
+  background: #EAF7FF; border-radius: 12px;
+}
+.wf-next-info-header {
+  display: flex; align-items: center; gap: 6px; margin-bottom: 8px;
+}
+.wf-next-info-icon { color: #2F8EC1; }
+.wf-next-info-title { font-size: 13px; font-weight: 600; color: #1E40AF; }
+.wf-next-info-item {
+  font-size: 11px; color: #334155; margin-bottom: 4px; padding-left: 4px;
+}
+.wf-next-info-noti {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: 10px; padding-top: 10px; border-top: 1px solid #D9EAF7;
+}
+.wf-next-info-noti-text { font-size: 11px; color: #1E40AF; flex: 1; }
+.wf-toggle {
+  width: 36px; height: 20px; background: #DEE8F2; border-radius: 10px;
+  position: relative; flex-shrink: 0;
+}
+.wf-toggle-knob {
+  width: 16px; height: 16px; background: #fff; border-radius: 50%;
+  position: absolute; top: 2px; left: 2px; box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+
+/* ===== My Applications Shortcut ===== */
+.wf-my-banner {
+  margin: 4px 16px 16px; padding: 12px;
+  border: 1px solid #DEE8F2; border-radius: 10px; background: #fff;
+}
+.wf-my-banner-link {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 12px; font-weight: 600; color: #163958; margin-bottom: 8px;
+}
+.wf-my-banner-link-arrow { color: #8EA2B7; }
+.wf-my-banner-preview {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px; background: #F8FAFC; border-radius: 8px;
+}
+.wf-my-banner-thumb {
+  width: 48px; height: 48px; background: #DEE8F2; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; color: #8EA2B7; flex-shrink: 0;
+}
+.wf-my-banner-info { flex: 1; min-width: 0; }
+.wf-my-banner-type { font-size: 10px; color: #45617E; }
+.wf-my-banner-status-badge {
+  display: inline-block; font-size: 9px; padding: 1px 6px; border-radius: 8px;
+  font-weight: 600; margin-left: 4px;
+}
+.wf-my-banner-status-badge.reviewing { background: #FEF3C7; color: #92400E; }
+.wf-my-banner-status-badge.approved { background: #DCFCE7; color: #166534; }
+
+/* ===== Bottom Nav ===== */
+.wf-bottom-nav {
+  display: flex; border-top: 1px solid #EEF3F8; padding: 8px 0 4px;
+  background: #fff;
+}
+.wf-nav-item {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  gap: 2px; font-size: 10px; color: #8EA2B7; padding: 4px 0;
+}
+.wf-nav-item.active { color: #2F8EC1; }
+.wf-nav-icon {
+  width: 20px; height: 20px; display: flex; align-items: center; justify-content: center;
+}
+
+/* ===== Empty State ===== */
+.wf-empty {
+  padding: 20px; text-align: center; font-size: 12px; color: #8EA2B7;
+}
+
+/* ===== Revision Bar ===== */
+.revision-bar {
+  background: #fff; border-top: 1px solid #EEF3F8; padding: 24px;
+}
+.revision-bar table {
+  width: 100%; border-collapse: collapse; font-size: 12px;
+}
+.revision-bar th {
+  background: #EEF3F8; border: 1px solid #DEE8F2; padding: 8px;
+  font-weight: 600; color: #163958; text-align: left;
+}
+.revision-bar td {
+  border: 1px solid #DEE8F2; padding: 8px; color: #45617E;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .main-layout { flex-direction: column; }
+  .wireframe-side { flex: none; padding: 16px; }
+  .desc-side { flex: none; border-left: none; border-top: 1px solid #DEE8F2; }
+}
+</style>
 </head>
 <body>
-  <!-- Meta Bar -->
-  <div class="meta-bar">
-    <span class="title">BANR01</span>
-    <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">배너/팝업 신청</span></span>
-    <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/banner/apply</span></span>
-    <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
-    <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.1</span></span>
-    <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
-    <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-07</span></span>
-  </div>
 
-  <!-- Main Layout -->
-  <div class="main-layout">
-    <!-- Wireframe Side -->
-    <div class="wireframe-side">
-      <div class="phone-stack">
-        <!-- Frame 1: 신청 폼 상단 -->
-        <div class="phone-frame">
-          <div class="phone-content">
-            <div class="phone-header">
-              <div class="phone-header-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
+<!-- Meta Bar -->
+<div class="meta-bar">
+  <span class="title">BANR01</span>
+  <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">배너/팝업 슬롯 현황</span></span>
+  <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/banner</span></span>
+  <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">PC / Mobile</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.2</span></span>
+  <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">개선</span></span>
+  <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-09</span></span>
+</div>
+
+<!-- Main Layout -->
+<div class="main-layout">
+  <!-- Wireframe Side -->
+  <div class="wireframe-side">
+    <div class="phone-stack">
+
+      <!-- Frame 1: 슬롯 현황 (정상 상태) -->
+      <div class="phone-frame">
+        <!-- (1) Header -->
+        <div class="wf-section wf-header" style="position:relative;">
+          <div class="num-circle" style="top:-6px;left:4px;">1</div>
+          <div class="wf-header-back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="15 18 9 12 15 6"/></svg>
+          </div>
+          <div class="wf-header-title">배너/팝업</div>
+          <div class="wf-header-spacer"></div>
+        </div>
+
+        <!-- (2) 현재 진행 중 배너/팝업 -->
+        <div class="wf-section" style="position:relative;">
+          <div class="num-circle" style="top:8px;left:4px;">2</div>
+          <div class="wf-sec-header">
+            <span class="wf-sec-title">지금 진행 중</span>
+            <span class="wf-sec-badge">5</span>
+          </div>
+          <div class="wf-hscroll">
+            <!-- Card 1 -->
+            <div class="wf-active-card">
+              <div class="wf-active-card-img">
+                <span>배너 이미지</span>
               </div>
-              <div class="phone-header-title">배너/팝업 신청</div>
-              <div class="phone-header-spacer"></div>
+              <div class="wf-active-card-body">
+                <div class="wf-active-card-title">쿠로코 생일카페 in 홍대</div>
+                <div class="wf-active-card-date">3/8 ~ 3/14</div>
+                <div class="wf-active-card-badges">
+                  <span class="wf-type-pill main">메인 배너</span>
+                  <span class="wf-cat-dot purple"></span>
+                </div>
+              </div>
             </div>
-
-            <div class="phone-scroll">
-              <div class="wf-section">
-                <div class="wf-section-title">신청 유형 선택</div>
-                <div class="num-circle">1</div>
-                <div class="type-cards">
-                  <!-- 메인 배너 -->
-                  <div class="type-card selected">
-                    <div class="type-card-check">✓</div>
-                    <div class="type-card-preview">1200×300 mockup</div>
-                    <div class="type-card-title">메인 배너</div>
-                    <div class="type-card-info">
-                      <div class="type-card-info-row">
-                        <span>홈 캐러셀</span>
-                      </div>
-                      <div class="type-card-info-row">
-                        <span>max 8슬롯/일</span>
-                      </div>
-                      <div class="type-card-info-row">
-                        <span>5,000~10,000원/일</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- 피드 배너 -->
-                  <div class="type-card">
-                    <div class="type-card-check">✓</div>
-                    <div class="type-card-preview">목록 사이 삽입</div>
-                    <div class="type-card-title">피드 배너</div>
-                    <div class="type-card-info">
-                      <div class="type-card-info-row">
-                        <span>목록 사이</span>
-                      </div>
-                      <div class="type-card-info-row">
-                        <span>max 4슬롯/일</span>
-                      </div>
-                      <div class="type-card-info-row">
-                        <span>2,000~5,000원/일</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- 팝업 -->
-                  <div class="type-card">
-                    <div class="type-card-check">✓</div>
-                    <div class="type-card-preview">접속 시 팝업</div>
-                    <div class="type-card-title">팝업</div>
-                    <div class="type-card-info">
-                      <div class="type-card-info-row">
-                        <span>접속 시 표시</span>
-                      </div>
-                      <div class="type-card-info-row">
-                        <span>max 3슬롯/일</span>
-                      </div>
-                      <div class="type-card-info-row">
-                        <span>3,000~7,000원/일</span>
-                      </div>
-                    </div>
-                  </div>
+            <!-- Card 2 -->
+            <div class="wf-active-card">
+              <div class="wf-active-card-img">
+                <span>팝업 이미지</span>
+              </div>
+              <div class="wf-active-card-body">
+                <div class="wf-active-card-title">BTS 정국 데뷔 기념</div>
+                <div class="wf-active-card-date">3/7 ~ 3/13</div>
+                <div class="wf-active-card-badges">
+                  <span class="wf-type-pill popup">팝업</span>
+                  <span class="wf-cat-dot pink"></span>
                 </div>
               </div>
-
-              <div class="wf-section">
-                <div class="wf-section-title">대상 정보</div>
-                <div class="num-circle">2</div>
-                <div class="form-group">
-                  <label class="form-label">작품/아이돌 선택 <span class="required">*</span></label>
-                  <select class="form-select">
-                    <option>선택해주세요</option>
-                    <option selected>내 마음의 영웅 (애니)</option>
-                    <option>BTS (아이돌)</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">캐릭터/멤버 선택 <span class="required">*</span></label>
-                  <select class="form-select">
-                    <option>선택해주세요</option>
-                    <option selected>protagonist (주인공)</option>
-                    <option>jungkook</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">이벤트 종류 <span class="required">*</span></label>
-                  <div class="chips-group">
-                    <div class="chip selected">생일카페</div>
-                    <div class="chip">데뷔 기념</div>
-                    <div class="chip">콘서트</div>
-                    <div class="chip">팬미팅</div>
-                    <div class="chip">전시</div>
-                    <div class="chip">기타</div>
-                  </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="wf-active-card">
+              <div class="wf-active-card-img">
+                <span>배너 이미지</span>
+              </div>
+              <div class="wf-active-card-body">
+                <div class="wf-active-card-title">원신 4.5 업데이트 기념</div>
+                <div class="wf-active-card-date">3/10 ~ 3/16</div>
+                <div class="wf-active-card-badges">
+                  <span class="wf-type-pill feed">피드 배너</span>
+                  <span class="wf-cat-dot cyan"></span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="frame-label">Frame 1: 신청 폼 상단</div>
 
-        <!-- Frame 2: 슬롯 달력 + 이미지 업로드 -->
-        <div class="phone-frame">
-          <div class="phone-content">
-            <div class="phone-header">
-              <div class="phone-header-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
+        <!-- (3) 슬롯 현황 카드 -->
+        <div class="wf-section" style="position:relative;">
+          <div class="num-circle" style="top:8px;left:4px;">3</div>
+          <div class="wf-sec-header">
+            <span class="wf-sec-title">슬롯 현황</span>
+          </div>
+
+          <!-- 메인 배너 카드 -->
+          <div class="wf-slot-card">
+            <div class="wf-slot-card-header">
+              <div class="wf-slot-icon main-banner">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
               </div>
-              <div class="phone-header-title">배너/팝업 신청</div>
-              <div class="phone-header-spacer"></div>
+              <div>
+                <div class="wf-slot-card-name">메인 배너</div>
+                <div class="wf-slot-card-desc">홈 캐러셀 | 1200x300px 통이미지</div>
+              </div>
             </div>
-
-            <div class="phone-scroll">
-              <div class="wf-section">
-                <div class="wf-section-title">슬롯 달력</div>
-                <div class="num-circle">3</div>
-                <div class="calendar-container">
-                  <div class="calendar-header">
-                    <div class="calendar-nav">
-                      <button class="calendar-nav-btn">&lt;</button>
-                      <span>2026년 3월</span>
-                      <button class="calendar-nav-btn">&gt;</button>
-                    </div>
-                    <button class="calendar-today-btn">오늘</button>
-                  </div>
-
-                  <div class="calendar-grid">
-                    <div class="calendar-weekday">일</div>
-                    <div class="calendar-weekday">월</div>
-                    <div class="calendar-weekday">화</div>
-                    <div class="calendar-weekday">수</div>
-                    <div class="calendar-weekday">목</div>
-                    <div class="calendar-weekday">금</div>
-                    <div class="calendar-weekday">토</div>
-
-                    <div class="calendar-day other-month">28</div>
-                    <div class="calendar-day other-month">29</div>
-                    <div class="calendar-day other-month">1</div>
-                    <div class="calendar-day other-month">2</div>
-                    <div class="calendar-day other-month">3</div>
-                    <div class="calendar-day other-month">4</div>
-                    <div class="calendar-day other-month">5</div>
-
-                    <div class="calendar-day other-month">1</div>
-                    <div class="calendar-day other-month">2</div>
-                    <div class="calendar-day other-month">3</div>
-                    <div class="calendar-day other-month">4</div>
-                    <div class="calendar-day other-month">5</div>
-                    <div class="calendar-day other-month">6</div>
-                    <div class="calendar-day">7
-                      <span class="calendar-day-dot green"></span>
-                    </div>
-
-                    <div class="calendar-day selected">8
-                      <span class="calendar-day-dot green"></span>
-                    </div>
-                    <div class="calendar-day selected">9
-                      <span class="calendar-day-dot yellow"></span>
-                    </div>
-                    <div class="calendar-day selected">10
-                      <span class="calendar-day-dot red"></span>
-                    </div>
-                    <div class="calendar-day">11
-                      <span class="calendar-day-dot red"></span>
-                    </div>
-                    <div class="calendar-day">12</div>
-                    <div class="calendar-day disabled">13<br><small>매진</small></div>
-                    <div class="calendar-day">14</div>
-
-                    <div class="calendar-day">15</div>
-                    <div class="calendar-day">16</div>
-                    <div class="calendar-day">17</div>
-                    <div class="calendar-day">18</div>
-                    <div class="calendar-day">19</div>
-                    <div class="calendar-day">20</div>
-                    <div class="calendar-day">21</div>
-
-                    <div class="calendar-day">22</div>
-                    <div class="calendar-day">23</div>
-                    <div class="calendar-day">24</div>
-                    <div class="calendar-day">25</div>
-                    <div class="calendar-day">26</div>
-                    <div class="calendar-day">27</div>
-                    <div class="calendar-day">28</div>
-
-                    <div class="calendar-day">29</div>
-                    <div class="calendar-day">30</div>
-                    <div class="calendar-day">31</div>
-                    <div class="calendar-day other-month">1</div>
-                    <div class="calendar-day other-month">2</div>
-                    <div class="calendar-day other-month">3</div>
-                    <div class="calendar-day other-month">4</div>
-                  </div>
-
-                  <div class="calendar-info">
-                    3월 8일 ~ 3월 10일 (4일간)
-                    <div class="calendar-cost">예상 비용: 28,000원</div>
-                  </div>
-                </div>
+            <div class="wf-progress-wrap">
+              <div class="wf-progress-label">
+                <span>사용 5 / 전체 8</span>
+                <span class="wf-slot-status green">3슬롯 남음</span>
               </div>
+              <div class="wf-progress-bar">
+                <div class="wf-progress-fill green" style="width:62.5%;"></div>
+              </div>
+            </div>
+            <div class="wf-slot-btn primary">신청하기</div>
+          </div>
 
-              <div class="wf-section">
-                <div class="wf-section-title">이미지 업로드</div>
-                <div class="num-circle">4</div>
-                <div class="upload-area">
-                  <div class="upload-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                      <polyline points="17 8 12 3 7 8"></polyline>
-                      <line x1="12" y1="3" x2="12" y2="15"></line>
-                    </svg>
-                  </div>
-                  <div class="upload-text">이미지 업로드</div>
-                  <div class="upload-size">(1200×300px)</div>
-                </div>
+          <!-- 피드 배너 카드 -->
+          <div class="wf-slot-card">
+            <div class="wf-slot-card-header">
+              <div class="wf-slot-icon feed-banner">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>
+              </div>
+              <div>
+                <div class="wf-slot-card-name">피드 배너</div>
+                <div class="wf-slot-card-desc">목록 사이 | 카드너비x180px 통이미지</div>
+              </div>
+            </div>
+            <div class="wf-progress-wrap">
+              <div class="wf-progress-label">
+                <span>사용 3 / 전체 4</span>
+                <span class="wf-slot-status amber">1슬롯 남음</span>
+              </div>
+              <div class="wf-progress-bar">
+                <div class="wf-progress-fill amber" style="width:75%;"></div>
+              </div>
+            </div>
+            <div class="wf-slot-btn primary">신청하기</div>
+          </div>
 
-                <div class="guideline-box" style="margin-top: 12px;">
-                  <div class="guideline-box-title">저작권 가이드라인</div>
-                  <ul class="guideline-list">
-                    <li>팬아트</li>
-                    <li>이름 기반 디자인</li>
-                    <li>2차 창작</li>
-                    <li class="reject">공식 사진</li>
-                    <li class="reject">앨범 이미지</li>
-                    <li class="reject">타인 팬아트 도용</li>
-                  </ul>
-                </div>
+          <!-- 팝업 카드 (마감) -->
+          <div class="wf-slot-card">
+            <div class="wf-slot-card-header">
+              <div class="wf-slot-icon popup">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+              </div>
+              <div>
+                <div class="wf-slot-card-name">팝업</div>
+                <div class="wf-slot-card-desc">접속 시 팝업 | 320x400px 통이미지</div>
+              </div>
+            </div>
+            <div class="wf-progress-wrap">
+              <div class="wf-progress-label">
+                <span>사용 3 / 전체 3</span>
+                <span class="wf-slot-status red">마감</span>
+              </div>
+              <div class="wf-progress-bar">
+                <div class="wf-progress-fill red" style="width:100%;"></div>
+              </div>
+            </div>
+            <div style="font-size:10px;color:#45617E;text-align:center;margin-top:4px;">다음 신청: 3/15(월)~</div>
+            <div class="wf-slot-btn disabled">마감</div>
+          </div>
+        </div>
+
+        <!-- (4) 다음 신청 기간 안내 -->
+        <div class="wf-section" style="position:relative;">
+          <div class="num-circle" style="top:-2px;left:4px;">4</div>
+          <div class="wf-next-info">
+            <div class="wf-next-info-header">
+              <span class="wf-next-info-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </span>
+              <span class="wf-next-info-title">다음 신청 기간</span>
+            </div>
+            <div class="wf-next-info-item">
+              <span style="color:#F3A34B;font-weight:600;">팝업</span> : 3/15(월)부터 신청 가능
+            </div>
+            <div class="wf-next-info-noti">
+              <span class="wf-next-info-noti-text">신청 가능할 때 알려드릴까요?</span>
+              <div class="wf-toggle">
+                <div class="wf-toggle-knob"></div>
               </div>
             </div>
           </div>
         </div>
-        <div class="frame-label">Frame 2: 슬롯 달력 + 이미지 업로드</div>
 
-        <!-- Frame 3: 추가 정보 + 비용 + CTA -->
-        <div class="phone-frame">
-          <div class="phone-content">
-            <div class="phone-header">
-              <div class="phone-header-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
-              </div>
-              <div class="phone-header-title">배너/팝업 신청</div>
-              <div class="phone-header-spacer"></div>
+        <!-- (5) 내 신청 내역 바로가기 -->
+        <div class="wf-section" style="position:relative;">
+          <div class="num-circle" style="top:0;left:4px;">5</div>
+          <div class="wf-my-banner">
+            <div class="wf-my-banner-link">
+              <span>내 배너/팝업 관리</span>
+              <span class="wf-my-banner-link-arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="9 18 15 12 9 6"/></svg>
+              </span>
             </div>
-
-            <div class="phone-scroll">
-              <div class="wf-section">
-                <div class="wf-section-title">추가 정보</div>
-                <div class="num-circle">5</div>
-                <div class="form-group">
-                  <label class="form-label">외부 링크 (선택)</label>
-                  <input type="url" class="form-input" placeholder="https://twitter.com/...">
+            <div class="wf-my-banner-preview">
+              <div class="wf-my-banner-thumb">IMG</div>
+              <div class="wf-my-banner-info">
+                <div class="wf-my-banner-type">
+                  메인 배너
+                  <span class="wf-my-banner-status-badge reviewing">검수중</span>
                 </div>
-
-                <div class="form-group">
-                  <label class="form-label">관련 이벤트 연결 (선택)</label>
-                  <select class="form-select">
-                    <option>이벤트를 선택해주세요</option>
-                    <option>내 마음의 영웅 생일카페 in 서울</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">배너 텍스트 (선택)</label>
-                  <input type="text" class="form-input" placeholder="배너에 표시할 추가 텍스트 (최대 50자)">
-                </div>
-              </div>
-
-              <div class="wf-section">
-                <div class="wf-section-title">비용 안내</div>
-                <div class="num-circle">6</div>
-                <div class="cost-box">
-                  <div class="cost-box-title">현재 무료 기간입니다</div>
-                  <p style="font-size: 11px; color: #666; margin-top: 4px;">Phase 1 배너 신청은 무료로 진행됩니다</p>
-                </div>
-              </div>
-
-              <div class="wf-section">
-                <div class="wf-section-title">동의 및 신청</div>
-                <div class="num-circle">7</div>
-                <div class="checkbox-group">
-                  <input type="checkbox" class="checkbox-input" checked>
-                  <label class="checkbox-label">저작권 가이드라인을 확인했으며 동의합니다</label>
-                </div>
-
-                <button class="btn btn-primary">신청하기</button>
-              </div>
-
-              <div class="completion-popup">
-                <div class="completion-popup-title">신청 완료</div>
-                <div class="completion-popup-desc">관리자 검수 후 게시됩니다 (24시간 이내)</div>
-                <button class="completion-popup-btn">확인</button>
+                <div style="font-size:11px;font-weight:600;color:#163958;margin-top:2px;">내 마음의 영웅 생일카페</div>
               </div>
             </div>
           </div>
         </div>
-        <div class="frame-label">Frame 3: 추가 정보 + 비용 + CTA</div>
-      </div>
-    </div>
 
-    <!-- Description Side -->
-    <div class="desc-side">
-      <div class="desc-item">
-        <div class="desc-num-row">
-          <div class="desc-num">1</div>
-          <span class="desc-comp-type">[Header]</span>
-          <span class="desc-comp-name">앱 헤더</span>
-        </div>
-        <div class="desc-body">
-          <ul>
-            <li>뒤로가기 버튼 (ChevronLeft SVG)</li>
-            <li>중앙 정렬 타이틀 "배너/팝업 신청"</li>
-            <li>우측 예약 공간 (버튼 또는 빈 공간)</li>
-          </ul>
-        </div>
-      </div>
-      <hr class="desc-divider">
-
-      <div class="desc-item">
-        <div class="desc-num-row">
-          <div class="desc-num">2</div>
-          <span class="desc-comp-type">[Selection]</span>
-          <span class="desc-comp-name">신청 유형 선택</span>
-        </div>
-        <div class="desc-body">
-          <ul>
-            <li>3가지 신청 유형 카드 (메인 배너 / 피드 배너 / 팝업)</li>
-            <li>각 카드: 스크린샷 미리보기 + 제목 + 상세 정보 (위치, 슬롯수, 가격)</li>
-            <li>복수 선택 가능 (멀티 체크박스 UX)</li>
-            <li>선택 시 파란 테두리 + 체크마크 표시</li>
-            <li>선택된 유형별로 이후 폼에서 필드 노출 (선택적 로직)</li>
-          </ul>
-        </div>
-      </div>
-      <hr class="desc-divider">
-
-      <div class="desc-item">
-        <div class="desc-num-row">
-          <div class="desc-num">3</div>
-          <span class="desc-comp-type">[Form]</span>
-          <span class="desc-comp-name">대상 정보</span>
-        </div>
-        <div class="desc-body">
-          <ul>
-            <li>작품/아이돌 선택 (필수, 드롭다운)</li>
-            <li>캐릭터/멤버 선택 (필수, 드롭다운)</li>
-            <li>이벤트 종류 (필수, 칩 그룹): 생일카페 / 데뷔 기념 / 콘서트 / 팬미팅 / 전시 / 기타</li>
-            <li>최대 1개 선택 권장</li>
-          </ul>
+        <!-- (6) 하단 네비게이션 -->
+        <div class="wf-section" style="position:relative;">
+          <div class="num-circle" style="top:-2px;left:4px;">6</div>
+          <div class="wf-bottom-nav">
+            <div class="wf-nav-item">
+              <div class="wf-nav-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+              </div>
+              <span>홈</span>
+            </div>
+            <div class="wf-nav-item">
+              <div class="wf-nav-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </div>
+              <span>검색</span>
+            </div>
+            <div class="wf-nav-item active">
+              <div class="wf-nav-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </div>
+              <span>이벤트</span>
+            </div>
+            <div class="wf-nav-item">
+              <div class="wf-nav-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <span>채팅</span>
+            </div>
+            <div class="wf-nav-item">
+              <div class="wf-nav-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <span>마이</span>
+            </div>
+          </div>
         </div>
       </div>
-      <hr class="desc-divider">
+      <div class="frame-label">Frame 1: 슬롯 현황 (정상 상태 - 일부 마감)</div>
 
-      <div class="desc-item">
-        <div class="desc-num-row">
-          <div class="desc-num">4</div>
-          <span class="desc-comp-type">[Calendar]</span>
-          <span class="desc-comp-name">슬롯 달력</span>
+      <!-- Frame 2: 전체 마감 상태 -->
+      <div class="phone-frame">
+        <div class="wf-header">
+          <div class="wf-header-back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="15 18 9 12 15 6"/></svg>
+          </div>
+          <div class="wf-header-title">배너/팝업</div>
+          <div class="wf-header-spacer"></div>
         </div>
-        <div class="desc-body">
-          <ul>
-            <li>달력 그리드: 날짜별 잔여 슬롯 상태 시각화</li>
-            <li style="list-style: none; padding-left: 0; margin-left: 0;">
-              <span style="display: inline-block; margin-right: 6px;">┗</span> 초록 점: 여유 있음 (6+ 슬롯)
-            </li>
-            <li style="list-style: none; padding-left: 0; margin-left: 0;">
-              <span style="display: inline-block; margin-right: 6px;">┗</span> 노랑 점: 반 이상 (3~5 슬롯)
-            </li>
-            <li style="list-style: none; padding-left: 0; margin-left: 0;">
-              <span style="display: inline-block; margin-right: 6px;">┗</span> 빨강 점: 거의 매진 (1~2 슬롯)
-            </li>
-            <li style="list-style: none; padding-left: 0; margin-left: 0;">
-              <span style="display: inline-block; margin-right: 6px;">┗</span> 회색 배경 "매진": 매진 상태 (비활성)
-            </li>
-            <li>기간 선택: 시작일~종료일 (이전 프레임과 다른 유형 시 독립 선택)</li>
-            <li>선택된 기간 요약: "N월 M일 ~ N월 X일 (Y일간)" + 예상 비용</li>
-          </ul>
+
+        <!-- 진행 중 없음 -->
+        <div class="wf-sec-header">
+          <span class="wf-sec-title">지금 진행 중</span>
+          <span class="wf-sec-badge" style="background:#8EA2B7;">0</span>
+        </div>
+        <div class="wf-empty">현재 진행 중인 배너/팝업이 없어요</div>
+
+        <!-- 전체 마감 슬롯 -->
+        <div class="wf-sec-header">
+          <span class="wf-sec-title">슬롯 현황</span>
+        </div>
+
+        <div class="wf-slot-card" style="opacity:0.7;">
+          <div class="wf-slot-card-header">
+            <div class="wf-slot-icon main-banner">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <div>
+              <div class="wf-slot-card-name">메인 배너</div>
+              <div class="wf-slot-card-desc">홈 캐러셀 | 1200x300px 통이미지</div>
+            </div>
+          </div>
+          <div class="wf-progress-wrap">
+            <div class="wf-progress-label">
+              <span>사용 8 / 전체 8</span>
+              <span class="wf-slot-status red">마감</span>
+            </div>
+            <div class="wf-progress-bar">
+              <div class="wf-progress-fill red" style="width:100%;"></div>
+            </div>
+          </div>
+          <div style="font-size:10px;color:#45617E;text-align:center;margin-top:4px;">다음 신청: 3/15(월)~</div>
+          <div class="wf-slot-btn disabled">마감</div>
+        </div>
+
+        <div class="wf-slot-card" style="opacity:0.7;">
+          <div class="wf-slot-card-header">
+            <div class="wf-slot-icon feed-banner">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>
+            </div>
+            <div>
+              <div class="wf-slot-card-name">피드 배너</div>
+              <div class="wf-slot-card-desc">목록 사이 | 카드너비x180px 통이미지</div>
+            </div>
+          </div>
+          <div class="wf-progress-wrap">
+            <div class="wf-progress-label">
+              <span>사용 4 / 전체 4</span>
+              <span class="wf-slot-status red">마감</span>
+            </div>
+            <div class="wf-progress-bar">
+              <div class="wf-progress-fill red" style="width:100%;"></div>
+            </div>
+          </div>
+          <div style="font-size:10px;color:#45617E;text-align:center;margin-top:4px;">다음 신청: 3/18(목)~</div>
+          <div class="wf-slot-btn disabled">마감</div>
+        </div>
+
+        <div class="wf-slot-card" style="opacity:0.7;">
+          <div class="wf-slot-card-header">
+            <div class="wf-slot-icon popup">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+            </div>
+            <div>
+              <div class="wf-slot-card-name">팝업</div>
+              <div class="wf-slot-card-desc">접속 시 팝업 | 320x400px 통이미지</div>
+            </div>
+          </div>
+          <div class="wf-progress-wrap">
+            <div class="wf-progress-label">
+              <span>사용 3 / 전체 3</span>
+              <span class="wf-slot-status red">마감</span>
+            </div>
+            <div class="wf-progress-bar">
+              <div class="wf-progress-fill red" style="width:100%;"></div>
+            </div>
+          </div>
+          <div style="font-size:10px;color:#45617E;text-align:center;margin-top:4px;">다음 신청: 3/15(월)~</div>
+          <div class="wf-slot-btn disabled">마감</div>
+        </div>
+
+        <!-- 다음 신청 기간 안내 (강조) -->
+        <div class="wf-next-info" style="margin:4px 16px 12px;border:2px solid #93C5FD;">
+          <div class="wf-next-info-header">
+            <span class="wf-next-info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </span>
+            <span class="wf-next-info-title">다음 신청 기간</span>
+          </div>
+          <div class="wf-next-info-item"><span style="color:#2F8EC1;font-weight:600;">메인 배너</span> : 3/15(월)부터</div>
+          <div class="wf-next-info-item"><span style="color:#4F46E5;font-weight:600;">피드 배너</span> : 3/18(목)부터</div>
+          <div class="wf-next-info-item"><span style="color:#F3A34B;font-weight:600;">팝업</span> : 3/15(월)부터</div>
+          <div class="wf-next-info-noti">
+            <span class="wf-next-info-noti-text">신청 가능할 때 알려드릴까요?</span>
+            <div class="wf-toggle" style="background:#2F8EC1;">
+              <div class="wf-toggle-knob" style="left:18px;"></div>
+            </div>
+          </div>
         </div>
       </div>
-      <hr class="desc-divider">
+      <div class="frame-label">Frame 2: 전체 마감 상태</div>
 
-      <div class="desc-item">
-        <div class="desc-num-row">
-          <div class="desc-num">5</div>
-          <span class="desc-comp-type">[Upload]</span>
-          <span class="desc-comp-name">이미지 업로드</span>
-        </div>
-        <div class="desc-body">
-          <ul>
-            <li>Drag-and-drop 또는 탭 업로드 영역</li>
-            <li>유형별 권장 크기:
-              <ul class="sub">
-                <li>└ 메인 배너: 1200×300px</li>
-                <li>└ 피드 배너: 320×240px (예정)</li>
-                <li>└ 팝업: 540×720px (예정)</li>
-              </ul>
-            </li>
-            <li>저작권 가이드라인 (노란 박스):
-              <ul class="sub">
-                <li>└ O 팬아트, 이름 기반 디자인, 2차 창작</li>
-                <li>└ X 공식 사진, 앨범 이미지, 타인 팬아트 도용</li>
-              </ul>
-            </li>
-            <li>업로드 미리보기 (이미지 선택 시)</li>
-          </ul>
-        </div>
-      </div>
-      <hr class="desc-divider">
-
-      <div class="desc-item">
-        <div class="desc-num-row">
-          <div class="desc-num">6</div>
-          <span class="desc-comp-type">[Form]</span>
-          <span class="desc-comp-name">추가 정보</span>
-        </div>
-        <div class="desc-body">
-          <ul>
-            <li>외부 링크 (선택): SNS 등 홍보 링크 입력</li>
-            <li>관련 이벤트 연결 (선택): 이벤트 캘린더 기능과 연동</li>
-            <li>배너 텍스트 (선택): 추가 설명 텍스트 (최대 50자)</li>
-          </ul>
-        </div>
-      </div>
-      <hr class="desc-divider">
-
-      <div class="desc-item">
-        <div class="desc-num-row">
-          <div class="desc-num">7</div>
-          <span class="desc-comp-type">[Info]</span>
-          <span class="desc-comp-name">비용 안내</span>
-        </div>
-        <div class="desc-body">
-          <ul>
-            <li>Phase 1: 배너 신청 무료</li>
-            <li>Phase 1.5 이후: 유형별 일가격 × 선택 일수 = 총 비용</li>
-            <li>예) 메인 배너 5,000원/일 × 4일 = 20,000원</li>
-            <li>결제 수단: 카카오페이, 토스페이, 카드</li>
-          </ul>
-        </div>
-      </div>
-      <hr class="desc-divider">
-
-      <div class="desc-item">
-        <div class="desc-num-row">
-          <div class="desc-num">8</div>
-          <span class="desc-comp-type">[CTA]</span>
-          <span class="desc-comp-name">신청 + 완료</span>
-        </div>
-        <div class="desc-body">
-          <ul>
-            <li>저작권 동의 체크박스: "저작권 가이드라인을 확인했으며 동의합니다"</li>
-            <li>신청하기 버튼: full-width 파란색</li>
-            <li>클릭 시 완료 팝업 노출: "관리자 검수 후 게시됩니다 (24시간 이내)" + "확인" 버튼</li>
-            <li>신청 상태 흐름:
-              <ul class="sub">
-                <li>└ 대기: 신청 직후</li>
-                <li>└ 검토 중: 관리자 검수</li>
-                <li>└ 승인: 게시</li>
-                <li>└ 수정 요청: 이미지/정보 재업로드</li>
-                <li>└ 반려: 가이드라인 위반</li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <hr class="desc-divider">
-
-      <!-- 화면 상태 -->
-      <div class="desc-section-title">화면 상태</div>
-      <table class="desc-table">
-        <thead>
-          <tr>
-            <th>상태</th>
-            <th>설명</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>정상</td>
-            <td>폼 로드 완료, 모든 필드 활성</td>
-          </tr>
-          <tr>
-            <td>슬롯 매진</td>
-            <td>선택 가능한 날짜 부족, "다른 기간을 선택해주세요" 경고</td>
-          </tr>
-          <tr>
-            <td>이미지 검증 실패</td>
-            <td>업로드 이미지가 가이드라인 위반, "불가능한 이미지입니다" 에러</td>
-          </tr>
-          <tr>
-            <td>신청 완료</td>
-            <td>완료 팝업 노출, 매니저 검수 중 상태 표시</td>
-          </tr>
-          <tr>
-            <td>비로그인</td>
-            <td>AUTH01로 리다이렉트</td>
-          </tr>
-          <tr>
-            <td>에러</td>
-            <td>네트워크/서버 오류, 재시도 버튼</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- 연관 화면 -->
-      <div class="desc-section-title">연관 화면</div>
-      <table class="desc-table">
-        <thead>
-          <tr>
-            <th>이동 대상</th>
-            <th>조건</th>
-            <th>화면코드</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>이벤트 캘린더</td>
-            <td>"관련 이벤트 연결" 선택 시</td>
-            <td>EVNT01</td>
-          </tr>
-          <tr>
-            <td>이벤트 상세</td>
-            <td>선택한 이벤트 정보 조회</td>
-            <td>EVNT02</td>
-          </tr>
-          <tr>
-            <td>신청 관리</td>
-            <td>신청 완료 후 "관리 보기" 버튼</td>
-            <td>USER02</td>
-          </tr>
-          <tr>
-            <td>마이페이지</td>
-            <td>우상단 프로필 버튼</td>
-            <td>USER01</td>
-          </tr>
-          <tr>
-            <td>로그인</td>
-            <td>비로그인 상태</td>
-            <td>AUTH01</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- Revision -->
-      <div class="revision-bar">
-        <table>
-          <thead>
-            <tr>
-              <th>날짜</th>
-              <th>버전</th>
-              <th>내용</th>
-              <th>작성자</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>2026-03-07</td>
-              <td>0.1</td>
-              <td>초안 작성</td>
-              <td>-</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
     </div>
   </div>
+
+  <!-- Description Side -->
+  <div class="desc-side">
+    <div class="desc-title">BANR01 배너/팝업 슬롯 현황</div>
+    <div class="desc-subtitle">메인 배너, 피드 배너, 팝업의 슬롯 현황을 보여주는 목록 화면</div>
+
+    <!-- 1. Header -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">1</div>
+        <span class="desc-comp-type">[Header]</span>
+        <span class="desc-comp-name">앱 헤더</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>좌측: `ChevronLeft` 뒤로가기</li>
+          <li>중앙: "배너/팝업"</li>
+          <li>우측: 없음</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- 2. 현재 진행 중 배너/팝업 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">2</div>
+        <span class="desc-comp-type">[Section]</span>
+        <span class="desc-comp-name">현재 진행 중 배너/팝업</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>섹션 헤더: "지금 진행 중" + 전체 건수 뱃지 (파란 pill)</li>
+          <li>가로 스크롤 카드 리스트 (최대 10건, 최신순)</li>
+          <li>카드 구성:
+            <ul class="sub">
+              <li>이미지 썸네일 (카드 너비 x 56px, 통이미지)</li>
+              <li>이벤트명 (1줄, ellipsis)</li>
+              <li>기간: "3/8 ~ 3/14" (시작일~종료일)</li>
+              <li>유형 뱃지: "메인 배너" / "피드 배너" / "팝업" (pill)</li>
+              <li>카테고리 컬러 도트 (Purple/Pink/Amber/Cyan)</li>
+            </ul>
+          </li>
+          <li>카드 탭 시: 해당 배너/팝업 풀뷰 이미지 (바텀시트 또는 모달)</li>
+          <li>진행 중 없을 시: "현재 진행 중인 배너/팝업이 없어요" (빈 상태)</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- 3. 슬롯 현황 카드 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">3</div>
+        <span class="desc-comp-type">[CardList]</span>
+        <span class="desc-comp-name">슬롯 현황 카드 (유형별)</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>3개 카드 세로 나열: 메인 배너 / 피드 배너 / 팝업</li>
+          <li>각 카드 구성:
+            <ul class="sub">
+              <li>유형 아이콘 (36px, 컬러 배경) + 유형명 + 노출 위치 설명</li>
+              <li>이미지 규격: "1200x300px 통이미지" 등</li>
+              <li>슬롯 프로그레스 바: 사용/전체 (예: 5/8)</li>
+              <li>잔여 텍스트: "3슬롯 남음" (Green) / "1슬롯 남음" (Amber) / "마감" (Red)</li>
+              <li>가격 표시 (Phase 1.5~): "5,000~10,000원/일"</li>
+            </ul>
+          </li>
+          <li>신청 가능 시: [신청하기] Primary 버튼 (활성) -> BANR02 이동</li>
+          <li>마감 시: [마감] 버튼 (회색, 비활성) + "다음 신청: MM/DD~" 안내</li>
+          <li>신청 버튼 탭: BANR02 이동, type 파라미터 전달 (main_banner / feed_banner / popup)</li>
+          <li>통이미지 정책: 배너/팝업은 모두 이미지 1장으로만 구성, 텍스트 오버레이 없음</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- 4. 다음 신청 기간 안내 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">4</div>
+        <span class="desc-comp-type">[Info]</span>
+        <span class="desc-comp-name">다음 신청 기간 안내</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>마감된 유형이 있을 때만 노출 (모든 유형 여유 시 미노출)</li>
+          <li>파란 배경 안내 카드: `Clock` 아이콘 + "다음 신청 기간"</li>
+          <li>마감된 유형별 다음 신청 가능일 표시</li>
+          <li>예: "팝업 : 3/15(월)부터 신청 가능"</li>
+          <li>알림 토글: "신청 가능할 때 알려드릴까요?" -> FCM 등록/해제</li>
+          <li>전체 마감 시: 안내 카드 강조 (파란 테두리 추가)</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- 5. 내 신청 내역 바로가기 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">5</div>
+        <span class="desc-comp-type">[Link]</span>
+        <span class="desc-comp-name">내 신청 내역 바로가기</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>"내 배너/팝업 관리 >" 링크 -> USER02 (내 활동 관리) 이동</li>
+          <li>최근 신청 1건 미리보기 (있을 경우):
+            <ul class="sub">
+              <li>이미지 썸네일 + 유형 + 상태 뱃지</li>
+              <li>상태: 대기중 / 검수중 / 승인 / 수정요청 / 반려 / 게시중 / 종료</li>
+            </ul>
+          </li>
+          <li>신청 내역 없을 시: 미리보기 영역 미노출, 링크만 표시</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- 6. 하단 네비게이션 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">6</div>
+        <span class="desc-comp-type">[Nav]</span>
+        <span class="desc-comp-name">하단 네비게이션</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>공통 하단 탭바 (이벤트 탭 활성)</li>
+          <li>EVNT01에서 진입하므로 이벤트 탭 유지</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
+    <!-- 화면 상태 -->
+    <div class="desc-section-title">화면 상태</div>
+    <table class="desc-table">
+      <thead>
+        <tr><th>상태</th><th>조건</th><th>표시</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>정상</td><td>데이터 로드 완료</td><td>전체 현황 표시 (Frame 1)</td></tr>
+        <tr><td>전체 마감</td><td>모든 유형 마감</td><td>모든 버튼 비활성, 다음 신청 기간 강조 (Frame 2)</td></tr>
+        <tr><td>진행 중 없음</td><td>현재 활성 배너 0건</td><td>"현재 진행 중인 배너/팝업이 없어요" 빈 상태</td></tr>
+        <tr><td>비로그인</td><td>미로그인</td><td>로그인 유도 화면 (AUTH01)</td></tr>
+        <tr><td>에러</td><td>API 실패</td><td>"잠시 후 다시 시도해주세요" + 재시도</td></tr>
+      </tbody>
+    </table>
+
+    <!-- 연관 화면 -->
+    <div class="desc-section-title">연관 화면</div>
+    <table class="desc-table">
+      <thead>
+        <tr><th>이동 대상</th><th>조건</th><th>화면코드</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>배너/팝업 등록</td><td>[신청하기] 버튼 탭</td><td>BANR02</td></tr>
+        <tr><td>이벤트 캘린더</td><td>뒤로가기 (EVNT01에서 진입 시)</td><td>EVNT01</td></tr>
+        <tr><td>내 활동 관리</td><td>"내 배너/팝업 관리" 탭</td><td>USER02</td></tr>
+        <tr><td>마이페이지</td><td>하단탭 마이 진입</td><td>USER01</td></tr>
+        <tr><td>로그인</td><td>비로그인 상태</td><td>AUTH01</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Revision -->
+    <div class="revision-bar">
+      <table>
+        <thead>
+          <tr><th>날짜</th><th>버전</th><th>내용</th><th>작성자</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>2026-03-07</td><td>0.1</td><td>초안 작성 (신청 폼 통합 화면)</td><td>-</td></tr>
+          <tr><td>2026-03-09</td><td>0.2</td><td>슬롯 현황 목록 화면으로 재구성. 등록 폼은 BANR02로 분리. 통이미지 정책 반영</td><td>AI (Claude)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
