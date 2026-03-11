@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXCH04 — 교환 제안 와이어프레임</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F7FAFD; color: #163958; }
+
+/* ===== META HEADER ===== */
+.meta-bar {
+  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
+}
+.meta-item { font-size: 11px; }
+.meta-label { color: #8EA2B7; }
+.meta-value { font-weight: 600; color: #163958; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+
+/* ===== MAIN LAYOUT ===== */
+.main-layout {
+  display: flex; min-height: calc(100vh - 48px); overflow-x: hidden;
+}
+
+/* ===== WIREFRAME SIDE ===== */
+.wireframe-side {
+  flex: 0 0 55%; min-width: 0; background: #EAEAEA; padding: 32px;
+  display: flex; justify-content: center; overflow-y: auto;
+}
+.phone-stack { display: flex; flex-direction: column; gap: 24px; align-items: center; width: 100%; }
+.frame-label { font-size: 12px; font-weight: 600; color: #45617E; margin-bottom: 4px; }
+.phone-frame {
+  width: 375px; background: #fff; border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative; overflow: hidden;
+}
+.desktop-frame {
+  width: min(980px, 100%); background: #fff; border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12); position: relative; overflow: hidden;
+}
+
+/* ===== DESCRIPTION SIDE ===== */
+.desc-side {
+  flex: 0 0 45%; min-width: 0; background: #fff; padding: 24px 28px;
+  overflow-y: auto; border-left: 1px solid #DEE8F2;
+}
+.desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.desc-subtitle { font-size: 12px; color: #45617E; margin-bottom: 20px; }
+.desc-item { margin-bottom: 20px; }
+.desc-num-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.desc-num {
+  width: 22px; height: 22px; border-radius: 50%; background: #2563EB; color: #fff;
+  display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700;
+}
+.desc-comp-type { font-size: 10px; color: #8EA2B7; background: #F7FAFD; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-name { font-size: 14px; font-weight: 600; }
+.desc-body { padding-left: 30px; font-size: 12px; color: #45617E; line-height: 1.7; }
+.desc-body ul { list-style: none; }
+.desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
+.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #45617E; }
+.desc-body .sub li::before { content: '└'; color: #8EA2B7; }
+.desc-divider { border: none; border-top: 1px dashed #EEF3F8; margin: 16px 0; }
+
+/* ===== COMMON WIREFRAME ===== */
+.wf-section { position: relative; }
+.num-circle {
+  position: absolute; z-index: 10;
+  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.wf-header {
+  display: flex; align-items: center; gap: 10px; padding: 12px 16px;
+  border-bottom: 1px solid #EEF3F8;
+}
+.wf-header-title { font-size: 15px; font-weight: 700; color: #163958; }
+.wf-header-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; color: #45617E; }
+.wf-icon-btn {
+  width: 24px; height: 24px; border-radius: 6px; background: #EEF3F8;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.wf-target-card {
+  margin: 12px 16px 10px; padding: 10px; border-radius: 10px;
+  border: 1px solid #DEE8F2; background: #F7FAFD; display: flex; gap: 10px;
+}
+.wf-target-img {
+  width: 56px; height: 56px; border-radius: 8px; background: #DEE8F2;
+  display: flex; align-items: center; justify-content: center; font-size: 10px; color: #8EA2B7;
+}
+.wf-target-body { flex: 1; min-width: 0; }
+.wf-target-title { font-size: 12px; font-weight: 600; margin-bottom: 2px; }
+.wf-target-meta { font-size: 10px; color: #8EA2B7; }
+.wf-target-chip {
+  margin-top: 6px; display: inline-flex; align-items: center;
+  border-radius: 999px; border: 1px solid #A7D6F2; background: #EAF7FF;
+  color: #2F8EC1; font-size: 9px; padding: 2px 7px; font-weight: 600;
+}
+
+.wf-mode-tabs {
+  margin: 0 16px 10px; background: #F7FAFD; border: 1px solid #DEE8F2; border-radius: 10px;
+  display: grid; grid-template-columns: 1fr 1fr; padding: 3px; gap: 4px;
+}
+.wf-mode-tab {
+  height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: #45617E; background: transparent; font-weight: 600;
+}
+.wf-mode-tab.active { background: #fff; border: 1px solid #A7D6F2; color: #2F8EC1; }
+
+.wf-box {
+  margin: 0 16px 10px; border: 1px solid #EEF3F8; border-radius: 10px; padding: 10px; background: #fff;
+}
+.wf-box-title { font-size: 11px; font-weight: 600; color: #163958; margin-bottom: 8px; }
+.wf-list { display: flex; flex-direction: column; gap: 7px; }
+.wf-item {
+  border: 1px solid #EEF3F8; background: #F7FAFD; border-radius: 8px; padding: 8px;
+  display: flex; align-items: center; gap: 8px;
+}
+.wf-item.selected { border-color: #2F8EC1; background: #EAF7FF; }
+.wf-item.disabled { opacity: 0.55; }
+.wf-item-radio {
+  width: 14px; height: 14px; border-radius: 50%; border: 1px solid #B6CADB; background: #fff;
+}
+.wf-item.selected .wf-item-radio { border-color: #2F8EC1; box-shadow: inset 0 0 0 3px #2F8EC1; }
+.wf-item-thumb {
+  width: 38px; height: 38px; border-radius: 6px; background: #DEE8F2;
+  display: flex; align-items: center; justify-content: center; font-size: 9px; color: #8EA2B7;
+}
+.wf-item-body { flex: 1; min-width: 0; }
+.wf-item-title { font-size: 11px; font-weight: 600; line-height: 1.3; }
+.wf-item-meta { font-size: 10px; color: #8EA2B7; }
+.wf-item-badge {
+  font-size: 9px; color: #2F8EC1; border: 1px solid #A7D6F2; background: #EAF7FF;
+  border-radius: 999px; padding: 2px 6px; white-space: nowrap;
+}
+
+.wf-chip-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+.wf-chip {
+  padding: 4px 9px; border-radius: 999px; border: 1px solid #DEE8F2;
+  font-size: 10px; color: #45617E; background: #F7FAFD;
+}
+.wf-chip.active { border-color: #2F8EC1; color: #2F8EC1; background: #EAF7FF; }
+.wf-kv { border: 1px solid #EEF3F8; border-radius: 8px; background: #FAFCFE; padding: 8px; }
+.wf-kv-row { display: flex; justify-content: space-between; font-size: 10px; color: #45617E; margin-bottom: 4px; }
+.wf-kv-row:last-child { margin-bottom: 0; }
+.wf-kv-row strong { color: #163958; }
+
+.wf-upload-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+.wf-upload-box {
+  height: 58px; border-radius: 8px; border: 1px dashed #B7CBDD; background: #F7FAFD;
+  display: flex; align-items: center; justify-content: center; font-size: 10px; color: #8EA2B7;
+}
+.wf-upload-box.filled { border-style: solid; border-color: #DEE8F2; background: #EAF7FF; color: #2F8EC1; }
+
+.wf-input {
+  height: 32px; border: 1px solid #DEE8F2; border-radius: 8px; background: #fff;
+  display: flex; align-items: center; padding: 0 10px; font-size: 10px; color: #8EA2B7; margin-bottom: 7px;
+}
+.wf-toggle-row {
+  border: 1px solid #DEE8F2; border-radius: 8px; padding: 7px 9px; display: flex;
+  align-items: center; justify-content: space-between; font-size: 10px; color: #45617E;
+}
+.wf-toggle-pill {
+  width: 34px; height: 18px; border-radius: 999px; background: #CFE7F8; position: relative;
+}
+.wf-toggle-pill::after {
+  content: ''; position: absolute; top: 2px; right: 2px; width: 14px; height: 14px; border-radius: 50%;
+  background: #2F8EC1;
+}
+
+.wf-note {
+  border: 1px solid #D8EAFE; background: #F3F8FF; border-radius: 8px;
+  padding: 8px 9px; font-size: 10px; color: #45617E; line-height: 1.5;
+}
+
+.wf-bottom {
+  padding: 10px 16px 14px; border-top: 1px solid #EEF3F8; background: #fff;
+}
+.wf-primary-btn {
+  width: 100%; height: 40px; border-radius: 9px; border: 1px solid #2F8EC1;
+  background: #2F8EC1; color: #fff; font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+
+/* PC */
+.wf-pc-topbar {
+  height: 56px; border-bottom: 1px solid #EEF3F8; padding: 0 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.wf-pc-title { font-size: 15px; font-weight: 700; }
+.wf-pc-layout { display: grid; grid-template-columns: 260px minmax(0, 1fr) 260px; min-height: 560px; }
+.wf-pc-col {
+  border-right: 1px solid #EEF3F8; padding: 14px;
+}
+.wf-pc-col:last-child { border-right: none; background: #FAFCFE; }
+.wf-pc-sec-title { font-size: 12px; font-weight: 700; margin-bottom: 8px; color: #163958; }
+.wf-pc-mode {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 6px; border: 1px solid #DEE8F2;
+  border-radius: 10px; padding: 4px; margin-bottom: 10px; background: #F7FAFD;
+}
+.wf-pc-tab {
+  height: 32px; border-radius: 8px; font-size: 11px; display: flex; align-items: center;
+  justify-content: center; color: #45617E; font-weight: 600;
+}
+.wf-pc-tab.active { background: #fff; border: 1px solid #A7D6F2; color: #2F8EC1; }
+.wf-pc-list { display: flex; flex-direction: column; gap: 8px; }
+.wf-pc-item {
+  border: 1px solid #EEF3F8; border-radius: 8px; padding: 8px; background: #fff;
+  display: flex; gap: 8px; align-items: center;
+}
+.wf-pc-thumb {
+  width: 44px; height: 44px; border-radius: 8px; background: #DEE8F2;
+  display: flex; align-items: center; justify-content: center; font-size: 10px; color: #8EA2B7;
+}
+.wf-pc-item-title { font-size: 11px; font-weight: 600; }
+.wf-pc-item-meta { font-size: 10px; color: #8EA2B7; }
+.wf-pc-form .wf-input { margin-bottom: 8px; }
+.wf-pc-summary {
+  border: 1px solid #DEE8F2; border-radius: 10px; background: #fff; padding: 10px; margin-bottom: 10px;
+}
+.wf-pc-summary-row { font-size: 11px; color: #45617E; display: flex; justify-content: space-between; margin-bottom: 6px; }
+.wf-pc-summary-row:last-child { margin-bottom: 0; }
+.wf-pc-submit {
+  margin-top: auto; height: 40px; border-radius: 8px; border: 1px solid #2F8EC1;
+  background: #2F8EC1; color: #fff; font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.states-section {
+  margin-top: 16px; padding: 12px; border: 1px solid #EEF3F8; border-radius: 8px; background: #FAFCFE;
+}
+.states-title { font-size: 12px; font-weight: 700; margin-bottom: 8px; color: #163958; }
+.states-item { font-size: 11px; color: #45617E; margin-bottom: 4px; padding-left: 14px; position: relative; }
+.states-item::before { content: '▸'; position: absolute; left: 0; color: #2563EB; }
+.states-item:last-child { margin-bottom: 0; }
+
+.conn-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 8px; }
+.conn-table th { text-align: left; background: #F7FAFD; color: #45617E; padding: 6px 8px; border-bottom: 1px solid #EEF3F8; }
+.conn-table td { padding: 6px 8px; border-bottom: 1px solid #EEF3F8; }
+.conn-table .code { color: #2563EB; font-weight: 600; }
+
+/* revision */
+.revision-bar {
+  background: #fff; border-top: 1px solid #EEF3F8; padding: 12px 24px; font-size: 11px; color: #8EA2B7;
+}
+.revision-bar table { width: 100%; border-collapse: collapse; }
+.revision-bar th { text-align: left; color: #45617E; padding: 4px 8px; border-bottom: 1px solid #EEF3F8; }
+.revision-bar td { padding: 4px 8px; }
+
+@media (max-width: 900px) {
+  .main-layout { flex-direction: column; }
+  .wireframe-side { flex: none; padding: 16px; }
+  .desc-side { flex: none; border-left: none; border-top: 1px solid #DEE8F2; }
+}
+</style>
+</head>
+<body>
+
+<div class="meta-bar">
+  <span class="title">EXCH04</span>
+  <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">교환 제안</span></span>
+  <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/exchange/[id]/proposal</span></span>
+  <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.2</span></span>
+  <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">초안</span></span>
+  <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-11</span></span>
+</div>
+
+<div class="main-layout">
+  <div class="wireframe-side">
+    <div class="phone-stack">
+      <div class="frame-label">모바일 A — 내 교환글 매칭 모드</div>
+      <div class="phone-frame">
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">1</div>
+          <div class="wf-header">
+            <div><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></div>
+            <div class="wf-header-title">교환 제안</div>
+            <div class="wf-header-actions">
+              <div class="wf-icon-btn"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="wf-section">
+          <div class="num-circle" style="top:12px; left:6px;">2</div>
+          <div class="wf-target-card">
+            <div class="wf-target-img">IMG</div>
+            <div class="wf-target-body">
+              <div class="wf-target-title">하이큐 히나타 아크릴 스탠드</div>
+              <div class="wf-target-meta">원함: 카게야마 아크릴 · 직거래 가능</div>
+              <span class="wf-target-chip">대상 교환글</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="wf-section">
+          <div class="num-circle" style="top:4px; left:6px;">3</div>
+          <div class="wf-mode-tabs">
+            <div class="wf-mode-tab active">내 교환글 매칭</div>
+            <div class="wf-mode-tab">새 제안 등록</div>
+          </div>
+        </div>
+
+        <div class="wf-section">
+          <div class="num-circle" style="top:4px; left:6px;">4</div>
+          <div class="wf-box">
+            <div class="wf-box-title">내 교환글 선택</div>
+            <div class="wf-list">
+              <div class="wf-item selected">
+                <div class="wf-item-radio"></div>
+                <div class="wf-item-thumb">IMG</div>
+                <div class="wf-item-body">
+                  <div class="wf-item-title">카게야마 포토카드</div>
+                  <div class="wf-item-meta">A급 · 1개</div>
+                </div>
+              </div>
+              <div class="wf-item">
+                <div class="wf-item-radio"></div>
+                <div class="wf-item-thumb">IMG</div>
+                <div class="wf-item-body">
+                  <div class="wf-item-title">하이큐 캔뱃지 세트</div>
+                  <div class="wf-item-meta">S급 · 2개</div>
+                </div>
+              </div>
+              <div class="wf-item disabled">
+                <div class="wf-item-radio"></div>
+                <div class="wf-item-thumb">IMG</div>
+                <div class="wf-item-body">
+                  <div class="wf-item-title">오이카와 아크릴</div>
+                  <div class="wf-item-meta">B급 · 1개</div>
+                </div>
+                <span class="wf-item-badge">제안 중</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="wf-section">
+          <div class="num-circle" style="top:4px; left:6px;">6</div>
+          <div class="wf-box">
+            <div class="wf-box-title">거래 구조 / 수량</div>
+            <div class="wf-chip-row">
+              <span class="wf-chip active">1:1</span>
+              <span class="wf-chip">1:N</span>
+              <span class="wf-chip">N:1</span>
+            </div>
+            <div class="wf-kv">
+              <div class="wf-kv-row"><span>제공 수량</span><strong>1개</strong></div>
+              <div class="wf-kv-row"><span>희망 수량</span><strong>1개</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="wf-section">
+          <div class="num-circle" style="top:4px; left:6px;">7</div>
+          <div class="wf-box">
+            <div class="wf-box-title">차액 제안</div>
+            <div class="wf-chip-row">
+              <span class="wf-chip">없음</span>
+              <span class="wf-chip active">+3,000원</span>
+              <span class="wf-chip">-2,000원</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="wf-section">
+          <div class="num-circle" style="top:4px; left:6px;">8</div>
+          <div class="wf-box">
+            <div class="wf-box-title">오늘 직교환 (이벤트 근처)</div>
+            <div class="wf-toggle-row">
+              <span>오늘 직교환 사용</span>
+              <span class="wf-toggle-pill"></span>
+            </div>
+            <div class="wf-input" style="margin-top:8px;">이벤트: 하이큐 팝업스토어</div>
+            <div class="wf-input">시간대: 18:00 ~ 21:00</div>
+            <div class="wf-input">위치: 합정역 3번 출구 인근</div>
+            <div class="wf-note">당일만 활성됩니다. 수락 후 채팅 상단에 오늘 직교환 제안 배너가 표시됩니다.</div>
+          </div>
+        </div>
+
+        <div class="wf-section">
+          <div class="num-circle" style="top:4px; left:6px;">9</div>
+          <div class="wf-box">
+            <div class="wf-box-title">메시지 (선택, 100자)</div>
+            <div class="wf-input">예: 공연 끝나고 8시 이후 가능합니다.</div>
+          </div>
+        </div>
+
+        <div class="wf-section">
+          <div class="num-circle" style="top:10px; left:6px;">10</div>
+          <div class="wf-bottom">
+            <div class="wf-primary-btn">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              교환 제안 보내기
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="frame-label">모바일 B — 새 제안 등록 모드</div>
+      <div class="phone-frame">
+        <div class="wf-header">
+          <div><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></div>
+          <div class="wf-header-title">교환 제안</div>
+          <div class="wf-header-actions">
+            <div class="wf-icon-btn"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+          </div>
+        </div>
+        <div class="wf-mode-tabs">
+          <div class="wf-mode-tab">내 교환글 매칭</div>
+          <div class="wf-mode-tab active">새 제안 등록</div>
+        </div>
+
+        <div class="wf-box">
+          <div class="wf-box-title">사진 업로드 (1~3장)</div>
+          <div class="wf-upload-grid">
+            <div class="wf-upload-box filled">IMG 1</div>
+            <div class="wf-upload-box">+ 추가</div>
+            <div class="wf-upload-box">+ 추가</div>
+          </div>
+        </div>
+
+        <div class="wf-box">
+          <div class="wf-box-title">제안 굿즈 정보</div>
+          <div class="wf-input">굿즈명: 히나타 포토카드</div>
+          <div class="wf-chip-row">
+            <span class="wf-chip">S급</span>
+            <span class="wf-chip active">A급</span>
+            <span class="wf-chip">B급</span>
+            <span class="wf-chip">C급</span>
+          </div>
+          <div class="wf-kv">
+            <div class="wf-kv-row"><span>수량</span><strong>2개</strong></div>
+          </div>
+        </div>
+
+        <div class="wf-box">
+          <div class="wf-box-title">거래 구조 / 수량 / 차액</div>
+          <div class="wf-chip-row">
+            <span class="wf-chip">1:1</span>
+            <span class="wf-chip active">1:N</span>
+            <span class="wf-chip">N:1</span>
+          </div>
+          <div class="wf-kv">
+            <div class="wf-kv-row"><span>제공 수량</span><strong>2개</strong></div>
+            <div class="wf-kv-row"><span>희망 수량</span><strong>1개</strong></div>
+            <div class="wf-kv-row"><span>차액</span><strong>-2,000원</strong></div>
+          </div>
+        </div>
+
+        <div class="wf-box">
+          <div class="wf-box-title">메시지 (선택)</div>
+          <div class="wf-input">예: 상태 추가 사진 채팅으로 드릴게요.</div>
+        </div>
+
+        <div class="wf-bottom">
+          <div class="wf-primary-btn">교환 제안 보내기</div>
+        </div>
+      </div>
+
+      <div class="frame-label">PC — 제안 작성 레이아웃</div>
+      <div class="desktop-frame">
+        <div class="wf-section">
+          <div class="num-circle" style="top:10px; left:8px;">5</div>
+          <div class="wf-pc-topbar">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            <span class="wf-pc-title">교환 제안</span>
+          </div>
+        </div>
+        <div class="wf-pc-layout">
+          <div class="wf-pc-col">
+            <div class="wf-pc-sec-title">대상 교환글</div>
+            <div class="wf-pc-item">
+              <div class="wf-pc-thumb">IMG</div>
+              <div>
+                <div class="wf-pc-item-title">하이큐 히나타 아크릴</div>
+                <div class="wf-pc-item-meta">원함: 카게야마 아크릴</div>
+              </div>
+            </div>
+            <div class="wf-pc-sec-title" style="margin-top:12px;">내 교환글 목록</div>
+            <div class="wf-pc-list">
+              <div class="wf-pc-item">
+                <div class="wf-pc-thumb">IMG</div>
+                <div>
+                  <div class="wf-pc-item-title">카게야마 포토카드</div>
+                  <div class="wf-pc-item-meta">A급 · 1개</div>
+                </div>
+              </div>
+              <div class="wf-pc-item">
+                <div class="wf-pc-thumb">IMG</div>
+                <div>
+                  <div class="wf-pc-item-title">캔뱃지 세트</div>
+                  <div class="wf-pc-item-meta">S급 · 2개</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wf-pc-col wf-pc-form">
+            <div class="wf-pc-mode">
+              <div class="wf-pc-tab active">내 교환글 매칭</div>
+              <div class="wf-pc-tab">새 제안 등록</div>
+            </div>
+            <div class="wf-input">거래 구조: 1:1</div>
+            <div class="wf-input">제공 수량: 1 / 희망 수량: 1</div>
+            <div class="wf-input">차액: +3,000원</div>
+            <div class="wf-input">오늘 직교환: 하이큐 팝업 · 18:00~21:00</div>
+            <div class="wf-input">메시지: 공연 종료 후 교환 가능해요.</div>
+          </div>
+
+          <div class="wf-pc-col" style="display:flex; flex-direction:column;">
+            <div class="wf-pc-sec-title">제안 요약</div>
+            <div class="wf-pc-summary">
+              <div class="wf-pc-summary-row"><span>제안 방식</span><strong>내 교환글 매칭</strong></div>
+              <div class="wf-pc-summary-row"><span>거래 구조</span><strong>1:1</strong></div>
+              <div class="wf-pc-summary-row"><span>수량</span><strong>제공1 / 희망1</strong></div>
+              <div class="wf-pc-summary-row"><span>차액</span><strong>+3,000원</strong></div>
+              <div class="wf-pc-summary-row"><span>오늘 직교환</span><strong>ON</strong></div>
+            </div>
+            <div class="wf-note">동일 글에는 동시 pending 최대 3건, 재시도는 24시간 3회/7일 6회까지 가능합니다.</div>
+            <div class="wf-pc-submit">교환 제안 보내기</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="desc-side">
+    <div class="desc-title">EXCH04 교환 제안</div>
+    <div class="desc-subtitle">교환 상세(EXCH02)에서 진입하는 전용 제안 작성 화면. 내 교환글 매칭/새 제안 등록 분기를 모두 제공한다.</div>
+
+    <div class="desc-item">
+      <div class="desc-num-row"><div class="desc-num">1</div><span class="desc-comp-type">[Header]</span><span class="desc-comp-name">헤더</span></div>
+      <div class="desc-body"><ul><li>뒤로가기/닫기 액션 제공</li><li>작성 중 이탈 시 확인 다이얼로그</li></ul></div>
+    </div>
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row"><div class="desc-num">2</div><span class="desc-comp-type">[TargetCard]</span><span class="desc-comp-name">대상 교환글 요약</span></div>
+      <div class="desc-body"><ul><li>상대 교환글 썸네일 + 제목 + 핵심 조건 요약 표시</li><li>내가 어떤 글에 제안 중인지 항상 고정 노출</li></ul></div>
+    </div>
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row"><div class="desc-num">3</div><span class="desc-comp-type">[Tabs]</span><span class="desc-comp-name">제안 방식 탭</span></div>
+      <div class="desc-body"><ul><li>내 교환글 매칭(`listing`) / 새 제안 등록(`manual`) 2탭</li><li>탭 전환 시 입력 폼 영역이 분기된다.</li></ul></div>
+    </div>
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row"><div class="desc-num">4</div><span class="desc-comp-type">[ListSelect]</span><span class="desc-comp-name">내 교환글 선택</span></div>
+      <div class="desc-body"><ul><li>내 등록글 목록에서 1개 선택</li><li>이미 해당 글에 제안한 항목은 `제안 중` 뱃지 + 선택 비활성</li><li>내 교환글이 없으면 Empty + EXCH03 이동 CTA 노출</li></ul></div>
+    </div>
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row"><div class="desc-num">5</div><span class="desc-comp-type">[PCLayout]</span><span class="desc-comp-name">PC 3열 레이아웃</span></div>
+      <div class="desc-body"><ul><li>좌: 대상/내 교환글 목록, 중: 입력 폼, 우: 제안 요약 + 제출 버튼</li><li>모바일과 동일한 데이터/검증 규칙을 유지</li></ul></div>
+    </div>
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row"><div class="desc-num">6</div><span class="desc-comp-type">[TradeStructure]</span><span class="desc-comp-name">거래 구조/수량</span></div>
+      <div class="desc-body"><ul><li>구조: `1:1` / `1:N` / `N:1`</li><li>제공 수량/희망 수량 필수 입력</li></ul></div>
+    </div>
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row"><div class="desc-num">7</div><span class="desc-comp-type">[CashDiff]</span><span class="desc-comp-name">차액 제안</span></div>
+      <div class="desc-body"><ul><li>없음 / `+금액` / `-금액` 선택</li><li>제안 단위로 저장되며 최종 확정은 채팅에서 협의</li></ul></div>
+    </div>
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row"><div class="desc-num">8</div><span class="desc-comp-type">[InstantMeetup]</span><span class="desc-comp-name">오늘 직교환</span></div>
+      <div class="desc-body"><ul><li>당일만 ON 가능</li><li>이벤트/시간대/대략 위치(역/랜드마크) 입력</li><li>정확 주소 입력은 금지하고 채팅에서 최종 조율</li><li>수락 후 채팅 상단에 관련 배너 노출</li></ul></div>
+    </div>
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row"><div class="desc-num">9</div><span class="desc-comp-type">[MessageField]</span><span class="desc-comp-name">메시지 입력</span></div>
+      <div class="desc-body"><ul><li>선택 입력, 최대 100자</li><li>조건 보충/시간 협의 메모 용도</li></ul></div>
+    </div>
+    <hr class="desc-divider">
+
+    <div class="desc-item">
+      <div class="desc-num-row"><div class="desc-num">10</div><span class="desc-comp-type">[PrimaryCTA]</span><span class="desc-comp-name">제안 발송 CTA</span></div>
+      <div class="desc-body"><ul><li>필수 입력 충족 시 활성</li><li>성공 시 EXCH05 받은/보낸 제안함 반영</li></ul></div>
+    </div>
+
+    <div class="states-section">
+      <div class="states-title">화면 상태</div>
+      <div class="states-item"><strong>기본 상태</strong>: listing 탭 기본 활성 + 내 교환글 목록 노출</div>
+      <div class="states-item"><strong>manual 상태</strong>: 사진/상태/수량 입력 폼 노출</div>
+      <div class="states-item"><strong>내 교환글 없음</strong>: Empty + EXCH03 이동 CTA</div>
+      <div class="states-item"><strong>제안 제한 상태</strong>: 동일 글 동시 pending 3건 초과 시 CTA 비활성 + 안내 문구</div>
+      <div class="states-item"><strong>재시도 제한 상태</strong>: 동일 글 기준 24시간 3회 / 7일 6회 초과 시 요청 차단</div>
+      <div class="states-item"><strong>오늘 직교환 비활성</strong>: 당일 외 날짜에는 토글 비활성</div>
+      <div class="states-item"><strong>제출 중</strong>: 버튼 로딩 + 중복 제출 방지</div>
+      <div class="states-item"><strong>오류 상태</strong>: 유효성/서버 에러 메시지 + 재시도</div>
+    </div>
+
+    <div class="desc-item" style="margin-top: 16px;">
+      <div class="desc-num-row"><span class="desc-comp-name" style="font-size:13px;">연관 화면</span></div>
+      <table class="conn-table">
+        <thead><tr><th>이동 대상</th><th>조건</th><th>화면코드</th></tr></thead>
+        <tbody>
+          <tr><td>교환 상세</td><td>뒤로가기/닫기</td><td class="code">EXCH02</td></tr>
+          <tr><td>교환 신청함</td><td>제안 발송 완료 후 확인</td><td class="code">EXCH05</td></tr>
+          <tr><td>교환글 등록</td><td>내 교환글 없음 상태 CTA</td><td class="code">EXCH03</td></tr>
+          <tr><td>이벤트 상세</td><td>오늘 직교환 이벤트 확인</td><td class="code">EVNT02</td></tr>
+          <tr><td>채팅방</td><td>제안 수락 후 이동</td><td class="code">CHAT02</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="revision-bar">
+  <table>
+    <thead><tr><th>날짜</th><th>버전</th><th>내용</th><th>작성자</th></tr></thead>
+    <tbody>
+      <tr><td>2026-03-11</td><td>0.2</td><td>제안 제한 정책 보강: 동시 pending 3건 + 재시도 제한(24시간 3회/7일 6회), 오늘 직교환 위치 정밀도(역/랜드마크) 정책 반영</td><td>AI (Codex)</td></tr>
+      <tr><td>2026-03-11</td><td>0.1</td><td>교환 제안 전용 페이지(EXCH04) 신규 작성: 내 교환글 매칭/새 제안 등록, 다수거래/차액/오늘 직교환 입력 구조 반영</td><td>AI (Codex)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

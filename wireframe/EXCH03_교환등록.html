@@ -6,17 +6,17 @@
 <title>EXCH03 — 교환글 등록 와이어프레임</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F7FAFD; color: #163958; }
 
 /* ===== META HEADER ===== */
 .meta-bar {
-  background: #fff; border-bottom: 2px solid #2563EB; padding: 12px 24px;
+  background: #fff; border-bottom: 2px solid #2F8EC1; padding: 12px 24px;
   display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
 }
 .meta-item { font-size: 11px; }
-.meta-label { color: #999; }
-.meta-value { font-weight: 600; color: #333; margin-left: 4px; }
-.meta-bar .title { font-size: 16px; font-weight: 700; color: #2563EB; margin-right: auto; }
+.meta-label { color: #8EA2B7; }
+.meta-value { font-weight: 600; color: #163958; margin-left: 4px; }
+.meta-bar .title { font-size: 16px; font-weight: 700; color: #2F8EC1; margin-right: auto; }
 
 /* ===== MAIN LAYOUT ===== */
 .main-layout { overflow-x: hidden;
@@ -31,9 +31,10 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 }
 .phone-col {
   display: flex; flex-direction: column; align-items: center; gap: 6px;
+  width: 100%; max-width: 375px;
 }
 .phone-col-label {
-  font-size: 11px; font-weight: 700; color: #2563EB; background: #fff;
+  font-size: 11px; font-weight: 700; color: #2F8EC1; background: #fff;
   padding: 4px 12px; border-radius: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
 }
 .phone-frame {
@@ -44,67 +45,71 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* ===== DESCRIPTION SIDE ===== */
 .desc-side {
   flex: 1 1 45%; min-width: 0; background: #fff; padding: 24px 28px;
-  overflow-y: auto; border-left: 1px solid #ddd;
+  overflow-y: auto; border-left: 1px solid #DEE8F2;
 }
 .desc-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-.desc-subtitle { font-size: 12px; color: #888; margin-bottom: 20px; }
+.desc-subtitle { font-size: 12px; color: #45617E; margin-bottom: 20px; }
 
 .desc-item { margin-bottom: 20px; }
 .desc-num-row {
   display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
 }
 .desc-num {
-  background: #2563EB; color: #fff; width: 22px; height: 22px;
+  background: #2F8EC1; color: #fff; width: 22px; height: 22px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 11px; font-weight: 700; flex-shrink: 0;
 }
-.desc-comp-type { font-size: 10px; color: #999; background: #F5F5F5; padding: 2px 6px; border-radius: 3px; }
+.desc-comp-type { font-size: 10px; color: #8EA2B7; background: #F7FAFD; padding: 2px 6px; border-radius: 3px; }
 .desc-comp-name { font-size: 14px; font-weight: 600; }
 
-.desc-body { padding-left: 30px; font-size: 12px; color: #555; line-height: 1.7; }
+.desc-body { padding-left: 30px; font-size: 12px; color: #45617E; line-height: 1.7; }
 .desc-body ul { list-style: none; }
 .desc-body li { position: relative; padding-left: 14px; margin-bottom: 2px; }
-.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2563EB; font-weight: 700; }
-.desc-body .sub { padding-left: 14px; color: #888; }
-.desc-body .sub li::before { content: '└'; color: #ccc; }
+.desc-body li::before { content: '•'; position: absolute; left: 0; color: #2F8EC1; font-weight: 700; }
+.desc-body .sub { padding-left: 14px; color: #45617E; }
+.desc-body .sub li::before { content: '└'; color: #8EA2B7; }
 
-.desc-divider { border: none; border-top: 1px dashed #eee; margin: 16px 0; }
+.desc-divider { border: none; border-top: 1px dashed #EEF3F8; margin: 16px 0; }
 
 .desc-step-header {
-  font-size: 13px; font-weight: 700; color: #2563EB;
-  padding: 8px 12px; background: #EFF6FF; border-radius: 6px;
+  font-size: 13px; font-weight: 700; color: #2F8EC1;
+  padding: 8px 12px; background: #EAF7FF; border-radius: 6px;
   margin: 16px 0 12px;
 }
 
 .conn-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px; }
-.conn-table th { background: #F5F5F5; padding: 6px 8px; text-align: left; font-weight: 600; border-bottom: 1px solid #ddd; }
-.conn-table td { padding: 6px 8px; border-bottom: 1px solid #eee; }
-.conn-table .code { color: #2563EB; font-weight: 600; }
+.conn-table th { background: #F7FAFD; padding: 6px 8px; text-align: left; font-weight: 600; border-bottom: 1px solid #DEE8F2; }
+.conn-table td { padding: 6px 8px; border-bottom: 1px solid #EEF3F8; }
+.conn-table .code { color: #2F8EC1; font-weight: 600; }
 
-.states-section { margin-top: 16px; padding: 12px; background: #FAFAFA; border-radius: 8px; border: 1px solid #eee; }
+.states-section { margin-top: 16px; padding: 12px; background: #F7FAFD; border-radius: 8px; border: 1px solid #EEF3F8; }
 .states-title { font-size: 12px; font-weight: 600; margin-bottom: 8px; }
-.states-item { font-size: 11px; color: #666; margin-bottom: 4px; padding-left: 14px; position: relative; }
-.states-item::before { content: '▸'; position: absolute; left: 0; color: #2563EB; }
+.states-item { font-size: 11px; color: #45617E; margin-bottom: 4px; padding-left: 14px; position: relative; }
+.states-item::before { content: '▸'; position: absolute; left: 0; color: #2F8EC1; }
 
 .biz-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px; }
-.biz-table th { background: #F5F5F5; padding: 6px 8px; text-align: left; font-weight: 600; border-bottom: 1px solid #ddd; }
-.biz-table td { padding: 6px 8px; border-bottom: 1px solid #eee; vertical-align: top; }
+.biz-table th { background: #F7FAFD; padding: 6px 8px; text-align: left; font-weight: 600; border-bottom: 1px solid #DEE8F2; }
+.biz-table td { padding: 6px 8px; border-bottom: 1px solid #EEF3F8; vertical-align: top; }
 
 /* ===== WIREFRAME ELEMENTS ===== */
 .wf-section { position: relative; }
 .num-circle {
   position: absolute; z-index: 10;
-  background: #2563EB; color: #fff; width: 20px; height: 20px;
+  background: #2F8EC1; color: #fff; width: 20px; height: 20px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 10px; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.phone-frame > .wf-section > .num-circle {
+  top: 8px !important;
+  left: 6px !important;
 }
 
 /* Header */
 .wf-header {
   display: flex; align-items: center; padding: 12px 16px;
-  border-bottom: 1px solid #eee; position: relative;
+  border-bottom: 1px solid #EEF3F8; position: relative;
 }
-.wf-back { font-size: 16px; color: #555; cursor: pointer; margin-right: 12px; }
+.wf-back { font-size: 16px; color: #45617E; cursor: pointer; margin-right: 12px; }
 .wf-header-title { font-size: 15px; font-weight: 600; }
 
 /* Step indicator */
@@ -116,59 +121,63 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 .wf-step-num {
   width: 24px; height: 24px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 700; border: 2px solid #ddd; color: #bbb;
+  font-size: 11px; font-weight: 700; border: 2px solid #DEE8F2; color: #8EA2B7;
 }
-.wf-step-num.active { background: #2563EB; border-color: #2563EB; color: #fff; }
+.wf-step-num.active { background: #2F8EC1; border-color: #2F8EC1; color: #fff; }
 .wf-step-num.done { background: #10B981; border-color: #10B981; color: #fff; }
-.wf-step-label { font-size: 11px; color: #bbb; }
-.wf-step-label.active { color: #2563EB; font-weight: 600; }
+.wf-step-label { font-size: 11px; color: #8EA2B7; }
+.wf-step-label.active { color: #2F8EC1; font-weight: 600; }
 .wf-step-label.done { color: #10B981; }
-.wf-step-line { width: 24px; height: 2px; background: #ddd; }
+.wf-step-line { width: 24px; height: 2px; background: #DEE8F2; }
 .wf-step-line.done { background: #10B981; }
 
 /* Form elements */
 .wf-form { padding: 16px 16px 16px 32px; }
 .wf-form-group { margin-bottom: 16px; position: relative; }
+.wf-form-group .num-circle {
+  top: 2px !important;
+  left: -22px !important;
+}
 .wf-form-label {
-  font-size: 12px; font-weight: 600; color: #333; margin-bottom: 6px;
+  font-size: 12px; font-weight: 600; color: #163958; margin-bottom: 6px;
   display: flex; align-items: center; gap: 4px;
 }
-.wf-required { color: #EF4444; font-size: 10px; }
+.wf-required { color: #EA5D86; font-size: 10px; }
 .wf-form-input {
-  width: 100%; padding: 10px 12px; border: 1px solid #ddd;
-  border-radius: 8px; font-size: 12px; color: #333; background: #fff;
+  width: 100%; padding: 10px 12px; border: 1px solid #DEE8F2;
+  border-radius: 8px; font-size: 12px; color: #163958; background: #fff;
 }
-.wf-form-input.placeholder { color: #bbb; }
+.wf-form-input.placeholder { color: #8EA2B7; }
 .wf-form-select {
-  width: 100%; padding: 10px 12px; border: 1px solid #ddd;
-  border-radius: 8px; font-size: 12px; color: #888; background: #fff;
+  width: 100%; padding: 10px 12px; border: 1px solid #DEE8F2;
+  border-radius: 8px; font-size: 12px; color: #45617E; background: #fff;
   display: flex; justify-content: space-between;
 }
 .wf-form-textarea {
-  width: 100%; padding: 10px 12px; border: 1px solid #ddd;
-  border-radius: 8px; font-size: 12px; color: #bbb; background: #fff;
+  width: 100%; padding: 10px 12px; border: 1px solid #DEE8F2;
+  border-radius: 8px; font-size: 12px; color: #8EA2B7; background: #fff;
   min-height: 80px; line-height: 1.5;
 }
 
 /* Photo upload */
 .wf-photo-row { display: flex; gap: 8px; overflow-x: hidden; }
 .wf-photo-add {
-  width: 72px; height: 72px; border: 2px dashed #ddd; border-radius: 8px;
+  width: 72px; height: 72px; border: 2px dashed #DEE8F2; border-radius: 8px;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  font-size: 18px; color: #bbb; flex-shrink: 0;
+  font-size: 18px; color: #8EA2B7; flex-shrink: 0;
 }
-.wf-photo-add-text { font-size: 9px; color: #bbb; margin-top: 2px; }
+.wf-photo-add-text { font-size: 9px; color: #8EA2B7; margin-top: 2px; }
 .wf-photo-thumb {
-  width: 72px; height: 72px; background: #E5E5E5; border-radius: 8px;
+  width: 72px; height: 72px; background: #DEE8F2; border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 10px; color: #bbb; flex-shrink: 0; position: relative;
+  font-size: 10px; color: #8EA2B7; flex-shrink: 0; position: relative;
 }
 .wf-photo-badge {
-  position: absolute; top: -4px; left: -4px; background: #2563EB;
+  position: absolute; top: -4px; left: -4px; background: #2F8EC1;
   color: #fff; font-size: 8px; padding: 1px 4px; border-radius: 3px;
 }
 .wf-photo-del {
-  position: absolute; top: -4px; right: -4px; background: #EF4444;
+  position: absolute; top: -4px; right: -4px; background: #EA5D86;
   color: #fff; width: 14px; height: 14px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center; font-size: 8px;
 }
@@ -176,41 +185,41 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 /* Radio group */
 .wf-radio-group { display: flex; gap: 8px; flex-wrap: wrap; }
 .wf-radio {
-  padding: 8px 14px; border: 1px solid #ddd; border-radius: 8px;
-  font-size: 11px; color: #555;
+  padding: 8px 14px; border: 1px solid #DEE8F2; border-radius: 8px;
+  font-size: 11px; color: #45617E;
 }
-.wf-radio.selected { border-color: #2563EB; background: #EFF6FF; color: #2563EB; font-weight: 600; }
-.wf-radio-desc { font-size: 9px; color: #aaa; margin-top: 1px; }
+.wf-radio.selected { border-color: #2F8EC1; background: #EAF7FF; color: #2F8EC1; font-weight: 600; }
+.wf-radio-desc { font-size: 9px; color: #8EA2B7; margin-top: 1px; }
 
 /* Checkbox */
 .wf-check-row {
   display: flex; align-items: center; gap: 6px;
-  font-size: 12px; color: #555; margin-bottom: 8px;
+  font-size: 12px; color: #45617E; margin-bottom: 8px;
 }
 .wf-checkbox {
-  width: 16px; height: 16px; border: 1.5px solid #ddd;
+  width: 16px; height: 16px; border: 1.5px solid #DEE8F2;
   border-radius: 3px; flex-shrink: 0;
 }
-.wf-checkbox.checked { background: #2563EB; border-color: #2563EB; }
+.wf-checkbox.checked { background: #2F8EC1; border-color: #2F8EC1; }
 
 /* Cash diff */
 .wf-cash-row { display: flex; gap: 8px; align-items: center; margin-top: 8px; }
 .wf-cash-toggle {
-  padding: 6px 12px; border: 1px solid #ddd; border-radius: 6px;
-  font-size: 11px; color: #555;
+  padding: 6px 12px; border: 1px solid #DEE8F2; border-radius: 6px;
+  font-size: 11px; color: #45617E;
 }
-.wf-cash-toggle.selected { background: #2563EB; color: #fff; border-color: #2563EB; }
+.wf-cash-toggle.selected { background: #2F8EC1; color: #fff; border-color: #2F8EC1; }
 .wf-cash-input {
-  flex: 1; padding: 8px 10px; border: 1px solid #ddd;
-  border-radius: 6px; font-size: 12px; color: #bbb;
+  flex: 1; padding: 8px 10px; border: 1px solid #DEE8F2;
+  border-radius: 6px; font-size: 12px; color: #8EA2B7;
 }
 
 /* Stepper */
 .wf-stepper { display: flex; align-items: center; gap: 8px; }
 .wf-stepper-btn {
-  width: 28px; height: 28px; border: 1px solid #ddd; border-radius: 6px;
+  width: 28px; height: 28px; border: 1px solid #DEE8F2; border-radius: 6px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 14px; color: #555;
+  font-size: 14px; color: #45617E;
 }
 .wf-stepper-val { font-size: 14px; font-weight: 600; min-width: 24px; text-align: center; }
 
@@ -218,49 +227,64 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 .wf-form-map {
   height: 100px; background: #E0E0E0; border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 11px; color: #999; margin-top: 8px;
+  font-size: 11px; color: #8EA2B7; margin-top: 8px;
+}
+.wf-mode-chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 8px; border-radius: 999px; background: #EAF7FF;
+  border: 1px solid #69BFEA; color: #2F8EC1; font-size: 10px; font-weight: 700;
+  margin: 10px 16px 0;
+}
+.wf-edit-note {
+  margin: 8px 16px 0; padding: 8px 10px; border-radius: 8px;
+  border: 1px solid #DEE8F2; background: #F7FAFD; color: #45617E;
+  font-size: 11px; line-height: 1.45;
+}
+.wf-change-mark {
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 9px; color: #fff; background: #2F8EC1;
+  border-radius: 3px; padding: 1px 4px; margin-left: 6px;
 }
 
 /* Submit / Next button */
 .wf-submit-btn {
-  margin: 8px 16px 20px; padding: 14px; background: #2563EB;
+  margin: 8px 16px 20px; padding: 14px; background: #2F8EC1;
   color: #fff; font-size: 14px; font-weight: 700; text-align: center;
   border-radius: 10px;
 }
-.wf-submit-btn.disabled { background: #ddd; color: #999; }
+.wf-submit-btn.disabled { background: #DEE8F2; color: #8EA2B7; }
 .wf-next-btn {
-  margin: 8px 16px 20px; padding: 12px; background: #2563EB;
+  margin: 8px 16px 20px; padding: 12px; background: #2F8EC1;
   color: #fff; font-size: 13px; font-weight: 600; text-align: center;
   border-radius: 10px;
 }
 
 /* Revision footer */
 .revision-bar {
-  background: #FAFAFA; border-top: 1px solid #eee; padding: 12px 24px;
-  font-size: 11px; color: #999;
+  background: #F7FAFD; border-top: 1px solid #EEF3F8; padding: 12px 24px;
+  font-size: 11px; color: #8EA2B7;
 }
 .revision-bar table { width: 100%; border-collapse: collapse; }
-.revision-bar th { text-align: left; font-weight: 600; padding: 4px 8px; border-bottom: 1px solid #eee; }
-.revision-bar td { padding: 4px 8px; border-bottom: 1px solid #f0f0f0; }
+.revision-bar th { text-align: left; font-weight: 600; padding: 4px 8px; border-bottom: 1px solid #EEF3F8; }
+.revision-bar td { padding: 4px 8px; border-bottom: 1px solid #EEF3F8; }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 900px) {
-  .main-layout { flex-direction: column; }
-  .wireframe-side { flex: none; width: 100%; padding: 20px; }
-  .desc-side { flex: none; width: 100%; border-left: none; border-top: 1px solid #ddd; }
-}
 /* Responsive improvements for laptop/small screens */
 .meta-bar { flex-wrap: wrap; gap: 8px; }
 .phone-frame { width: 375px; }
 @media (max-width: 1200px) {
-  .main-layout { gap: 0; }
-  .wireframe-side { flex: 0 0 50%; padding: 20px; }
-  .desc-side { flex: 0 0 50%; padding: 20px; }
+  .wireframe-side { padding: 20px; }
+  .desc-side { padding: 20px; }
+}
+@media (max-width: 900px) {
+  .main-layout { flex-direction: column; }
+  .wireframe-side { flex: none; width: 100%; padding: 16px; justify-content: center; }
+  .desc-side { flex: none; width: 100%; border-left: none; border-top: 1px solid #DEE8F2; padding: 16px; }
 }
 @media (max-width: 700px) {
-  .wireframe-side { padding: 12px; justify-content: center; }
+  .wireframe-side { padding: 12px; }
   .desc-side { padding: 12px 16px; }
-  .phone-frame { width: 100%; min-width: 0; }
+  .phone-frame { width: 100%; max-width: 375px; min-width: 0; }
   .meta-bar { padding: 8px 12px; }
   .meta-item { font-size: 11px; }
 }
@@ -272,9 +296,9 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 <div class="meta-bar">
   <span class="title">EXCH03</span>
   <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">교환글 등록</span></span>
-  <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/exchange/new</span></span>
+  <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/exchange/new / /exchange/[id]/edit</span></span>
   <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">Mobile / PC</span></span>
-  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.2</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.7</span></span>
   <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">확정</span></span>
   <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-06</span></span>
 </div>
@@ -339,7 +363,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <div class="wf-form-group">
             <div class="num-circle" style="top:0; left:2px;">4</div>
             <div class="wf-form-label">작품 <span class="wf-required">*</span></div>
-            <div class="wf-form-input" style="color:#333;">하이큐!!</div>
+            <div class="wf-form-input" style="color:#163958;">하이큐!!</div>
           </div>
 
           <!-- ⑤ 캐릭터 선택 -->
@@ -506,7 +530,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <div class="wf-form-group">
             <div class="num-circle" style="top:0; left:2px;">13</div>
             <div class="wf-form-label">직거래 위치</div>
-            <div class="wf-form-input" style="color:#333;">서울 마포구 홍대입구역 근처</div>
+            <div class="wf-form-input" style="color:#163958;">서울 마포구 홍대입구역 근처</div>
             <div class="wf-form-map">카카오맵 (위치 선택)</div>
           </div>
 
@@ -527,12 +551,81 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       </div><!-- /phone-frame 3 -->
     </div><!-- /phone-col -->
 
+    <!-- ===== Phone Frame 4: 수정 모드(프리필) ===== -->
+    <div class="phone-col">
+      <span class="phone-col-label">수정 모드 — 프리필 + 수정하기</span>
+      <div class="phone-frame">
+
+        <div class="wf-section">
+          <div class="num-circle" style="top:8px; left:6px;">16</div>
+          <div class="wf-header">
+            <span class="wf-back">←</span>
+            <span class="wf-header-title">교환글 수정</span>
+          </div>
+        </div>
+
+        <div class="wf-mode-chip">EDIT MODE · EXCH03</div>
+        <div class="wf-edit-note">
+          기존 등록값이 자동으로 채워진 상태에서 필요한 값만 수정합니다.
+          수정 완료 시 교환 상세(EXCH02)로 복귀합니다.<br>
+          받은 제안 이력이 1건 이상(상태 무관)이면 수정 모드에 진입할 수 없습니다.
+        </div>
+
+        <div class="wf-steps">
+          <div class="wf-step">
+            <div class="wf-step-num done">✓</div>
+            <span class="wf-step-label done">보유 굿즈</span>
+          </div>
+          <div class="wf-step-line done"></div>
+          <div class="wf-step">
+            <div class="wf-step-num done">✓</div>
+            <span class="wf-step-label done">원하는 굿즈</span>
+          </div>
+          <div class="wf-step-line done"></div>
+          <div class="wf-step">
+            <div class="wf-step-num active">3</div>
+            <span class="wf-step-label active">거래 방식</span>
+          </div>
+        </div>
+
+        <div class="wf-form">
+          <div class="wf-form-group">
+            <div class="wf-form-label">사진 <span class="wf-change-mark">변경됨</span></div>
+            <div class="wf-photo-row">
+              <div class="wf-photo-thumb"><div class="wf-photo-badge">대표</div><div class="wf-photo-del">✕</div>IMG</div>
+              <div class="wf-photo-thumb"><div class="wf-photo-del">✕</div>IMG</div>
+              <div class="wf-photo-add"><span>+</span><span class="wf-photo-add-text">3/5</span></div>
+            </div>
+          </div>
+          <div class="wf-form-group">
+            <div class="wf-form-label">상품명 <span class="wf-required">*</span></div>
+            <div class="wf-form-input" style="color:#163958;">하이큐 히나타 아크릴 스탠드 (한정판)</div>
+          </div>
+          <div class="wf-form-group">
+            <div class="wf-form-label">거래 방법 <span class="wf-required">*</span></div>
+            <div class="wf-radio-group">
+              <div class="wf-radio">택배</div>
+              <div class="wf-radio selected">직거래</div>
+              <div class="wf-radio">둘 다 가능</div>
+            </div>
+          </div>
+          <div class="wf-form-group">
+            <div class="wf-form-label">직거래 위치</div>
+            <div class="wf-form-input" style="color:#163958;">서울 마포구 홍대입구역 9번 출구</div>
+          </div>
+        </div>
+
+        <div class="wf-submit-btn">수정하기</div>
+
+      </div><!-- /phone-frame 4 -->
+    </div><!-- /phone-col -->
+
   </div><!-- /wireframe-side -->
 
   <!-- ===== DESCRIPTION SIDE ===== -->
   <div class="desc-side">
-    <div class="desc-title">EXCH03 교환글 등록</div>
-    <div class="desc-subtitle">3단계 폼으로 보유 굿즈 + 희망 교환 + 거래 방식을 등록</div>
+    <div class="desc-title">EXCH03 교환글 등록/수정</div>
+    <div class="desc-subtitle">3단계 폼으로 보유 굿즈 + 희망 교환 + 거래 방식을 등록/수정</div>
 
     <!-- 구성 요소 (Step 1) -->
     <div class="desc-step-header">Step 1: 보유 굿즈</div>
@@ -810,11 +903,32 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
     </div>
     <hr class="desc-divider">
 
+    <!-- ⑯ 수정 모드 -->
+    <div class="desc-item">
+      <div class="desc-num-row">
+        <div class="desc-num">16</div>
+        <span class="desc-comp-type">[EditMode]</span>
+        <span class="desc-comp-name">수정 모드 전용 프레임</span>
+      </div>
+      <div class="desc-body">
+        <ul>
+          <li>헤더 타이틀: "교환글 수정"</li>
+          <li>기존 입력값 프리필(이미지/상품명/조건/거래 방식)</li>
+          <li>변경 항목은 `변경됨` 표시로 구분 가능</li>
+          <li>하단 CTA: `수정하기` (받은 제안 이력 0건일 때만 활성)</li>
+          <li>받은 제안 이력 1건 이상(상태 무관)이면 진입/저장 차단 + 정책 안내 문구 노출</li>
+          <li>성공 시 EXCH02 상세로 복귀 + 최신 수정일 반영</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="desc-divider">
+
     <!-- 화면 상태 -->
     <div class="states-section">
       <div class="states-title">화면 상태</div>
-      <div class="states-item"><strong>기본 상태</strong>: 빈 폼 (Step 1부터 시작)</div>
+      <div class="states-item"><strong>등록 모드</strong>: 빈 폼 + 제목 "교환글 등록" + 버튼 "교환글 등록하기"</div>
       <div class="states-item"><strong>수정 모드</strong>: 기존 데이터 프리필, 제목 "교환글 수정"</div>
+      <div class="states-item"><strong>수정 잠금 상태</strong>: 받은 제안 이력 1건 이상(상태 무관)이면 진입/저장 차단 + 안내 문구 노출</div>
       <div class="states-item"><strong>필드 에러</strong>: 빨간 테두리 + 하단 에러 텍스트</div>
       <div class="states-item"><strong>제출 중</strong>: 버튼 로딩 스피너 + 폼 비활성</div>
       <div class="states-item"><strong>이미지 업로드 중</strong>: 썸네일 위 프로그레스 오버레이</div>
@@ -824,7 +938,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
     <!-- 연관 화면 -->
     <div style="margin-top:20px;">
-      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2563EB;">연관 화면</div>
+      <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#2F8EC1;">연관 화면</div>
       <table class="conn-table">
         <thead>
           <tr><th>이동 대상</th><th>조건</th><th>화면코드</th></tr>
@@ -832,6 +946,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <tbody>
           <tr><td>교환 목록</td><td>← 뒤로가기</td><td class="code">EXCH01</td></tr>
           <tr><td>교환 상세</td><td>등록 완료</td><td class="code">EXCH02</td></tr>
+          <tr><td>교환 상세(본인 글)</td><td>[수정]으로 진입(받은 제안 이력 0건) / 수정 완료 복귀</td><td class="code">EXCH02</td></tr>
           <tr><td>본인인증</td><td>미인증 상태</td><td class="code">모달</td></tr>
         </tbody>
       </table>
@@ -846,8 +961,13 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   <table>
     <thead><tr><th>날짜</th><th>버전</th><th>내용</th></tr></thead>
     <tbody>
+      <tr><td>2026-03-11</td><td>0.7</td><td>폰 프레임 넘버 서클 정렬 보정: 상단 섹션/폼 항목 번호 좌표를 공통 기준으로 통일</td></tr>
       <tr><td>2026-03-06</td><td>0.1</td><td>초안 작성</td></tr>
       <tr><td>2026-03-06</td><td>0.2</td><td>HOME01 표준 레이아웃 적용: 3개 스텝 → 개별 phone frame 분리 (flex-direction column), 탭 구조 폐기 → 플랫 리스트 구조, CSS 표준화</td></tr>
+      <tr><td>2026-03-10</td><td>0.3</td><td>등록/수정 모드 분리: 수정 모드 전용 프레임(프리필/변경됨/수정하기) 및 설명 추가</td></tr>
+      <tr><td>2026-03-10</td><td>0.4</td><td>받은 제안 이력 기반 수정 잠금 정책(초안) 반영</td></tr>
+      <tr><td>2026-03-11</td><td>0.6</td><td>반응형 레이아웃 깨짐 수정: 미디어쿼리 우선순위/폭 정책 정리(<=900px 컬럼 고정, phone frame 폭 안정화)</td></tr>
+      <tr><td>2026-03-10</td><td>0.5</td><td>수정 잠금 기준을 pending에서 제안 이력 전체(상태 무관)로 강화</td></tr>
     </tbody>
   </table>
 </div>

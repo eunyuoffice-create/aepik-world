@@ -5,8 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EXCH02 — 교환 상세 와이어프레임</title>
 <style>
+:root {
+  --primary: #69BFEA;
+  --primary-dark: #2F8EC1;
+  --primary-deep: #173E68;
+  --blue-light: #EAF7FF;
+  --gray-50: #F7FAFD;
+  --gray-100: #EEF3F8;
+  --gray-200: #DEE8F2;
+  --gray-400: #8EA2B7;
+  --gray-600: #45617E;
+  --gray-900: #163958;
+}
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A1A; }
+body {
+  font-family: 'Pretendard', 'Inter', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--gray-50);
+  color: var(--gray-900);
+}
 
 /* ===== META HEADER ===== */
 .meta-bar {
@@ -219,7 +235,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 }
 .wf-bottom-sheet {
   margin-top: auto; background: #fff; border-radius: 16px 16px 0 0;
-  max-height: 60%; overflow-y: auto; box-shadow: 0 -2px 12px rgba(0,0,0,0.15);
+  max-height: 84%; overflow-y: auto; box-shadow: 0 -2px 12px rgba(0,0,0,0.15);
 }
 .wf-sheet-header {
   display: flex; align-items: center; justify-content: space-between;
@@ -264,6 +280,53 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   font-size: 13px; font-weight: 600; color: #fff; background: #2563EB;
 }
 .wf-sheet-cta-btn:disabled { background: #ccc; cursor: not-allowed; }
+.wf-sheet-mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.wf-sheet-mode-card {
+  border: 1px solid #eee; border-radius: 8px; padding: 10px;
+  background: #fff;
+}
+.wf-sheet-mode-card.active { border-color: #2F8EC1; background: #EAF7FF; }
+.wf-mode-title { font-size: 12px; font-weight: 700; margin-bottom: 4px; color: #333; }
+.wf-mode-desc { font-size: 10px; color: #777; line-height: 1.4; }
+.wf-sheet-chip-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.wf-sheet-chip {
+  border: 1px solid #ddd; background: #fff; color: #666;
+  border-radius: 999px; font-size: 10px; padding: 3px 8px;
+}
+.wf-sheet-chip.active { border-color: #2F8EC1; color: #2F8EC1; background: #EAF7FF; }
+.wf-sheet-kv {
+  border: 1px solid #eee; border-radius: 8px; padding: 8px 10px; background: #FAFAFA;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.wf-sheet-kv-row { display: flex; justify-content: space-between; font-size: 11px; color: #666; }
+.wf-sheet-kv-row strong { color: #163958; font-weight: 600; }
+.wf-sheet-switch {
+  display: flex; align-items: center; justify-content: space-between;
+  border: 1px solid #eee; border-radius: 8px; padding: 8px 10px; background: #fff;
+}
+.wf-switch-text { font-size: 11px; color: #333; font-weight: 600; }
+.wf-switch-pill {
+  width: 34px; height: 20px; border-radius: 999px; background: #CFE7F8;
+  position: relative;
+}
+.wf-switch-pill::after {
+  content: ''; width: 14px; height: 14px; border-radius: 50%; background: #2F8EC1;
+  position: absolute; top: 3px; right: 3px;
+}
+.wf-sheet-note {
+  font-size: 10px; color: #45617E; background: #F3F8FF; border: 1px solid #D8EAFE;
+  border-radius: 8px; padding: 8px 10px; line-height: 1.5;
+}
+.wf-upload-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.wf-upload-box {
+  height: 64px; border: 1px dashed #CCD8E4; border-radius: 8px; background: #F7FAFD;
+  display: flex; align-items: center; justify-content: center; font-size: 10px; color: #8EA2B7;
+}
+.wf-upload-box.filled { border-style: solid; background: #EAF7FF; color: #2F8EC1; }
+.wf-sheet-input select {
+  width: 100%; padding: 10px 12px; border: 1px solid #eee; border-radius: 8px;
+  font-size: 12px; font-family: inherit; background: #fff;
+}
 
 /* ===== RECEIVED PROPOSALS PANEL ===== */
 .wf-proposal-section { padding: 12px 16px; background: #fff; border-top: 1px solid #eee; }
@@ -322,6 +385,120 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   font-size: 13px; font-weight: 600; color: #333; background: #fff;
   cursor: pointer;
 }
+.wf-owner-btn.disabled {
+  color: #9AA6B2; background: #F7FAFD; border-color: #DFE7EF; cursor: not-allowed;
+}
+.wf-owner-lock-note {
+  margin: 0 16px 12px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #D8EAFE;
+  background: #F3F8FF;
+  font-size: 11px;
+  color: #2563EB;
+  line-height: 1.5;
+}
+
+/* COMM01/COMM02 token alignment */
+.meta-bar { border-bottom-color: var(--primary-dark); }
+.meta-label { color: var(--gray-400); }
+.meta-value { color: var(--gray-900); }
+.meta-bar .title { color: var(--primary-dark); }
+
+.desc-side { border-left-color: var(--gray-200); }
+.desc-title { color: var(--gray-900); }
+.desc-subtitle { color: var(--gray-400); }
+.desc-num { background: var(--primary-dark); }
+.desc-comp-type { color: var(--gray-400); background: var(--gray-50); }
+.desc-comp-name { color: var(--gray-900); }
+.desc-body { color: var(--gray-600); }
+.desc-body li::before { color: var(--primary-dark); }
+.desc-body .sub { color: var(--gray-400); }
+.conn-table th { background: var(--gray-50); border-bottom-color: var(--gray-200); color: var(--gray-600); }
+.conn-table td { border-bottom-color: var(--gray-100); color: var(--gray-600); }
+.conn-table .code { color: var(--primary-dark); }
+.states-section { background: var(--gray-50); border-color: var(--gray-200); }
+.states-title { color: var(--gray-900); }
+.states-item { color: var(--gray-600); }
+.states-item::before { color: var(--primary-dark); }
+
+.num-circle { background: var(--primary-dark); }
+.wf-header { border-bottom-color: var(--gray-100); }
+.wf-back { color: var(--gray-600); }
+.wf-icon { background: var(--gray-100); color: var(--gray-400); }
+.wf-img-slider { background: var(--gray-100); color: var(--gray-400); }
+.wf-tag.exchange { background: #ECF7FF; color: var(--primary-dark); }
+.wf-product-title { color: var(--gray-900); }
+.wf-product-work { color: var(--primary-dark); }
+.wf-product-date { color: var(--gray-400); }
+.wf-detail-box { background: var(--gray-50); border-color: var(--gray-200); }
+.wf-detail-label { color: var(--gray-400); }
+.wf-detail-value { color: var(--gray-900); }
+.wf-detail-value.highlight { color: var(--primary-dark); }
+.wf-map-area { background: var(--gray-100); color: var(--gray-400); }
+.wf-map-address { color: var(--gray-600); }
+.wf-extra { border-color: var(--gray-200); color: var(--gray-600); }
+.wf-extra-title { color: var(--gray-900); }
+.wf-seller-box { border-color: var(--gray-200); }
+.wf-seller-avatar { background: var(--gray-100); color: var(--gray-400); }
+.wf-seller-name { color: var(--gray-900); }
+.wf-seller-badge { color: var(--primary-dark); }
+.wf-seller-stats { color: var(--gray-400); }
+.wf-seller-arrow { color: var(--gray-400); }
+.wf-section-divider { background: var(--gray-50); }
+.wf-related-header { color: var(--gray-900); }
+.wf-related-card { border-color: var(--gray-200); }
+.wf-related-img { background: var(--gray-100); color: var(--gray-400); }
+.wf-related-meta { color: var(--gray-400); }
+
+.wf-bottom-cta { border-top-color: var(--gray-200); }
+.wf-cta-wish { border-color: var(--gray-200); }
+.wf-cta-wish-count { color: var(--gray-400); }
+.wf-cta-chat { border-color: var(--gray-200); color: var(--gray-600); }
+.wf-cta-exchange { background: var(--primary); }
+
+.wf-sheet-header { border-bottom-color: var(--gray-100); }
+.wf-sheet-title, .wf-sheet-section-title { color: var(--gray-900); }
+.wf-sheet-close { color: var(--gray-400); }
+.wf-item-select { border-color: var(--gray-200); background: var(--gray-50); }
+.wf-item-img { background: var(--gray-100); color: var(--gray-400); }
+.wf-item-condition { color: var(--gray-400); }
+.wf-item-badge { background: var(--gray-100); color: var(--gray-600); }
+.wf-sheet-input input, .wf-sheet-input select { border-color: var(--gray-200); color: var(--gray-900); }
+.wf-sheet-input input::placeholder { color: var(--gray-400); }
+.wf-sheet-cta-btn { background: var(--primary); }
+.wf-sheet-mode-card { border-color: var(--gray-200); }
+.wf-sheet-mode-card.active { border-color: var(--primary-dark); background: var(--blue-light); }
+.wf-mode-title { color: var(--gray-900); }
+.wf-mode-desc { color: var(--gray-600); }
+.wf-sheet-chip { border-color: var(--gray-200); color: var(--gray-600); }
+.wf-sheet-chip.active { border-color: var(--primary-dark); color: var(--primary-dark); background: var(--blue-light); }
+.wf-sheet-kv { border-color: var(--gray-200); background: var(--gray-50); }
+.wf-sheet-kv-row { color: var(--gray-600); }
+.wf-sheet-kv-row strong { color: var(--gray-900); }
+.wf-sheet-switch { border-color: var(--gray-200); }
+.wf-switch-pill { background: #CFE7F8; }
+.wf-sheet-note { color: var(--primary-dark); border-color: #D8EAFE; background: #F3F8FF; }
+.wf-upload-box { border-color: #CCD8E4; background: var(--gray-50); color: var(--gray-400); }
+.wf-upload-box.filled { border-color: var(--primary-dark); background: var(--blue-light); color: var(--primary-dark); }
+
+.wf-proposal-section { border-top-color: var(--gray-200); }
+.wf-proposal-count { background: var(--primary-dark); }
+.wf-proposal-card { border-color: var(--gray-200); background: var(--gray-50); }
+.wf-proposal-avatar, .wf-proposal-img { background: var(--gray-100); color: var(--gray-400); }
+.wf-proposal-level { color: var(--primary-dark); }
+.wf-proposal-time, .wf-proposal-item-condition { color: var(--gray-400); }
+.wf-proposal-btn { border-color: var(--gray-200); color: var(--gray-600); }
+.wf-proposal-view-all { color: var(--primary-dark); }
+
+.wf-owner-cta { border-top-color: var(--gray-200); }
+.wf-owner-btn { border-color: var(--gray-200); color: var(--gray-600); }
+.wf-owner-btn.disabled { color: var(--gray-400); background: var(--gray-100); border-color: var(--gray-200); }
+.wf-owner-lock-note { border-color: #D8EAFE; background: #F3F8FF; color: var(--primary-dark); }
+
+.revision-bar { background: #fff; border-top-color: var(--gray-200); color: var(--gray-400); }
+.revision-bar th { color: var(--gray-600); border-bottom-color: var(--gray-200); }
+.revision-bar td { border-bottom-color: var(--gray-100); color: var(--gray-600); }
 
 /* Revision footer */
 .revision-bar {
@@ -362,8 +539,9 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   <span class="meta-item"><span class="meta-label">화면명</span><span class="meta-value">교환 상세</span></span>
   <span class="meta-item"><span class="meta-label">라우트</span><span class="meta-value">/exchange/:id</span></span>
   <span class="meta-item"><span class="meta-label">이용자</span><span class="meta-value">PC / Mobile</span></span>
-  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.2</span></span>
-  <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">개발</span></span>
+  <span class="meta-item"><span class="meta-label">버전</span><span class="meta-value">0.9</span></span>
+  <span class="meta-item"><span class="meta-label">상태</span><span class="meta-value">확정</span></span>
+  <span class="meta-item"><span class="meta-label">작성일</span><span class="meta-value">2026-03-06</span></span>
 </div>
 
 <!-- MAIN LAYOUT -->
@@ -523,29 +701,46 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <span class="wf-cta-wish-count">24</span>
           </div>
           <div class="wf-cta-btn wf-cta-chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> 채팅하기</div>
-          <div class="wf-cta-btn wf-cta-exchange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg> 교환 제안</div>
+          <div class="wf-cta-btn wf-cta-exchange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg> 교환 제안(EXCH04)</div>
         </div>
       </div>
 
     </div><!-- /phone-frame 1 -->
 
-    <!-- ===== PHONE FRAME 2: 교환 제안 바텀시트 ===== -->
+    <!-- ===== PHONE FRAME 2: 제안 방식 선택 + 내 글 매칭 ===== -->
     <div class="phone-frame">
-
+      <div class="wf-section">
+        <div class="num-circle" style="top:8px; left:6px;">10</div>
+      </div>
       <div class="wf-bottom-sheet-overlay">
-
         <div class="wf-bottom-sheet">
 
           <div class="wf-sheet-header">
             <span style="width: 20px;"></span>
             <div class="wf-sheet-title">교환 제안하기</div>
-            <span class="wf-sheet-close">✕</span>
+            <span class="wf-sheet-close">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </span>
           </div>
 
           <div class="wf-sheet-section">
-            <div class="wf-sheet-section-title">내 매물 선택</div>
+            <div class="wf-sheet-section-title">제안 방식 선택</div>
+            <div class="wf-sheet-mode-grid">
+              <div class="wf-sheet-mode-card active">
+                <div class="wf-mode-title">내 교환글 매칭</div>
+                <div class="wf-mode-desc">내가 등록한 교환글을 선택해서 바로 제안</div>
+              </div>
+              <div class="wf-sheet-mode-card">
+                <div class="wf-mode-title">빠른 제안 등록</div>
+                <div class="wf-mode-desc">글이 없어도 사진/상태를 직접 입력해 제안</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wf-sheet-section">
+            <div class="wf-sheet-section-title">내 교환글 선택</div>
             <div class="wf-sheet-item-list">
-              <label class="wf-item-select" style="background: #fff; border-color: #2563EB;">
+              <label class="wf-item-select" style="background: #fff; border-color: #2F8EC1;">
                 <input type="radio" name="item" checked style="width: 16px; height: 16px;">
                 <div class="wf-item-img">IMG</div>
                 <div class="wf-item-info">
@@ -576,9 +771,23 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           </div>
 
           <div class="wf-sheet-section">
+            <div class="wf-sheet-section-title">거래 조건</div>
+            <div class="wf-sheet-chip-row" style="margin-bottom:8px;">
+              <span class="wf-sheet-chip active">1:1</span>
+              <span class="wf-sheet-chip">1:N</span>
+              <span class="wf-sheet-chip">N:1</span>
+            </div>
+            <div class="wf-sheet-kv">
+              <div class="wf-sheet-kv-row"><span>제공 수량</span><strong>1개</strong></div>
+              <div class="wf-sheet-kv-row"><span>희망 수량</span><strong>1개</strong></div>
+              <div class="wf-sheet-kv-row"><span>차액 제안</span><strong>+3,000원</strong></div>
+            </div>
+          </div>
+
+          <div class="wf-sheet-section">
             <div class="wf-sheet-section-title">메시지 (선택)</div>
             <div class="wf-sheet-input">
-              <input type="text" placeholder="상태나 거래 조건 등 추가 메시지를 남겨주세요">
+              <input type="text" placeholder="예: 차액 3천원 가능, 상태 사진 추가 전달 가능">
             </div>
           </div>
 
@@ -587,12 +796,98 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           </div>
 
         </div>
-
       </div>
-
     </div><!-- /phone-frame 2 -->
 
-    <!-- ===== PHONE FRAME 3: 받은 제안 패널 (본인 글) ===== -->
+    <!-- ===== PHONE FRAME 3: 빠른 제안 등록 (직접 입력) ===== -->
+    <div class="phone-frame">
+      <div class="wf-section">
+        <div class="num-circle" style="top:8px; left:6px;">10</div>
+      </div>
+      <div class="wf-bottom-sheet-overlay">
+        <div class="wf-bottom-sheet">
+
+          <div class="wf-sheet-header">
+            <span style="width: 20px;"></span>
+            <div class="wf-sheet-title">빠른 제안 등록</div>
+            <span class="wf-sheet-close">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </span>
+          </div>
+
+          <div class="wf-sheet-section">
+            <div class="wf-sheet-section-title">사진 업로드 (1~3장)</div>
+            <div class="wf-upload-grid">
+              <div class="wf-upload-box filled">IMG 1</div>
+              <div class="wf-upload-box">+ 추가</div>
+              <div class="wf-upload-box">+ 추가</div>
+            </div>
+          </div>
+
+          <div class="wf-sheet-section">
+            <div class="wf-sheet-section-title">제안 굿즈 정보</div>
+            <div class="wf-sheet-input" style="margin-bottom:8px;">
+              <input type="text" value="하이큐 히나타 포토카드">
+            </div>
+            <div class="wf-sheet-chip-row" style="margin-bottom:8px;">
+              <span class="wf-sheet-chip active">S급</span>
+              <span class="wf-sheet-chip">A급</span>
+              <span class="wf-sheet-chip">B급</span>
+              <span class="wf-sheet-chip">C급</span>
+            </div>
+            <div class="wf-sheet-kv">
+              <div class="wf-sheet-kv-row"><span>수량</span><strong>2개</strong></div>
+            </div>
+          </div>
+
+          <div class="wf-sheet-section">
+            <div class="wf-sheet-section-title">다수거래 / 차액 제안</div>
+            <div class="wf-sheet-chip-row" style="margin-bottom:8px;">
+              <span class="wf-sheet-chip">1:1</span>
+              <span class="wf-sheet-chip active">1:N</span>
+              <span class="wf-sheet-chip">N:1</span>
+            </div>
+            <div class="wf-sheet-kv">
+              <div class="wf-sheet-kv-row"><span>제공 수량</span><strong>2개</strong></div>
+              <div class="wf-sheet-kv-row"><span>희망 수량</span><strong>1개</strong></div>
+              <div class="wf-sheet-kv-row"><span>차액</span><strong>-2,000원</strong></div>
+            </div>
+          </div>
+
+          <div class="wf-sheet-section">
+            <div class="wf-sheet-section-title">오늘 직교환 (이벤트 근처)</div>
+            <div class="wf-sheet-switch">
+              <span class="wf-switch-text">오늘 직교환 사용</span>
+              <span class="wf-switch-pill"></span>
+            </div>
+            <div class="wf-sheet-input" style="margin-top:8px;">
+              <select>
+                <option>이벤트 선택: 하이큐 팝업스토어</option>
+              </select>
+              <input type="text" value="가능 시간: 18:00~21:00">
+              <input type="text" value="장소: 합정역 3번 출구 인근">
+            </div>
+            <div class="wf-sheet-note" style="margin-top:8px;">
+              오늘 직교환은 당일에만 제안할 수 있어요. 수락되면 채팅 상단에 "오늘 직교환 제안" 배너가 표시됩니다.
+            </div>
+          </div>
+
+          <div class="wf-sheet-section">
+            <div class="wf-sheet-section-title">메시지 (선택)</div>
+            <div class="wf-sheet-input">
+              <input type="text" placeholder="예: 오늘 공연 끝나고 8시쯤 직교환 가능해요">
+            </div>
+          </div>
+
+          <div class="wf-sheet-cta">
+            <button class="wf-sheet-cta-btn">교환 제안 보내기</button>
+          </div>
+
+        </div>
+      </div>
+    </div><!-- /phone-frame 3 -->
+
+    <!-- ===== PHONE FRAME 4: 받은 제안 패널 (본인 글) ===== -->
     <div class="phone-frame">
 
       <div class="wf-section">
@@ -632,6 +927,8 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         </div>
       </div>
 
+      <div class="wf-section">
+        <div class="num-circle" style="top:6px; left:6px;">11</div>
       <div class="wf-proposal-section">
         <div class="wf-proposal-header">
           <span>받은 제안</span>
@@ -688,21 +985,26 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
         <div class="wf-proposal-view-all">전체보기 →</div>
       </div>
+      </div>
 
+      <div class="wf-section">
+        <div class="num-circle" style="top:6px; left:6px;">12</div>
       <div class="wf-owner-cta">
-        <button class="wf-owner-btn">수정</button>
+        <button class="wf-owner-btn disabled">수정 불가</button>
         <button class="wf-owner-btn">끌어올리기</button>
         <button class="wf-owner-btn">삭제</button>
       </div>
+      </div>
+      <div class="wf-owner-lock-note">받은 제안 이력이 있어 수정할 수 없어요. 제안이 한 번이라도 도착한 글은 수정할 수 없어요.</div>
 
-    </div><!-- /phone-frame 3 -->
+    </div><!-- /phone-frame 4 -->
 
   </div><!-- /wireframe-side -->
 
   <!-- ===== DESCRIPTION SIDE ===== -->
   <div class="desc-side">
     <div class="desc-title">EXCH02 교환 상세</div>
-    <div class="desc-subtitle">개별 교환글의 상세 정보 확인 + 찜/채팅/교환 제안 액션</div>
+    <div class="desc-subtitle">개별 교환글의 상세 정보 확인 + 찜/채팅 + EXCH04 교환 제안 진입 + 본인 글 수정 잠금 정책</div>
 
     <!-- ① Header -->
     <div class="desc-item">
@@ -888,15 +1190,20 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <ul class="sub">
               <li>찜: 토글 (빈 하트 ↔ 꽉 찬 하트), 찜 수 표시</li>
               <li>채팅하기: 판매자와 1:1 채팅 (CHAT02)</li>
-              <li>교환 제안: 내 매물 선택 바텀시트 → 제안 발송</li>
+              <li>교환 제안: EXCH04(교환 제안 전용 페이지) 이동 → 방식 선택(내 글 매칭/빠른 제안 등록) → 조건 입력 → 제안 발송</li>
             </ul>
           </li>
           <li>비로그인 시: CTA 탭 → 로그인 유도 바텀시트</li>
           <li>본인 글일 경우 CTA가 변경됨:
             <ul class="sub">
-              <li>[수정] — EXCH03(수정 모드) 이동</li>
+              <li>[수정] — 받은 제안 이력 0건일 때만 EXCH03(수정 모드) 이동</li>
               <li>[끌어올리기] — 목록 상단 노출 갱신</li>
               <li>[삭제] — 삭제 확인 다이얼로그</li>
+            </ul>
+          </li>
+          <li>받은 제안 이력 1건 이상(상태 무관)이면 [수정] 비활성 + 안내 문구 노출
+            <ul class="sub">
+              <li>"받은 제안 이력이 있어 수정할 수 없어요. 제안이 한 번이라도 도착한 글은 수정할 수 없어요."</li>
             </ul>
           </li>
           <li>교환 완료 상태: 전체 CTA 비활성(회색)</li>
@@ -906,28 +1213,35 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
     <hr class="desc-divider">
 
-    <!-- ⑩ 교환 제안 바텀시트 -->
+    <!-- ⑩ 교환 제안 페이지 진입 -->
     <div class="desc-item">
       <div class="desc-num-row">
         <div class="desc-num">10</div>
-        <span class="desc-comp-type">[BottomSheet]</span>
-        <span class="desc-comp-name">교환 제안 바텀시트</span>
+        <span class="desc-comp-type">[PageFlow]</span>
+        <span class="desc-comp-name">교환 제안 페이지 진입 (EXCH04)</span>
       </div>
       <div class="desc-body">
         <ul>
-          <li>CTA 탭 시 오버레이 + 바텀시트 표시</li>
+          <li>CTA 탭 시 EXCH04 교환 제안 전용 페이지로 이동</li>
           <li>구성:
             <ul class="sub">
-              <li>헤더: "교환 제안하기" 제목 + X 닫기 버튼</li>
-              <li>내 매물 선택: 라디오 버튼 + 사용자 보유 상품 목록</li>
-              <li>각 상품: 이미지(40px) + 상품명 + 상태 뱃지</li>
-              <li>이미 제안한 상품: "제안 중" 회색 뱃지 + 비활성(disabled)</li>
-              <li>메시지 입력: 선택사항, 거래 조건 등 추가 정보</li>
+              <li>헤더: "교환 제안하기" 제목 + X 닫기 버튼 (EXCH04 내부)</li>
+              <li>1단계: 제안 방식 선택
+                <ul class="sub">
+                  <li>내 교환글 매칭 (`proposal_mode=listing`)</li>
+                  <li>빠른 제안 등록 (`proposal_mode=manual`)</li>
+                </ul>
+              </li>
+              <li>매칭 제안: 내 교환글 선택(라디오), 이미 제안한 글은 "제안 중" 뱃지 + 비활성</li>
+              <li>빠른 제안: 사진 1~3장, 굿즈명, 상태(S/A/B/C), 수량 직접 입력</li>
+              <li>다수거래/차액: 거래 구조(`1:1`/`1:N`/`N:1`) + 제공/희망 수량 + 차액(+/-) 입력</li>
+              <li>오늘 직교환: 이벤트명/시간대/대략 위치 입력 (당일만 가능)</li>
+              <li>메시지 입력: 선택사항, 거래 조건 등 추가 정보 (100자)</li>
               <li>CTA: "교환 제안 보내기" (Blue, full-width)</li>
             </ul>
           </li>
-          <li>배경: 어두운 오버레이 (rgba(0,0,0,0.4))</li>
-          <li>닫기: X 버튼 또는 오버레이 탭</li>
+          <li>와이어프레임 상 프레임 2/3은 EXCH04 입력 화면 미리보기</li>
+          <li>실제 제출 성공 후 EXCH05(교환 신청함)에 받은/보낸 제안이 반영됨</li>
         </ul>
       </div>
     </div>
@@ -954,7 +1268,8 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <ul class="sub">
               <li>아바타(24px 원형) + 닉네임 + Lv.N + 시간</li>
               <li>제안 굿즈: 이미지(48px) + 상품명 + 상태 뱃지</li>
-              <li>[수락] [거절] 액션 버튼</li>
+              <li>[수락] [거절] 액션 버튼 (대기중 상태에서만, 등록자 권한)</li>
+              <li>거절/취소/만료 상태는 상태 배지만 노출되고 액션은 비활성</li>
             </ul>
           </li>
           <li>"전체보기 →" 탭 시: EXCH05(교환신청함) 이동</li>
@@ -973,14 +1288,15 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       </div>
       <div class="desc-body">
         <ul>
-          <li>본인이 작성한 교환글에서만 표시 (받은 제안 패널 대신)</li>
+          <li>본인이 작성한 교환글에서만 표시 (받은 제안 패널 하단에서 함께 노출)</li>
           <li>구성: 3개 버튼 (flex 1/3 width)
             <ul class="sub">
-              <li>[수정] — EXCH03(수정 모드) 이동</li>
+              <li>[수정] — 받은 제안 이력 0건일 때만 EXCH03(수정 모드) 이동</li>
               <li>[끌어올리기] — 1일 1회 무료, 추가는 유료</li>
               <li>[삭제] — 삭제 확인 다이얼로그</li>
             </ul>
           </li>
+          <li>받은 제안 이력 1건 이상(상태 무관)이면 [수정] 비활성 + 잠금 안내 문구 노출</li>
           <li>하단 고정 (sticky bottom)</li>
         </ul>
       </div>
@@ -999,9 +1315,12 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         </thead>
         <tbody>
           <tr><td>교환 목록</td><td>← 뒤로가기</td><td class="code">EXCH01</td></tr>
-          <tr><td>교환글 수정</td><td>본인 글 [수정]</td><td class="code">EXCH03</td></tr>
+          <tr><td>교환글 수정</td><td>본인 글 [수정] (proposal_history_count=0)</td><td class="code">EXCH03</td></tr>
+          <tr><td>교환 제안 작성</td><td>Repeat CTA 탭</td><td class="code">EXCH04</td></tr>
+          <tr><td>수정 잠금 안내</td><td>본인 글 [수정] (proposal_history_count≥1)</td><td class="code">EXCH02 유지</td></tr>
           <tr><td>채팅방</td><td>채팅하기</td><td class="code">CHAT02</td></tr>
           <tr><td>받은 제안 전체</td><td>"전체보기 →"</td><td class="code">EXCH05</td></tr>
+          <tr><td>이벤트 상세</td><td>오늘 직교환 이벤트 선택/확인</td><td class="code">EVNT02</td></tr>
           <tr><td>타인 프로필</td><td>판매자 영역 탭</td><td class="code">USER03</td></tr>
           <tr><td>작품 필터 목록</td><td>작품명 탭</td><td class="code">EXCH01</td></tr>
           <tr><td>로그인</td><td>비로그인 + CTA</td><td class="code">AUTH01</td></tr>
@@ -1016,6 +1335,9 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       <div class="states-item"><strong>로딩 상태</strong>: 이미지 영역 스켈레톤 + 정보 영역 스켈레톤</div>
       <div class="states-item"><strong>교환 완료</strong>: 상단 "교환 완료" 뱃지 + CTA 비활성(회색)</div>
       <div class="states-item"><strong>본인 글</strong>: CTA → [수정/끌어올리기/삭제]</div>
+      <div class="states-item"><strong>교환 제안 진입 상태</strong>: CTA 탭 시 EXCH04로 이동, EXCH04에서 방식 선택/조건 입력 진행</div>
+      <div class="states-item"><strong>오늘 직교환 상태</strong>: 당일에만 활성, 시간/대략 위치 입력 폼 확장</div>
+      <div class="states-item"><strong>수정 잠금 상태</strong>: 받은 제안 이력 1건 이상(상태 무관) 시 [수정] 비활성 + 정책 안내 문구 노출</div>
       <div class="states-item"><strong>비공개/삭제</strong>: "존재하지 않는 교환글입니다" + [목록으로] 버튼</div>
       <div class="states-item"><strong>비로그인</strong>: 조회 가능, CTA 탭 시 로그인 유도</div>
     </div>
@@ -1028,6 +1350,13 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   <table>
     <thead><tr><th>날짜</th><th>버전</th><th>내용</th></tr></thead>
     <tbody>
+      <tr><td>2026-03-11</td><td>0.9</td><td>교환 제안 상태 전이/권한 정합화: 대기중에서만 액션 허용, 거절/취소/만료 상태 이력 표시 반영</td></tr>
+      <tr><td>2026-03-11</td><td>0.8</td><td>교환 제안 전용 페이지(EXCH04) 진입 구조 반영: EXCH02는 CTA 진입 중심으로 정합화</td></tr>
+      <tr><td>2026-03-10</td><td>0.7</td><td>교환 제안 상세화: 제안 방식 선택(매칭/빠른등록), 다수거래(1:1/1:N/N:1), 차액(+/-), 오늘 직교환(이벤트 근처) 입력 화면 추가</td></tr>
+      <tr><td>2026-03-10</td><td>0.6</td><td>COMM01/COMM02 공통 디자인 토큰 반영(컬러/텍스트/보더/버튼/배지 스타일 정합화)</td></tr>
+      <tr><td>2026-03-10</td><td>0.5</td><td>받은 제안 패널과 본인 액션 CTA 동시 노출 구조로 설명 문구 정합성 보정</td></tr>
+      <tr><td>2026-03-10</td><td>0.4</td><td>교환글 수정 잠금 기준 강화: pending 기준 → 제안 이력 전체(상태 무관) 기준으로 변경</td></tr>
+      <tr><td>2026-03-10</td><td>0.3</td><td>받은 제안 이력 기반 수정 잠금 정책(본인 글 CTA 비활성 + 안내 문구) 반영</td></tr>
       <tr><td>2026-03-06</td><td>0.2</td><td>HOME01 패턴 적용: 메타바 표준화, 다중 phone frame 수직 배치, 설명 패널 flat list 구조</td></tr>
       <tr><td>2026-03-06</td><td>0.1</td><td>초안 작성</td></tr>
     </tbody>

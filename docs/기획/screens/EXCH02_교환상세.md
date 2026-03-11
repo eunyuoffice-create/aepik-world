@@ -8,9 +8,9 @@
 | **화면명** | 교환 상세 |
 | **라우트** | /exchange/[id] |
 | **이용자** | PC / Mobile |
-| **버전** | 0.2 |
+| **버전** | 0.9 |
 | **작성일** | 2026-03-06 |
-| **상태** | 초안 |
+| **상태** | 확정 |
 
 ---
 
@@ -85,9 +85,11 @@
 ### ⑨ 하단 고정 CTA
 - 좌측: `Heart` 찜 버튼 (토글, 찜 수 표시)
 - 중앙: `MessageCircle` 채팅하기 (판매자와 1:1 채팅 시작)
-- 우측: `Repeat` 교환 제안 (내 매물 선택하여 교환 제안)
+- 우측: `Repeat` 교환 제안 (EXCH04 전용 페이지 이동)
 - 비로그인 시: 로그인 유도
 - 본인 글일 경우: [수정] [끌어올리기] [삭제] 표시
+  - 단, 받은 제안 이력이 1건 이상(상태 무관)이면 [수정] 비활성
+  - 안내 문구: "받은 제안 이력이 있어 수정할 수 없어요. 제안이 한 번이라도 도착한 글은 수정할 수 없어요."
 
 ---
 
@@ -114,6 +116,10 @@
 | extra_condition | string | 추가 조건 (nullable) |
 | user | object | 등록자 {id, nickname, avatar, trust_level, rating, trades, last_active} |
 | status | string | 상태 (active/completed/hidden) |
+| pending_proposal_count | number | 대기중 제안 수 (본인 글일 때) |
+| proposal_history_count | number | 누적 받은 제안 수 (본인 글일 때, 수정 잠금 판단용) |
+| can_propose_by_listing | boolean | 내 교환글 매칭 제안 가능 여부 |
+| can_propose_by_manual | boolean | 빠른 제안 등록 가능 여부 |
 | view_count | number | 조회수 |
 | wish_count | number | 찜 수 |
 | is_wished | boolean | 현재 사용자 찜 여부 |
@@ -130,10 +136,19 @@
 | 3 | 비공개 상태 | 본인만 접근 가능, 타인 접근 시 "존재하지 않는 교환글" 표시 |
 | 4 | 차단 사용자 | 차단한 사용자의 글 접근 시 "차단된 사용자의 게시글" 표시 |
 | 5 | 조회수 | 같은 사용자 하루 1회만 카운트 |
-| 6 | 교환 제안 | 내 등록 매물 중 하나를 선택하여 제안 (바텀시트) |
-| 7 | 교환 제안 제한 | 같은 글에 1인 최대 3건까지 제안 가능 |
+| 6 | 교환 제안 | EXCH04(교환 제안 전용 페이지)로 이동 후 제안 작성 |
+| 7 | 교환 제안 제한 | 같은 글에 동시 pending 최대 3건 + 재시도 제한(24시간 3회 / 7일 6회) |
 | 8 | 제안 자동 만료 | 미응답 7일 경과 시 자동 만료 |
 | 9 | 수락 시 다른 제안 자동 거절 | 하나의 제안 수락 시 나머지 pending 제안은 자동 거절 ('다른 분과 진행합니다') |
+| 10 | 수정 잠금 정책 | 본인 글에 받은 제안 이력 1건 이상(상태 무관)이면 수정 불가 + 안내 문구 노출 |
+| 11 | 제안 방식 2종 | `listing`(내 교환글 매칭) / `manual`(빠른 제안 등록) 지원 |
+| 12 | 빠른 제안 등록 정책 | 빠른 제안은 임시 제안 데이터로 저장되며 공개 교환글 자동 생성 없음 |
+| 13 | 다수거래 지원 | 제안 단위에서 `1:1` / `1:N` / `N:1` 및 수량 입력 지원 |
+| 14 | 차액 제안 | 제안 단위에서 `+/- 금액` 입력 가능 (최종 확정은 채팅에서 협의) |
+| 15 | 오늘 직교환 옵션 | 이벤트 당일 한정으로 시간대+대략 위치(역/랜드마크) 입력 가능, 수락 후 채팅 상단 배너 노출 |
+| 16 | 제안 액션 권한 | `accept/reject`는 등록자만, `cancel`은 제안자만 가능 |
+| 17 | 제안 상태 전이 | `pending`에서만 상태 변경 허용, `accepted/rejected/cancelled/expired`는 종단 상태 |
+| 18 | 동시성 제어 | `accept`는 트랜잭션으로 단일 성공 보장, 동시 요청 실패 시 409 반환 |
 
 ---
 
@@ -149,24 +164,20 @@
 
 ---
 
-### ⑩ 교환 제안 바텀시트 (상세)
+### ⑩ 교환 제안 페이지 진입 (EXCH04)
 
 **동작:**
-- 기존 ⑨번의 "교환 제안" 버튼 탭 시 오픈
-- 내 등록 매물 목록에서 제안할 굿즈 선택 (라디오)
-
-**구성 요소:**
-- 각 매물: 대표 이미지 + 상품명 + 상태등급 + 작품/캐릭터
-- 선택 후 [교환 제안 보내기] 버튼
-- 이미 제안한 매물은 "제안 중" 뱃지 표시, 재제안 불가
-- 메시지 첨부 가능 (선택, 100자 이내): "차액 3천원 가능합니다" 등
+- 기존 ⑨번의 "교환 제안" 버튼 탭 시 EXCH04로 이동
+- EXCH04에서 제안 방식 선택 (`내 교환글 매칭` / `빠른 제안 등록`) 및 조건 입력 후 전송
+- 본 화면(EXCH02)에서는 제안 작성 폼을 직접 제공하지 않고 진입 CTA만 제공
 
 ---
 
 ### ⑪ 받은 제안 패널 (본인 글일 경우)
 
 **표시 조건:**
-- 본인 교환글 상세 접속 시 CTA 대신 "받은 제안" 패널 표시
+- 본인 교환글 상세 접속 시 교환 제안 CTA 대신 "받은 제안" 패널 표시 + 하단 본인 액션 CTA([수정/끌어올리기/삭제]) 노출
+- 받은 제안 이력이 1건 이상(상태 무관)이면 하단 본인 CTA의 [수정] 비활성 상태 유지
 
 **구성 요소:**
 - 제안 카운트 뱃지: "받은 제안 3건"
@@ -195,9 +206,9 @@
 |------|------|------------|------------|
 | pending | 제안 대기 | "제안 중" 뱃지 | 받은 제안 목록에 표시 |
 | accepted | 수락됨 | "수락됨" + 채팅 이동 | 교환 진행 시작 |
-| rejected | 거절됨 | "거절됨" + 사유(있는 경우) | 목록에서 제거 |
-| cancelled | 제안 취소 | 취소 완료 | 목록에서 제거 |
-| expired | 만료 | 자동 만료 (7일) | 목록에서 제거 |
+| rejected | 거절됨 | "거절됨" + 사유(있는 경우) | 받은 제안 목록에 상태 배지로 표시(액션 비활성) |
+| cancelled | 제안 취소 | 취소 완료 | 받은 제안 목록에 상태 배지로 표시(액션 비활성) |
+| expired | 만료 | 자동 만료 (7일) | 받은 제안 목록에 상태 배지로 표시(액션 비활성) |
 
 ---
 
@@ -209,7 +220,17 @@
 
 | 필드 | 타입 | 필수 | 설명 |
 |------|------|------|------|
-| my_exchange_id | string | O | 내 교환글 ID (제안할 굿즈) |
+| proposal_mode | string | O | `listing` / `manual` |
+| my_exchange_id | string | 조건부 | 내 교환글 ID (`proposal_mode=listing`) |
+| manual_offer.images | string[] | 조건부 | 임시 제안 이미지 (최대 3장, `proposal_mode=manual`) |
+| manual_offer.title | string | 조건부 | 임시 제안 굿즈명 |
+| manual_offer.condition | string | 조건부 | S / A / B / C |
+| manual_offer.quantity | number | 조건부 | 임시 제안 수량 |
+| trade_structure | string | O | `one_to_one` / `one_to_many` / `many_to_one` |
+| offer_quantity | number | O | 제안자가 제공할 수량 |
+| want_quantity | number | O | 제안자가 희망하는 수량 |
+| cash_adjustment | object | X | {enabled, direction(+/-), amount} |
+| instant_meetup | object | X | {enabled, event_name, time_window, meetup_spot} |
 | message | string | X | 첨부 메시지 (100자) |
 
 ---
@@ -225,6 +246,12 @@
 | action | string | O | accept / reject / cancel |
 | reject_reason | string | X | 거절 사유 |
 
+**서버 검증 규칙:**
+- `action=accept/reject`: 등록자(owner)만 가능
+- `action=cancel`: 제안자(proposer)만 가능
+- 현재 상태가 `pending`일 때만 처리
+- `accept` 동시 요청 시 최초 1건만 성공, 나머지는 충돌(`409`) 처리
+
 ---
 
 ### API: GET /api/exchange/[id]/proposals
@@ -237,7 +264,14 @@
 |------|------|------|
 | id | string | 제안 ID |
 | proposer | object | 제안자 {id, nickname, avatar, trust_level, rating} |
-| my_exchange | object | 제안할 굿즈 {id, title, image, condition, work, character} |
+| proposal_mode | string | `listing` / `manual` |
+| offered_exchange | object | 제안할 굿즈(매칭 제안) {id, title, image, condition, work, character} (nullable) |
+| manual_offer | object | 임시 제안 굿즈 {images, title, condition, quantity} (nullable) |
+| trade_structure | string | `one_to_one` / `one_to_many` / `many_to_one` |
+| offer_quantity | number | 제안자 제공 수량 |
+| want_quantity | number | 제안자 희망 수량 |
+| cash_adjustment | object | {enabled, direction, amount} |
+| instant_meetup | object | {enabled, event_name, time_window, meetup_spot} |
 | message | string | 첨부 메시지 |
 | status | string | pending / accepted / rejected / cancelled / expired |
 | reject_reason | string | 거절 사유 (nullable) |
@@ -255,13 +289,16 @@
 | 4 | 작품명 탭 | 해당 작품 필터 목록(EXCH01) | work_id 파라미터 |
 | 5 | `Heart` 탭 | 찜 토글 | 즉시 반영, 카운트 업데이트 |
 | 6 | `MessageCircle` 탭 | 채팅방 생성/이동 | CHAT02 |
-| 7 | `Repeat` 탭 | 교환 제안 바텀시트 | 내 매물 선택 |
-| 8 | 판매자 영역 탭 | 타인 프로필 이동 | USER03 |
-| 9 | 공유 탭 | 공유 시트 (카카오톡/URL 복사/트위터) | |
-| 10 | ⋯ > 신고 | 신고 바텀시트 | 사유 선택 |
-| 11 | 받은 제안 탭 | 제안 목록 확장 or EXCH05 이동 | 본인 글만 |
-| 12 | 제안 수락 | 확인 모달 → 채팅방 생성 → 진행 시작 | 알림 발송 |
-| 13 | 제안 거절 | 사유 선택 → 제안자 알림 | 선택사항 |
+| 7 | `Repeat` 탭 | EXCH04(교환 제안 페이지)로 이동 | 대상 글 id 전달 |
+| 8 | EXCH04에서 제안 발송 완료 후 복귀 | 완료 토스트 + EXCH05 반영 확인 | 선택 |
+| 9 | 판매자 영역 탭 | 타인 프로필 이동 | USER03 |
+| 10 | 공유 탭 | 공유 시트 (카카오톡/URL 복사/트위터) | |
+| 11 | ⋯ > 신고 | 신고 바텀시트 | 사유 선택 |
+| 12 | 받은 제안 탭 | 제안 목록 확장 or EXCH05 이동 | 본인 글만 |
+| 13 | 제안 수락 (등록자 + pending) | 확인 모달 → 채팅방 생성 → 진행 시작 | 알림 발송 |
+| 14 | 제안 거절 (등록자 + pending) | 사유 선택 → 제안자 알림 | 선택사항 |
+| 15 | 제안 취소 (제안자 + pending) | 취소 처리 후 상태 갱신 | EXCH05 보낸 제안 연동 |
+| 16 | 본인 글 `수정` 탭 (proposal_history_count≥1) | 수정 불가 안내 문구/토스트 노출 | EXCH03 진입 차단 |
 
 ---
 
@@ -270,12 +307,14 @@
 | 이동 대상 | 조건 | 화면코드 |
 |----------|------|---------|
 | 교환 목록 | ← 뒤로가기 | EXCH01 |
-| 교환글 등록(수정) | 본인 글 수정 | EXCH03 |
+| 교환글 등록(수정) | 본인 글 수정 (받은 제안 이력 0건) | EXCH03 |
+| 교환 제안 작성 | `Repeat` 탭 | EXCH04 |
 | 채팅방 | `MessageCircle` 탭 | CHAT02 |
 | 타인 프로필 | 판매자 영역 탭 | USER03 |
 | 이미지 뷰어 | 이미지 탭 | 모달 |
 | 로그인 | 비로그인 + CTA | AUTH01 |
 | 교환 신청함 | 받은 제안 탭 | EXCH05 |
+| 이벤트 상세 | 오늘 직교환 옵션에서 이벤트 확인 | EVNT02 |
 
 ---
 
@@ -283,5 +322,12 @@
 
 | 날짜 | 버전 | 내용 | 작성자 |
 |------|------|------|--------|
+| 2026-03-11 | 0.9 | 제안 상태 전이/권한 검증 명세 추가, 동시성 제어(accept 단일 성공) 및 상태 표시 정책(취소/만료 포함) 정합화 | - |
+| 2026-03-11 | 0.8 | 교환 제안 전용 화면(EXCH04) 진입 구조로 변경: EXCH02는 CTA 진입만 담당하도록 정합화 | - |
+| 2026-03-10 | 0.7 | 교환 제안 확장: 내 글 매칭/빠른 제안 등록 2종, 다수거래(1:N/N:1), 차액 제안, 오늘 직교환(이벤트 근처) 옵션 추가 | - |
+| 2026-03-10 | 0.6 | COMM01/COMM02 공통 디자인 토큰/컴포넌트 기준으로 상세 화면 스타일 정합화 반영 | - |
+| 2026-03-10 | 0.5 | 본인 글 상세에서 받은 제안 패널 + 본인 CTA 동시 노출 구조로 문구 정합성 보정 | - |
+| 2026-03-10 | 0.4 | 수정 잠금 기준을 pending에서 제안 이력 전체(상태 무관)로 강화 | - |
+| 2026-03-10 | 0.3 | 받은 제안 이력 기반 수정 잠금 정책(초안) 추가 | - |
 | 2026-03-06 | 0.2 | 교환 제안 관리 시스템 추가 (⑩⑪ 섹션, API 스펙, 상태 관리) | - |
 | 2026-03-06 | 0.1 | 초안 작성 | - |
