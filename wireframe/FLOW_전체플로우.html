@@ -160,7 +160,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 
 <div class="header-bar">
   <h1><span>애픽 월드</span> Aepik World — 유저 플로우 개요</h1>
-  <div class="meta">v1.18 · 기반: PRD v5.0 · 2026-03-11</div>
+  <div class="meta">v1.28 · 기반: PRD v5.0 · 2026-03-12</div>
 </div>
 
 <div class="flow-nav">
@@ -172,7 +172,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   <a href="#flow6">6. 공구</a>
   <a href="#flow7">7. 동행 구함</a>
   <a href="#flow8">8. 이벤트</a>
-  <a href="#flow9">9. 이벤트 배너 & 팝업</a>
+  <a href="#flow9">9. 이벤트 배너 &amp; 팝업</a>
   <a href="#flow10">10. 채팅</a>
   <a href="#flow11">11. 마이</a>
   <a href="#flow12">12. 알림</a>
@@ -233,7 +233,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
     <div class="flow-header" onclick="this.parentElement.classList.toggle('expanded')">
       <div class="flow-num">2</div>
       <span class="flow-title">로그인 [AUTH01]</span>
-      <span class="flow-desc">카카오 OAuth / 이메일 로그인 / 비밀번호 찾기</span>
+      <span class="flow-desc">카카오 OAuth / 이메일 로그인 / 비밀번호 찾기 / JIT 본인인증</span>
       <span class="flow-toggle">▼</span>
     </div>
     <div class="flow-body">
@@ -319,6 +319,38 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         </div>
       </div>
 
+      <h4 style="font-size: 13px; color: #69BFEA; margin: 20px 0 12px;">2-4. 본인인증 유도 바텀시트 (JIT)</h4>
+      <div class="flow-diagram">
+        <div class="flow-node decision">로그인 + 미인증 상태에서 거래성 액션 시도</div>
+        <div class="flow-arrow-label">교환/공구/동행 등록·신청, 휴면 해제</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-node page">본인인증 유도 바텀시트 (AUTH01-E)</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-branch">
+          <div class="flow-branch-path">
+            <div class="branch-label">인증하기</div>
+            <div class="flow-node action">PortOne 본인인증 팝업</div>
+            <div class="flow-arrow"></div>
+            <div class="flow-node decision">성공?</div>
+            <div class="flow-arrow"></div>
+            <div class="flow-branch" style="padding-top:8px;">
+              <div class="flow-branch-path">
+                <div class="branch-label">성공</div>
+                <div class="flow-node end" style="min-width:120px;">인증 완료 뱃지<br>원래 액션 복귀</div>
+              </div>
+              <div class="flow-branch-path">
+                <div class="branch-label">실패</div>
+                <div class="flow-node process" style="min-width:120px;">실패 사유 안내<br>재시도</div>
+              </div>
+            </div>
+          </div>
+          <div class="flow-branch-path">
+            <div class="branch-label">나중에</div>
+            <div class="flow-node process" style="min-width:120px;">시트 닫기<br>기능 제한 유지</div>
+          </div>
+        </div>
+      </div>
+
       <div class="flow-note">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px;"><rect x="3" y="11" width="14" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         <strong>특수 상태</strong>: 휴면 계정 → 휴면 해제 팝업 + 본인인증 / 정지 계정 → 정지 안내 + 사유 + 해제일 / OAuth 에러 → 에러 페이지 + 재시도
@@ -329,7 +361,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   <!-- FLOW 3: 회원가입 -->
   <div class="flow-section" id="flow3">
     <div class="flow-header" onclick="this.parentElement.classList.toggle('expanded')">
-      <div class="flow-num">4</div>
+      <div class="flow-num">3</div>
       <span class="flow-title">회원가입 [AUTH02]</span>
       <span class="flow-desc">4단계 가입 + 카카오 경유 시 Step 2 생략</span>
       <span class="flow-toggle">▼</span>
@@ -383,6 +415,23 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       <div class="flow-diagram">
         <div class="flow-node page">홈 화면 (HOME01)</div>
         <div class="flow-arrow"></div>
+        <div class="flow-node decision">로그인/관심 카테고리 상태</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-branch">
+          <div class="flow-branch-path">
+            <div class="branch-label">로그인 + 관심 카테고리 있음</div>
+            <div class="flow-node process" style="min-width:170px; font-size:11px;">관심 카테고리 우선 노출<br>섹션 기본 정렬 유지</div>
+          </div>
+          <div class="flow-branch-path">
+            <div class="branch-label">로그인 + 미선택</div>
+            <div class="flow-node process" style="min-width:170px; font-size:11px;">기본 랭킹(인기순) 노출<br>카테고리 설정 유도</div>
+          </div>
+          <div class="flow-branch-path">
+            <div class="branch-label">비로그인</div>
+            <div class="flow-node process" style="min-width:160px; font-size:11px;">개인화 미적용<br>최신순/인기순 기본</div>
+          </div>
+        </div>
+        <div class="flow-arrow" style="margin-top: 16px;"></div>
         <div style="display:flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
           <div class="flow-node process" style="min-width:140px; font-size:12px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> 검색바 탭<br>→ SRCH01</div>
           <div class="flow-node process" style="min-width:140px; font-size:12px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg> 배너 탭<br>→ 관련 매물 목록</div>
@@ -468,7 +517,16 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <div class="flow-arrow"></div>
         <div class="flow-node page">교환 상세 확인 (EXCH02)</div>
         <div class="flow-arrow"></div>
-        <div class="flow-node action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> 채팅방 개설</div>
+        <div class="flow-branch">
+          <div class="flow-branch-path">
+            <div class="branch-label">거래 진행</div>
+            <div class="flow-node action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> 채팅방 개설</div>
+          </div>
+          <div class="flow-branch-path">
+            <div class="branch-label">공유</div>
+            <div class="flow-node action" style="font-size:11px;">공유 시트<br>링크복사/시스템공유(Web Share API, 지원 시)</div>
+          </div>
+        </div>
         <div class="flow-arrow"></div>
         <div class="flow-node process">조건 협의 (수량, 차액, 거래방식)</div>
         <div class="flow-arrow"></div>
@@ -564,7 +622,8 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg> <strong>수정/삭제 잠금 정책</strong>: 본인 글에 받은 제안 이력이 1건 이상(상태 무관)이면 수정/삭제 불가<br>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M12 20h9"/><path d="M12 4h9"/><path d="M3 10h18"/><path d="M3 14h18"/><path d="M7 4v16"/></svg> <strong>상태 전이/권한</strong>: owner만 수락·거절, proposer만 취소, 변경은 pending에서만 허용<br>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg> <strong>재제안(다시 제안하기)</strong>: 거절/만료 + 상대글 active + pending 3건 미만 → EXCH04 프리필 재진입 / 상대글 마감 시 버튼 숨김 + 안내<br>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> <strong>교환글 마감 시 자동 처리</strong>: 교환글 closed/completed 전환 시 남은 pending 제안 일괄 expired + 각 제안자에게 마감 알림
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> <strong>교환글 마감 시 자동 처리</strong>: 교환글 closed/completed 전환 시 남은 pending 제안 일괄 expired + 각 제안자에게 마감 알림<br>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> <strong>상세 공유 정책</strong>: 링크 복사(기본) + 시스템 공유(Web Share API, 지원 시), 실패 시 링크 복사 fallback, hidden/삭제 글 공유 URL 차단
       </div>
 
       <h4 style="font-size: 13px; color: #69BFEA; margin: 20px 0 12px;">4-3a. 교환 목록 내 글 액션 (EXCH01)</h4>
@@ -725,6 +784,10 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <div class="flow-node end" style="min-width:100px;">선점 완료</div>
         </div>
       </div>
+      <div class="flow-note" style="margin-top:10px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <strong>GRPB02 공유</strong>: 상세 헤더 공유 시트(링크복사/시스템공유(Web Share API, 지원 시)) 제공, 실패 시 링크 복사 fallback
+      </div>
 
       <h4 style="font-size: 13px; color: #69BFEA; margin: 20px 0 12px;">5-3. 공구 진행 결정 & 무산 (v0.2 업데이트)</h4>
       <div class="flow-diagram">
@@ -777,7 +840,8 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       <div class="flow-note">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <strong>자동 무산 타이머</strong>: D+0 진행 결정 대기 진입 → D+1 리마인더 → D+3 경고 → D+5 자동 무산 처리<br>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> <strong>환불</strong>: 무산 시 참여자에게 환불 안내 (채팅방 통해 진행자와 소통)<br>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4Z"/></svg> <strong>수정 잠금</strong>: 참여/입금 이력 1건 이상이면 핵심 조건 수정 차단, 상세 설명/공지만 수정 허용
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4Z"/></svg> <strong>수정 잠금</strong>: 참여/입금 이력 1건 이상이면 핵심 조건 수정 차단, 상세 설명/공지만 수정 허용<br>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9"/><path d="M16 3h5v5"/></svg> <strong>상태 전이 제한</strong>: 무산(`cancelled`)은 `pending_decision`에서만 허용, `confirmed` 이후 무산/취소 불가
       </div>
 
       <h4 style="font-size: 13px; color: #69BFEA; margin: 20px 0 12px;">5-6. 공구 자동 무산 타이머</h4>
@@ -843,6 +907,94 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           </div>
         </div>
       </div>
+
+      <h4 style="font-size: 13px; color: #69BFEA; margin: 20px 0 12px;">5-8. 공구 참여자 중도 불참(취소 요청)</h4>
+      <div class="flow-diagram">
+        <div class="flow-node page">공구 상세 (GRPB02)<br>참여자 "취소 요청"</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-node decision">현재 공구 상태?</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-branch">
+          <div class="flow-branch-path">
+            <div class="branch-label">모집중</div>
+            <div class="flow-node action" style="font-size:11px;">즉시 취소 처리<br>인원/선점 복원</div>
+          </div>
+          <div class="flow-branch-path">
+            <div class="branch-label">진행 결정 대기</div>
+            <div class="flow-node process" style="font-size:11px;">cancel_requested<br>승인/거절 대기</div>
+          </div>
+          <div class="flow-branch-path">
+            <div class="branch-label">진행 확정</div>
+            <div class="flow-node process" style="font-size:11px;">미입금: 승인 가능<br>입금완료: refund_pending</div>
+          </div>
+          <div class="flow-branch-path">
+            <div class="branch-label">배송/완료</div>
+            <div class="flow-node end" style="background:#FFEBEE; border-color:#E91E63; color:#C62828; font-size:11px;">취소 불가<br>분쟁/신고 안내</div>
+          </div>
+        </div>
+        <div class="flow-arrow" style="margin-top: 16px;"></div>
+        <div class="flow-node page">공구 관리 (GRPB04)<br>취소요청 큐</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-branch">
+          <div class="flow-branch-path">
+            <div class="branch-label">취소 승인</div>
+            <div class="flow-node action" style="font-size:11px;">cancelled 또는<br>refund_pending</div>
+          </div>
+          <div class="flow-branch-path">
+            <div class="branch-label">취소 거절</div>
+            <div class="flow-node process" style="font-size:11px;">cancel_rejected<br>(사유 필수)</div>
+          </div>
+          <div class="flow-branch-path">
+            <div class="branch-label">환불 완료</div>
+            <div class="flow-node end" style="font-size:11px;">refund_completed</div>
+          </div>
+        </div>
+      </div>
+      <div class="flow-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4Z"/></svg> <strong>처리 이력</strong>: 취소 요청/승인/거절/환불완료는 모두 채팅 시스템 메시지 + 감사로그로 저장<br>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> <strong>SLA</strong>: 취소 요청은 24시간 내 처리 권장, D+1 미처리 시 진행자 리마인더
+      </div>
+
+      <h4 style="font-size: 13px; color: #69BFEA; margin: 20px 0 12px;">5-9. 세트 공구 보정 수령(밀어내기)</h4>
+      <div class="flow-diagram">
+        <div class="flow-node decision">세트 공구 + 보정 수령 ON?</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-node decision">fallback 슬롯 미달 발생?</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-node page">공구 관리 (GRPB04)<br>보정 시뮬레이션</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-branch">
+          <div class="flow-branch-path">
+            <div class="branch-label">선택 우선</div>
+            <div class="flow-node process" style="font-size:11px;">참여자 선택 수집<br>미응답 자동배정</div>
+          </div>
+          <div class="flow-branch-path">
+            <div class="branch-label">자동 배정</div>
+            <div class="flow-node process" style="font-size:11px;">라운드로빈 배정안 생성<br>(1인 최대 +1 상한)</div>
+          </div>
+        </div>
+        <div class="flow-arrow" style="margin-top: 16px;"></div>
+        <div class="flow-node action">[배정 확정]</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-node decision">잔여 미달 발생?</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-branch">
+          <div class="flow-branch-path">
+            <div class="branch-label">없음</div>
+            <div class="flow-node end" style="font-size:11px;">추가 배정 고정 + 시스템 메시지/공지 + 감사로그</div>
+          </div>
+          <div class="flow-branch-path">
+            <div class="branch-label">있음</div>
+            <div class="flow-node process" style="font-size:11px;">rebalance_failed_partial<br>후속 처리 선택</div>
+            <div class="flow-arrow"></div>
+            <div class="flow-node end" style="font-size:11px;">추가 모집 / 진행자 부담 / 무산</div>
+          </div>
+        </div>
+      </div>
+      <div class="flow-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M3 3h18v18H3z"/><path d="M8 8h8"/><path d="M8 12h8"/><path d="M8 16h5"/></svg> <strong>사전 고지</strong>: GRPB03에서 설정한 보정 규칙을 GRPB02 참여 바텀시트에 동의 체크로 노출
+        <br><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> <strong>상한 정책</strong>: 보정 배정은 참여자 1인당 최대 +1까지만 허용, 잔여 미달은 후속 처리 필수
+      </div>
     </div>
   </div>
 
@@ -851,7 +1003,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
     <div class="flow-header" onclick="this.parentElement.classList.toggle('expanded')">
       <div class="flow-num">7</div>
       <span class="flow-title">동행글 플로우</span>
-      <span class="flow-desc">등록 → 상세 열람 → 자동 매칭 알림</span>
+      <span class="flow-desc">등록 → 상세 열람 → 작성자 관리 → 자동 매칭 알림</span>
       <span class="flow-toggle">▼</span>
     </div>
     <div class="flow-body">
@@ -869,7 +1021,16 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <div class="flow-arrow"></div>
         <div class="flow-node process" style="min-width:180px;">동행 카드 리스트<br>(상태뱃지 + D-day + 모집 N/M명)</div>
         <div class="flow-arrow"></div>
-        <div class="flow-node action">카드 탭 → 동행 상세 페이지 (WANT02)</div>
+        <div class="flow-branch">
+          <div class="flow-branch-path">
+            <div class="branch-label">공통</div>
+            <div class="flow-node action">카드 탭 → 동행 상세 페이지 (WANT02)</div>
+          </div>
+          <div class="flow-branch-path">
+            <div class="branch-label">내 동행(작성 글)</div>
+            <div class="flow-node action" style="font-size:11px;">"관리하기" 탭<br>→ 동행 관리 (WANT03)</div>
+          </div>
+        </div>
       </div>
 
       <h4 style="font-size: 13px; color: #69BFEA; margin: 20px 0 12px;">7-2. 동행 상세 페이지 (WANT02)</h4>
@@ -883,9 +1044,10 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         </div>
         <div class="flow-arrow"></div>
         <div style="display:flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
-          <div class="flow-node process" style="min-width:120px; font-size:11px;">동행 정보<br>(일시/장소/미니맵)</div>
-          <div class="flow-node process" style="min-width:120px; font-size:11px;">모집 현황<br>(프로그레스 바)</div>
+          <div class="flow-node process" style="min-width:120px; font-size:11px;">동행 정보<br>(일시/장소 텍스트)</div>
+          <div class="flow-node process" style="min-width:120px; font-size:11px;">모집 현황<br>(프로그레스 바 + 신청자 미리보기)</div>
           <div class="flow-node process" style="min-width:120px; font-size:11px;">상세 설명<br>+ 작성자 정보</div>
+          <div class="flow-node action" style="min-width:120px; font-size:11px;">공유 시트<br>링크복사/시스템공유(Web Share API, 지원 시)</div>
         </div>
         <div class="flow-arrow"></div>
         <div class="flow-branch">
@@ -904,13 +1066,14 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           </div>
           <div class="flow-branch-path">
             <div class="branch-label">본인 글</div>
-            <div class="flow-node action" style="font-size:11px;">끌어올리기 / 수정(신청이력 0건)<br>/ 마감 / 삭제</div>
+            <div class="flow-node action" style="font-size:11px;">끌어올리기 / 수정(신청이력 0건)<br>/ 관리하기(WANT03)</div>
           </div>
         </div>
       </div>
       <div class="flow-note" style="margin-top: 10px;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        <strong>동행 수정 잠금</strong>: 신청 이력 1건 이상(상태 무관)이면 핵심 조건(일시/장소/모집인원) 수정 차단, 안내 문구 노출
+        <strong>동행 수정 잠금</strong>: 신청 이력 1건 이상(상태 무관)이면 핵심 조건(일시/장소/모집인원) 수정 차단, 안내 문구 노출<br>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> <strong>WANT02 공유</strong>: 링크 복사(기본) + 시스템 공유(Web Share API, 지원 시), 실패 시 링크 복사 fallback
       </div>
 
       <h4 style="font-size: 13px; color: #69BFEA; margin: 20px 0 12px;">7-2a. 동행 신청 다이얼로그</h4>
@@ -927,17 +1090,73 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <div class="flow-branch">
               <div class="flow-branch-path">
                 <div class="branch-label" style="font-size:9px;">미인증</div>
-                <div class="flow-node action" style="font-size:11px;">본인인증 유도<br>→ 2-2 인증 플로우</div>
+                <div class="flow-node action" style="font-size:11px;">본인인증 유도<br>→ 2-4 인증 플로우</div>
               </div>
               <div class="flow-branch-path">
                 <div class="branch-label" style="font-size:9px;">인증 완료</div>
                 <div class="flow-node page" style="min-width:150px; font-size:11px;">센터 다이얼로그<br>(한줄 메시지 입력, 선택)</div>
                 <div class="flow-arrow"></div>
-                <div class="flow-node end" style="font-size:11px;">신청 완료 토스트<br>→ 작성자 수락 시 채팅방 생성</div>
+                <div class="flow-node end" style="font-size:11px;">신청 완료 토스트<br>→ 작성자 수락 시 채팅방 생성<br>(연락처는 비공개 유지)</div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+
+      <h4 style="font-size: 13px; color: #69BFEA; margin: 20px 0 12px;">7-2b. 동행 관리 페이지 (WANT03)</h4>
+      <div class="flow-diagram">
+        <div class="flow-node start">WANT02/USER02 "관리하기" 탭</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-node page" style="min-width:170px;">동행 관리 (WANT03)<br>/companion/manage/[id]</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-branch">
+          <div class="flow-branch-path">
+            <div class="branch-label">작성자 본인</div>
+            <div class="flow-node process" style="font-size:11px;">신청자 필터 탭<br>전체/대기/수락/거절/취소</div>
+            <div class="flow-arrow"></div>
+            <div class="flow-node action" style="font-size:11px;">대기 신청 처리<br>수락 / 거절</div>
+            <div class="flow-arrow"></div>
+            <div class="flow-node action" style="font-size:11px;">운영 액션<br>모집 마감 / 끌어올리기 / 삭제<br>/ 연락처 공유 요청</div>
+          </div>
+          <div class="flow-branch-path">
+            <div class="branch-label">비작성자</div>
+            <div class="flow-node end" style="font-size:11px;">권한 없음 (403)<br>→ WANT02 복귀</div>
+          </div>
+        </div>
+      </div>
+      <div class="flow-note" style="margin-top: 10px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M12 3v18"/><path d="M17 8H9a4 4 0 0 0 0 8h8"/></svg>
+        <strong>삭제 제한</strong>: 수락 이력 1건 이상이면 삭제 차단, 안내 토스트 노출
+      </div>
+
+      <h4 style="font-size: 13px; color: #69BFEA; margin: 20px 0 12px;">7-2c. 연락처 공유 상호 동의</h4>
+      <div class="flow-diagram">
+        <div class="flow-node start">전제: 동행 신청 수락 완료 + 양측 본인인증</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-node action">한쪽 사용자 "연락처 공유 요청"</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-node decision">상대방 응답?</div>
+        <div class="flow-arrow"></div>
+        <div class="flow-branch">
+          <div class="flow-branch-path">
+            <div class="branch-label">동의(accept)</div>
+            <div class="flow-node end" style="font-size:11px;">양측 연락처 공개<br>채팅방 시스템 메시지 기록</div>
+          </div>
+          <div class="flow-branch-path">
+            <div class="branch-label">거절(reject)</div>
+            <div class="flow-node process" style="font-size:11px;">비공개 유지<br>채팅으로만 조율</div>
+          </div>
+          <div class="flow-branch-path">
+            <div class="branch-label">무응답</div>
+            <div class="flow-node process" style="font-size:11px;">pending 유지<br>리마인더 표시</div>
+          </div>
+        </div>
+        <div class="flow-arrow" style="margin-top: 16px;"></div>
+        <div class="flow-node action" style="font-size:11px;">공유 완료 후 철회(revoke) 가능<br>→ 연락처 즉시 마스킹</div>
+      </div>
+      <div class="flow-note" style="margin-top: 10px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M12 3v18"/><path d="M17 8H9a4 4 0 0 0 0 8h8"/></svg>
+        <strong>상호 동의 원칙</strong>: 연락처는 자동 공개하지 않고, 양측 명시적 동의 완료 시에만 공개
       </div>
 
       <h4 style="font-size: 13px; color: #69BFEA; margin: 20px 0 12px;">7-3. 동행글 등록 (바텀시트)</h4>
@@ -954,7 +1173,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
             <div class="flow-branch">
               <div class="flow-branch-path">
                 <div class="branch-label" style="font-size:9px;">미인증</div>
-                <div class="flow-node action" style="font-size:11px;">본인인증 유도<br>→ 2-2 인증 플로우</div>
+                <div class="flow-node action" style="font-size:11px;">본인인증 유도<br>→ 2-4 인증 플로우</div>
               </div>
               <div class="flow-branch-path">
                 <div class="branch-label" style="font-size:9px;">인증 완료</div>
@@ -968,7 +1187,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
       </div>
 
       <div class="flow-note" style="margin-top: 12px;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> <strong>페이지 분리</strong>: 동행 상세는 독립 페이지(WANT02)로 분리, 동행 신청은 WANT02 내 센터 다이얼로그, 등록은 WANT01 내 바텀시트
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> <strong>페이지 분리</strong>: 동행 상세(WANT02) / 동행 관리(WANT03) 분리, 동행 신청은 WANT02 다이얼로그, 등록은 WANT01 바텀시트
       </div>
 
       <h4 style="font-size: 13px; color: #69BFEA; margin: 20px 0 12px;">7-4. 동행 매칭 알림</h4>
@@ -991,6 +1210,10 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           <div class="flow-branch-path">
             <div class="branch-label">신청/수락 이벤트</div>
             <div class="flow-node action" style="font-size:11px;">동행 신청 도착 알림<br>+ 수락 시 채팅방 생성</div>
+          </div>
+          <div class="flow-branch-path">
+            <div class="branch-label">연락처 공유 이벤트</div>
+            <div class="flow-node action" style="font-size:11px;">요청 도착 / 공유 완료 알림<br>→ 해당 채팅방 이동</div>
           </div>
         </div>
       </div>
@@ -1032,9 +1255,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
           </div>
           <div class="flow-branch-path">
             <div class="branch-label">지도 뷰</div>
-            <div class="flow-node process" style="font-size:11px;">카카오맵 전체 화면<br>카테고리 컬러 핀 + 클러스터</div>
-            <div style="text-align:center; color:#8EA2B7; font-size:11px; margin:4px 0;">↓ 핀 탭</div>
-            <div class="flow-node process" style="font-size:11px;">하단 시트 카드<br>이미지+이름+거리+[상세 보기]</div>
+            <div class="flow-node process" style="font-size:11px; opacity:0.5;">Phase 2 검토<br>지도 기반 이벤트 탐색</div>
           </div>
         </div>
         <div class="flow-arrow" style="margin-top: 16px;"></div>
@@ -1054,14 +1275,14 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
         <div class="flow-arrow"></div>
         <div class="hflow" style="flex-wrap:wrap; gap:8px;">
           <div class="flow-node process" style="min-width:120px; font-size:11px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 일정 정보<br>D-day 뱃지<br>[캘린더 추가]</div>
-          <div class="flow-node process" style="min-width:120px; font-size:11px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> 장소 정보<br>주소 복사<br>카카오맵 미니맵</div>
+          <div class="flow-node process" style="min-width:120px; font-size:11px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> 장소 정보<br>주소 복사</div>
           <div class="flow-node process" style="min-width:120px; font-size:11px;">상세 설명<br>(3줄 초과 → 더보기)<br>외부 링크</div>
           <div class="flow-node process" style="min-width:140px; font-size:11px;">관련 교환/공구<br>같은 작품+캐릭터 최대 4개<br>[더보기] → EXCH01/GRPB01</div>
         </div>
         <div class="flow-arrow"></div>
         <div class="hflow">
           <div class="flow-node action" style="min-width:110px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 찜<br>D-3/D-1 리마인더</div>
-          <div class="flow-node action" style="min-width:110px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> 공유<br>카카오/트위터/링크</div>
+          <div class="flow-node action" style="min-width:110px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> 공유<br>링크 복사(기본)</div>
         </div>
       </div>
       <div class="flow-note" style="margin-top:12px;">
@@ -1092,7 +1313,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   <div class="flow-section" id="flow9">
     <div class="flow-header" onclick="this.parentElement.classList.toggle('expanded')">
       <div class="flow-num">9</div>
-      <span class="flow-title">이벤트 배너 & 팝업 신청 플로우</span>
+      <span class="flow-title">이벤트 배너 &amp; 팝업 신청 플로우</span>
       <span class="flow-desc">배너/팝업 별도 신청 → 슬롯 예약 → 검수 → 게시</span>
       <span class="phase-tag p15">Phase 1.5</span>
       <span class="flow-toggle">▼</span>
@@ -1626,7 +1847,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   <div class="flow-section" id="flow15">
     <div class="flow-header" onclick="this.parentElement.classList.toggle('expanded')">
       <div class="flow-num">15</div>
-      <span class="flow-title">후기 작성 & 이의제기 플로우</span>
+      <span class="flow-title">후기 작성 &amp; 이의제기 플로우</span>
       <span class="flow-desc">교환/공구 완료 후 후기 작성 → 상대방 이의제기 가능</span>
       <span class="flow-toggle">▼</span>
     </div>
@@ -1711,7 +1932,17 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
 </div><!-- end canvas -->
 
 <div class="footer">
-  애픽 월드 (Aepik World) 유저 플로우 개요 v1.18 · 기반: PRD v5.0, 유저 플로우 v1.18 · 2026-03-11<br>
+  애픽 월드 (Aepik World) 유저 플로우 개요 v1.28 · 기반: PRD v5.0, 유저 플로우 v1.28 · 2026-03-12<br>
+  <strong>v1.28 업데이트 (2026-03-12)</strong>: HOME01 노출 알고리즘 분기 추가 - 로그인(관심 카테고리 우선) / 로그인 미선택(인기순 기본) / 비로그인(최신순·인기순 기본) 반영<br>
+  <strong>v1.27 업데이트 (2026-03-12)</strong>: 공유 정책 단순화 - 카카오/X 분기 제거, 링크 복사 중심(어디든 붙여넣기) + 시스템 공유(Web Share API, 지원 시)로 정합화<br>
+  <strong>v1.26 업데이트 (2026-03-12)</strong>: 교환/공구/동행 상세 공유 플로우 정합화 - 링크 복사 중심 공유 시트 및 실패 시 링크 복사 fallback 분기 반영<br>
+  <strong>v1.25 업데이트 (2026-03-11)</strong>: 동행 연락처 상호동의 정책 추가 - 7-2c 연락처 공유 요청/응답/철회 플로우와 알림 트리거 반영<br>
+  <strong>v1.24 업데이트 (2026-03-11)</strong>: WANT03 동행 관리 플로우 추가 - WANT02 본인 액션을 "관리하기"로 분리하고 신청자 수락/거절·마감·삭제 운영 동선을 독립 섹션(7-2b)으로 반영<br>
+  <strong>v1.23 업데이트 (2026-03-11)</strong>: 세트 공구 보정 수령 예외 정책 반영 - 참여자 1인 최대 +1 상한, 잔여 미달(`rebalance_failed_partial`) 후속 처리(추가모집/진행자부담/무산) 분기 추가<br>
+  <strong>v1.22 업데이트 (2026-03-11)</strong>: AUTH 플로우 정합화 - 본인인증 유도 바텀시트(2-4) 블록 추가, 동행 분기의 잘못된 "2-2 인증 플로우" 참조를 "2-4"로 수정, 로그인 섹션에 JIT 인증 분기 명시<br>
+  <strong>v1.21 업데이트 (2026-03-11)</strong>: 세트 공구 보정 수령(밀어내기) 플로우 추가 (GRPB03 규칙 설정, GRPB04 시뮬레이션/배정 확정)<br>
+  <strong>v1.20 업데이트 (2026-03-11)</strong>: 공구 참여자 중도 불참 플로우 추가 (GRPB02 취소요청 분기, GRPB04 승인/거절/환불완료 상태 반영)<br>
+  <strong>v1.19 업데이트 (2026-03-11)</strong>: 공구 상태 전이 정합화(status enum 통일), 진행 확정 후 무산/취소 금지 정책 반영<br>
   <strong>v1.18 업데이트 (2026-03-11)</strong>: 재제안(다시 제안하기) 플로우 추가, 교환글 마감 시 pending 제안 일괄 만료 자동 처리, 알림 딥링크에 교환글 마감 + 직교환 시간 만료 2건 추가<br>
   <strong>v1.17 업데이트 (2026-03-11)</strong>: 교환 제안 정책 보강(동시 pending 3건 + 재시도 제한 24시간 3회/7일 6회), EXCH05 상태 이력(cancelled) 표시, 상태 전이/권한(owner accept·reject / proposer cancel) 명시<br>
   <strong>v1.16 업데이트 (2026-03-11)</strong>: 끌어올리기 유료 금액 고정(500원/회) 반영, HOME01의 서비스 소개 · 운영정책 → STAT01(/about) 진입 플로우 추가<br>
@@ -1726,7 +1957,7 @@ body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background
   <strong>v1.7 업데이트 (2026-03-10)</strong>: 7-2 동행 상세 바텀시트 → WANT02 독립 페이지로 분리, 7-2a 동행 신청 다이얼로그 추가, 검색 딥링크 WANT02 반영<br>
   <strong>v1.6 업데이트 (2026-03-09)</strong>: 구함 → 동행 구함 기능 전환 (동행글, 동행 매칭, 동행 신청 플로우 반영)<br>
   <strong>v1.5 업데이트 (2026-03-07)</strong>: CHAT01 채팅 목록 + CHAT02 교환/공구 채팅 대화방 상세 플로우 추가 (거래 상태 배너 6단계, 확정/운송장/수취 카드 흐름)<br>
-  <strong>v1.4 업데이트 (2026-03-06)</strong>: EXCH05 교환 제안 관리 / 공구 자동 무산 타이머 / 동행글 상세 & 매칭 알림 / 신고 결과 처리 / 후기&이의제기 플로우 추가
+  <strong>v1.4 업데이트 (2026-03-06)</strong>: EXCH05 교환 제안 관리 / 공구 자동 무산 타이머 / 동행글 상세 &amp; 매칭 알림 / 신고 결과 처리 / 후기&amp;이의제기 플로우 추가
 </div>
 
 <script>

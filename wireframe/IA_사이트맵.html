@@ -210,7 +210,7 @@ body.compact-mode .child-item[style*="padding-left:16px"] { display: none; }
 
 <div class="header-bar">
   <h1><span>애픽 월드</span> Aepik World — IA 사이트맵</h1>
-  <div class="meta">v1.13 · 기반: PRD v5.0, IA v1.13 · 2026-03-11</div>
+  <div class="meta">v1.19 · 기반: PRD v5.0, IA v1.19 · 2026-03-12</div>
 </div>
 
 <div class="legend">
@@ -259,6 +259,7 @@ body.compact-mode .child-item[style*="padding-left:16px"] { display: none; }
           <div class="child-item"><div class="child-dot dot-p1"></div>인기 교환 (그리드)</div>
           <div class="child-item"><div class="child-dot dot-p1"></div>진행 중 공구</div>
           <div class="child-item"><div class="child-dot dot-p1"></div>동행글 모아보기</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 노출 규칙: 로그인(관심 카테고리 우선) / 비로그인(최신순·인기순 기본)</div>
         </div>
       </div>
 
@@ -273,6 +274,7 @@ body.compact-mode .child-item[style*="padding-left:16px"] { display: none; }
         <div class="section-children">
           <div class="child-item"><div class="child-dot dot-p1"></div>교환 목록 <span class="child-route">/exchange</span></div>
           <div class="child-item"><div class="child-dot dot-p1"></div>교환 상세 <span class="child-route">/exchange/[id]</span></div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 공유 시트: 링크 복사(기본)/시스템 공유(Web Share API, 지원 시) (실패 시 링크 복사)</div>
           <div class="child-item"><div class="child-dot dot-p1"></div><strong>EXCH04</strong> 교환 제안 <span class="child-route">/exchange/[id]/proposal</span></div>
           <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 제안 방식: 내 교환글 매칭(listing) / 새 제안 등록(manual)</div>
           <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 거래 구조: 1:1 / 1:N / N:1 + 제공/희망 수량 + 차액(+/-)</div>
@@ -297,6 +299,7 @@ body.compact-mode .child-item[style*="padding-left:16px"] { display: none; }
           <div class="child-item"><div class="child-dot dot-p1"></div>공구 목록 <span class="child-route">/group-buy</span></div>
           <div class="child-item"><div class="child-dot dot-p1"></div>공구 상세 (일반) <span class="child-route">/group-buy/[id]</span></div>
           <div class="child-item"><div class="child-dot dot-p1"></div>공구 상세 (세트) <span class="child-route">/group-buy/[id]</span></div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 공유 시트: 링크 복사(기본)/시스템 공유(Web Share API, 지원 시) (실패 시 링크 복사)</div>
           <div class="child-item"><div class="child-dot dot-p1"></div>공구 등록/수정 <span class="child-route">/group-buy/new?mode=create|edit</span></div>
           <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 유형 선택 (일반/세트)</div>
           <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ Step 1: 기본 정보</div>
@@ -318,7 +321,9 @@ body.compact-mode .child-item[style*="padding-left:16px"] { display: none; }
         <div class="section-route">/companion</div>
         <div class="section-children">
           <div class="child-item"><div class="child-dot dot-p1"></div><strong>WANT01</strong> 동행 구함 <span class="child-route">/companion</span> — 전체/내 동행 탭, 필터, 카드 리스트</div>
-          <div class="child-item"><div class="child-dot dot-p1"></div><strong>WANT02</strong> 동행 상세 <span class="child-route">/companion/[id]</span> — 동행글 정보 + 작성자 프로필 + 신청/채팅</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div><strong>WANT02</strong> 동행 상세 <span class="child-route">/companion/[id]</span> — 동행글 정보 + 작성자 프로필 + 신청/채팅 + 연락처 동의 다이얼로그 + 본인 관리 진입</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 공유 시트: 링크 복사(기본)/시스템 공유(Web Share API, 지원 시) (실패 시 링크 복사)</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div><strong>WANT03</strong> 동행 관리 <span class="child-route">/companion/manage/[id]</span> — 작성자 전용 신청자 수락/거절, 모집 마감/삭제, 연락처 공유 요청</div>
           <div class="child-item"><div class="child-dot dot-p1"></div>동행글 등록/수정 바텀시트 — 인라인 공용 폼 (별도 페이지 이동 없음)</div>
         </div>
       </div>
@@ -337,7 +342,7 @@ body.compact-mode .child-item[style*="padding-left:16px"] { display: none; }
           <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 캘린더 뷰 — 모바일: 날짜 스크롤러 / PC: 월간 그리드</div>
           <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 선택 날짜 리치 카드 (썸네일+유형+장소+시간)</div>
           <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 리스트 뷰 — 날짜별 그룹핑</div>
-          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 지도 뷰 — 카카오맵 + 클러스터</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 지도 뷰 — Phase 2 검토</div>
           <div class="child-item"><div class="child-dot dot-p15"></div><strong>EVNT03</strong> 이벤트 등록 <span class="child-route">/events/new</span></div>
           <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 카테고리 선택 + 이벤트 유형 + 작품/캐릭터 검색 + 날짜/장소/이미지 입력</div>
           <div class="child-item"><div class="child-dot dot-p15"></div><strong>EVNT02</strong> 이벤트 상세 <span class="child-route">/events/[id]</span></div>
@@ -475,13 +480,16 @@ body.compact-mode .child-item[style*="padding-left:16px"] { display: none; }
           <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ B. 이메일 로그인</div>
           <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ C. 비밀번호 찾기</div>
           <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ D. 로그인 유도 바텀시트</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ E. 본인인증 유도 바텀시트 (로그인+미인증)</div>
           <div class="child-item"><div class="child-dot dot-p1"></div><strong>회원가입 [AUTH02]</strong> <span class="child-route">/signup</span></div>
           <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ Step 1: 약관 동의</div>
           <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ Step 2: 계정 정보 (이메일 가입만)</div>
           <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ Step 3: 프로필 설정</div>
           <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ Step 4: 관심 카테고리 (선택)</div>
           <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 가입 완료</div>
-          <div class="child-item"><div class="child-dot dot-p1"></div>본인인증 (모달/바텀시트, Just-in-time)</div>
+          <div class="child-item"><div class="child-dot dot-p1"></div>본인인증 (공통 바텀시트, Just-in-time)</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ 트리거: 교환/공구/동행 등록·신청, 휴면 해제</div>
+          <div class="child-item" style="padding-left:16px; color:#8EA2B7;">└ API: /api/auth/verify/start · /complete · /me/verification</div>
         </div>
       </div>
 
@@ -632,7 +640,7 @@ body.compact-mode .child-item[style*="padding-left:16px"] { display: none; }
 </div><!-- end canvas -->
 
 <div class="footer">
-  애픽 월드 (Aepik World) IA 사이트맵 v1.13 · 기반: PRD v5.0, IA v1.13 · 2026-03-11
+  애픽 월드 (Aepik World) IA 사이트맵 v1.19 · 기반: PRD v5.0, IA v1.19 · 2026-03-12
 </div>
 
 <script>
